@@ -14,7 +14,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 class AllElementsTest {
 
     static Stream<Element> elements() {
-        return Stream.of(new Element() {}, new IdentifiedElement("id") {}, new Vertex("a"), new Edge("from", "to"));
+        Graph<String> graph = new Graph<>("graph");
+        return Stream.of(new Element() {}, new IdentifiedElement<>("id") {}, graph.new Vertex("a"), graph.new Edge("from", "to"), new Graph<>("id"));
     }
 
     @ParameterizedTest

@@ -6,22 +6,23 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EdgeTest {
+    Graph<String> graph = new Graph<>("graph");
     @Test
     void testConstructorAndGet() {
-        Edge edge = new Edge("from", "to");
+        Graph.Edge edge = graph.new Edge("from", "to");
         assertThat(edge.getFrom()).isEqualTo("from");
         assertThat(edge.getTo()).isEqualTo("to");
     }
 
     @Test
     void testSetFrom() {
-        Edge edge = new Edge("from", "to");
+        Graph<String>.Edge edge = graph.new Edge("from", "to");
         assertThrows(UnsupportedOperationException.class, () -> edge.setFrom("a"));
     }
 
     @Test
     void testSetTo() {
-        Edge edge = new Edge("from", "to");
+        Graph<String>.Edge edge = graph.new Edge("from", "to");
         assertThrows(UnsupportedOperationException.class, () -> edge.setTo("a"));
     }
 }

@@ -6,14 +6,15 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class VertexTest {
+    Graph<String> graph = new Graph<>("graph");
     @Test
     void testSetId() {
-        assertThrows(UnsupportedOperationException.class, () -> new Vertex("id").setId("key"));
+        assertThrows(UnsupportedOperationException.class, () -> graph.new Vertex("id").setId("key"));
     }
 
     @Test
     void testToString() {
-        Vertex vertex = new Vertex("id");
+        Graph<String>.Vertex vertex = graph.new Vertex("id");
         vertex.put("key", "value");
         assertThat(vertex.toString()).isEqualTo("Vertex 'id' {id=id, key=value}");
     }

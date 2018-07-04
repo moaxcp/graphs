@@ -2,18 +2,18 @@ package com.github.moaxcp.graphs;
 
 import java.util.Objects;
 
-public abstract class IdentifiedElement extends Element {
+public abstract class IdentifiedElement<K> extends Element {
 
-    public IdentifiedElement(Object id) {
+    public IdentifiedElement(K id) {
         Objects.requireNonNull(id);
         attributes.put("id", id);
     }
     
-    public Object getId() {
-        return attributes.get("id");
+    public K getId() {
+        return (K) attributes.get("id");
     }
     
-    public void setId(Object id) {
+    public void setId(K id) {
         attributes.put("id", id);
     }
     
@@ -21,7 +21,7 @@ public abstract class IdentifiedElement extends Element {
     public Object put(String key, Object value) {
         if(key.equals("id")) {
             var id = getId();
-            setId(value);
+            setId((K) value);
             return id;
         }
         return super.put(key, value);
