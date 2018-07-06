@@ -2,14 +2,14 @@ package com.github.moaxcp.graphs.event;
 
 import com.github.moaxcp.graphs.Graph;
 
-public class EdgeAdded extends EdgeEvent {
+public class EdgeAttributeAdded extends EdgeAttributeEvent {
 
-    public EdgeAdded withGraph(Graph graph) {
+    public EdgeAttributeAdded withGraph(Graph graph) {
         super.withGraph(graph);
         return this;
     }
 
-    public EdgeAdded withEdge(Graph.Edge edge) {
+    public EdgeAttributeAdded withEdge(Graph.Edge edge) {
         super.withEdge(edge);
         return this;
     }

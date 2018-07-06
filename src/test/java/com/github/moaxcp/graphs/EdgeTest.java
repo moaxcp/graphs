@@ -6,7 +6,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EdgeTest {
-    Graph<String> graph = new Graph<>("graph");
+    Graph graph = new Graph("graph");
     @Test
     void testConstructorAndGet() {
         Graph.Edge edge = graph.new Edge("from", "to");
@@ -16,13 +16,13 @@ public class EdgeTest {
 
     @Test
     void testSetFrom() {
-        Graph<String>.Edge edge = graph.new Edge("from", "to");
+        Graph.Edge edge = graph.new Edge("from", "to");
         assertThrows(UnsupportedOperationException.class, () -> edge.setFrom("a"));
     }
 
     @Test
     void testSetTo() {
-        Graph<String>.Edge edge = graph.new Edge("from", "to");
+        Graph.Edge edge = graph.new Edge("from", "to");
         assertThrows(UnsupportedOperationException.class, () -> edge.setTo("a"));
     }
 }

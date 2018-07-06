@@ -1,37 +1,39 @@
 package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.event.EdgeAdded;
+import com.github.moaxcp.graphs.event.EdgeRemoved;
+import com.github.moaxcp.graphs.event.Event;
 import de.muspellheim.eventbus.EventBus;
 
 import java.util.*;
 import java.util.function.Consumer;
 
-public class Graph<K> extends IdentifiedElement<K> {
-    protected Map<K, Vertex> vertices;
+public class Graph extends IdentifiedElement {
+    protected Map<String, Vertex> vertices;
     protected LinkedHashSet<Edge> edges;
     protected EventBus bus = EventBus.getDefault();
 
     public class Edge extends Element {
-        public Edge(K from, K to) {
+        public Edge(String from, String to) {
             Objects.requireNonNull(from);
             Objects.requireNonNull(to);
             attributes.put("from", from);
             attributes.put("to", to);
         }
 
-        public K getFrom() {
-            return (K) attributes.get("from");
+        public String getFrom() {
+            return (String) attributes.get("from");
         }
 
-        public void setFrom(K from) {
+        public void setFrom(String from) {
             throw new UnsupportedOperationException("Not yet implemented. Needs to create missing vertices in graph.");
         }
 
-        public K getTo() {
-            return (K) attributes.get("to");
+        public String getTo() {
+            return (String) attributes.get("to");
         }
 
-        public void setTo(K to) {
+        public void setTo(String to) {
             throw new UnsupportedOperationException("Not yet implemented. Needs to create missing vertices in graph.");
         }
 
@@ -56,13 +58,13 @@ public class Graph<K> extends IdentifiedElement<K> {
         }
     }
 
-    public class Vertex extends IdentifiedElement<K> {
-        public Vertex(K id) {
+    public class Vertex extends IdentifiedElement {
+        public Vertex(String id) {
             super(id);
         }
 
         @Override
-        public void setId(K id) {
+        public void setId(String id) {
             throw new UnsupportedOperationException("Not yet implemented. Needs to change id in edges first.");
         }
 
@@ -86,13 +88,13 @@ public class Graph<K> extends IdentifiedElement<K> {
         }
     }
 
-    public Graph(K id) {
+    public Graph(String id) {
         super(id);
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashSet<>();
     }
 
-    public Map<K, Vertex> getVertices() {
+    public Map<String, Vertex> getVertices() {
         return Collections.unmodifiableMap(vertices);
     }
 
@@ -100,7 +102,7 @@ public class Graph<K> extends IdentifiedElement<K> {
         return Collections.unmodifiableSet(edges);
     }
 
-    public Vertex vertex(K id) {
+    public Vertex vertex(String id) {
         var vertex = vertices.getOrDefault(id, new Vertex(id));
         if(!vertices.containsKey(id)) {
             vertices.put(id, vertex);
@@ -108,20 +110,44 @@ public class Graph<K> extends IdentifiedElement<K> {
         return vertex;
     }
 
-    public Edge edge(K from, K to) {
+    public void removeEdge(String from, String to) {
         var search = new Edge(from, to);
+        findEdge(search).ifPresent(this::notifyAndRemove);
+    }
+
+    private void notifyAndRemove(Edge edge) {
+        publish(new EdgeRemoved().withGraph(this).withEdge(edge));
+        edges.remove(edge);
+    }
+
+    private Optional<Edge> findEdge(Edge search) {
         if(edges.contains(search)) {
-            for (Edge edge : edges) {
-                if (search.equals(edge)) {
-                    return edge;
-                }
+            Optional<Edge> first = edges.stream()
+                    .filter(search::equals)
+                    .findFirst();
+            if(first.isPresent()) {
+                return first;
             }
         }
-        vertex(from);
-        vertex(to);
-        edges.add(search);
-        bus.publish(new EdgeAdded<>(this, search));
-        return search;
+        return Optional.empty();
+    }
+
+    public Edge edge(String from, String to) {
+        var search = new Edge(from, to);
+        return findEdge(search).orElseGet(() -> addEdge(search));
+    }
+
+    private Edge addEdge(Edge edge) {
+        vertex(edge.getFrom());
+        vertex(edge.getTo());
+        edges.add(edge);
+        publish(new EdgeAdded().withGraph(this).withEdge(edge));
+        return edge;
+    }
+
+    void publish(Event event) {
+        event.checkEvent();
+        bus.publish(event);
     }
 
     public <T> void subscribe(Class<? extends T> eventType, Consumer<T> subscriber) {
