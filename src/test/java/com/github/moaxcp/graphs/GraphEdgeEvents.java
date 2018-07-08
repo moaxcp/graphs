@@ -1,9 +1,7 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.event.EdgeAdded;
+import com.github.moaxcp.graphs.event.EdgeAttributeAdded;
 import com.github.moaxcp.graphs.event.EdgeEvent;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,5 +34,15 @@ public class GraphEdgeEvents {
         graph.edge("from", "to");
         graph.removeEdge("from", "to");
         assertThat(handler.event.getEdge()).containsExactly("from", "from", "to", "to");
+    }
+
+    @Test
+    void testAddEdgeAttribute() {
+        Graph.Edge edge = graph.edge("from", "to");
+        edge.put("key", "value");
+        assertThat(handler.event).isInstanceOf(EdgeAttributeAdded.class);
+        EdgeAttributeAdded event = (EdgeAttributeAdded) handler.event;
+        assertThat(event.getAttributeKey()).isEqualTo("key");
+        assertThat(event.getAttributeValue()).isEqualTo("value");
     }
 }

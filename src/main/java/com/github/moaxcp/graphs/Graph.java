@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.event.EdgeAdded;
+import com.github.moaxcp.graphs.event.EdgeAttributeAdded;
 import com.github.moaxcp.graphs.event.EdgeRemoved;
 import com.github.moaxcp.graphs.event.Event;
 import de.muspellheim.eventbus.EventBus;
@@ -22,7 +23,7 @@ public class Graph extends IdentifiedElement {
         }
 
         public String getFrom() {
-            return (String) attributes.get("from");
+            return (String) get("from");
         }
 
         public void setFrom(String from) {
@@ -30,11 +31,22 @@ public class Graph extends IdentifiedElement {
         }
 
         public String getTo() {
-            return (String) attributes.get("to");
+            return (String) get("to");
         }
 
         public void setTo(String to) {
             throw new UnsupportedOperationException("Not yet implemented. Needs to create missing vertices in graph.");
+        }
+
+        @Override
+        public Object put(String key, Object value) {
+            if(containsKey(key)) {
+                return super.put(key, value);
+            }
+            super.put(key, value);
+            bus.publish(new EdgeAttributeAdded()
+                .withGraph(Graph.this).withEdge(this).withAttributeKey(key).withAttributeValue(value));
+            return null;
         }
 
         @Override
@@ -112,24 +124,21 @@ public class Graph extends IdentifiedElement {
 
     public void removeEdge(String from, String to) {
         var search = new Edge(from, to);
-        findEdge(search).ifPresent(this::notifyAndRemove);
+        findEdge(search).ifPresent(this::removeAndNotify);
     }
 
-    private void notifyAndRemove(Edge edge) {
-        publish(new EdgeRemoved().withGraph(this).withEdge(edge));
+    private void removeAndNotify(Edge edge) {
         edges.remove(edge);
+        publish(new EdgeRemoved().withGraph(this).withEdge(edge));
     }
 
     private Optional<Edge> findEdge(Edge search) {
-        if(edges.contains(search)) {
-            Optional<Edge> first = edges.stream()
-                    .filter(search::equals)
-                    .findFirst();
-            if(first.isPresent()) {
-                return first;
-            }
+        if(!edges.contains(search)) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        return edges.stream()
+                .filter(search::equals)
+                .findFirst();
     }
 
     public Edge edge(String from, String to) {

@@ -1,15 +1,14 @@
 package com.github.moaxcp.graphs;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AllElementsTest {
 
@@ -58,7 +57,24 @@ class AllElementsTest {
     @MethodSource("elements")
     void testGet(Element element) {
         element.put("key", "value");
-        assertThat(element.get("key")).isEqualTo("value");
+        Object get = element.get("key");
+        assertThat(get).isEqualTo("value");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testPut(Element element) {
+        Object old = element.put("Key", "value");
+        assertThat(old).isNull();
+        assertThat(element.get("Key")).isEqualTo("value");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testPutExistingEntry(Element element) {
+        element.put("key", "value");
+        Object old = element.put("key", "value2");
+        assertThat(old).isEqualTo("value");
     }
 
     @ParameterizedTest

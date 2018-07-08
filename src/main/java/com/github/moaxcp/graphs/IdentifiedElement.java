@@ -12,7 +12,7 @@ public abstract class IdentifiedElement extends Element {
     }
     
     public String getId() {
-        return (String) attributes.get("id");
+        return (String) get("id");
     }
     
     public void setId(String id) {
@@ -33,10 +33,19 @@ public abstract class IdentifiedElement extends Element {
     public void putAll(Map<? extends String, ? extends Object> m) {
         if(m.containsKey("id")) {
             Map<String, Object> removed = new LinkedHashMap<>(m);
-            removed.remove("id");
+            String id = (String) removed.remove("id");
+            setId(id);
             attributes.putAll(removed);
             return;
         }
         attributes.putAll(m);
+    }
+
+    @Override
+    public Object remove(Object key) {
+        if("id".equals(key)) {
+            throw new IllegalArgumentException("cannot remove id.");
+        }
+        return super.remove(key);
     }
 }
