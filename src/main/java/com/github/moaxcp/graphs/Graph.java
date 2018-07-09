@@ -14,26 +14,17 @@ public class Graph extends IdentifiedElement {
     protected LinkedHashSet<Edge> edges;
     protected EventBus bus = EventBus.getDefault();
 
-    public class Edge extends Element {
+    public class Edge extends FromToElement {
         public Edge(String from, String to) {
-            Objects.requireNonNull(from);
-            Objects.requireNonNull(to);
-            attributes.put("from", from);
-            attributes.put("to", to);
+            super(from, to);
         }
 
-        public String getFrom() {
-            return (String) get("from");
-        }
-
+        @Override
         public void setFrom(String from) {
             throw new UnsupportedOperationException("Not yet implemented. Needs to create missing vertices in graph.");
         }
 
-        public String getTo() {
-            return (String) get("to");
-        }
-
+        @Override
         public void setTo(String to) {
             throw new UnsupportedOperationException("Not yet implemented. Needs to create missing vertices in graph.");
         }
@@ -45,24 +36,8 @@ public class Graph extends IdentifiedElement {
             }
             super.put(key, value);
             bus.publish(new EdgeAttributeAdded()
-                .withGraph(Graph.this).withEdge(this).withAttributeKey(key).withAttributeValue(value));
+                    .withGraph(Graph.this).withEdge(this).withAttributeKey(key).withAttributeValue(value));
             return null;
-        }
-
-        @Override
-        public Object remove(Object key) {
-            if("from".equals(key)) {
-                throw new IllegalArgumentException("cannot remove 'from'");
-            }
-            if("to".equals(key)) {
-                throw new IllegalArgumentException("cannot remove 'to'");
-            }
-            return super.remove(key);
-        }
-
-        @Override
-        public String toString() {
-            return "Edge '" + getFrom() + "' to '" + getTo() + "' " + super.getAttributes();
         }
 
         @Override
