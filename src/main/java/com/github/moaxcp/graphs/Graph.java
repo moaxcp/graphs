@@ -50,6 +50,17 @@ public class Graph extends IdentifiedElement {
         }
 
         @Override
+        public Object remove(Object key) {
+            if("from".equals(key)) {
+                throw new IllegalArgumentException("cannot remove 'from'");
+            }
+            if("to".equals(key)) {
+                throw new IllegalArgumentException("cannot remove 'to'");
+            }
+            return super.remove(key);
+        }
+
+        @Override
         public String toString() {
             return "Edge '" + getFrom() + "' to '" + getTo() + "' " + super.getAttributes();
         }

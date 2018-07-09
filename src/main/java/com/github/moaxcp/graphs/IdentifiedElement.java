@@ -1,8 +1,10 @@
 package com.github.moaxcp.graphs;
 
+import java.util.ConcurrentModificationException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.BiFunction;
 
 public abstract class IdentifiedElement extends Element {
 
@@ -44,8 +46,38 @@ public abstract class IdentifiedElement extends Element {
     @Override
     public Object remove(Object key) {
         if("id".equals(key)) {
-            throw new IllegalArgumentException("cannot remove id.");
+            throw new IllegalArgumentException("cannot remove 'id'");
         }
         return super.remove(key);
+    }
+
+    @Override
+    public void replaceAll(BiFunction<? super String, ? super Object, ? extends Object> function) {
+        Objects.requireNonNull(function);
+        for (Map.Entry<String, Object> entry : entrySet()) {
+            String k;
+            Object v;
+            try {
+                k = entry.getKey();
+                v = entry.getValue();
+            } catch (IllegalStateException ise) {
+                // this usually means the entry is no longer in the map.
+                throw new ConcurrentModificationException(ise);
+            }
+
+            // ise thrown from function is not a cme.
+            v = function.apply(k, v);
+
+            try {
+                if("id".equals(k)) {
+                    setId((String) v);
+                } else {
+                    entry.setValue(v);
+                }
+            } catch (IllegalStateException ise) {
+                // this usually means the entry is no longer in the map.
+                throw new ConcurrentModificationException(ise);
+            }
+        }
     }
 }
