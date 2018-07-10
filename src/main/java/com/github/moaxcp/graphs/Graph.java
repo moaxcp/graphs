@@ -84,6 +84,10 @@ public class Graph extends IdentifiedElement {
             throw new UnsupportedOperationException("Not yet implemented. Needs to change id in edges first.");
         }
 
+        public Set<? extends Edge> adjacentEdges() {
+            return Graph.this.adjacentEdges(getId());
+        }
+
         public final String toString() {
             return "Vertex '" + getId() + "' " + super.toString();
         }

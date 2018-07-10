@@ -8,14 +8,14 @@ public class EdgeTest {
     Graph graph = new Graph("graph");
     @Test
     void testEdge() {
-        Graph.Edge edge = graph.edge("from", "to");
+        var edge = graph.edge("from", "to");
         assertThat(edge.getFrom()).isEqualTo("from");
         assertThat(edge.getTo()).isEqualTo("to");
     }
 
     @Test
     void testSetFrom() {
-        Graph.Edge edge = graph.edge("from", "to");
+        var edge = graph.edge("from", "to");
         edge.setFrom("A");
         assertThat(graph.getVertices()).containsKey("A");
         assertThat(edge).containsExactly("from", "A", "to", "to");
@@ -24,10 +24,22 @@ public class EdgeTest {
 
     @Test
     void testSetTo() {
-        Graph.Edge edge = graph.edge("from", "to");
+        var edge = graph.edge("from", "to");
         edge.setTo("B");
         assertThat(graph.getVertices()).containsKey("B");
         assertThat(edge).containsExactly("from", "from", "to", "B");
         assertThat(graph.getEdges()).contains(edge);
+    }
+
+    @Test
+    void testFrom() {
+        var edge = graph.edge("from", "to");
+        assertThat(edge.from().getId()).isEqualTo("from");
+    }
+
+    @Test
+    void testTo() {
+        var edge = graph.edge("from", "to");
+        assertThat(edge.to().getId()).isEqualTo("to");
     }
 }
