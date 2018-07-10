@@ -94,4 +94,28 @@ public class GraphTest {
         graph.publish(new TestEvent());
         assertThat(handler.event).isInstanceOf(TestEvent.class);
     }
+
+    @Test
+    void testAdjacentEdges() {
+        graph.edge("A", "B");
+        graph.edge("A", "C");
+        graph.edge("Z", "Y");
+
+        var edges = graph.adjacentEdges("A");
+        assertThat(edges).hasSize(2);
+        for(Graph.Edge edge : edges) {
+            assertThat(edge.values()).contains("A");
+        }
+    }
+
+    @Test
+    void testRemoveVertex() {
+        graph.edge("A", "B");
+        graph.edge("A", "C");
+        graph.edge("Z", "Y");
+
+        graph.removeVertex("A");
+        assertThat(graph.getEdges()).hasSize(1);
+        assertThat(graph.getVertices()).doesNotContainKey("A");
+    }
 }

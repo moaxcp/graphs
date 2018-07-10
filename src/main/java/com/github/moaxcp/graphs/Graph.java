@@ -8,6 +8,7 @@ import de.muspellheim.eventbus.EventBus;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Graph extends IdentifiedElement {
     protected Map<String, Vertex> vertices;
@@ -71,6 +72,7 @@ public class Graph extends IdentifiedElement {
 
         @Override
         public void setId(String id) {
+            Objects.requireNonNull(id);
             throw new UnsupportedOperationException("Not yet implemented. Needs to change id in edges first.");
         }
 
@@ -108,12 +110,31 @@ public class Graph extends IdentifiedElement {
         return Collections.unmodifiableSet(edges);
     }
 
+    void publish(Event event) {
+        event.checkEvent();
+        bus.publish(event);
+    }
+
+    public <T> void subscribe(Class<? extends T> eventType, Consumer<T> subscriber) {
+        bus.subscribe(eventType, subscriber);
+    }
+
     public Vertex vertex(String id) {
         var vertex = vertices.getOrDefault(id, new Vertex(id));
         if(!vertices.containsKey(id)) {
             vertices.put(id, vertex);
         }
         return vertex;
+    }
+
+    public void removeVertex(String id) {
+        Objects.requireNonNull(id);
+        if(!vertices.containsKey(id)) {
+            throw new IllegalArgumentException("vertex '" + id + "' not found.");
+        }
+        var adjacent = adjacentEdges(id);
+        edges.removeAll(adjacent);
+        vertices.remove(id);
     }
 
     public void removeEdge(String from, String to) {
@@ -148,12 +169,9 @@ public class Graph extends IdentifiedElement {
         return edge;
     }
 
-    void publish(Event event) {
-        event.checkEvent();
-        bus.publish(event);
-    }
-
-    public <T> void subscribe(Class<? extends T> eventType, Consumer<T> subscriber) {
-        bus.subscribe(eventType, subscriber);
+    public Set<? extends Edge> adjacentEdges(String id) {
+        return edges.stream()
+                .filter(edge -> id.equals(edge.getFrom()) || id.equals(edge.getTo()))
+                .collect(Collectors.toSet());
     }
 }
