@@ -9,12 +9,13 @@ public class VertexTest {
     Graph graph = new Graph("graph");
     @Test
     void testSetId() {
-        assertThrows(UnsupportedOperationException.class, () -> graph.new Vertex("id").setId("key"));
+        Graph.Vertex vertex = graph.vertex("id");
+        assertThrows(UnsupportedOperationException.class, () -> vertex.setId("key"));
     }
 
     @Test
     void testToString() {
-        Graph.Vertex vertex = graph.new Vertex("id");
+        Graph.Vertex vertex = graph.vertex("id");
         vertex.put("key", "value");
         assertThat(vertex.toString()).isEqualTo("Vertex 'id' {id=id, key=value}");
     }

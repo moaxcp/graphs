@@ -16,7 +16,7 @@ public class Graph extends IdentifiedElement {
     protected EventBus bus = EventBus.getDefault();
 
     public class Edge extends FromToElement {
-        public Edge(String from, String to) {
+        private Edge(String from, String to) {
             super(from, to);
         }
 
@@ -36,6 +36,14 @@ public class Graph extends IdentifiedElement {
             vertex(to);
             attributes.put("to", to);
             edges.add(this);
+        }
+
+        public Vertex from() {
+            return vertex(getFrom());
+        }
+
+        public Vertex to() {
+            return vertex(getTo());
         }
 
         @Override
@@ -66,7 +74,7 @@ public class Graph extends IdentifiedElement {
     }
 
     public class Vertex extends IdentifiedElement {
-        public Vertex(String id) {
+        private Vertex(String id) {
             super(id);
         }
 

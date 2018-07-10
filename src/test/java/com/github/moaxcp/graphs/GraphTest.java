@@ -15,7 +15,8 @@ public class GraphTest {
 
     @Test
     void testGetVerticesIsUnmodifiable() {
-        assertThrows(UnsupportedOperationException.class, () -> graph.getVertices().put("id", graph.new Vertex("id")));
+        Graph.Vertex vertex = graph.vertex("id");
+        assertThrows(UnsupportedOperationException.class, () -> graph.getVertices().put("id", vertex));
     }
 
     @Test
@@ -25,7 +26,8 @@ public class GraphTest {
 
     @Test
     void testGetEdgesUnmodifiable() {
-        assertThrows(UnsupportedOperationException.class, () -> graph.getEdges().add(graph.new Edge("from", "to")));
+        Graph.Edge edge = graph.edge("from", "to");
+        assertThrows(UnsupportedOperationException.class, () -> graph.getEdges().add(edge));
     }
 
     @Test
