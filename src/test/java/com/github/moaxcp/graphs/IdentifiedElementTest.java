@@ -65,4 +65,11 @@ class IdentifiedElementTest {
     void testRemoveId() {
         assertThrows(IllegalArgumentException.class, () -> element.remove("id"));
     }
+
+    @Test
+    void testReplaceAll() {
+        element.put("key", "value");
+        element.replaceAll((s, o) -> "value2");
+        assertThat(element).containsExactly("id", "value2", "key", "value2");
+    }
 }

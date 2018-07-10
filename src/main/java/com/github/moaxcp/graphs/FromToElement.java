@@ -50,13 +50,13 @@ public abstract class FromToElement extends Element {
     @Override
     public void putAll(Map<? extends String, ? extends Object> m) {
         if(m.containsKey("from") || m.containsKey("to")) {
-            var removed = new LinkedHashMap<String, Object>();
-            String from = (String) removed.remove("from");
-            if(from != null) {
+            var removed = new LinkedHashMap<>(m);
+            if(removed.containsKey("from")) {
+                String from = (String) removed.remove("from");
                 setFrom(from);
             }
-            String to = (String) removed.remove("to");
-            if(to != null) {
+            if(removed.containsKey("to")) {
+                String to = (String) removed.remove("to");
                 setTo(to);
             }
             attributes.putAll(removed);

@@ -14,7 +14,7 @@ class AllElementsTest {
 
     static Stream<Element> elements() {
         Graph graph = new Graph("graph");
-        return Stream.of(new Element() {}, new IdentifiedElement("id") {}, graph.new Vertex("a"), graph.new Edge("from", "to"), new Graph("id"));
+        return Stream.of(new Element() {}, new IdentifiedElement("id") {}, new FromToElement("from", "to"){}, graph.new Vertex("a"), graph.new Edge("from", "to"), new Graph("id"));
     }
 
     @ParameterizedTest

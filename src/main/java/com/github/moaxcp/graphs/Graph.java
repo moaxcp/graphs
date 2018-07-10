@@ -21,12 +21,20 @@ public class Graph extends IdentifiedElement {
 
         @Override
         public void setFrom(String from) {
-            throw new UnsupportedOperationException("Not yet implemented. Needs to create missing vertices in graph.");
+            Objects.requireNonNull(from);
+            edges.remove(this);
+            vertex(from);
+            attributes.put("from", from);
+            edges.add(this);
         }
 
         @Override
         public void setTo(String to) {
-            throw new UnsupportedOperationException("Not yet implemented. Needs to create missing vertices in graph.");
+            Objects.requireNonNull(to);
+            edges.remove(this);
+            vertex(to);
+            attributes.put("to", to);
+            edges.add(this);
         }
 
         @Override
@@ -71,7 +79,7 @@ public class Graph extends IdentifiedElement {
         }
 
         @Override
-        public boolean equals(Object obj) {
+        public final boolean equals(Object obj) {
             if(obj == this) return true;
             if(!(obj instanceof Graph.Vertex)) {
                 return false;
@@ -81,7 +89,7 @@ public class Graph extends IdentifiedElement {
         }
 
         @Override
-        public int hashCode() {
+        public final int hashCode() {
             return Objects.hash(getId());
         }
     }
