@@ -1,17 +1,33 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.event.EdgeAttributeAdded;
-import com.github.moaxcp.graphs.event.EdgeEvent;
+import com.github.moaxcp.graphs.event.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 
 public class GraphEdgeEvents {
     class EdgeEventHandler {
-        EdgeEvent event;
+        List<EdgeAdded> added = new ArrayList<>();
+        List<EdgeRemoved> removed = new ArrayList<>();
+        List<EdgeAttributeAdded> attributeAdded = new ArrayList<>();
+        List<EdgeAttributeRemoved> attributeRemoved = new ArrayList<>();
+        List<EdgeAttributeUpdated> attributeUpdated = new ArrayList<>();
         void handle(EdgeEvent event) {
-            this.event = event;
+            if(event instanceof EdgeAdded) {
+                added.add((EdgeAdded) event);
+            } else if(event instanceof EdgeRemoved) {
+                removed.add((EdgeRemoved) event);
+            } else if(event instanceof EdgeAttributeAdded) {
+                attributeAdded.add((EdgeAttributeAdded) event);
+            } else if(event instanceof EdgeAttributeRemoved) {
+                attributeRemoved.add((EdgeAttributeRemoved) event);
+            } else if(event instanceof EdgeAttributeUpdated) {
+                attributeUpdated.add((EdgeAttributeUpdated) event);
+            }
         }
     }
 
@@ -26,22 +42,26 @@ public class GraphEdgeEvents {
     @Test
     void testAddNewEdgeEvent() {
         graph.edge("from", "to");
-        assertThat(handler.event.getEdge()).containsExactly("from", "from", "to", "to");
+        assertThat(handler.added).hasSize(1);
+        var event = handler.added.get(0);
+        assertThat(event.getEdge()).containsExactly("from", "from", "to", "to");
     }
 
     @Test
     void testRemoveEdgeEvent() {
         graph.edge("from", "to");
         graph.removeEdge("from", "to");
-        assertThat(handler.event.getEdge()).containsExactly("from", "from", "to", "to");
+        assertThat(handler.removed).hasSize(1);
+        var event = handler.removed.get(0);
+        assertThat(event.getEdge()).containsExactly("from", "from", "to", "to");
     }
 
     @Test
     void testAddEdgeAttribute() {
         Graph.Edge edge = graph.edge("from", "to");
         edge.put("key", "value");
-        assertThat(handler.event).isInstanceOf(EdgeAttributeAdded.class);
-        EdgeAttributeAdded event = (EdgeAttributeAdded) handler.event;
+        assertThat(handler.attributeAdded).hasSize(1);
+        var event = handler.attributeAdded.get(0);
         assertThat(event.getAttributeKey()).isEqualTo("key");
         assertThat(event.getAttributeValue()).isEqualTo("value");
     }

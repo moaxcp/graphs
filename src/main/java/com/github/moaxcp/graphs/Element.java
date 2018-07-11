@@ -1,11 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Element implements Map<String, Object> {
 
