@@ -11,9 +11,9 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Graph extends IdentifiedElement {
-    protected Map<String, Vertex> vertices;
-    protected LinkedHashSet<Edge> edges;
-    protected EventBus bus = EventBus.getDefault();
+    private Map<String, Vertex> vertices;
+    private LinkedHashSet<Edge> edges;
+    private EventBus bus = EventBus.getDefault();
 
     public class Edge extends FromToElement {
         private Edge(String from, String to) {
@@ -86,6 +86,24 @@ public class Graph extends IdentifiedElement {
 
         public Set<? extends Edge> adjacentEdges() {
             return Graph.this.adjacentEdges(getId());
+        }
+
+        public Vertex connectsTo(String to) {
+            edge(getId(), to);
+            return this;
+        }
+
+        public Vertex connectsFrom(String s) {
+            edge(s, getId());
+            return this;
+        }
+
+        public Edge edgeTo(String id) {
+            return edge(getId(), id);
+        }
+
+        public Edge edgeFrom(String id) {
+            return edge(id, getId());
         }
 
         public final String toString() {

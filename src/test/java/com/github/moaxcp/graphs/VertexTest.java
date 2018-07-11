@@ -34,4 +34,42 @@ public class VertexTest {
             assertThat(edge.values()).contains("A");
         }
     }
+
+    @Test
+    void testConnectsTo() {
+        var vertex = graph.vertex("A")
+                .connectsTo("B");
+        assertThat(vertex.getId()).isEqualTo("A");
+        assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
+        assertThat(graph.getEdges()).hasSize(1);
+        assertThat(graph.getEdges().iterator().next()).containsExactly("from", "A", "to", "B");
+    }
+
+    @Test
+    void testConnectsFrom() {
+        var vertex = graph.vertex("A")
+                .connectsFrom("B");
+        assertThat(vertex.getId()).isEqualTo("A");
+        assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
+        assertThat(graph.getEdges()).hasSize(1);
+        assertThat(graph.getEdges().iterator().next()).containsExactly("from", "B", "to", "A");
+    }
+
+    @Test
+    void testEdgeTo() {
+        var edge = graph.vertex("A")
+                .edgeTo("B");
+        assertThat(edge).containsExactly("from", "A", "to", "B");
+        assertThat(graph.getEdges().iterator().next()).isEqualTo(edge);
+        assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
+    }
+
+    @Test
+    void testEdgeFrom() {
+        var edge = graph.vertex("A")
+                .edgeFrom("B");
+        assertThat(edge).containsExactly("from", "B", "to", "A");
+        assertThat(graph.getEdges().iterator().next()).isEqualTo(edge);
+        assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
+    }
 }

@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8b1a512e-64b1-4fbc-9c5c-19133296d461" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/EdgeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/EdgeTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/VertexTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/VertexTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -23,6 +23,9 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/graphs$graphs__test_.ic" NAME="graphs [test] Coverage Results" MODIFIED="1531250118915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/graphs$ElementTest_testGetAttributesUnmodifiable.ic" NAME="ElementTest.testGetAttributesUnmodifiable Coverage Results" MODIFIED="1530323437525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="CoverageViewManager">
     <option name="myFlattenPackages" value="true" />
@@ -76,8 +79,8 @@
           <file leaf-file-name="Graph.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/Graph.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1167">
-                  <caret line="87" column="19" selection-start-line="87" selection-start-column="19" selection-end-line="87" selection-end-column="19" />
+                <state relative-caret-position="363">
+                  <caret line="100" column="39" lean-forward="true" selection-start-line="100" selection-start-column="39" selection-end-line="100" selection-end-column="39" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#612#613#0" expanded="true" />
@@ -88,6 +91,9 @@
                     <element signature="e#1325#1326#0" expanded="true" />
                     <element signature="e#2671#2672#0" expanded="true" />
                     <element signature="e#2717#2718#0" expanded="true" />
+                    <element signature="e#2927#2928#0" expanded="true" />
+                    <element signature="e#3113#3114#0" expanded="true" />
+                    <element signature="e#3149#3150#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -109,7 +115,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="EdgeTest.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="EdgeTest.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/EdgeTest.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="342">
@@ -133,11 +139,35 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="VertexTest.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="VertexTest.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/VertexTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+                <state relative-caret-position="477">
+                  <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="IdentifiedElement.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/IdentifiedElement.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="327">
+                  <caret line="73" column="24" lean-forward="true" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="FromToElement.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/FromToElement.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="220">
+                  <caret line="82" column="21" lean-forward="true" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -582,9 +612,9 @@
         <option value="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/FromToElementTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/GraphTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/AllElementsTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/EdgeTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/Graph.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/VertexTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/EdgeTest.java" />
       </list>
     </option>
   </component>
@@ -667,7 +697,7 @@
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+    <property name="settings.editor.selected.configurable" value="coverage" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -681,7 +711,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.graphs [jacocoTestReport]">
+  <component name="RunManager" selected="Gradle.graphs [test]">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -819,8 +849,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.graphs [jacocoTestReport]" />
         <item itemvalue="Gradle.graphs [test]" />
+        <item itemvalue="Gradle.graphs [jacocoTestReport]" />
         <item itemvalue="Gradle.graphs [clean]" />
         <item itemvalue="Gradle.ElementTest.testSize" />
         <item itemvalue="Gradle.ElementTest.testGetAttributesUnmodifiable" />
@@ -908,28 +938,17 @@
       <option name="project" value="LOCAL" />
       <updated>1531249675648</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Adding adjacentEdges to Vertex.&#10;Tests for Edge.from() and Edge.to().">
+      <created>1531250379881</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1531250379881</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="graphs_[test] - 2018.07.10 at 10h 03m 50s.xml">
-      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="graphs_[test] - 2018.07.10 at 10h 13m 23s.xml">
-      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="graphs_[test] - 2018.07.10 at 10h 13m 55s.xml">
-      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="graphs_[test] - 2018.07.10 at 15h 03m 45s.xml">
-      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="graphs_[test] - 2018.07.10 at 15h 05m 23s.xml">
-      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="graphs_[test] - 2018.07.10 at 15h 06m 00s.xml">
-      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
     <history-entry file="graphs_[test] - 2018.07.10 at 15h 10m 37s.xml">
       <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
     </history-entry>
@@ -940,6 +959,24 @@
       <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
     </history-entry>
     <history-entry file="graphs_[test] - 2018.07.10 at 15h 15m 23s.xml">
+      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="graphs_[test] - 2018.07.10 at 15h 17m 58s.xml">
+      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="graphs_[test] - 2018.07.10 at 17h 53m 50s.xml">
+      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="graphs_[test] - 2018.07.10 at 17h 59m 00s.xml">
+      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="graphs_[test] - 2018.07.10 at 22h 32m 55s.xml">
+      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="graphs_[test] - 2018.07.10 at 22h 40m 06s.xml">
+      <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="graphs_[test] - 2018.07.10 at 22h 45m 43s.xml">
       <configuration name="graphs [test]" configurationId="GradleRunConfiguration" />
     </history-entry>
   </component>
@@ -953,13 +990,13 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32943678" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32943678" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="right" id="Coverage" order="3" sideWeight="0.50237715" side_tool="true" visible="true" weight="0.14947917" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32943678" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1859375" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1859375" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32943678" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32943678" />
       <window_info anchor="right" id="Gradle" order="3" sideWeight="0.49762282" visible="true" weight="0.14947917" />
@@ -991,7 +1028,8 @@
     <MESSAGE value="Fixing putAll in FromToElement to handle 'from' and 'to' correctly&#10;Added setFrom and setTo implementation" />
     <MESSAGE value="Adding adjacentEdges and removeVertex methods." />
     <MESSAGE value="Edge and Vertex constructors are now private." />
-    <option name="LAST_COMMIT_MESSAGE" value="Edge and Vertex constructors are now private." />
+    <MESSAGE value="Adding adjacentEdges to Vertex.&#10;Tests for Edge.from() and Edge.to()." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding adjacentEdges to Vertex.&#10;Tests for Edge.from() and Edge.to()." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/AllElementsTest.java">
@@ -1319,50 +1357,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/IdentifiedElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="73" column="24" lean-forward="true" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/FromToElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="70" column="17" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/AllElementsTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="35" column="29" lean-forward="true" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/Graph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1167">
-          <caret line="87" column="19" selection-start-line="87" selection-start-column="19" selection-end-line="87" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#612#613#0" expanded="true" />
-            <element signature="e#651#652#0" expanded="true" />
-            <element signature="e#1201#1202#0" expanded="true" />
-            <element signature="e#1239#1240#0" expanded="true" />
-            <element signature="e#1287#1288#0" expanded="true" />
-            <element signature="e#1325#1326#0" expanded="true" />
-            <element signature="e#2671#2672#0" expanded="true" />
-            <element signature="e#2717#2718#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1377,22 +1377,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/VertexTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/EdgeTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="30" column="45" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/IdentifiedElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="73" column="24" lean-forward="true" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/FromToElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="82" column="21" lean-forward="true" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/github/moaxcp/graphs/VertexTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/moaxcp/graphs/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="100" column="39" lean-forward="true" selection-start-line="100" selection-start-column="39" selection-end-line="100" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#612#613#0" expanded="true" />
+            <element signature="e#651#652#0" expanded="true" />
+            <element signature="e#1201#1202#0" expanded="true" />
+            <element signature="e#1239#1240#0" expanded="true" />
+            <element signature="e#1287#1288#0" expanded="true" />
+            <element signature="e#1325#1326#0" expanded="true" />
+            <element signature="e#2671#2672#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
+            <element signature="e#2927#2928#0" expanded="true" />
+            <element signature="e#3113#3114#0" expanded="true" />
+            <element signature="e#3149#3150#0" expanded="true" />
           </folding>
         </state>
       </provider>
