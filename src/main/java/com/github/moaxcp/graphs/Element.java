@@ -51,7 +51,9 @@ public abstract class Element implements Map<String, Object> {
 
     @Override
     public void putAll(Map<? extends String, ? extends Object> m) {
-        attributes.putAll(m);
+        for(var entry : m.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override

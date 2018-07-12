@@ -59,10 +59,10 @@ public abstract class FromToElement extends Element {
                 String to = (String) removed.remove("to");
                 setTo(to);
             }
-            attributes.putAll(removed);
+            super.putAll(removed);
             return;
         }
-        attributes.putAll(m);
+        super.putAll(m);
     }
 
     @Override

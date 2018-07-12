@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -64,5 +65,21 @@ public class GraphEdgeEvents {
         var event = handler.attributeAdded.get(0);
         assertThat(event.getAttributeKey()).isEqualTo("key");
         assertThat(event.getAttributeValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testAddManyAttributes() {
+        Graph.Edge edge = graph.edge("from", "to");
+        var attributes = new LinkedHashMap<String, Object>();
+        attributes.put("key1", "value1");
+        attributes.put("key2", "value2");
+        edge.putAll(attributes);
+        assertThat(handler.attributeAdded).hasSize(2);
+        var event = handler.attributeAdded.get(0);
+        assertThat(event.getAttributeKey()).isEqualTo("key1");
+        assertThat(event.getAttributeValue()).isEqualTo("value1");
+        event = handler.attributeAdded.get(1);
+        assertThat(event.getAttributeKey()).isEqualTo("key2");
+        assertThat(event.getAttributeValue()).isEqualTo("value2");
     }
 }
