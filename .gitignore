@@ -2,3 +2,4 @@
 .nb-gradle/
 .idea/
 out/
+build/
