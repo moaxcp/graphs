@@ -18,7 +18,7 @@ public class EdgeTest {
         var edge = graph.edge("from", "to");
         edge.setFrom("A");
         assertThat(graph.getVertices()).containsKey("A");
-        assertThat(edge).containsExactly("from", "A", "to", "to");
+        assertThat(edge.getLocal()).containsExactly("from", "A", "to", "to");
         assertThat(graph.getEdges()).contains(edge);
     }
 
@@ -27,7 +27,7 @@ public class EdgeTest {
         var edge = graph.edge("from", "to");
         edge.setTo("B");
         assertThat(graph.getVertices()).containsKey("B");
-        assertThat(edge).containsExactly("from", "from", "to", "B");
+        assertThat(edge.getLocal()).containsExactly("from", "from", "to", "B");
         assertThat(graph.getEdges()).contains(edge);
     }
 

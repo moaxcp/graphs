@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.event.Event;
+import com.github.moaxcp.graphs.event.GraphEvent;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -33,7 +33,7 @@ public class GraphTest {
     @Test
     void testAddNewVertex() {
         Graph.Vertex vertex = graph.vertex("id");
-        assertThat(vertex).containsExactly("id", "id");
+        assertThat(vertex.getLocal()).containsExactly("id", "id");
         assertThat(graph.getVertices()).containsExactly("id", vertex);
     }
 
@@ -48,7 +48,7 @@ public class GraphTest {
     @Test
     void testAddNewEdge() {
         Graph.Edge edge = graph.edge("from", "to");
-        assertThat(edge).containsExactly("from", "from", "to", "to");
+        assertThat(edge.getLocal()).containsExactly("from", "from", "to", "to");
         assertThat(graph.getVertices()).containsKey("from");
         assertThat(graph.getVertices()).containsKey("to");
         assertThat(graph.getEdges()).containsExactly(edge);
@@ -79,15 +79,31 @@ public class GraphTest {
 
     @Test
     void testPublishSubscribe() {
-        class TestEvent extends Event {
+        class TestEvent implements GraphEvent {
+
             @Override
-            public void checkEvent() {
+            public Graph getGraph() {
+                return null;
+            }
+
+            @Override
+            public void setGraph(Graph graph) {
+
+            }
+
+            @Override
+            public GraphEvent withGraph(Graph graph) {
+                return null;
+            }
+
+            @Override
+            public void check() {
 
             }
         }
         class Handler {
-            Event event;
-            void handle(Event event) {
+            GraphEvent event;
+            void handle(GraphEvent event) {
                 this.event = event;
             }
         }
@@ -106,7 +122,7 @@ public class GraphTest {
         var edges = graph.adjacentEdges("A");
         assertThat(edges).hasSize(2);
         for(Graph.Edge edge : edges) {
-            assertThat(edge.values()).contains("A");
+            assertThat(edge.getLocal().values()).contains("A");
         }
     }
 

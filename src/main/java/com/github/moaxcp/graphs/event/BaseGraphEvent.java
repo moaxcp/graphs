@@ -2,24 +2,24 @@ package com.github.moaxcp.graphs.event;
 
 import com.github.moaxcp.graphs.Graph;
 
-public abstract class Event {
+import java.util.Objects;
+
+public abstract class BaseGraphEvent implements GraphEvent {
 
     private Graph graph;
 
+    @Override
     public Graph getGraph() {
         return graph;
     }
 
+    @Override
     public void setGraph(Graph graph) {
         this.graph = graph;
     }
 
-    public Event withGraph(Graph graph) {
-        setGraph(graph);
-        return this;
+    @Override
+    public void check() {
+        Objects.requireNonNull(graph);
     }
-    /**
-     * @throws IllegalStateException when this GraphEven is invalid.
-     */
-    public abstract void checkEvent();
 }

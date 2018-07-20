@@ -1,83 +1,74 @@
 package com.github.moaxcp.graphs;
 
-import java.util.*;
+import com.github.moaxcp.graphs.event.PropertyAddedGraphEvent;
+import com.github.moaxcp.graphs.event.PropertyRemovedGraphEvent;
+import com.github.moaxcp.graphs.event.PropertyUpdatedGraphEvent;
+import de.muspellheim.eventbus.EventBus;
 
-public abstract class Element implements Map<String, Object> {
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
 
-    protected final Map<String, Object> attributes;
-    
-    public Element() {
-        attributes = new LinkedHashMap<>();
-    }
-    
-    public Map<String, Object> getAttributes() {
-        return Collections.unmodifiableMap(attributes);
-    }
+public abstract class Element {
+    protected EventBus bus;
+    protected Map<String, Object> local;
 
-    @Override
-    public int size() {
-        return attributes.size();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return attributes.isEmpty();
+    protected Element(EventBus bus) {
+        this.bus = bus;
+        local = new LinkedHashMap<>();
     }
 
-    @Override
-    public boolean containsKey(Object key) {
-        return attributes.containsKey(key);
+    protected EventBus getBus() {
+        return bus;
     }
 
-    @Override
-    public boolean containsValue(Object value) {
-        return attributes.containsValue(value);
+    public Map<String, Object> getLocal() {
+        return Collections.unmodifiableMap(local);
     }
 
-    @Override
-    public Object get(Object key) {
-        return attributes.get(key);
+    public Object getProperty(String name) {
+        Objects.requireNonNull(name);
+        return local.get(name);
     }
 
-    @Override
-    public Object put(String key, Object value) {
-        return attributes.put(key, value);
-    }
-
-    @Override
-    public Object remove(Object key) {
-        return attributes.remove(key);
-    }
-
-    @Override
-    public void putAll(Map<? extends String, ? extends Object> m) {
-        for(var entry : m.entrySet()) {
-            put(entry.getKey(), entry.getValue());
+    public void setProperty(String name, Object value) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(value);
+        if(name.isEmpty()) {
+            throw new IllegalArgumentException("name must not be empty.");
         }
+
+        if(local.containsKey(name)) {
+            Object old = local.put(name, value);
+            notifyUpdateProperty(name, value, old);
+        }
+        local.put(name, value);
+        notifyAddProperty(name, value);
     }
 
-    @Override
-    public void clear() {
-        attributes.clear();
+    public abstract Element withProperty(String name, Object value);
+
+    public void removeProperty(String name) {
+        Objects.requireNonNull(name);
+        if(!local.containsKey(name)) {
+            throw new IllegalArgumentException("element does not conatain property named " + name);
+        }
+        Object remove = local.remove(name);
+        notifyRemoveProperty(name, remove);
     }
 
-    @Override
-    public Set<String> keySet() {
-        return attributes.keySet();
+    protected void notifyAddProperty(String name, Object value) {
+        bus.publish(propertyAddedEvent(name, value));
+    }
+    protected void notifyRemoveProperty(String name, Object value) {
+        bus.publish(propertyRemovedEvent(name, value));
+    }
+    protected void notifyUpdateProperty(String name, Object value, Object oldValue) {
+        bus.publish(propertyUpdatedEvent(name, value, oldValue));
     }
 
-    @Override
-    public Collection<Object> values() {
-        return attributes.values();
-    }
-
-    @Override
-    public Set<Map.Entry<String, Object>> entrySet() {
-        return attributes.entrySet();
-    }
-
-    @Override
-    public String toString() {
-        return attributes.toString();
-    }
+    protected abstract PropertyAddedGraphEvent propertyAddedEvent(String name, Object value);
+    protected abstract PropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value);
+    protected abstract PropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue);
 }

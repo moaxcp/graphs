@@ -16,7 +16,7 @@ public class VertexTest {
     @Test
     void testToString() {
         var vertex = graph.vertex("id");
-        vertex.put("key", "value");
+        vertex.setProperty("key", "value");
         assertThat(vertex.toString()).isEqualTo("Vertex 'id' {id=id, key=value}");
     }
 
@@ -31,7 +31,7 @@ public class VertexTest {
         var edges = vertex.adjacentEdges();
         assertThat(edges).hasSize(2);
         for(Graph.Edge edge : edges) {
-            assertThat(edge.values()).contains("A");
+            assertThat(edge.getLocal().values()).contains("A");
         }
     }
 
@@ -42,7 +42,7 @@ public class VertexTest {
         assertThat(vertex.getId()).isEqualTo("A");
         assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
         assertThat(graph.getEdges()).hasSize(1);
-        assertThat(graph.getEdges().iterator().next()).containsExactly("from", "A", "to", "B");
+        assertThat(graph.getEdges().iterator().next().getLocal()).containsExactly("from", "A", "to", "B");
     }
 
     @Test
@@ -52,14 +52,14 @@ public class VertexTest {
         assertThat(vertex.getId()).isEqualTo("A");
         assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
         assertThat(graph.getEdges()).hasSize(1);
-        assertThat(graph.getEdges().iterator().next()).containsExactly("from", "B", "to", "A");
+        assertThat(graph.getEdges().iterator().next().getLocal()).containsExactly("from", "B", "to", "A");
     }
 
     @Test
     void testEdgeTo() {
         var edge = graph.vertex("A")
                 .edgeTo("B");
-        assertThat(edge).containsExactly("from", "A", "to", "B");
+        assertThat(edge.getLocal()).containsExactly("from", "A", "to", "B");
         assertThat(graph.getEdges().iterator().next()).isEqualTo(edge);
         assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
     }
@@ -68,7 +68,7 @@ public class VertexTest {
     void testEdgeFrom() {
         var edge = graph.vertex("A")
                 .edgeFrom("B");
-        assertThat(edge).containsExactly("from", "B", "to", "A");
+        assertThat(edge.getLocal()).containsExactly("from", "B", "to", "A");
         assertThat(graph.getEdges().iterator().next()).isEqualTo(edge);
         assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
     }
