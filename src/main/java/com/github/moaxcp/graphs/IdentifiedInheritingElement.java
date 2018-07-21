@@ -9,7 +9,7 @@ public abstract class IdentifiedInheritingElement extends InheritingElement {
 
     protected IdentifiedInheritingElement(String id, Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
-        Objects.requireNonNull(id);
+        Objects.requireNonNull(id, "id must not be null.");
         local.put("id", id);
     }
 
@@ -18,13 +18,16 @@ public abstract class IdentifiedInheritingElement extends InheritingElement {
     }
 
     public void setId(String id) {
-        Objects.requireNonNull(id);
+        Objects.requireNonNull(id, "id must not be null.");
         super.setProperty("id", id);
     }
 
     @Override
     public void setProperty(String name, Object value) {
         if("id".equals(name)) {
+            if(!(value instanceof String)) {
+                throw new IllegalArgumentException("id must be set to a String object.");
+            }
             setId((String) value);
             return;
         }
@@ -34,7 +37,7 @@ public abstract class IdentifiedInheritingElement extends InheritingElement {
     @Override
     public void removeProperty(String name) {
         if("id".equals(name)) {
-            throw new IllegalArgumentException("'id' can not be removed.");
+            throw new IllegalArgumentException("id can not be removed.");
         }
         super.removeProperty(name);
     }

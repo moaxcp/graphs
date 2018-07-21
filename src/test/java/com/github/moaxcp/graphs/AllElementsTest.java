@@ -16,6 +16,7 @@ class AllElementsTest {
         Graph graph = new Graph("graph");
         return Stream.of(
                 new TestElement(EventBus.getDefault()),
+                new TestInheritingElement(new HashMap<>(), EventBus.getDefault()),
                 new TestIdentifiedInheritingElement("id", new HashMap<>(), EventBus.getDefault()),
                 new TestOptionallyIdentifiedElement("id", EventBus.getDefault()),
                 new TestOptionallyIdentifiedInheritingElement("id", new HashMap<>(), EventBus.getDefault()),
@@ -34,8 +35,7 @@ class AllElementsTest {
     @MethodSource("elements")
     void testGetLocal(Element element) {
         element.setProperty("key", "value");
-        var attributes = element.getLocal();
-        assertThat(attributes).containsEntry("key", "value");
+        assertThat(element.getLocal()).containsEntry("key", "value");
     }
 
     @ParameterizedTest
@@ -49,6 +49,69 @@ class AllElementsTest {
     @MethodSource("elements")
     void testGetPropertyNull(Element element) {
         element.setProperty("key", "value");
-        assertThrows(NullPointerException.class, () -> element.getProperty(null), "name must not be empty.");
+        Throwable thrown = assertThrows(NullPointerException.class, () -> element.getProperty(null));
+        assertThat(thrown).hasMessageThat().isEqualTo("name must not be null.");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetProperty(Element element) {
+        element.setProperty("key", "value");
+        assertThat(element.getProperty("key")).isEqualTo("value");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetPropertyNullName(Element element) {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> element.setProperty(null, null));
+        assertThat(thrown).hasMessageThat().isEqualTo("name must not be null.");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetPropertyNullValue(Element element) {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> element.setProperty("", null));
+        assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetPropertyEmptyName(Element element) {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> element.setProperty("", "value"));
+        assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testAddProperties(Element element) {
+        var properties = new HashMap<String, Object>();
+        properties.put("key1", "value1");
+        properties.put("key2", "value2");
+        element.addProperties(properties);
+        assertThat(element.getLocal()).containsEntry("key1", "value1");
+        assertThat(element.getLocal()).containsEntry("key2", "value2");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testWithProperty(Element element) {
+        Element result = element.withProperty("key", "value");
+        assertThat(element.getProperty("key")).isEqualTo("value");
+        assertThat(result).isSameAs(element);
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testRemoveProperty(Element element) {
+        element.setProperty("key", "value");
+        element.removeProperty("key");
+        assertThat(element.getProperty("key")).isNull();
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testRemovePropertyNullName(Element element) {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> element.removeProperty("key"));
+        assertThat(thrown).hasMessageThat().isEqualTo("element does not contain property named 'key'.");
     }
 }

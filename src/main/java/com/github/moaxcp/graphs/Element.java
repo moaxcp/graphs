@@ -28,13 +28,13 @@ public abstract class Element {
     }
 
     public Object getProperty(String name) {
-        Objects.requireNonNull(name);
+        Objects.requireNonNull(name, "name must not be null.");
         return local.get(name);
     }
 
     public void setProperty(String name, Object value) {
-        Objects.requireNonNull(name);
-        Objects.requireNonNull(value);
+        Objects.requireNonNull(name, "name must not be null.");
+        Objects.requireNonNull(value, "value must not be null.");
         if(name.isEmpty()) {
             throw new IllegalArgumentException("name must not be empty.");
         }
@@ -47,12 +47,18 @@ public abstract class Element {
         notifyAddProperty(name, value);
     }
 
+    public void addProperties(Map<String, Object> properties) {
+        for(Map.Entry<String, Object> entry : properties.entrySet()) {
+            setProperty(entry.getKey(), entry.getValue());
+        }
+    }
+
     public abstract Element withProperty(String name, Object value);
 
     public void removeProperty(String name) {
         Objects.requireNonNull(name);
         if(!local.containsKey(name)) {
-            throw new IllegalArgumentException("element does not conatain property named " + name);
+            throw new IllegalArgumentException("element does not contain property named '" + name + "'.");
         }
         Object remove = local.remove(name);
         notifyRemoveProperty(name, remove);
