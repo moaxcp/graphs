@@ -14,7 +14,7 @@ public abstract class InheritingElement extends Element {
     }
 
     public Map<String, Object> inherited() {
-        return Collections.unmodifiableMap(inherited);
+        return inherited;
     }
 
     @Override

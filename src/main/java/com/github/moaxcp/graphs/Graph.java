@@ -218,6 +218,14 @@ public class Graph extends OptionallyIdentifiedElement {
         return Collections.unmodifiableSet(edges);
     }
 
+    public void setNodeProperty(String key, Object value) {
+        nodeProperties.put(key, value);
+    }
+
+    public void setEdgeProperty(String key, Object value) {
+        edgeProperties.put(key, value);
+    }
+
     void publish(GraphEvent event) {
         event.check();
         getBus().publish(event);
