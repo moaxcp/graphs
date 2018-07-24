@@ -1,75 +1,94 @@
 package com.github.moaxcp.graphs;
 
 import de.muspellheim.eventbus.EventBus;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class IdentifiedInheritingElementTest {
+class AllIdentifiedInheritingElementsTest {
 
-    IdentifiedInheritingElement element = new TestIdentifiedInheritingElement("id", new HashMap<>(), EventBus.getDefault());
+    static Map<String, Object> inherited = new HashMap<>();
+    static Graph graph = new Graph("graph");
+    static Stream<InheritingElement> elements() {
+        return Stream.of(
+                new TestIdentifiedInheritingElement("id", inherited, EventBus.getDefault()),
+                graph.vertex("id"));
+    }
 
-    @Test
-    void testConstructor() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testConstructor(IdentifiedInheritingElement element) {
         assertThat(element.getId()).isEqualTo("id");
         assertThat(element.getLocal()).containsExactly("id", "id");
     }
 
-    @Test
-    void testConstructorNullPointerException() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testConstructorNullPointerException(IdentifiedInheritingElement element) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> new TestIdentifiedInheritingElement(null, new HashMap<>(), EventBus.getDefault()));
         assertThat(thrown).hasMessageThat().isEqualTo("id must not be null.");
     }
 
-    @Test
-    void testGetId() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testGetId(IdentifiedInheritingElement element) {
         assertThat(element.getId()).isEqualTo("id");
     }
 
-    @Test
-    void testSetId() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetId(IdentifiedInheritingElement element) {
         element.setId("a");
         assertThat(element.getLocal()).containsExactly("id", "a");
     }
 
-    @Test
-    void testSetIdNull() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetIdNull(IdentifiedInheritingElement element) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> element.setId(null));
         assertThat(thrown).hasMessageThat().isEqualTo("id must not be null.");
     }
 
-    @Test
-    void testSetProperty() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetProperty(IdentifiedInheritingElement element) {
         element.setProperty("key", "value");
         assertThat(element.getLocal()).containsExactly("id", "id", "key", "value");
     }
 
-    @Test
-    void testSetPropertyId() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetPropertyId(IdentifiedInheritingElement element) {
         element.setProperty("id", "A");
         assertThat(element.getId()).isEqualTo("A");
     }
 
-    @Test
-    void testSetPropertyIdNotString() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetPropertyIdNotString(IdentifiedInheritingElement element) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> element.setProperty("id", UUID.randomUUID()));
         assertThat(thrown).hasMessageThat().isEqualTo("id must be set to a String object.");
     }
 
-    @Test
-    void testRemoveProperty() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testRemoveProperty(IdentifiedInheritingElement element) {
         element.setProperty("key", "value");
         assertThat(element.getProperty("key")).isEqualTo("value");
         element.removeProperty("key");
         assertThat(element.getLocal()).containsExactly("id", "id");
     }
 
-    @Test
-    void testRemovePropertyId() {
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testRemovePropertyId(IdentifiedInheritingElement element) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> element.removeProperty("id"));
         assertThat(thrown).hasMessageThat().isEqualTo("id can not be removed.");
     }

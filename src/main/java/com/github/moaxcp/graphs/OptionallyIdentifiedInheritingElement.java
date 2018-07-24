@@ -21,7 +21,13 @@ public abstract class OptionallyIdentifiedInheritingElement extends InheritingEl
     }
 
     public void setId(String id) {
-        Objects.requireNonNull(id);
+        if(id == null && getId() == null) {
+            return;
+        }
+        if(id == null && getId() != null) {
+            removeProperty("id");
+            return;
+        }
         super.setProperty("id", id);
     }
 

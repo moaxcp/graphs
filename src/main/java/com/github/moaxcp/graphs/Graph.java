@@ -116,8 +116,21 @@ public class Graph extends OptionallyIdentifiedElement {
 
         @Override
         public void setId(String id) {
-            Objects.requireNonNull(id);
-            throw new UnsupportedOperationException("Not yet implemented. Needs to change id in edges first.");
+            Objects.requireNonNull(id, "id must not be null.");
+            Set<? extends Edge> adjacent = adjacentEdges();
+            String oldId = getId();
+            vertices.remove(this.getId());
+            super.setId(id);
+            vertices.put(id, this);
+            for(Edge edge : adjacent) {
+                if(edge.getFrom().equals(oldId)) {
+                    edge.setFrom(id);
+                }
+                if(edge.getTo().equals(oldId)) {
+                    edge.setTo(id);
+                }
+            }
+
         }
 
         public Set<? extends Edge> adjacentEdges() {

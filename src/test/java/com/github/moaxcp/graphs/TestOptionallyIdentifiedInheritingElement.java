@@ -10,6 +10,9 @@ public class TestOptionallyIdentifiedInheritingElement extends OptionallyIdentif
     public TestOptionallyIdentifiedInheritingElement(String id, Map<String, Object> inherited, EventBus bus) {
         super(id, inherited, bus);
     }
+    public TestOptionallyIdentifiedInheritingElement(Map<String, Object> inherited, EventBus bus) {
+        super(inherited, bus);
+    }
     @Override
     public TestOptionallyIdentifiedInheritingElement withProperty(String name, Object value) {
         setProperty(name, value);

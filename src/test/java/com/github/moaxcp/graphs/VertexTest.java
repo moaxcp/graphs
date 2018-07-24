@@ -3,14 +3,19 @@ package com.github.moaxcp.graphs;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class VertexTest {
     Graph graph = new Graph("graph");
     @Test
     void testSetId() {
-        var vertex = graph.vertex("id");
-        assertThrows(UnsupportedOperationException.class, () -> vertex.setId("key"));
+        var a = graph.vertex("id");
+        var from = graph.edge("id", "b");
+        var to = graph.edge("c", "id");
+        a.setId("a");
+
+        assertThat(a.getId()).isEqualTo("a");
+        assertThat(from.getFrom()).isEqualTo("a");
+        assertThat(to.getTo()).isEqualTo("a");
     }
 
     @Test
