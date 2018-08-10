@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.event.GraphEvent;
+import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -79,37 +79,9 @@ public class GraphTest {
 
     @Test
     void testPublishSubscribe() {
-        class TestEvent implements GraphEvent {
-
-            @Override
-            public Graph getGraph() {
-                return null;
-            }
-
-            @Override
-            public void setGraph(Graph graph) {
-
-            }
-
-            @Override
-            public GraphEvent withGraph(Graph graph) {
-                return null;
-            }
-
-            @Override
-            public void check() {
-
-            }
-        }
-        class Handler {
-            GraphEvent event;
-            void handle(GraphEvent event) {
-                this.event = event;
-            }
-        }
-        var handler = new Handler();
-        graph.subscribe(TestEvent.class, handler::handle);
-        graph.publish(new TestEvent());
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+        EventBus.getDefault().post(new TestEvent());
         assertThat(handler.event).isInstanceOf(TestEvent.class);
     }
 

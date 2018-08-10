@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs;
 import com.github.moaxcp.graphs.event.PropertyAddedGraphEvent;
 import com.github.moaxcp.graphs.event.PropertyRemovedGraphEvent;
 import com.github.moaxcp.graphs.event.PropertyUpdatedGraphEvent;
-import de.muspellheim.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -65,13 +65,13 @@ public abstract class Element {
     }
 
     protected void notifyAddProperty(String name, Object value) {
-        bus.publish(propertyAddedEvent(name, value));
+        bus.post(propertyAddedEvent(name, value));
     }
     protected void notifyRemoveProperty(String name, Object value) {
-        bus.publish(propertyRemovedEvent(name, value));
+        bus.post(propertyRemovedEvent(name, value));
     }
     protected void notifyUpdateProperty(String name, Object value, Object oldValue) {
-        bus.publish(propertyUpdatedEvent(name, value, oldValue));
+        bus.post(propertyUpdatedEvent(name, value, oldValue));
     }
 
     protected abstract PropertyAddedGraphEvent propertyAddedEvent(String name, Object value);

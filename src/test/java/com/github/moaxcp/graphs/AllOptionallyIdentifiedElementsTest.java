@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import de.muspellheim.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 

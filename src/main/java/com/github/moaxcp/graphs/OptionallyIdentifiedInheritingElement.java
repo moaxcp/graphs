@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import de.muspellheim.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 import java.util.Objects;

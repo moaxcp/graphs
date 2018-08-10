@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.event.*;
-import de.muspellheim.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 public class TestElement extends Element {
     public TestElement(EventBus bus) {

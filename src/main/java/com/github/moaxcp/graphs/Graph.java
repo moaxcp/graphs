@@ -1,10 +1,9 @@
 package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.event.*;
-import de.muspellheim.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Graph extends OptionallyIdentifiedElement {
@@ -241,11 +240,7 @@ public class Graph extends OptionallyIdentifiedElement {
 
     void publish(GraphEvent event) {
         event.check();
-        getBus().publish(event);
-    }
-
-    public <T> void subscribe(Class<? extends T> eventType, Consumer<T> subscriber) {
-        getBus().subscribe(eventType, subscriber);
+        getBus().post(event);
     }
 
     public Vertex vertex(String id) {

@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import de.muspellheim.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
