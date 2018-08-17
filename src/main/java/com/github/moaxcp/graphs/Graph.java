@@ -94,17 +94,23 @@ public class Graph extends OptionallyIdentifiedElement {
 
         @Override
         protected EdgePropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
-            return new EdgePropertyAddedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value);
+            EdgePropertyAddedGraphEvent event = new EdgePropertyAddedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value);
+            event.check();
+            return event;
         }
 
         @Override
         protected EdgePropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-            return new EdgePropertyRemovedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value);
+            EdgePropertyRemovedGraphEvent event = new EdgePropertyRemovedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value);
+            event.check();
+            return event;
         }
 
         @Override
         protected EdgePropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {
-            return new EdgePropertyUpdatedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value).withOldValue(oldValue);
+            EdgePropertyUpdatedGraphEvent event = new EdgePropertyUpdatedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value).withOldValue(oldValue);
+            event.check();
+            return event;
         }
     }
 
@@ -189,17 +195,23 @@ public class Graph extends OptionallyIdentifiedElement {
 
         @Override
         protected VertexPropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
-            return new VertexPropertyAddedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value);
+            VertexPropertyAddedGraphEvent event = new VertexPropertyAddedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value);
+            event.check();
+            return event;
         }
 
         @Override
         protected VertexPropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-            return new VertexPropertyRemovedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value);
+            VertexPropertyRemovedGraphEvent event = new VertexPropertyRemovedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value);
+            event.check();
+            return event;
         }
 
         @Override
         protected VertexPropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {
-            return new VertexPropertyUpdatedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value).withOldValue(oldValue);
+            VertexPropertyUpdatedGraphEvent event = new VertexPropertyUpdatedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value).withOldValue(oldValue);
+            event.check();
+            return event;
         }
     }
 
@@ -311,16 +323,22 @@ public class Graph extends OptionallyIdentifiedElement {
 
     @Override
     protected GraphPropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
-        return new GraphPropertyAddedGraphEvent().withGraph(this).withName(name).withValue(value);
+        GraphPropertyAddedGraphEvent event = new GraphPropertyAddedGraphEvent().withGraph(this).withName(name).withValue(value);
+        event.check();
+        return event;
     }
 
     @Override
     protected GraphPropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-        return new GraphPropertyRemovedGraphEvent().withGraph(this).withName(name).withValue(value);
+        GraphPropertyRemovedGraphEvent event = new GraphPropertyRemovedGraphEvent().withGraph(this).withName(name).withValue(value);
+        event.check();
+        return event;
     }
 
     @Override
     protected GraphPropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {
-        return new GraphPropertyUpdatedGraphEvent().withGraph(this).withName(name).withValue(value).withOldValue(oldValue);
+        GraphPropertyUpdatedGraphEvent event = new GraphPropertyUpdatedGraphEvent().withGraph(this).withName(name).withValue(value).withOldValue(oldValue);
+        event.check();
+        return event;
     }
 }

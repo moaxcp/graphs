@@ -19,6 +19,7 @@ public abstract class BaseVertexGraphEvent extends BaseGraphEvent implements Ver
 
     @Override
     public void check() {
+        super.check();
         Objects.requireNonNull(vertex);
     }
 }

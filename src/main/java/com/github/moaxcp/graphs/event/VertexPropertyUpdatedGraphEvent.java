@@ -2,6 +2,8 @@ package com.github.moaxcp.graphs.event;
 
 import com.github.moaxcp.graphs.Graph;
 
+import java.util.Objects;
+
 public class VertexPropertyUpdatedGraphEvent extends VertexPropertyGraphEvent implements PropertyUpdatedGraphEvent {
     private Object oldValue;
 
@@ -43,5 +45,11 @@ public class VertexPropertyUpdatedGraphEvent extends VertexPropertyGraphEvent im
     public VertexPropertyUpdatedGraphEvent withOldValue(Object oldValue) {
         setOldValue(oldValue);
         return this;
+    }
+
+    @Override
+    public void check() {
+        super.check();
+        Objects.requireNonNull(oldValue);
     }
 }

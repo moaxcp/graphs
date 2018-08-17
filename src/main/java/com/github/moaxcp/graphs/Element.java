@@ -42,6 +42,7 @@ public abstract class Element {
         if(local.containsKey(name)) {
             Object old = local.put(name, value);
             notifyUpdateProperty(name, value, old);
+            return;
         }
         local.put(name, value);
         notifyAddProperty(name, value);

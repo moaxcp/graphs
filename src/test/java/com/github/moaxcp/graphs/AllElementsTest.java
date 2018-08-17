@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs;
 
+import com.github.moaxcp.graphs.event.PropertyAddedGraphEvent;
+import com.github.moaxcp.graphs.event.PropertyRemovedGraphEvent;
+import com.github.moaxcp.graphs.event.PropertyUpdatedGraphEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -83,6 +86,30 @@ class AllElementsTest {
 
     @ParameterizedTest
     @MethodSource("elements")
+    void testSetPropertyAddEvent(Element element) {
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+        element.setProperty("key", "value");
+        assertThat(handler.event).isInstanceOf(PropertyAddedGraphEvent.class);
+        assertThat(((PropertyAddedGraphEvent) handler.event).getName()).isEqualTo("key");
+        assertThat(((PropertyAddedGraphEvent) handler.event).getValue()).isEqualTo("value");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testSetPropertyUpdatedEvent(Element element) {
+        element.setProperty("key", "not value");
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+        element.setProperty("key", "value");
+        assertThat(handler.event).isInstanceOf(PropertyUpdatedGraphEvent.class);
+        assertThat(((PropertyUpdatedGraphEvent) handler.event).getName()).isEqualTo("key");
+        assertThat(((PropertyUpdatedGraphEvent) handler.event).getValue()).isEqualTo("value");
+        assertThat(((PropertyUpdatedGraphEvent) handler.event).getOldValue()).isEqualTo("not value");
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
     void testAddProperties(Element element) {
         var properties = new HashMap<String, Object>();
         properties.put("key1", "value1");
@@ -106,6 +133,18 @@ class AllElementsTest {
         element.setProperty("key", "value");
         element.removeProperty("key");
         assertThat(element.getProperty("key")).isNull();
+    }
+
+    @ParameterizedTest
+    @MethodSource("elements")
+    void testRemovePropertyEvent(Element element) {
+        element.setProperty("key", "value");
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+        element.removeProperty("key");
+        assertThat(handler.event).isInstanceOf(PropertyRemovedGraphEvent.class);
+        assertThat(((PropertyRemovedGraphEvent) handler.event).getName()).isEqualTo("key");
+        assertThat(((PropertyRemovedGraphEvent) handler.event).getValue()).isEqualTo("value");
     }
 
     @ParameterizedTest

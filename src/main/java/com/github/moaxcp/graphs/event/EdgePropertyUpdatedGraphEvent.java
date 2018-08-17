@@ -2,6 +2,8 @@ package com.github.moaxcp.graphs.event;
 
 import com.github.moaxcp.graphs.Graph;
 
+import java.util.Objects;
+
 public class EdgePropertyUpdatedGraphEvent extends EdgePropertyGraphEvent implements PropertyUpdatedGraphEvent {
 
     private Object oldValue;
@@ -44,5 +46,11 @@ public class EdgePropertyUpdatedGraphEvent extends EdgePropertyGraphEvent implem
     public EdgePropertyUpdatedGraphEvent withOldValue(Object oldValue) {
         setOldValue(oldValue);
         return this;
+    }
+
+    @Override
+    public void check() {
+        super.check();
+        Objects.requireNonNull(oldValue);
     }
 }

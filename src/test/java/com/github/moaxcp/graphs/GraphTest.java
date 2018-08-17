@@ -1,5 +1,9 @@
 package com.github.moaxcp.graphs;
 
+import com.github.moaxcp.graphs.event.EdgeAddedGraphEvent;
+import com.github.moaxcp.graphs.event.EdgeRemovedGraphEvent;
+import com.github.moaxcp.graphs.event.VertexAddedGraphEvent;
+import com.github.moaxcp.graphs.event.VertexRemovedGraphEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
@@ -38,11 +42,55 @@ public class GraphTest {
     }
 
     @Test
+    void testAddNewVertexEvent() {
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+        var vertex = graph.vertex("id");
+        assertThat(handler.event).isInstanceOf(VertexAddedGraphEvent.class);
+        var event = (VertexAddedGraphEvent) handler.event;
+        assertThat(event.getGraph()).isSameAs(graph);
+        assertThat(event.getVertex()).isSameAs(vertex);
+    }
+
+    @Test
     void testAddExistingVertex() {
         Graph.Vertex vertexA = graph.vertex("A");
         Graph.Vertex vertexB = graph.vertex("A");
         assertThat(vertexA).isSameAs(vertexB);
         assertThat(graph.getVertices()).containsExactly("A", vertexB);
+    }
+
+    @Test
+    void testRemoveVertex() {
+        graph.edge("A", "B");
+        graph.edge("A", "C");
+        graph.edge("Z", "Y");
+
+        graph.removeVertex("A");
+        assertThat(graph.getEdges()).hasSize(1);
+        assertThat(graph.getVertices()).doesNotContainKey("A");
+    }
+
+    @Test
+    void testRemoveVertexEvent() {
+        var firstEdge = graph.edge("A", "B");
+        var secondEdge = graph.edge("A", "C");
+        graph.edge("Z", "Y");
+        var vertex = graph.vertex("A");
+
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+
+        graph.removeVertex("A");
+        assertThat(handler.events).hasSize(3);
+        assertThat(handler.events.get(0)).isInstanceOf(EdgeRemovedGraphEvent.class);
+        var firstEvent = (EdgeRemovedGraphEvent) handler.events.get(0);
+        assertThat(firstEvent.getEdge()).isSameAs(firstEdge);
+        var secondEvent = (EdgeRemovedGraphEvent) handler.events.get(1);
+        assertThat(secondEvent.getEdge()).isSameAs(secondEdge);
+        var thirdEvent = (VertexRemovedGraphEvent) handler.events.get(2);
+        assertThat(thirdEvent.getVertex()).isSameAs(vertex);
+
     }
 
     @Test
@@ -52,6 +100,17 @@ public class GraphTest {
         assertThat(graph.getVertices()).containsKey("from");
         assertThat(graph.getVertices()).containsKey("to");
         assertThat(graph.getEdges()).containsExactly(edge);
+    }
+
+    @Test
+    void testAddNewEdgeEvent() {
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+        var edge = graph.edge("from", "to");
+        assertThat(handler.event).isInstanceOf(EdgeAddedGraphEvent.class);
+        var event = (EdgeAddedGraphEvent) handler.event;
+        assertThat(event.getGraph()).isSameAs(graph);
+        assertThat(event.getEdge()).isSameAs(edge);
     }
 
     @Test
@@ -71,6 +130,18 @@ public class GraphTest {
     }
 
     @Test
+    void testRemoveEdgeEvent() {
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+        var edge = graph.edge("from", "to");
+        graph.removeEdge("from", "to");
+        assertThat(handler.event).isInstanceOf(EdgeRemovedGraphEvent.class);
+        var event = (EdgeRemovedGraphEvent) handler.event;
+        assertThat(event.getGraph()).isSameAs(graph);
+        assertThat(event.getEdge()).isSameAs(edge);
+    }
+
+    @Test
     void testRemoveEdgeDoesNotExist() {
         graph.removeEdge("from", "to");
         assertThat(graph.getEdges()).isEmpty();
@@ -81,7 +152,7 @@ public class GraphTest {
     void testPublishSubscribe() {
         var handler = new TestHandler();
         EventBus.getDefault().register(handler);
-        EventBus.getDefault().post(new TestEvent());
+        graph.publish(new TestEvent());
         assertThat(handler.event).isInstanceOf(TestEvent.class);
     }
 
@@ -96,16 +167,5 @@ public class GraphTest {
         for(Graph.Edge edge : edges) {
             assertThat(edge.getLocal().values()).contains("A");
         }
-    }
-
-    @Test
-    void testRemoveVertex() {
-        graph.edge("A", "B");
-        graph.edge("A", "C");
-        graph.edge("Z", "Y");
-
-        graph.removeVertex("A");
-        assertThat(graph.getEdges()).hasSize(1);
-        assertThat(graph.getVertices()).doesNotContainKey("A");
     }
 }

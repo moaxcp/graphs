@@ -19,6 +19,7 @@ public abstract class BaseEdgeGraphEvent extends BaseGraphEvent implements EdgeG
 
     @Override
     public void check() {
+        super.check();
         Objects.requireNonNull(edge);
     }
 }
