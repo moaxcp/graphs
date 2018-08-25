@@ -1,7 +1,23 @@
 plugins {
     id 'java-library'
     id 'jacoco'
+    id 'org.ajoberstar.grgit' version '2.2.0'
+    id 'org.ajoberstar.reckon' version '0.6.0'
+    id 'nebula.source-jar' version '8.2.1'
+    id 'nebula.javadoc-jar' version '8.2.1'
+    id 'org.ajoberstar.git-publish' version '0.4.1'
 }
+
+group = 'com.github.moaxcp'
+description = 'dynamic graphs supporting streams and an EventBus'
+
+reckon {
+    normal = scopeFromProp()
+    preRelease = snapshotFromProp()
+}
+
+sourceCompatibility = 1.10
+targetCompatibility = 1.10
 
 dependencies {
     api 'org.greenrobot:eventbus:3.1.1'
@@ -26,4 +42,20 @@ test {
     reports {
         html.enabled = true
     }
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javaDocJar
+}
+
+gitPublish {
+    repoUri = "https://github.com/moaxcp/graphs.git"
+    branch = 'gh-pages'
+    contents {
+        from 'build/docs'
+        from 'build/reports'
+    }
+    commitMessage = 'Publishing from gradle.'
 }
