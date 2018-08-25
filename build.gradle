@@ -47,7 +47,7 @@ test {
 artifacts {
     archives jar
     archives sourceJar
-    archives javaDocJar
+    archives javadocJar
 }
 
 gitPublish {
