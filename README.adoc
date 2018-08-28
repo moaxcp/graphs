@@ -1,0 +1,4 @@
+= graphs
+
+
+image:https://travis-ci.org/moaxcp/graphs.svg?branch=master["Build Status", link="https://travis-ci.org/moaxcp/graphs"]

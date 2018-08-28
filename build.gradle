@@ -2,18 +2,19 @@ plugins {
     id 'java-library'
     id 'jacoco'
     id 'org.ajoberstar.grgit' version '2.2.0'
-    id 'org.ajoberstar.reckon' version '0.6.0'
+    id 'org.ajoberstar.reckon' version '0.8.0'
     id 'nebula.source-jar' version '8.2.1'
     id 'nebula.javadoc-jar' version '8.2.1'
     id 'org.ajoberstar.git-publish' version '0.4.1'
+    id "org.sonarqube" version "2.6.2"
 }
 
 group = 'com.github.moaxcp'
 description = 'dynamic graphs supporting streams and an EventBus'
 
 reckon {
-    normal = scopeFromProp()
-    preRelease = snapshotFromProp()
+    scopeFromProp()
+    snapshotFromProp()
 }
 
 sourceCompatibility = 1.10
