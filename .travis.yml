@@ -10,7 +10,7 @@ cache:
 install: true
 script:
 - ./gradlew build
-- ./gradlew -Dsonar.login=$SONAR_TOKEN sonarqube
+- ./gradlew -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=moaxcp -Dsonar.login=$SONAR_TOKEN sonarqube
 env:
   global:
     secure: iaFtvrhDVdNNXFYjcN1bYViNnfW1/Umpg+ajGoN1rKVcrX4c9EXhaaT3/T1HtpL+f3QJfxwABJo5vOveMGsvEcVK36fgwoDdP3IofIdffH10IguozN44O01AUwLwvi5dx8IUT+ArOSY0jPP0YoBm3jgTpbWrlhxWcE/XphlPHarPouvXznTijUyCgSTCOneJFRweiD+LXB9tegtpbx/ehQhdH2DPc27yNEcGMX8A7FQp+Qyuna4wokJgUAe69zssR/WMJoHmU6FyQyix2Ht8fjCjNWhVltwFvNIancKH/O7OH6ObdpQiI14LE/7y0TsOLJPUYT5CqAUwONkfCyCEou6is1nH7R6FdcxAdDUe2W5wlnceWeTK+5f5GW3lloiRfhYFT8kK8hTSTx56v4wyxoqBA/stviw1e9RRiB0YYprRf35opgeOnYYhxDbMZlCEO3rHgsg6tWmGrtLuf9IeXT82/y1O04DNvrLJKUVDwy0Z4ygmZ7z4DYSj2X4WpksBUZDojHDFYrmHgYx5yQLs4+e1T9GZooO4gglOmViW4t5riGmvgQyhKweoiX421hx56SUaRfekNzMgjDOeKOV+C0Vg5SnzUJ8MSo+EHPAXpLU7WAiGtE4bK+NqPC3DeyKE8GAiwBe8wrA9xwxEtipC177yJujqRaM/3lp7Ka2QHaM=
