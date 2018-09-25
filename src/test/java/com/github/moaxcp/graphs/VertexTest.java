@@ -3,6 +3,8 @@ package com.github.moaxcp.graphs;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VertexTest {
     Graph graph = new Graph("graph");
@@ -76,5 +78,60 @@ public class VertexTest {
         assertThat(edge.getLocal()).containsExactly("from", "B", "to", "A");
         assertThat(graph.getEdges().iterator().next()).isEqualTo(edge);
         assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
+    }
+
+    @Test
+    void testEqualsNull() {
+        var vertex = graph.vertex("A");
+        assertNotEquals(vertex, null);
+    }
+
+    @Test
+    void testEqualsReflexive() {
+        var vertex = graph.vertex("A");
+        assertEquals(vertex, vertex);
+    }
+
+    @Test
+    void testEqualsSymmetric() {
+        var vertex1 = graph.vertex("A");
+        var vertex2 = new Graph().vertex("A");
+        assertEquals(vertex1, vertex2);
+        assertEquals(vertex2, vertex1);
+    }
+
+    @Test
+    void testEqualsTransitive() {
+        var vertex1 = graph.vertex("A");
+        var vertex2 = new Graph().vertex("A");
+        var vertex3 = new Graph().vertex("A");
+        assertEquals(vertex1, vertex2);
+        assertEquals(vertex2, vertex3);
+        assertEquals(vertex1, vertex3);
+    }
+
+    @Test
+    void testEqualsConsistent() {
+        var vertex1 = graph.vertex("A");
+        var vertex2 = new Graph().vertex("A");
+        assertEquals(vertex1, vertex2);
+        assertEquals(vertex1, vertex2);
+        assertEquals(vertex1, vertex2);
+    }
+
+    @Test
+    void testHashCodeConsistent() {
+        var vertex = graph.vertex("A");
+        int hashCode = vertex.hashCode();
+        assertThat(vertex.hashCode()).isEqualTo(hashCode);
+        assertThat(vertex.hashCode()).isEqualTo(hashCode);
+    }
+
+    @Test
+    void testHashCodeForEqualVertices() {
+        var vertex1 = graph.vertex("A");
+        var vertex2 = new Graph().vertex("A");
+        assertEquals(vertex1, vertex2);
+        assertThat(vertex1.hashCode()).isEqualTo(vertex2.hashCode());
     }
 }

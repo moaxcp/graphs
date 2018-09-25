@@ -1,6 +1,5 @@
 package com.github.moaxcp.graphs;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Collections;
@@ -21,7 +20,7 @@ public abstract class InheritingElement extends Element {
     @Override
     public Object getProperty(String name) {
         Object value = super.getProperty(name);
-        if(value != null) {
+        if (value != null) {
             return value;
         }
         return inherited.get(name);

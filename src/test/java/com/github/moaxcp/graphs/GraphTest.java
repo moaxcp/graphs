@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.github.moaxcp.graphs.GraphSubject.assertThat;
 
 public class GraphTest {
     Graph graph = new Graph("graph");
@@ -36,9 +37,8 @@ public class GraphTest {
 
     @Test
     void testAddNewVertex() {
-        Graph.Vertex vertex = graph.vertex("id");
-        assertThat(vertex.getLocal()).containsExactly("id", "id");
-        assertThat(graph.getVertices()).containsExactly("id", vertex);
+        graph.vertex("id");
+        assertThat(graph).hasVertex("id");
     }
 
     @Test

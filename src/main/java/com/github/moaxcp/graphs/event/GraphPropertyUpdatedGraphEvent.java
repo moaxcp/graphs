@@ -17,6 +17,7 @@ public class GraphPropertyUpdatedGraphEvent extends GraphPropertyGraphEvent impl
     public void setOldValue(Object oldValue) {
         this.oldValue = oldValue;
     }
+
     @Override
     public GraphPropertyUpdatedGraphEvent withName(String name) {
         setName(name);

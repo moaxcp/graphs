@@ -1,12 +1,13 @@
 plugins {
     id 'java-library'
     id 'jacoco'
+    id 'checkstyle'
     id 'org.ajoberstar.grgit' version '2.2.0'
     id 'org.ajoberstar.reckon' version '0.8.0'
     id 'nebula.source-jar' version '8.2.1'
     id 'nebula.javadoc-jar' version '8.2.1'
     id 'org.ajoberstar.git-publish' version '0.4.1'
-    id "org.sonarqube" version "2.6.2"
+    id 'org.sonarqube' version '2.6.2'
 }
 
 group = 'com.github.moaxcp'
@@ -20,6 +21,31 @@ reckon {
 sourceCompatibility = 1.10
 targetCompatibility = 1.10
 
+sourceSets {
+    truth {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+    truthTest {
+        compileClasspath += sourceSets.truth.output + sourceSets.main.output
+        runtimeClasspath += sourceSets.truth.output + sourceSets.main.output
+    }
+    test {
+        compileClasspath += sourceSets.truth.output
+        runtimeClasspath += sourceSets.truth.output
+    }
+}
+
+configurations {
+    truthImplementation.extendsFrom implementation
+    truthRuntimeOnly.extendsFrom runtimeOnly
+}
+
+dependencies {
+    truthImplementation 'com.google.truth:truth:0.41'
+    truthTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+}
+
 dependencies {
     api 'org.greenrobot:eventbus:3.1.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
@@ -27,6 +53,8 @@ dependencies {
     testImplementation 'com.google.truth:truth:0.41'
     testImplementation 'com.google.truth.extensions:truth-java8-extension:0.41'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+
+    checkstyle 'com.puppycrawl.tools:checkstyle:8.12'
 }
 
 repositories {
@@ -60,3 +88,12 @@ gitPublish {
     }
     commitMessage = 'Publishing from gradle.'
 }
+
+task truthTest(type: Test) {
+    description = 'Runs the truth tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.truthTest.output.classesDirs
+    classpath = sourceSets.truthTest.runtimeClasspath
+}
+
+check.dependsOn truthTest

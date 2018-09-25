@@ -10,28 +10,46 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Element provides easy access to the EventBus and properties to child objects.
+ */
 public abstract class Element {
-    protected EventBus bus;
-    protected Map<String, Object> local;
+    EventBus bus;
+    Map<String, Object> local;
 
-    protected Element(EventBus bus) {
+    Element(EventBus bus) {
         this.bus = bus;
         local = new LinkedHashMap<>();
     }
 
-    protected EventBus getBus() {
+    EventBus getBus() {
         return bus;
     }
 
+    /**
+     * Returns an unmodifiable {@link Map} of all properties set on this Element.
+     * @return all properties set on this element
+     */
     public Map<String, Object> getLocal() {
         return Collections.unmodifiableMap(local);
     }
 
+    /**
+     * Returns the value mapped to name.
+     * @param name  of property to return
+     * @return value mapped to name
+     * @throws NullPointerException if name is null
+     */
     public Object getProperty(String name) {
         Objects.requireNonNull(name, "name must not be null.");
         return local.get(name);
     }
 
+    /**
+     * Maps name to value
+     * @param name
+     * @param value
+     */
     public void setProperty(String name, Object value) {
         Objects.requireNonNull(name, "name must not be null.");
         Objects.requireNonNull(value, "value must not be null.");
@@ -65,17 +83,17 @@ public abstract class Element {
         notifyRemoveProperty(name, remove);
     }
 
-    protected void notifyAddProperty(String name, Object value) {
+    void notifyAddProperty(String name, Object value) {
         bus.post(propertyAddedEvent(name, value));
     }
-    protected void notifyRemoveProperty(String name, Object value) {
+    void notifyRemoveProperty(String name, Object value) {
         bus.post(propertyRemovedEvent(name, value));
     }
-    protected void notifyUpdateProperty(String name, Object value, Object oldValue) {
+    void notifyUpdateProperty(String name, Object value, Object oldValue) {
         bus.post(propertyUpdatedEvent(name, value, oldValue));
     }
 
-    protected abstract PropertyAddedGraphEvent propertyAddedEvent(String name, Object value);
-    protected abstract PropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value);
-    protected abstract PropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue);
+    abstract PropertyAddedGraphEvent propertyAddedEvent(String name, Object value);
+    abstract PropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value);
+    abstract PropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue);
 }

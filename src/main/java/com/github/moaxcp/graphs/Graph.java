@@ -49,12 +49,12 @@ public class Graph extends OptionallyIdentifiedElement {
 
         @Override
         public void setProperty(String name, Object value) {
-            if("from".equals(name)) {
-                setFrom(name);
+            if ("from".equals(name)) {
+                setFrom((String) value);
                 return;
             }
-            if("to".equals(name)) {
-                setTo(name);
+            if ("to".equals(name)) {
+                setTo((String) value);
                 return;
             }
             super.setProperty(name, value);
@@ -68,10 +68,10 @@ public class Graph extends OptionallyIdentifiedElement {
 
         @Override
         public void removeProperty(String name) {
-            if("from".equals(name)) {
+            if ("from".equals(name)) {
                 throw new IllegalArgumentException("'from' can not be removed.");
             }
-            if("to".equals(name)) {
+            if ("to".equals(name)) {
                 throw new IllegalArgumentException("'to' can not be removed.");
             }
             super.removeProperty(name);
@@ -79,8 +79,10 @@ public class Graph extends OptionallyIdentifiedElement {
 
         @Override
         public boolean equals(Object obj) {
-            if(obj == this) return true;
-            if(!(obj instanceof Graph.Edge)) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof Graph.Edge)) {
                 return false;
             }
             Edge edge = (Edge) obj;
@@ -127,11 +129,11 @@ public class Graph extends OptionallyIdentifiedElement {
             vertices.remove(this.getId());
             super.setId(id);
             vertices.put(id, this);
-            for(Edge edge : adjacent) {
-                if(edge.getFrom().equals(oldId)) {
+            for (Edge edge : adjacent) {
+                if (edge.getFrom().equals(oldId)) {
                     edge.setFrom(id);
                 }
-                if(edge.getTo().equals(oldId)) {
+                if (edge.getTo().equals(oldId)) {
                     edge.setTo(id);
                 }
             }
@@ -174,8 +176,8 @@ public class Graph extends OptionallyIdentifiedElement {
 
         @Override
         public final boolean equals(Object obj) {
-            if(obj == this) return true;
-            if(!(obj instanceof Graph.Vertex)) {
+            if (obj == this) return true;
+            if (!(obj instanceof Graph.Vertex)) {
                 return false;
             }
             Vertex vertex = (Vertex) obj;
@@ -257,7 +259,7 @@ public class Graph extends OptionallyIdentifiedElement {
 
     public Vertex vertex(String id) {
         var vertex = vertices.getOrDefault(id, new Vertex(id, nodeProperties, getBus()));
-        if(!vertices.containsKey(id)) {
+        if (!vertices.containsKey(id)) {
             vertices.put(id, vertex);
             publish(new VertexAddedGraphEvent().withGraph(this).withVertex(vertex));
         }
@@ -266,11 +268,11 @@ public class Graph extends OptionallyIdentifiedElement {
 
     public void removeVertex(String id) {
         Objects.requireNonNull(id);
-        if(!vertices.containsKey(id)) {
+        if (!vertices.containsKey(id)) {
             throw new IllegalArgumentException("vertex '" + id + "' not found.");
         }
         var adjacent = adjacentEdges(id);
-        for(var edge : adjacent) {
+        for (var edge : adjacent) {
             removeEdge(edge.getFrom(), edge.getTo());
         }
         Vertex removed = vertices.remove(id);
@@ -288,7 +290,7 @@ public class Graph extends OptionallyIdentifiedElement {
     }
 
     private Optional<Edge> findEdge(Edge search) {
-        if(!edges.contains(search)) {
+        if (!edges.contains(search)) {
             return Optional.empty();
         }
         return edges.stream()

@@ -1,6 +1,5 @@
 package com.github.moaxcp.graphs;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Objects;
@@ -22,10 +21,10 @@ public abstract class OptionallyIdentifiedElement extends Element {
     }
 
     public void setId(String id) {
-        if(id == null && getId() == null) {
+        if (id == null && getId() == null) {
             return;
         }
-        if(id == null && getId() != null) {
+        if (id == null && getId() != null) {
             removeProperty("id");
             return;
         }
@@ -34,7 +33,7 @@ public abstract class OptionallyIdentifiedElement extends Element {
 
     @Override
     public void setProperty(String name, Object value) {
-        if("id".equals(name)) {
+        if ("id".equals(name)) {
             setId((String) value);
             return;
         }

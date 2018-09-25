@@ -21,10 +21,10 @@ public abstract class OptionallyIdentifiedInheritingElement extends InheritingEl
     }
 
     public void setId(String id) {
-        if(id == null && getId() == null) {
+        if (id == null && getId() == null) {
             return;
         }
-        if(id == null && getId() != null) {
+        if (id == null && getId() != null) {
             removeProperty("id");
             return;
         }
@@ -33,7 +33,7 @@ public abstract class OptionallyIdentifiedInheritingElement extends InheritingEl
 
     @Override
     public void setProperty(String name, Object value) {
-        if("id".equals(name)) {
+        if ("id".equals(name)) {
             setId((String) value);
             return;
         }

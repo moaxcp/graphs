@@ -1,6 +1,5 @@
 package com.github.moaxcp.graphs;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
@@ -25,8 +24,8 @@ public abstract class IdentifiedInheritingElement extends InheritingElement {
 
     @Override
     public void setProperty(String name, Object value) {
-        if("id".equals(name)) {
-            if(!(value instanceof String)) {
+        if ("id".equals(name)) {
+            if (!(value instanceof String)) {
                 throw new IllegalArgumentException("id must be set to a String object.");
             }
             setId((String) value);
@@ -37,7 +36,7 @@ public abstract class IdentifiedInheritingElement extends InheritingElement {
 
     @Override
     public void removeProperty(String name) {
-        if("id".equals(name)) {
+        if ("id".equals(name)) {
             throw new IllegalArgumentException("id can not be removed.");
         }
         super.removeProperty(name);
