@@ -72,13 +72,6 @@ class AllIdentifiedInheritingElementsTest {
 
     @ParameterizedTest
     @MethodSource("elements")
-    void testSetPropertyIdNotString(IdentifiedInheritingElement element) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> element.setProperty("id", UUID.randomUUID()));
-        assertThat(thrown).hasMessageThat().isEqualTo("id must be set to a String object.");
-    }
-
-    @ParameterizedTest
-    @MethodSource("elements")
     void testRemoveProperty(IdentifiedInheritingElement element) {
         element.setProperty("key", "value");
         assertThat(element.getProperty("key")).isEqualTo("value");

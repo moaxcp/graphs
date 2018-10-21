@@ -7,17 +7,17 @@ import java.util.Objects;
 
 public abstract class IdentifiedInheritingElement extends InheritingElement {
 
-    protected IdentifiedInheritingElement(String id, Map<String, Object> inherited, EventBus bus) {
+    protected IdentifiedInheritingElement(Object id, Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
         Objects.requireNonNull(id, "id must not be null.");
         local.put("id", id);
     }
 
-    public String getId() {
-        return (String) getProperty("id");
+    public Object getId() {
+        return getProperty("id");
     }
 
-    public void setId(String id) {
+    public void setId(Object id) {
         Objects.requireNonNull(id, "id must not be null.");
         super.setProperty("id", id);
     }
@@ -25,10 +25,7 @@ public abstract class IdentifiedInheritingElement extends InheritingElement {
     @Override
     public void setProperty(String name, Object value) {
         if ("id".equals(name)) {
-            if (!(value instanceof String)) {
-                throw new IllegalArgumentException("id must be set to a String object.");
-            }
-            setId((String) value);
+            setId(value);
             return;
         }
         super.setProperty(name, value);

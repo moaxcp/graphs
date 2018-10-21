@@ -9,17 +9,17 @@ import java.util.stream.Collectors;
 public class Graph extends OptionallyIdentifiedElement {
 
     public class Edge extends InheritingElement {
-        private Edge(String from, String to, Map<String, Object> inherited, EventBus bus) {
+        private Edge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(inherited, bus);
             local.put("from", from);
             local.put("to", to);
         }
 
-        public String getFrom() {
-            return (String) getProperty("from");
+        public Object getFrom() {
+            return getProperty("from");
         }
 
-        public void setFrom(String from) {
+        public void setFrom(Object from) {
             Objects.requireNonNull(from);
             edges.remove(this);
             vertex(from);
@@ -27,7 +27,7 @@ public class Graph extends OptionallyIdentifiedElement {
             edges.add(this);
         }
 
-        public void setTo(String to) {
+        public void setTo(Object to) {
             Objects.requireNonNull(to);
             edges.remove(this);
             vertex(to);
@@ -35,8 +35,8 @@ public class Graph extends OptionallyIdentifiedElement {
             edges.add(this);
         }
 
-        public String getTo() {
-            return (String) getProperty("to");
+        public Object getTo() {
+            return getProperty("to");
         }
 
         public Vertex from() {
@@ -117,15 +117,15 @@ public class Graph extends OptionallyIdentifiedElement {
     }
 
     public class Vertex extends IdentifiedInheritingElement {
-        private Vertex(String id, Map<String, Object> inherited, EventBus bus) {
+        private Vertex(Object id, Map<String, Object> inherited, EventBus bus) {
             super(id, inherited, bus);
         }
 
         @Override
-        public void setId(String id) {
+        public void setId(Object id) {
             Objects.requireNonNull(id, "id must not be null.");
             Set<? extends Edge> adjacent = adjacentEdges();
-            String oldId = getId();
+            Object oldId = getId();
             vertices.remove(this.getId());
             super.setId(id);
             vertices.put(id, this);
@@ -217,7 +217,7 @@ public class Graph extends OptionallyIdentifiedElement {
         }
     }
 
-    private Map<String, Vertex> vertices;
+    private Map<Object, Vertex> vertices;
     private LinkedHashSet<Edge> edges;
     private Map<String, Object> nodeProperties;
     private Map<String, Object> edgeProperties;
@@ -236,7 +236,7 @@ public class Graph extends OptionallyIdentifiedElement {
         local.put("id", id);
     }
 
-    public Map<String, Vertex> getVertices() {
+    public Map<Object, Vertex> getVertices() {
         return Collections.unmodifiableMap(vertices);
     }
 
@@ -257,7 +257,7 @@ public class Graph extends OptionallyIdentifiedElement {
         getBus().post(event);
     }
 
-    public Vertex vertex(String id) {
+    public Vertex vertex(Object id) {
         var vertex = vertices.getOrDefault(id, new Vertex(id, nodeProperties, getBus()));
         if (!vertices.containsKey(id)) {
             vertices.put(id, vertex);
@@ -279,7 +279,7 @@ public class Graph extends OptionallyIdentifiedElement {
         publish(new VertexRemovedGraphEvent().withGraph(this).withVertex(removed));
     }
 
-    public void removeEdge(String from, String to) {
+    public void removeEdge(Object from, Object to) {
         var search = new Edge(from, to, edgeProperties, getBus());
         findEdge(search).ifPresent(this::removeAndNotify);
     }
@@ -298,7 +298,7 @@ public class Graph extends OptionallyIdentifiedElement {
                 .findFirst();
     }
 
-    public Edge edge(String from, String to) {
+    public Edge edge(Object from, Object to) {
         var search = new Edge(from, to, edgeProperties, getBus());
         return findEdge(search).orElseGet(() -> addEdge(search));
     }
@@ -311,7 +311,7 @@ public class Graph extends OptionallyIdentifiedElement {
         return edge;
     }
 
-    public Set<? extends Edge> adjacentEdges(String id) {
+    public Set<? extends Edge> adjacentEdges(Object id) {
         return edges.stream()
                 .filter(edge -> id.equals(edge.getFrom()) || id.equals(edge.getTo()))
                 .collect(Collectors.toSet());
