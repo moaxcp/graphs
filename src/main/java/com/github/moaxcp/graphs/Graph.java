@@ -8,11 +8,26 @@ import java.util.stream.Collectors;
 
 public class Graph extends OptionallyIdentifiedElement {
 
-    public class Edge extends InheritingElement {
+    public class Edge extends OptionallyIdentifiedInheritingElement {
         private Edge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(inherited, bus);
             local.put("from", from);
             local.put("to", to);
+        }
+
+        private Edge(Object id, Object from, Object to, Map<String, Object> inherited, EventBus bus) {
+            super(id, inherited, bus);
+            local.put("from", from);
+            local.put("to", to);
+        }
+
+        @Override
+        public void setId(Object id) {
+            if(!id.equals(getId())) {
+                edgeIds.remove(getId());
+            }
+            super.setId(id);
+            edgeIds.put(id, this);
         }
 
         public Object getFrom() {
@@ -219,6 +234,7 @@ public class Graph extends OptionallyIdentifiedElement {
 
     private Map<Object, Vertex> vertices;
     private LinkedHashSet<Edge> edges;
+    private LinkedHashMap<Object, Edge> edgeIds;
     private Map<String, Object> nodeProperties;
     private Map<String, Object> edgeProperties;
 
@@ -226,6 +242,7 @@ public class Graph extends OptionallyIdentifiedElement {
         super(EventBus.getDefault());
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashSet<>();
+        edgeIds = new LinkedHashMap<>();
         nodeProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
     }
@@ -301,6 +318,16 @@ public class Graph extends OptionallyIdentifiedElement {
     public Edge edge(Object from, Object to) {
         var search = new Edge(from, to, edgeProperties, getBus());
         return findEdge(search).orElseGet(() -> addEdge(search));
+    }
+
+    public Edge edge(Object id, Object from, Object to) {
+        var edge = edge(from, to);
+        edge.setId(id);
+        return edge;
+    }
+
+    public Optional<Edge> edge(Object id) {
+        return Optional.ofNullable(edgeIds.get(id));
     }
 
     private Edge addEdge(Edge edge) {

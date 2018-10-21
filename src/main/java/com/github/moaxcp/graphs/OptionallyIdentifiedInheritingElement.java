@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public abstract class OptionallyIdentifiedInheritingElement extends InheritingElement {
-    protected OptionallyIdentifiedInheritingElement(String id, Map<String, Object> inherited, EventBus bus) {
+    protected OptionallyIdentifiedInheritingElement(Object id, Map<String, Object> inherited, EventBus bus) {
         this(inherited, bus);
         Objects.requireNonNull(id);
         local.put("id", id);
@@ -20,7 +20,7 @@ public abstract class OptionallyIdentifiedInheritingElement extends InheritingEl
         return (String) getProperty("id");
     }
 
-    public void setId(String id) {
+    public void setId(Object id) {
         if (id == null && getId() == null) {
             return;
         }

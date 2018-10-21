@@ -50,8 +50,8 @@ dependencies {
     api 'org.greenrobot:eventbus:3.1.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.2.0'
-    testImplementation 'com.google.truth:truth:0.41'
-    testImplementation 'com.google.truth.extensions:truth-java8-extension:0.41'
+    testImplementation 'com.google.truth:truth:0.42'
+    testImplementation 'com.google.truth.extensions:truth-java8-extension:0.42'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
 
     checkstyle 'com.puppycrawl.tools:checkstyle:8.12'
