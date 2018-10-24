@@ -6,6 +6,7 @@ import com.google.common.truth.Subject;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.Truth.assertAbout;
@@ -31,23 +32,39 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
         return assertAbout(graphs()).that(actual);
     }
 
-    public void hasVertex(String id) {
+    public void hasVertex(Object id) {
         Vertex vertex = actual().getVertices().get(id);
         if(vertex == null) {
             failWithActual(simpleFact("vertices did not contain " + id));
         }
+        hasVertex(id, vertex);
+    }
+
+    public void hasVertex(Object id, Vertex vertex) {
+        Vertex existing = actual().vertex(id);
+        if(vertex != existing) {
+            failWithActual(simpleFact("vertex in graph not same instance."));
+        }
         if(!vertex.getId().equals(id)) {
             failWithActual(simpleFact("Vertex with key of " + id + " had id of " + vertex.getId()));
         }
-        if(!vertex.getProperty("id").equals(id)) {
+        if(!vertex.getProperty("id").get().equals(id)) {
             failWithActual(simpleFact("Vertex '" + id + "' had id property of " + vertex.getProperty("id")));
         }
         String localId = (String) vertex.getLocal().get("id");
         if(!localId.equals(id)) {
             failWithActual(simpleFact("Vertex '" + id + "' + had local id of " + localId));
         }
-        //todo return VertexSubject for asserting properties
     }
+
+    public void hasEdge(Object from, Object to) {
+        hasVertex(from);
+        hasVertex(to);
+        Optional<Graph.Edge> find = actual().findEdge(from, to);
+
+    }
+
+
 
     public void hasVertices(String id, String... ids) {
         hasVertex(id);

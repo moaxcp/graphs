@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AllInheritingElementsTest {
@@ -19,7 +20,7 @@ public class AllInheritingElementsTest {
         return Stream.of(
                 new TestInheritingElement(inherited, EventBus.getDefault()),
                 new TestIdentifiedInheritingElement("id", inherited, EventBus.getDefault()),
-                new TestOptionallyIdentifiedInheritingElement("id", inherited, EventBus.getDefault()),
+                new TestOptionallyIdentifiedInheritingElement(inherited, EventBus.getDefault()),
                 graph.vertex("a"),
                 graph.edge("from", "to"));
     }
@@ -41,12 +42,12 @@ public class AllInheritingElementsTest {
     @MethodSource("elements")
     void testGetLocalProperty(InheritingElement element) {
         element.setProperty("key", "value");
-        assertThat(element.getProperty("key")).isEqualTo("value");
+        assertThat(element.getProperty("key")).hasValue("value");
     }
 
     @ParameterizedTest
     @MethodSource("elements")
     void testGetInheritedProperty(InheritingElement element) {
-        assertThat(element.getProperty("inherited")).isEqualTo("inheritedValue");
+        assertThat(element.getProperty("inherited")).hasValue("inheritedValue");
     }
 }

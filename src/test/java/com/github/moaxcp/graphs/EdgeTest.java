@@ -6,6 +6,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EdgeTest {
     Graph graph = new Graph("graph");
@@ -26,7 +27,7 @@ public class EdgeTest {
     @Test
     void testEdgeWithId() {
         var edge = graph.edge("id", "from", "to");
-        assertThat(edge.getId()).isEqualTo("id");
+        assertThat(edge.getId()).hasValue("id");
         assertThat(edge.getFrom()).isEqualTo("from");
         assertThat(edge.getTo()).isEqualTo("to");
     }
@@ -42,8 +43,8 @@ public class EdgeTest {
     void testEdgeWithIdReturnsSameAsEdgeAndSetsId() {
         var edge1 = graph.edge("from", "to");
         var edge2 = graph.edge("id", "from", "to");
-        assertThat(edge1.getId()).isEqualTo("id");
-        assertThat(edge2.getId()).isEqualTo("id");
+        assertThat(edge1.getId()).hasValue("id");
+        assertThat(edge2.getId()).hasValue("id");
         assertThat(edge1).isSameAs(edge2);
     }
 
@@ -73,13 +74,35 @@ public class EdgeTest {
         assertThat(graph.edge("id")).isEmpty();
         assertThat(graph.edge("id2")).isPresent();
         assertThat(graph.edge("id2").get()).isSameAs(edge);
-        assertThat(edge.getId()).isEqualTo("id2");
+        assertThat(edge.getId()).hasValue("id2");
     }
 
     @Test
     void testEdgeMissingId() {
         var optional = graph.edge("id");
         assertThat(optional).isEmpty();
+    }
+
+    @Test
+    void testNullEdgeId() {
+        var edge = graph.edge(null, "from", "to");
+        assertThat(graph.edge(null)).isEmpty();
+        assertThat(edge.getId()).isEmpty();
+    }
+
+    @Test
+    void testSetIdNullRemovesId() {
+        var edge = graph.edge("id", "from", "to");
+        edge.setId(null);
+        assertThat(edge.getId()).isEmpty();
+
+    }
+
+    @Test
+    void testRemoveIdProperty() {
+        var edge = graph.edge("id", "from", "to");
+        edge.removeProperty("id");
+        assertThat(graph.edge("id")).isEmpty();
     }
 
     @Test
@@ -116,7 +139,7 @@ public class EdgeTest {
     void testSetProperty() {
         var edge = graph.edge("from", "to");
         edge.setProperty("key", "value");
-        assertThat(edge.getProperty("key")).isEqualTo("value");
+        assertThat(edge.getProperty("key")).hasValue("value");
     }
 
     @Test

@@ -6,10 +6,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Map;
 
 public class TestOptionallyIdentifiedInheritingElement extends OptionallyIdentifiedInheritingElement {
-
-    public TestOptionallyIdentifiedInheritingElement(String id, Map<String, Object> inherited, EventBus bus) {
-        super(id, inherited, bus);
-    }
     public TestOptionallyIdentifiedInheritingElement(Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
     }

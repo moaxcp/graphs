@@ -14,7 +14,7 @@ public abstract class IdentifiedInheritingElement extends InheritingElement {
     }
 
     public Object getId() {
-        return getProperty("id");
+        return getProperty("id").get();
     }
 
     public void setId(Object id) {

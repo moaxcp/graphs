@@ -5,10 +5,7 @@ import com.github.moaxcp.graphs.event.PropertyRemovedGraphEvent;
 import com.github.moaxcp.graphs.event.PropertyUpdatedGraphEvent;
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Element provides easy access to the EventBus and properties to child objects.
@@ -18,6 +15,7 @@ public abstract class Element {
     Map<String, Object> local;
 
     Element(EventBus bus) {
+        Objects.requireNonNull(bus);
         this.bus = bus;
         local = new LinkedHashMap<>();
     }
@@ -40,9 +38,9 @@ public abstract class Element {
      * @return value mapped to name
      * @throws NullPointerException if name is null
      */
-    public Object getProperty(String name) {
+    public Optional<Object> getProperty(String name) {
         Objects.requireNonNull(name, "name must not be null.");
-        return local.get(name);
+        return Optional.ofNullable(local.get(name));
     }
 
     /**

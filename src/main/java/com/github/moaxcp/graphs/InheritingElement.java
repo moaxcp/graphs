@@ -4,6 +4,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class InheritingElement extends Element {
     protected Map<String, Object> inherited;
@@ -18,11 +19,11 @@ public abstract class InheritingElement extends Element {
     }
 
     @Override
-    public Object getProperty(String name) {
-        Object value = super.getProperty(name);
-        if (value != null) {
+    public Optional<Object> getProperty(String name) {
+        Optional<Object> value = super.getProperty(name);
+        if (value.isPresent()) {
             return value;
         }
-        return inherited.get(name);
+        return Optional.ofNullable(inherited.get(name));
     }
 }

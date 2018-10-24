@@ -15,23 +15,17 @@ public class Graph extends OptionallyIdentifiedElement {
             local.put("to", to);
         }
 
-        private Edge(Object id, Object from, Object to, Map<String, Object> inherited, EventBus bus) {
-            super(id, inherited, bus);
-            local.put("from", from);
-            local.put("to", to);
-        }
-
         @Override
         public void setId(Object id) {
-            if(!id.equals(getId())) {
-                edgeIds.remove(getId());
+            getId().ifPresent(edgeIds::remove);
+            if(id != null) {
+                edgeIds.put(id, this);
             }
             super.setId(id);
-            edgeIds.put(id, this);
         }
 
         public Object getFrom() {
-            return getProperty("from");
+            return getProperty("from").get();
         }
 
         public void setFrom(Object from) {
@@ -51,7 +45,7 @@ public class Graph extends OptionallyIdentifiedElement {
         }
 
         public Object getTo() {
-            return getProperty("to");
+            return getProperty("to").get();
         }
 
         public Vertex from() {
@@ -65,11 +59,11 @@ public class Graph extends OptionallyIdentifiedElement {
         @Override
         public void setProperty(String name, Object value) {
             if ("from".equals(name)) {
-                setFrom((String) value);
+                setFrom((value));
                 return;
             }
             if ("to".equals(name)) {
-                setTo((String) value);
+                setTo((value));
                 return;
             }
             super.setProperty(name, value);
@@ -83,6 +77,9 @@ public class Graph extends OptionallyIdentifiedElement {
 
         @Override
         public void removeProperty(String name) {
+            if("id".equals(name)) {
+                getId().ifPresent(edgeIds::remove);
+            }
             if ("from".equals(name)) {
                 throw new IllegalArgumentException("'from' can not be removed.");
             }
@@ -261,6 +258,8 @@ public class Graph extends OptionallyIdentifiedElement {
         return Collections.unmodifiableSet(edges);
     }
 
+    public Map<Object, Edge> getEdgeIds() { return Collections.unmodifiableMap(edgeIds); }
+
     public void setNodeProperty(String key, Object value) {
         nodeProperties.put(key, value);
     }
@@ -315,9 +314,13 @@ public class Graph extends OptionallyIdentifiedElement {
                 .findFirst();
     }
 
-    public Edge edge(Object from, Object to) {
+    public Optional<Edge> findEdge(Object from, Object to) {
         var search = new Edge(from, to, edgeProperties, getBus());
-        return findEdge(search).orElseGet(() -> addEdge(search));
+        return findEdge(search);
+    }
+
+    public Edge edge(Object from, Object to) {
+        return findEdge(from, to).orElseGet(() -> addEdge(new Edge(from, to, edgeProperties, getBus())));
     }
 
     public Edge edge(Object id, Object from, Object to) {

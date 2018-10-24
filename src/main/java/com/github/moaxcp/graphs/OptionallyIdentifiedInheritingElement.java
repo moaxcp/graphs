@@ -4,27 +4,23 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public abstract class OptionallyIdentifiedInheritingElement extends InheritingElement {
-    protected OptionallyIdentifiedInheritingElement(Object id, Map<String, Object> inherited, EventBus bus) {
-        this(inherited, bus);
-        Objects.requireNonNull(id);
-        local.put("id", id);
-    }
 
     protected OptionallyIdentifiedInheritingElement(Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
     }
 
-    public String getId() {
-        return (String) getProperty("id");
+    public Optional<Object> getId() {
+        return getProperty("id");
     }
 
     public void setId(Object id) {
-        if (id == null && getId() == null) {
+        if (id == null && !getId().isPresent()) {
             return;
         }
-        if (id == null && getId() != null) {
+        if (id == null && getId().isPresent()) {
             removeProperty("id");
             return;
         }
@@ -34,7 +30,7 @@ public abstract class OptionallyIdentifiedInheritingElement extends InheritingEl
     @Override
     public void setProperty(String name, Object value) {
         if ("id".equals(name)) {
-            setId((String) value);
+            setId(value);
             return;
         }
         super.setProperty(name, value);

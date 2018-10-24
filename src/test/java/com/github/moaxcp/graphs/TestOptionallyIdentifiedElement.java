@@ -8,10 +8,6 @@ public class TestOptionallyIdentifiedElement extends OptionallyIdentifiedElement
         super(bus);
     }
 
-    public TestOptionallyIdentifiedElement(String id, EventBus bus) {
-        super(id, bus);
-    }
-
     @Override
     public TestOptionallyIdentifiedElement withProperty(String name, Object value) {
         setProperty(name, value);

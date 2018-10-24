@@ -14,4 +14,12 @@ public class TestHandler {
         this.event = event;
         events.add(event);
     }
+
+    public GraphEvent getEvent() {
+        return event;
+    }
+
+    public List<GraphEvent> getEvents() {
+        return events;
+    }
 }

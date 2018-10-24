@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AllElementsTest {
@@ -21,8 +22,8 @@ class AllElementsTest {
                 new TestElement(EventBus.getDefault()),
                 new TestInheritingElement(new HashMap<>(), EventBus.getDefault()),
                 new TestIdentifiedInheritingElement("id", new HashMap<>(), EventBus.getDefault()),
-                new TestOptionallyIdentifiedElement("id", EventBus.getDefault()),
-                new TestOptionallyIdentifiedInheritingElement("id", new HashMap<>(), EventBus.getDefault()),
+                new TestOptionallyIdentifiedElement(EventBus.getDefault()),
+                new TestOptionallyIdentifiedInheritingElement(new HashMap<>(), EventBus.getDefault()),
                 graph.vertex("a"),
                 graph.edge("from", "to"),
                 new Graph("id"));
@@ -45,7 +46,7 @@ class AllElementsTest {
     @MethodSource("elements")
     void testGetProperty(Element element) {
         element.setProperty("key", "value");
-        assertThat(element.getProperty("key")).isEqualTo("value");
+        assertThat(element.getProperty("key")).hasValue("value");
     }
 
     @ParameterizedTest
@@ -60,7 +61,7 @@ class AllElementsTest {
     @MethodSource("elements")
     void testSetProperty(Element element) {
         element.setProperty("key", "value");
-        assertThat(element.getProperty("key")).isEqualTo("value");
+        assertThat(element.getProperty("key")).hasValue("value");
     }
 
     @ParameterizedTest
@@ -123,7 +124,7 @@ class AllElementsTest {
     @MethodSource("elements")
     void testWithProperty(Element element) {
         Element result = element.withProperty("key", "value");
-        assertThat(element.getProperty("key")).isEqualTo("value");
+        assertThat(element.getProperty("key")).hasValue("value");
         assertThat(result).isSameAs(element);
     }
 
@@ -132,7 +133,7 @@ class AllElementsTest {
     void testRemoveProperty(Element element) {
         element.setProperty("key", "value");
         element.removeProperty("key");
-        assertThat(element.getProperty("key")).isNull();
+        assertThat(element.getProperty("key")).isEmpty();
     }
 
     @ParameterizedTest

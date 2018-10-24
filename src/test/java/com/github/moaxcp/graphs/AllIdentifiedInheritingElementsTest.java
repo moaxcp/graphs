@@ -10,6 +10,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AllIdentifiedInheritingElementsTest {
@@ -74,7 +75,7 @@ class AllIdentifiedInheritingElementsTest {
     @MethodSource("elements")
     void testRemoveProperty(IdentifiedInheritingElement element) {
         element.setProperty("key", "value");
-        assertThat(element.getProperty("key")).isEqualTo("value");
+        assertThat(element.getProperty("key")).hasValue("value");
         element.removeProperty("key");
         assertThat(element.getLocal()).containsExactly("id", "id");
     }
