@@ -2,13 +2,17 @@ package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.Graph.Vertex;
 import com.google.common.truth.FailureMetadata;
+import com.google.common.truth.OptionalSubject;
 import com.google.common.truth.Subject;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.HashSet;
 import java.util.Optional;
 
+import static com.github.moaxcp.graphs.EdgeSubject.edges;
+import static com.github.moaxcp.graphs.VertexSubject.vertices;
 import static com.google.common.truth.Fact.simpleFact;
+import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
 
 public final class GraphSubject extends Subject<GraphSubject, Graph> {
@@ -32,39 +36,19 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
         return assertAbout(graphs()).that(actual);
     }
 
-    public void hasVertex(Object id) {
-        Vertex vertex = actual().getVertices().get(id);
-        if(vertex == null) {
-            failWithActual(simpleFact("vertices did not contain " + id));
-        }
-        hasVertex(id, vertex);
+    public VertexSubject hasVertex(Object id) {
+        Optional<Vertex> optional = actual().findVertex(id);
+        check("findVertex(%s)", id).about(optionals()).that(optional).isPresent();
+        return assertAbout(vertices()).that(optional.orElse(null));
     }
 
-    public void hasVertex(Object id, Vertex vertex) {
-        Vertex existing = actual().vertex(id);
-        if(vertex != existing) {
-            failWithActual(simpleFact("vertex in graph not same instance."));
-        }
-        if(!vertex.getId().equals(id)) {
-            failWithActual(simpleFact("Vertex with key of " + id + " had id of " + vertex.getId()));
-        }
-        if(!vertex.getProperty("id").get().equals(id)) {
-            failWithActual(simpleFact("Vertex '" + id + "' had id property of " + vertex.getProperty("id")));
-        }
-        String localId = (String) vertex.getLocal().get("id");
-        if(!localId.equals(id)) {
-            failWithActual(simpleFact("Vertex '" + id + "' + had local id of " + localId));
-        }
-    }
-
-    public void hasEdge(Object from, Object to) {
+    public EdgeSubject hasEdge(Object from, Object to) {
         hasVertex(from);
         hasVertex(to);
         Optional<Graph.Edge> find = actual().findEdge(from, to);
-
+        check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isPresent();
+        return assertAbout(edges()).that(find.orElse(null));
     }
-
-
 
     public void hasVertices(String id, String... ids) {
         hasVertex(id);

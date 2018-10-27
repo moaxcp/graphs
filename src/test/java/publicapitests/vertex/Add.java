@@ -8,6 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
 import static com.github.moaxcp.graphs.GraphSubject.assertThat;
+import static com.github.moaxcp.graphs.VertexSubject.assertThat;
 
 public class Add {
     Graph graph = new Graph("graph");
@@ -15,7 +16,10 @@ public class Add {
     @Test
     void addNewVertex() {
         var vertex = graph.vertex("id");
-        assertThat(graph).hasVertex("id", vertex);
+        assertThat(graph).hasVertex("id").isSameAs(vertex);
+        assertThat(vertex).hasId("id");
+        assertThat(vertex).thatProperty("id").hasValue("id");
+        assertThat(vertex).thatLocal("id").isEqualTo("id");
     }
 
     @Test

@@ -1,6 +1,9 @@
 package com.github.moaxcp.graphs;
 
-import com.google.common.truth.*;
+import com.google.common.truth.DefaultSubject;
+import com.google.common.truth.FailureMetadata;
+import com.google.common.truth.OptionalSubject;
+import com.google.common.truth.Subject;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -10,7 +13,7 @@ import static com.google.common.truth.Fact.fact;
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
 
-public class VertexSubject extends Subject<VertexSubject, Graph.Vertex> {
+public class EdgeSubject extends Subject<EdgeSubject, Graph.Edge> {
     /**
      * Constructor for use by subclasses. If you want to create an instance of this class itself, call
      * {@link Subject#check}{@code .that(actual)}.
@@ -18,20 +21,20 @@ public class VertexSubject extends Subject<VertexSubject, Graph.Vertex> {
      * @param metadata
      * @param actual
      */
-    private VertexSubject(FailureMetadata metadata, @NullableDecl Graph.Vertex actual) {
+    private EdgeSubject(FailureMetadata metadata, @NullableDecl Graph.Edge actual) {
         super(metadata, actual);
     }
 
-    public static Subject.Factory<VertexSubject, Graph.Vertex> vertices() {
-        return VertexSubject::new;
+    public static Factory<EdgeSubject, Graph.Edge> edges() {
+        return EdgeSubject::new;
     }
 
-    public static VertexSubject assertThat(@Nullable Graph.Vertex actual) {
-        return assertAbout(vertices()).that(actual);
+    public static EdgeSubject assertThat(@Nullable Graph.Edge actual) {
+        return assertAbout(edges()).that(actual);
     }
 
-    public void hasId(Object id) {
-        check("getId()").that(actual().getId()).isEqualTo(id);
+    public OptionalSubject id() {
+        return check("getId()").about(optionals()).that(actual().getId());
     }
 
     public OptionalSubject thatProperty(String name) {

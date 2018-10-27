@@ -273,6 +273,10 @@ public class Graph extends OptionallyIdentifiedElement {
         getBus().post(event);
     }
 
+    public Optional<Vertex> findVertex(Object id) {
+        return Optional.ofNullable(vertices.get(id));
+    }
+
     public Vertex vertex(Object id) {
         var vertex = vertices.getOrDefault(id, new Vertex(id, nodeProperties, getBus()));
         if (!vertices.containsKey(id)) {
