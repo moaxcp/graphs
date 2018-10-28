@@ -1,15 +1,18 @@
-package publicapitests.vertex;
+package publicapitests.vertexmethods;
 
 import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.GraphSubject;
 import com.github.moaxcp.graphs.TestHandler;
+import com.github.moaxcp.graphs.VertexSubject;
 import com.github.moaxcp.graphs.event.EdgeRemovedGraphEvent;
+import com.github.moaxcp.graphs.event.VertexAddedGraphEvent;
 import com.github.moaxcp.graphs.event.VertexRemovedGraphEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public class Remove {
+public class GraphVertexMethods {
     Graph graph = new Graph("graph");
 
     @Test
@@ -42,5 +45,32 @@ public class Remove {
         assertThat(secondEvent.getEdge()).isSameAs(secondEdge);
         var thirdEvent = (VertexRemovedGraphEvent) handler.getEvents().get(2);
         assertThat(thirdEvent.getVertex()).isSameAs(vertex);
+    }
+
+    @Test
+    void addNewVertex() {
+        var vertex = graph.vertex("id");
+        GraphSubject.assertThat(graph).hasVertex("id").isSameAs(vertex);
+        VertexSubject.assertThat(vertex).hasId("id");
+        VertexSubject.assertThat(vertex).thatProperty("id").hasValue("id");
+        VertexSubject.assertThat(vertex).thatLocal("id").isEqualTo("id");
+    }
+
+    @Test
+    void addExistingVertex() {
+        Graph.Vertex vertexA = graph.vertex("A");
+        Graph.Vertex vertexB = graph.vertex("A");
+        VertexSubject.assertThat(vertexA).isSameAs(vertexB);
+    }
+
+    @Test
+    void addNewVertexEvent() {
+        var handler = new TestHandler();
+        EventBus.getDefault().register(handler);
+        var vertex = graph.vertex("id");
+        assertThat(handler.getEvent()).isInstanceOf(VertexAddedGraphEvent.class);
+        var event = (VertexAddedGraphEvent) handler.getEvent();
+        GraphSubject.assertThat(event.getGraph()).isSameAs(graph);
+        VertexSubject.assertThat(event.getVertex()).isSameAs(vertex);
     }
 }

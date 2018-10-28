@@ -20,8 +20,15 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             return this;
         }
 
+        private void check() {
+            if(!edges.contains(this)) {
+                throw new IllegalStateException("Edge is not in graph.");
+            }
+        }
+
         @Override
         public void setId(Object id) {
+            check();
             getId().ifPresent(edgeIds::remove);
             if(id != null) {
                 edgeIds.put(id, this);
@@ -34,6 +41,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         }
 
         public void setFrom(Object from) {
+            check();
             Objects.requireNonNull(from);
             edges.remove(this);
             vertex(from);
@@ -42,6 +50,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         }
 
         public void setTo(Object to) {
+            check();
             Objects.requireNonNull(to);
             edges.remove(this);
             vertex(to);
@@ -54,15 +63,18 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         }
 
         public Vertex from() {
+            check();
             return vertex(getFrom());
         }
 
         public Vertex to() {
+            check();
             return vertex(getTo());
         }
 
         @Override
         public void setProperty(String name, Object value) {
+            check();
             if ("from".equals(name)) {
                 setFrom((value));
                 return;
@@ -76,6 +88,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
 
         @Override
         public void removeProperty(String name) {
+            check();
             if("id".equals(name)) {
                 getId().ifPresent(edgeIds::remove);
             }
@@ -137,8 +150,15 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             return this;
         }
 
+        private void check() {
+            if(!vertices.containsKey(getId())) {
+                throw new IllegalStateException("Vertex is not in graph.");
+            }
+        }
+
         @Override
         public void setId(Object id) {
+            check();
             Objects.requireNonNull(id, "id must not be null.");
             Set<? extends Edge> adjacent = adjacentEdges();
             Object oldId = getId();
@@ -153,7 +173,12 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
                     edge.setTo(id);
                 }
             }
+        }
 
+        @Override
+        public void setProperty(String name, Object value) {
+            check();
+            super.setProperty(name, value);
         }
 
         public Set<? extends Edge> adjacentEdges() {
@@ -161,28 +186,34 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         }
 
         public Vertex connectsTo(String to) {
+            check();
             edge(getId(), to);
             return this;
         }
 
         public Vertex connectsFrom(String s) {
+            check();
             edge(s, getId());
             return this;
         }
 
         public Edge edgeTo(String id) {
+            check();
             return edge(getId(), id);
         }
 
         public Edge edgeFrom(String id) {
+            check();
             return edge(id, getId());
         }
 
         public Vertex toVertex(String id) {
+            check();
             return edgeTo(id).to();
         }
 
         public Vertex fromVertex(String id) {
+            check();
             return edgeFrom(id).from();
         }
 

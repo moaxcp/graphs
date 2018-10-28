@@ -19,7 +19,7 @@ public class GraphSubjectTest {
     public void doesNotHaveVertex() {
         AssertionError expected = expectError(whenTesting -> whenTesting.that(new Graph()).hasVertex("id"));
 
-        assertThat(expected).factValue("value of").isEqualTo("graph.findVertex(id)");
+        assertThat(expected).factValue("value of").isEqualTo("graph.findVertex(hasIdThat)");
         assertThat(expected).factKeys().contains("expected to be present");
     }
 

@@ -50,6 +50,11 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
         return assertAbout(edges()).that(find.orElse(null));
     }
 
+    public void hasNoEdge(Object from, Object to) {
+        var find = actual().findEdge(from, to);
+        check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isEmpty();
+    }
+
     public void hasVertices(String id, String... ids) {
         hasVertex(id);
         for(String i : ids) {
@@ -62,7 +67,7 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
         set.add(id);
         for(String i : ids) {
             if(!set.add(id)) {
-                failWithActual(simpleFact("duplicate id in arguments."));
+                failWithActual(simpleFact("duplicate hasIdThat in arguments."));
             }
         }
         var keys = actual().getVertices().keySet();

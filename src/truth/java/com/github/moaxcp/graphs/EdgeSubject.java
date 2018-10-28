@@ -9,7 +9,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.Optional;
 
-import static com.google.common.truth.Fact.fact;
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
 
@@ -33,11 +32,19 @@ public class EdgeSubject extends Subject<EdgeSubject, Graph.Edge> {
         return assertAbout(edges()).that(actual);
     }
 
-    public OptionalSubject id() {
+    public OptionalSubject hasIdThat() {
         return check("getId()").about(optionals()).that(actual().getId());
     }
 
-    public OptionalSubject thatProperty(String name) {
+    public Subject<DefaultSubject, Object> hasFromThat() {
+        return check("getFrom()").that(actual().getFrom());
+    }
+
+    public Subject<DefaultSubject, Object> hasToThat() {
+        return check("getTo()").that(actual().getTo());
+    }
+
+    public OptionalSubject hasPropertyThat(String name) {
         Optional<Object> optional = actual().getProperty(name);
         return check("getProperty(%s)", name).about(optionals()).that(optional);
     }

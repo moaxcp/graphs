@@ -1,8 +1,6 @@
 package publicapitests.edgemethods;
 
 import com.github.moaxcp.graphs.Graph;
-import com.google.common.truth.Truth;
-import com.google.common.truth.Truth8;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -22,14 +20,14 @@ public class GraphEdgeMethods {
     @Test
     void newEdgeHasNoId() {
         var edge = graph.edge("from", "to");
-        assertThat(edge).id().isEmpty();
+        assertThat(edge).hasIdThat().isEmpty();
     }
 
     @Test
     void newEdgeHasToFromProperties() {
         var edge = graph.edge("from", "to");
-        assertThat(edge).thatProperty("from").hasValue("from");
-        assertThat(edge).thatProperty("to").hasValue("to");
+        assertThat(edge).hasPropertyThat("from").hasValue("from");
+        assertThat(edge).hasPropertyThat("to").hasValue("to");
     }
 
     @Test
