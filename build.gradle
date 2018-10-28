@@ -49,18 +49,18 @@ dependencies {
     truthTestImplementation 'org.greenrobot:eventbus:3.1.1'
     truthTestImplementation 'com.google.truth:truth:0.42'
     truthTestImplementation 'com.google.truth.extensions:truth-java8-extension:0.42'
-    truthTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
-    truthTestImplementation 'org.junit.jupiter:junit-jupiter-params:5.2.0'
-    truthTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    truthTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    truthTestImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
+    truthTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 
 dependencies {
     api 'org.greenrobot:eventbus:3.1.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.2.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
     testImplementation 'com.google.truth:truth:0.42'
     testImplementation 'com.google.truth.extensions:truth-java8-extension:0.42'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
     checkstyle 'com.puppycrawl.tools:checkstyle:8.12'
 }
