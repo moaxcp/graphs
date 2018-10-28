@@ -5,13 +5,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-public class TestOptionallyIdentifiedInheritingElement extends OptionallyIdentifiedInheritingElement {
+public class TestOptionallyIdentifiedInheritingElement extends OptionallyIdentifiedInheritingElement<TestOptionallyIdentifiedInheritingElement> {
     public TestOptionallyIdentifiedInheritingElement(Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
     }
+
     @Override
-    public TestOptionallyIdentifiedInheritingElement withProperty(String name, Object value) {
-        setProperty(name, value);
+    protected TestOptionallyIdentifiedInheritingElement self() {
         return this;
     }
 

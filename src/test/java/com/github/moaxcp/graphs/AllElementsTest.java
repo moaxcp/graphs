@@ -122,8 +122,8 @@ class AllElementsTest {
 
     @ParameterizedTest
     @MethodSource("elements")
-    void testWithProperty(Element element) {
-        Element result = element.withProperty("key", "value");
+    void testProperty(Element element) {
+        Element result = element.property("key", "value");
         assertThat(element.getProperty("key")).hasValue("value");
         assertThat(result).isSameAs(element);
     }

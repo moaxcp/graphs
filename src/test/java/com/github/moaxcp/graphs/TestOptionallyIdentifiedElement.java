@@ -3,14 +3,13 @@ package com.github.moaxcp.graphs;
 import com.github.moaxcp.graphs.event.*;
 import org.greenrobot.eventbus.EventBus;
 
-public class TestOptionallyIdentifiedElement extends OptionallyIdentifiedElement {
+public class TestOptionallyIdentifiedElement extends OptionallyIdentifiedElement<TestOptionallyIdentifiedElement> {
     public TestOptionallyIdentifiedElement(EventBus bus) {
         super(bus);
     }
 
     @Override
-    public TestOptionallyIdentifiedElement withProperty(String name, Object value) {
-        setProperty(name, value);
+    protected TestOptionallyIdentifiedElement self() {
         return this;
     }
 

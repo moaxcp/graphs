@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class InheritingElement extends Element {
+public abstract class InheritingElement<T extends InheritingElement<T>> extends Element<T> {
     protected Map<String, Object> inherited;
 
     public InheritingElement(Map<String, Object> inherited, EventBus bus) {

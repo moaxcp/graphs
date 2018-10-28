@@ -5,7 +5,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class OptionallyIdentifiedElement extends Element {
+public abstract class OptionallyIdentifiedElement<T extends OptionallyIdentifiedElement<T>> extends Element<T> {
 
     protected OptionallyIdentifiedElement(EventBus bus) {
         super(bus);
@@ -24,6 +24,11 @@ public abstract class OptionallyIdentifiedElement extends Element {
             return;
         }
         super.setProperty("id", id);
+    }
+
+    public OptionallyIdentifiedElement<T> id(Object id) {
+        setId(id);
+        return self();
     }
 
     @Override

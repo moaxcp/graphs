@@ -6,13 +6,18 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Graph extends OptionallyIdentifiedElement {
+public class Graph extends OptionallyIdentifiedElement<Graph> {
 
-    public class Edge extends OptionallyIdentifiedInheritingElement {
+    public class Edge extends OptionallyIdentifiedInheritingElement<Edge> {
         private Edge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(inherited, bus);
             local.put("from", from);
             local.put("to", to);
+        }
+
+        @Override
+        protected Edge self() {
+            return this;
         }
 
         @Override
@@ -70,12 +75,6 @@ public class Graph extends OptionallyIdentifiedElement {
         }
 
         @Override
-        public Edge withProperty(String name, Object value) {
-            setProperty(name, value);
-            return this;
-        }
-
-        @Override
         public void removeProperty(String name) {
             if("id".equals(name)) {
                 getId().ifPresent(edgeIds::remove);
@@ -128,9 +127,14 @@ public class Graph extends OptionallyIdentifiedElement {
         }
     }
 
-    public class Vertex extends IdentifiedInheritingElement {
+    public class Vertex extends IdentifiedInheritingElement<Vertex> {
         private Vertex(Object id, Map<String, Object> inherited, EventBus bus) {
             super(id, inherited, bus);
+        }
+
+        @Override
+        protected Vertex self() {
+            return this;
         }
 
         @Override
@@ -202,12 +206,6 @@ public class Graph extends OptionallyIdentifiedElement {
         }
 
         @Override
-        public Vertex withProperty(String name, Object value) {
-            setProperty(name, value);
-            return this;
-        }
-
-        @Override
         protected VertexPropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
             VertexPropertyAddedGraphEvent event = new VertexPropertyAddedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value);
             event.check();
@@ -248,6 +246,10 @@ public class Graph extends OptionallyIdentifiedElement {
         this();
         Objects.requireNonNull(id);
         local.put("id", id);
+    }
+
+    protected Graph self() {
+        return this;
     }
 
     public Map<Object, Vertex> getVertices() {
@@ -327,12 +329,6 @@ public class Graph extends OptionallyIdentifiedElement {
         return findEdge(from, to).orElseGet(() -> addEdge(new Edge(from, to, edgeProperties, getBus())));
     }
 
-    public Edge edge(Object id, Object from, Object to) {
-        var edge = edge(from, to);
-        edge.setId(id);
-        return edge;
-    }
-
     public Optional<Edge> edge(Object id) {
         return Optional.ofNullable(edgeIds.get(id));
     }
@@ -349,12 +345,6 @@ public class Graph extends OptionallyIdentifiedElement {
         return edges.stream()
                 .filter(edge -> id.equals(edge.getFrom()) || id.equals(edge.getTo()))
                 .collect(Collectors.toSet());
-    }
-
-    @Override
-    public Graph withProperty(String name, Object value) {
-        setProperty(name, value);
-        return this;
     }
 
     @Override

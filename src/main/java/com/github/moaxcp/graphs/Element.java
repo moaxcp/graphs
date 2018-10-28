@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Element provides easy access to the EventBus and properties to child objects.
  */
-public abstract class Element {
+public abstract class Element<T extends Element<T>> {
     EventBus bus;
     Map<String, Object> local;
 
@@ -18,6 +18,11 @@ public abstract class Element {
         Objects.requireNonNull(bus);
         this.bus = bus;
         local = new LinkedHashMap<>();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected T self() {
+        return (T) this;
     }
 
     EventBus getBus() {
@@ -70,7 +75,10 @@ public abstract class Element {
         }
     }
 
-    public abstract Element withProperty(String name, Object value);
+    public T property(String name, Object value) {
+        setProperty(name, value);
+        return self();
+    }
 
     public void removeProperty(String name) {
         Objects.requireNonNull(name);

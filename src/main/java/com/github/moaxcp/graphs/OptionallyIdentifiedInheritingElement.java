@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class OptionallyIdentifiedInheritingElement extends InheritingElement {
+public abstract class OptionallyIdentifiedInheritingElement<T extends OptionallyIdentifiedInheritingElement<T>> extends InheritingElement<T> {
 
     protected OptionallyIdentifiedInheritingElement(Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
@@ -25,6 +25,11 @@ public abstract class OptionallyIdentifiedInheritingElement extends InheritingEl
             return;
         }
         super.setProperty("id", id);
+    }
+
+    public T id(Object id) {
+        setId(id);
+        return self();
     }
 
     @Override

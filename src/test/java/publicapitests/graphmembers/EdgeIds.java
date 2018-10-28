@@ -10,7 +10,7 @@ public class EdgeIds {
 
     @Test
     void addEdge() {
-        var edge = graph.edge("id", "from", "to");
+        var edge = graph.edge("from", "to").id("id");
         assertThat(graph.getEdgeIds()).containsExactly("id", edge);
     }
 }

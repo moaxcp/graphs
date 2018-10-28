@@ -5,7 +5,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class IdentifiedInheritingElement extends InheritingElement {
+public abstract class IdentifiedInheritingElement<T extends IdentifiedInheritingElement<T>> extends InheritingElement<T> {
 
     protected IdentifiedInheritingElement(Object id, Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
@@ -20,6 +20,11 @@ public abstract class IdentifiedInheritingElement extends InheritingElement {
     public void setId(Object id) {
         Objects.requireNonNull(id, "id must not be null.");
         super.setProperty("id", id);
+    }
+
+    public T id(Object id) {
+        setId(id);
+        return self();
     }
 
     @Override

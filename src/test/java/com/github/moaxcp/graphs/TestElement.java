@@ -3,14 +3,9 @@ package com.github.moaxcp.graphs;
 import com.github.moaxcp.graphs.event.*;
 import org.greenrobot.eventbus.EventBus;
 
-public class TestElement extends Element {
+public class TestElement extends Element<TestElement> {
     public TestElement(EventBus bus) {
         super(bus);
-    }
-    @Override
-    public TestElement withProperty(String name, Object value) {
-        this.setProperty(name, value);
-        return this;
     }
 
     @Override
