@@ -1,12 +1,15 @@
-package com.github.moaxcp.graphs;
+package publicapi.elementcontracts;
 
+import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.IdentifiedInheritingElement;
+import com.github.moaxcp.graphs.InheritingElement;
+import stubs.TestIdentifiedInheritingElement;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import static com.google.common.truth.Truth.assertThat;

@@ -1,4 +1,4 @@
-package publicapitests;
+package publicapi.graph;
 
 import com.github.moaxcp.graphs.Graph;
 import org.junit.jupiter.api.Test;

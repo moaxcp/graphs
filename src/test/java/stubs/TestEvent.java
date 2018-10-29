@@ -1,5 +1,6 @@
-package com.github.moaxcp.graphs;
+package stubs;
 
+import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.event.GraphEvent;
 
 public class TestEvent implements GraphEvent {

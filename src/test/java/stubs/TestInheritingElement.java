@@ -1,15 +1,18 @@
-package com.github.moaxcp.graphs;
+package stubs;
 
+import com.github.moaxcp.graphs.InheritingElement;
 import com.github.moaxcp.graphs.event.*;
 import org.greenrobot.eventbus.EventBus;
 
-public class TestOptionallyIdentifiedElement extends OptionallyIdentifiedElement<TestOptionallyIdentifiedElement> {
-    public TestOptionallyIdentifiedElement(EventBus bus) {
-        super(bus);
+import java.util.Map;
+
+public class TestInheritingElement extends InheritingElement<TestInheritingElement> {
+    public TestInheritingElement(Map<String, Object> inherited, EventBus bus) {
+        super(inherited, bus);
     }
 
     @Override
-    protected TestOptionallyIdentifiedElement self() {
+    protected TestInheritingElement self() {
         return this;
     }
 

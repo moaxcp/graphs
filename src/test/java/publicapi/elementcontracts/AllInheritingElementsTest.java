@@ -1,9 +1,13 @@
-package com.github.moaxcp.graphs;
+package publicapi.elementcontracts;
 
+import com.github.moaxcp.graphs.*;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import stubs.TestIdentifiedInheritingElement;
+import stubs.TestInheritingElement;
+import stubs.TestOptionallyIdentifiedInheritingElement;
 
 import java.util.HashMap;
 import java.util.Map;

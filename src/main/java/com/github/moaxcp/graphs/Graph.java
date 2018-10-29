@@ -6,6 +6,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.github.moaxcp.graphs.newevents.Builders.graphCreated;
+
 public class Graph extends OptionallyIdentifiedElement<Graph> {
 
     public class Edge extends OptionallyIdentifiedInheritingElement<Edge> {
@@ -265,18 +267,33 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
     private Map<String, Object> edgeProperties;
 
     public Graph() {
+        this(EventBus.getDefault());
+    }
+
+    public Graph(EventBus bus) {
+        super(bus);
+        vertices = new LinkedHashMap<>();
+        edges = new LinkedHashSet<>();
+        edgeIds = new LinkedHashMap<>();
+        nodeProperties = new LinkedHashMap<>();
+        edgeProperties = new LinkedHashMap<>();
+        bus.post(graphCreated().build());
+    }
+
+    public Graph(Object id) {
         super(EventBus.getDefault());
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashSet<>();
         edgeIds = new LinkedHashMap<>();
         nodeProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
+        local.put("id", Objects.requireNonNull(id));
+        bus.post(graphCreated().id(id).build());
     }
 
-    public Graph(String id) {
-        this();
-        Objects.requireNonNull(id);
-        local.put("id", id);
+    public Graph(Object id, EventBus bus) {
+        this(bus);
+        local.put("id", Objects.requireNonNull(id));
     }
 
     protected Graph self() {

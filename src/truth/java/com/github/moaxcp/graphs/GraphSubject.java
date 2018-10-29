@@ -2,7 +2,6 @@ package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.Graph.Vertex;
 import com.google.common.truth.FailureMetadata;
-import com.google.common.truth.OptionalSubject;
 import com.google.common.truth.Subject;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -36,18 +35,30 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
         return assertAbout(graphs()).that(actual);
     }
 
-    public VertexSubject hasVertex(Object id) {
+    public VertexSubject hasVertexThat(Object id) {
         Optional<Vertex> optional = actual().findVertex(id);
         check("findVertex(%s)", id).about(optionals()).that(optional).isPresent();
         return assertAbout(vertices()).that(optional.orElse(null));
     }
 
-    public EdgeSubject hasEdge(Object from, Object to) {
-        hasVertex(from);
-        hasVertex(to);
+    public void hasVertex(Object id) {
+        Optional<Vertex> optional = actual().findVertex(id);
+        check("findVertex(%s)", id).about(optionals()).that(optional).isPresent();
+    }
+
+    public EdgeSubject hasEdgeThat(Object from, Object to) {
+        hasVertexThat(from);
+        hasVertexThat(to);
         Optional<Graph.Edge> find = actual().findEdge(from, to);
         check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isPresent();
         return assertAbout(edges()).that(find.orElse(null));
+    }
+
+    public void hasEdge(Object from, Object to) {
+        hasVertexThat(from);
+        hasVertexThat(to);
+        Optional<Graph.Edge> find = actual().findEdge(from, to);
+        check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isPresent();
     }
 
     public void hasNoEdge(Object from, Object to) {

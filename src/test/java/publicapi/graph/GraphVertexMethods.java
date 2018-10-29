@@ -1,8 +1,8 @@
-package publicapitests.vertexmethods;
+package publicapi.graph;
 
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.GraphSubject;
-import com.github.moaxcp.graphs.TestHandler;
+import stubs.TestHandler;
 import com.github.moaxcp.graphs.VertexSubject;
 import com.github.moaxcp.graphs.event.EdgeRemovedGraphEvent;
 import com.github.moaxcp.graphs.event.VertexAddedGraphEvent;
@@ -50,7 +50,7 @@ public class GraphVertexMethods {
     @Test
     void addNewVertex() {
         var vertex = graph.vertex("id");
-        GraphSubject.assertThat(graph).hasVertex("id").isSameAs(vertex);
+        GraphSubject.assertThat(graph).hasVertexThat("id").isSameAs(vertex);
         VertexSubject.assertThat(vertex).hasId("id");
         VertexSubject.assertThat(vertex).thatProperty("id").hasValue("id");
         VertexSubject.assertThat(vertex).thatLocal("id").isEqualTo("id");

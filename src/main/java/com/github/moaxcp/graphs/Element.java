@@ -14,7 +14,7 @@ public abstract class Element<T extends Element<T>> {
     EventBus bus;
     Map<String, Object> local;
 
-    Element(EventBus bus) {
+    protected Element(EventBus bus) {
         Objects.requireNonNull(bus);
         this.bus = bus;
         local = new LinkedHashMap<>();
@@ -25,7 +25,7 @@ public abstract class Element<T extends Element<T>> {
         return (T) this;
     }
 
-    EventBus getBus() {
+    public EventBus getBus() {
         return bus;
     }
 
@@ -99,7 +99,7 @@ public abstract class Element<T extends Element<T>> {
         bus.post(propertyUpdatedEvent(name, value, oldValue));
     }
 
-    abstract PropertyAddedGraphEvent propertyAddedEvent(String name, Object value);
-    abstract PropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value);
-    abstract PropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue);
+    protected abstract PropertyAddedGraphEvent propertyAddedEvent(String name, Object value);
+    protected abstract PropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value);
+    protected abstract PropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue);
 }

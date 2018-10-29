@@ -1,7 +1,9 @@
-package com.github.moaxcp.graphs;
+package publicapi.elementcontracts;
 
+import com.github.moaxcp.graphs.Element;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
+import stubs.TestElement;
 
 import static com.google.common.truth.Truth.assertThat;
 
