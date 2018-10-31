@@ -1,5 +1,6 @@
-package com.github.moaxcp.graphs;
+package publicapi;
 
+import com.github.moaxcp.graphs.Graph;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;

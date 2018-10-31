@@ -36,6 +36,10 @@ public class EdgeSubject extends Subject<EdgeSubject, Graph.Edge> {
         return check("getId()").about(optionals()).that(actual().getId());
     }
 
+    public void hasNoId() {
+        check("getId()").about(optionals()).that(actual().getId()).isEmpty();
+    }
+
     public Subject<DefaultSubject, Object> hasFromThat() {
         return check("getFrom()").that(actual().getFrom());
     }

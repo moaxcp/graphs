@@ -1,5 +1,6 @@
-package com.github.moaxcp.graphs;
+package publicapi;
 
+import com.github.moaxcp.graphs.Graph;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -7,96 +8,112 @@ import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.github.moaxcp.graphs.Truth.assertThat;
 
 public class EdgeTest {
     Graph graph = new Graph("graph");
 
     @Test
-    void testChangeIdOnEdge() {
-        var edge = graph.edge("from", "to");
-        edge.setId("id2");
-        assertThat(graph.edge("id")).isEmpty();
-        assertThat(graph.edge("id2")).isPresent();
-        assertThat(graph.edge("id2").get()).isSameAs(edge);
-        assertThat(edge.getId()).hasValue("id2");
+    void setId() {
+        var edge = graph.edge("A", "B");
+        edge.setId("id");
+        assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
+        assertThat(graph).hasEdge("id").isSameAs(edge);
     }
 
     @Test
-    void testSetIdNullRemovesId() {
+    void id() {
+        var edge = graph.edge("A", "B").id("id");
+        assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
+        assertThat(graph).hasEdge("id").isSameAs(edge);
+    }
+
+    @Test
+    void changeId() {
+        var edge = graph.edge("A", "B").id("id");
+        edge.setId("id2");
+        assertThat(graph).hasEdge("id2").isSameAs(edge);
+        assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id2");
+        assertThat(graph).hasEdge("id2").hasIdThat().hasValue("id2");
+        assertThat(graph).hasNoEdge("id");
+    }
+
+    @Test
+    void setIdNullRemovesId() {
         var edge = graph.edge("from", "to").id("id");
         edge.setId(null);
-        assertThat(edge.getId()).isEmpty();
-        assertThat(graph.getEdgeIds()).doesNotContainKey("id");
+        assertThat(edge).hasNoId();
+        assertThat(graph).hasNoEdge("id");
     }
 
     @Test
-    void testRemoveIdProperty() {
+    void removeIdProperty() {
         var edge = graph.edge("from", "to").id("id");
         edge.removeProperty("id");
-        assertThat(graph.edge("id")).isEmpty();
-        assertThat(graph.getEdgeIds()).doesNotContainKey("id");
+        assertThat(edge).hasNoId();
+        assertThat(graph).hasNoEdge("id");
     }
 
     @Test
-    void testSetFrom() {
-        var edge = graph.edge("from", "to");
-        edge.setFrom("A");
-        assertThat(graph.getVertices()).containsKey("A");
-        assertThat(edge.getLocal()).containsExactly("from", "A", "to", "to");
-        assertThat(graph.getEdges()).contains(edge);
+    void setFrom() {
+        var edge = graph.edge("A", "B");
+        edge.setFrom("C");
+        assertThat(graph).hasVertex("C");
+        assertThat(edge).hasFromThat().isEqualTo("C");
     }
 
     @Test
-    void testSetTo() {
-        var edge = graph.edge("from", "to");
-        edge.setTo("B");
-        assertThat(graph.getVertices()).containsKey("B");
-        assertThat(edge.getLocal()).containsExactly("from", "from", "to", "B");
-        assertThat(graph.getEdges()).contains(edge);
+    void setTo() {
+        var edge = graph.edge("A", "B");
+        edge.setTo("C");
+        assertThat(graph).hasVertex("C");
+        assertThat(edge).hasToThat().isEqualTo("C");
     }
 
     @Test
-    void testFrom() {
-        var edge = graph.edge("from", "to");
-        assertThat(edge.from().getId()).isEqualTo("from");
+    void from() {
+        var edge = graph.edge("A", "B");
+        var vertex = graph.findVertex("A").get();
+        assertThat(edge.from()).isEqualTo(vertex);
     }
 
     @Test
-    void testTo() {
-        var edge = graph.edge("from", "to");
-        assertThat(edge.to().getId()).isEqualTo("to");
+    void to() {
+        var edge = graph.edge("A", "B");
+        var vertex = graph.findVertex("B").get();
+        assertThat(edge.to()).isEqualTo(vertex);
     }
 
     @Test
-    void testSetProperty() {
-        var edge = graph.edge("from", "to");
+    void setProperty() {
+        var edge = graph.edge("A", "B");
         edge.setProperty("key", "value");
-        assertThat(edge.getProperty("key")).hasValue("value");
+        assertThat(edge).hasPropertyThat("key").hasValue("value");
     }
 
     @Test
-    void testSetPropertyFrom() {
-        var edge = graph.edge("from", "to");
-        edge.setProperty("from", "A");
-        assertThat(edge.getFrom()).isEqualTo("A");
+    void setPropertyFrom() {
+        var edge = graph.edge("A", "B");
+        edge.setProperty("from", "C");
+        assertThat(edge).hasFromThat().isEqualTo("C");
     }
 
     @Test
     void testEqualsNull() {
         var edge = graph.edge("from", "to");
-        assertNotEquals(edge, null);
+        assertThat(edge).isNotEqualTo(null);
     }
 
     @Test
     void testEqualsReflexive() {
         var edge = graph.edge("from", "to");
-        assertEquals(edge, edge);
+        assertThat(edge).isEqualTo(edge);
     }
 
     @Test
     void testEqualsSymmetric() {
         var edge1 = graph.edge("from", "to");
-        var edge2 = new Graph().edge("from", "to");
+        var edge2 = new Graph().edge("from", "to"); //todo graph should be included in equals
         assertEquals(edge1, edge2);
         assertEquals(edge2, edge1);
     }

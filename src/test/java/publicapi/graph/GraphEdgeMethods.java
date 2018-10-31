@@ -13,7 +13,7 @@ public class GraphEdgeMethods {
     @Test
     void addNewEdge() {
         var edge = graph.edge("A", "B");
-        assertThat(graph).hasEdgeThat("A", "B").isSameAs(edge);
+        assertThat(graph).hasEdge("A", "B").isSameAs(edge);
     }
 
     @Test

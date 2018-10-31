@@ -377,7 +377,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         return findEdge(from, to).orElseGet(() -> addEdge(new Edge(from, to, edgeProperties, getBus())));
     }
 
-    public Optional<Edge> edge(Object id) {
+    public Optional<Edge> findEdge(Object id) {
         return Optional.ofNullable(edgeIds.get(id));
     }
 

@@ -46,7 +46,7 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
         check("findVertex(%s)", id).about(optionals()).that(optional).isPresent();
     }
 
-    public EdgeSubject hasEdgeThat(Object from, Object to) {
+    public EdgeSubject hasEdge(Object from, Object to) {
         hasVertexThat(from);
         hasVertexThat(to);
         Optional<Graph.Edge> find = actual().findEdge(from, to);
@@ -54,16 +54,20 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
         return assertAbout(edges()).that(find.orElse(null));
     }
 
-    public void hasEdge(Object from, Object to) {
-        hasVertexThat(from);
-        hasVertexThat(to);
-        Optional<Graph.Edge> find = actual().findEdge(from, to);
-        check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isPresent();
+    public EdgeSubject hasEdge(Object id) {
+        Optional<Graph.Edge> find = actual().findEdge(id);
+        check("edge(%s)", id).about(optionals()).that(find).isPresent();
+        return assertAbout(edges()).that(find.orElse(null));
     }
 
     public void hasNoEdge(Object from, Object to) {
         var find = actual().findEdge(from, to);
         check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isEmpty();
+    }
+
+    public void hasNoEdge(Object id) {
+        var find =actual().findEdge(id);
+        check("findEdge(%s)", id).about(optionals()).that(find).isEmpty();
     }
 
     public void hasVertices(String id, String... ids) {
