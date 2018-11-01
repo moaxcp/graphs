@@ -11,7 +11,7 @@ import static com.github.moaxcp.graphs.newevents.Builders.graphCreated;
 public class Graph extends OptionallyIdentifiedElement<Graph> {
 
     public class Edge extends OptionallyIdentifiedInheritingElement<Edge> {
-        private Edge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
+        protected Edge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(inherited, bus);
             local.put("from", from);
             local.put("to", to);
@@ -264,7 +264,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
     private LinkedHashSet<Edge> edges;
     private LinkedHashMap<Object, Edge> edgeIds;
     private Map<String, Object> nodeProperties;
-    private Map<String, Object> edgeProperties;
+    protected Map<String, Object> edgeProperties;
 
     public Graph() {
         this(EventBus.getDefault());
@@ -349,16 +349,6 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         publish(new VertexRemovedGraphEvent().withGraph(this).withVertex(removed));
     }
 
-    public void removeEdge(Object from, Object to) {
-        var search = new Edge(from, to, edgeProperties, getBus());
-        findEdge(search).ifPresent(this::removeAndNotify);
-    }
-
-    private void removeAndNotify(Edge edge) {
-        edges.remove(edge);
-        publish(new EdgeRemovedGraphEvent().withGraph(this).withEdge(edge));
-    }
-
     private Optional<Edge> findEdge(Edge search) {
         if (!edges.contains(search)) {
             return Optional.empty();
@@ -369,16 +359,20 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
     }
 
     public Optional<Edge> findEdge(Object from, Object to) {
-        var search = new Edge(from, to, edgeProperties, getBus());
+        var search = newEdge(from, to);
         return findEdge(search);
-    }
-
-    public Edge edge(Object from, Object to) {
-        return findEdge(from, to).orElseGet(() -> addEdge(new Edge(from, to, edgeProperties, getBus())));
     }
 
     public Optional<Edge> findEdge(Object id) {
         return Optional.ofNullable(edgeIds.get(id));
+    }
+
+    public Edge edge(Object from, Object to) {
+        return findEdge(from, to).orElseGet(() -> addEdge(newEdge(from, to)));
+    }
+
+    Edge newEdge(Object from, Object to) {
+        return new Edge(from, to, edgeProperties, getBus());
     }
 
     private Edge addEdge(Edge edge) {
@@ -387,6 +381,16 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         edges.add(edge);
         publish(new EdgeAddedGraphEvent().withGraph(this).withEdge(edge));
         return edge;
+    }
+
+    public void removeEdge(Object from, Object to) {
+        var search = newEdge(from, to);
+        findEdge(search).ifPresent(this::removeAndNotify);
+    }
+
+    private void removeAndNotify(Edge edge) {
+        edges.remove(edge);
+        publish(new EdgeRemovedGraphEvent().withGraph(this).withEdge(edge));
     }
 
     public Set<? extends Edge> adjacentEdges(Object id) {
