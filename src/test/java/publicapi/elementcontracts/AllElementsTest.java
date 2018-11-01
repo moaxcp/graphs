@@ -20,6 +20,7 @@ class AllElementsTest {
 
     static Stream<Element> elements() {
         Graph graph = new Graph("graph");
+        DirectedGraph directedGraph = new DirectedGraph("directedGraph");
         return Stream.of(
                 new TestElement(EventBus.getDefault()),
                 new TestInheritingElement(new HashMap<>(), EventBus.getDefault()),
@@ -28,7 +29,9 @@ class AllElementsTest {
                 new TestOptionallyIdentifiedInheritingElement(new HashMap<>(), EventBus.getDefault()),
                 graph.vertex("a"),
                 graph.edge("from", "to"),
-                new Graph("id"));
+                new Graph("id"),
+                new DirectedGraph("id"),
+                directedGraph.edge("from", "to"));
     }
 
     @ParameterizedTest

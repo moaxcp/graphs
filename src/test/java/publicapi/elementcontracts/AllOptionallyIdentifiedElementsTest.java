@@ -1,5 +1,6 @@
 package publicapi.elementcontracts;
 
+import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.OptionallyIdentifiedElement;
 import stubs.TestOptionallyIdentifiedElement;
@@ -17,7 +18,8 @@ public class AllOptionallyIdentifiedElementsTest {
     static Stream<OptionallyIdentifiedElement> elements() {
         return Stream.of(
                 new TestOptionallyIdentifiedElement(EventBus.getDefault()),
-                new Graph());
+                new Graph(),
+                new DirectedGraph());
     }
 
     @ParameterizedTest

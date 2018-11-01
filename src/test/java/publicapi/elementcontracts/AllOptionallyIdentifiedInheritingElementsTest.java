@@ -1,5 +1,6 @@
 package publicapi.elementcontracts;
 
+import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.OptionallyIdentifiedInheritingElement;
 import stubs.TestOptionallyIdentifiedInheritingElement;
@@ -20,7 +21,8 @@ public class AllOptionallyIdentifiedInheritingElementsTest {
     static Stream<OptionallyIdentifiedInheritingElement> elements() {
         return Stream.of(
                 new TestOptionallyIdentifiedInheritingElement(inherited, EventBus.getDefault()),
-                new Graph().edge("from", "to"));
+                new Graph().edge("from", "to"),
+                new DirectedGraph().edge("from", "to"));
     }
 
     @ParameterizedTest

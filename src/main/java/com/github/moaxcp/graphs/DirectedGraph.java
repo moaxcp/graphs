@@ -7,6 +7,22 @@ import java.util.Map;
 import java.util.Objects;
 
 public class DirectedGraph extends Graph {
+    public DirectedGraph() {
+        super();
+    }
+
+    public DirectedGraph(EventBus bus) {
+        super(bus);
+    }
+
+    public DirectedGraph(Object id) {
+        super(id);
+    }
+
+    public DirectedGraph(Object id, EventBus bus) {
+        super(id, bus);
+    }
+
     public class DirectedEdge extends Edge {
         protected DirectedEdge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(from, to, inherited, bus);
