@@ -30,8 +30,8 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
     public class Edge extends OptionallyIdentifiedInheritingElement<Edge> {
         protected Edge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(inherited, bus);
-            local.put("from", from);
-            local.put("to", to);
+            super.setProperty("from", from);
+            super.setProperty("to", to);
         }
 
         @Override
@@ -87,6 +87,10 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             return this;
         }
 
+        public Object from() {
+            return getFrom();
+        }
+
         /**
          * Returns id of "to" {@link Vertex}.
          * @return id of "to" {@link Vertex}
@@ -119,12 +123,16 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             return this;
         }
 
-        public Vertex from() {
+        public Object to() {
+            return getTo();
+        }
+
+        public Vertex fromVertex() {
             check();
             return vertex(getFrom());
         }
 
-        public Vertex to() {
+        public Vertex toVertex() {
             check();
             return vertex(getTo());
         }
@@ -158,6 +166,10 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             super.removeProperty(name);
         }
 
+        public boolean equals(Object from, Object to) {
+            return (Objects.equals(getFrom(), from) || Objects.equals(getFrom(), to)) && (Objects.equals(getTo(), to) || Objects.equals(getTo(), from));
+        }
+
         @Override
         public boolean equals(Object obj) {
             if (obj == this) {
@@ -167,7 +179,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
                 return false;
             }
             Edge edge = (Edge) obj;
-            return (Objects.equals(getFrom(), edge.getFrom()) || Objects.equals(getFrom(), edge.getTo())) && (Objects.equals(getTo(), edge.getTo()) || Objects.equals(getTo(), edge.getFrom()));
+            return equals(edge.getFrom(), edge.getTo());
         }
 
         @Override
@@ -265,12 +277,12 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
 
         public Vertex toVertex(String id) {
             check();
-            return edgeTo(id).to();
+            return edgeTo(id).toVertex();
         }
 
         public Vertex fromVertex(String id) {
             check();
-            return edgeFrom(id).from();
+            return edgeFrom(id).fromVertex();
         }
 
         public Set<Edge> adjacentEdges() {
@@ -295,7 +307,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         }
 
         public final String toString() {
-            return "Vertex '" + getId() + "' " + local.toString();
+            return "Vertex '" + getId() + "' " + getLocal().toString();
         }
 
         @Override
@@ -352,7 +364,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         edgeIds = new LinkedHashMap<>();
         nodeProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
-        bus.post(graphCreated().build());
+        getBus().post(graphCreated().build());
     }
 
     public Graph(Object id) {
@@ -362,13 +374,13 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         edgeIds = new LinkedHashMap<>();
         nodeProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
-        local.put("id", Objects.requireNonNull(id));
-        bus.post(graphCreated().id(id).build());
+        super.setProperty("id", Objects.requireNonNull(id));
+        getBus().post(graphCreated().id(id).build());
     }
 
     public Graph(Object id, EventBus bus) {
         this(bus);
-        local.put("id", Objects.requireNonNull(id));
+        super.setProperty("id", Objects.requireNonNull(id));
     }
 
     protected Graph self() {
@@ -425,18 +437,10 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         publish(new VertexRemovedGraphEvent().withGraph(this).withVertex(removed));
     }
 
-    private Optional<Edge> findEdge(Edge search) {
-        if (!edges.contains(search)) {
-            return Optional.empty();
-        }
-        return edges.stream()
-                .filter(search::equals)
-                .findFirst();
-    }
-
     public Optional<Edge> findEdge(Object from, Object to) {
-        var search = newEdge(from, to);
-        return findEdge(search);
+        return edges.stream()
+                .filter(edge -> edge.equals(from, to))
+                .findFirst();
     }
 
     public Optional<Edge> findEdge(Object id) {
@@ -460,8 +464,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
     }
 
     public void removeEdge(Object from, Object to) {
-        var search = newEdge(from, to);
-        findEdge(search).ifPresent(this::removeAndNotify);
+        findEdge(from, to).ifPresent(this::removeAndNotify);
     }
 
     private void removeAndNotify(Edge edge) {

@@ -1,6 +1,5 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.event.EdgeAddedGraphEvent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
@@ -31,6 +30,11 @@ public class DirectedGraph extends Graph {
         @Override
         protected DirectedEdge self() {
             return this;
+        }
+
+        @Override
+        public boolean equals(Object from, Object to) {
+            return (Objects.equals(getFrom(), from) && (Objects.equals(getTo(), to)));
         }
 
         @Override

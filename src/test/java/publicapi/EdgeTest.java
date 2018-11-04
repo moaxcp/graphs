@@ -2,7 +2,6 @@ package publicapi;
 
 import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -92,7 +91,7 @@ public class EdgeTest {
     void from(Graph graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("A").get();
-        assertThat(edge.from()).isEqualTo(vertex);
+        assertThat(edge.fromVertex()).isEqualTo(vertex);
     }
 
     @ParameterizedTest
@@ -100,7 +99,7 @@ public class EdgeTest {
     void to(Graph graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("B").get();
-        assertThat(edge.to()).isEqualTo(vertex);
+        assertThat(edge.toVertex()).isEqualTo(vertex);
     }
 
     @ParameterizedTest
