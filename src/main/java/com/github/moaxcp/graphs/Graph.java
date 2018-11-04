@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs;
 
+import com.github.moaxcp.graphs.element.IdentifiedInheritingElement;
+import com.github.moaxcp.graphs.element.OptionallyIdentifiedElement;
+import com.github.moaxcp.graphs.element.OptionallyIdentifiedInheritingElement;
 import com.github.moaxcp.graphs.event.*;
 import org.greenrobot.eventbus.EventBus;
 
@@ -8,8 +11,22 @@ import java.util.stream.Collectors;
 
 import static com.github.moaxcp.graphs.newevents.Builders.graphCreated;
 
+/**
+ * Graph represents an undrected graph backed by an adjacency list. Methods in Graph provide the following guarentees:
+ * <p>
+ *     <ul>
+ *         <li>The graph is always valid. All edges point to vertices within the graph.</li>
+ *         <li>Never return null.</li>
+ *         <li>Referencing missing elements will create them for most methods.</li>
+ *         <li>Changes to the graph, vertices, or edges results in an event</li>
+ *     </ul>
+ * </p>
+ */
 public class Graph extends OptionallyIdentifiedElement<Graph> {
 
+    /**
+     * Edge represents an undirected edge in this graph.
+     */
     public class Edge extends OptionallyIdentifiedInheritingElement<Edge> {
         protected Edge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(inherited, bus);
@@ -38,10 +55,18 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             super.setId(id);
         }
 
+        /**
+         * Returns id of "from" {@link Vertex}.
+         * @return id of "from" {@link Vertex}
+         */
         public Object getFrom() {
             return getProperty("from").get();
         }
 
+        /**
+         * Sets "from" {@link Vertex} to vertex with id. If vertex does not exist it is created.
+         * @param from
+         */
         public void setFrom(Object from) {
             check();
             Objects.requireNonNull(from);
@@ -51,6 +76,29 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             edges.add(this);
         }
 
+        /**
+         * Sets "from" {@link Vertex} to vertex with id returning this {@link Edge}. If vertex does not exist it is
+         * created.
+         * @param from {@link Vertex} id for "from" vertex
+         * @return this edge
+         */
+        public Edge from(Object from) {
+            setFrom(from);
+            return this;
+        }
+
+        /**
+         * Returns id of "to" {@link Vertex}.
+         * @return id of "to" {@link Vertex}
+         */
+        public Object getTo() {
+            return getProperty("to").get();
+        }
+
+        /**
+         * Sets "to" {@link Vertex} to vertex with id. If vertex does not exist it is created.
+         * @param to {@link Vertex} id for "to" vertex
+         */
         public void setTo(Object to) {
             check();
             Objects.requireNonNull(to);
@@ -60,8 +108,15 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             edges.add(this);
         }
 
-        public Object getTo() {
-            return getProperty("to").get();
+        /**
+         * Sets "to" {@link Vertex} to vertex with id returning this {@link Edge}. If vertex does not exist it is
+         * created.
+         * @param to {@link Vertex} id for "to" vertex
+         * @return this edge
+         */
+        public Edge to(Object to) {
+            setTo(to);
+            return this;
         }
 
         public Vertex from() {
@@ -142,6 +197,9 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         }
     }
 
+    /**
+     * Vertex represents a vertex in this graph.
+     */
     public class Vertex extends IdentifiedInheritingElement<Vertex> {
         private Vertex(Object id, Map<String, Object> inherited, EventBus bus) {
             super(id, inherited, bus);
@@ -183,10 +241,6 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             super.setProperty(name, value);
         }
 
-        public Set<? extends Edge> adjacentEdges() {
-            return Graph.this.adjacentEdges(getId());
-        }
-
         public Vertex connectsTo(String to) {
             check();
             edge(getId(), to);
@@ -217,6 +271,27 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         public Vertex fromVertex(String id) {
             check();
             return edgeFrom(id).from();
+        }
+
+        public Set<Edge> adjacentEdges() {
+            check();
+            return edges.stream()
+                    .filter(edge -> getId().equals(edge.getFrom()) || getId().equals(edge.getTo()))
+                    .collect(Collectors.toSet());
+        }
+
+        public Set<Edge> inEdges() {
+            check();
+            return edges.stream()
+                    .filter(edge -> getId().equals(edge.getTo()))
+                    .collect(Collectors.toSet());
+        }
+
+        public Set<Edge> outEdges() {
+            check();
+            return edges.stream()
+                    .filter(edge -> getId().equals(edge.getFrom()))
+                    .collect(Collectors.toSet());
         }
 
         public final String toString() {
@@ -338,10 +413,11 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
 
     public void removeVertex(String id) {
         Objects.requireNonNull(id);
-        if (!vertices.containsKey(id)) {
+        var optional = findVertex(id);
+        if (!optional.isPresent()) {
             throw new IllegalArgumentException("vertex '" + id + "' not found.");
         }
-        var adjacent = adjacentEdges(id);
+        var adjacent = optional.get().adjacentEdges();
         for (var edge : adjacent) {
             removeEdge(edge.getFrom(), edge.getTo());
         }
@@ -391,12 +467,6 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
     private void removeAndNotify(Edge edge) {
         edges.remove(edge);
         publish(new EdgeRemovedGraphEvent().withGraph(this).withEdge(edge));
-    }
-
-    public Set<? extends Edge> adjacentEdges(Object id) {
-        return edges.stream()
-                .filter(edge -> id.equals(edge.getFrom()) || id.equals(edge.getTo()))
-                .collect(Collectors.toSet());
     }
 
     @Override

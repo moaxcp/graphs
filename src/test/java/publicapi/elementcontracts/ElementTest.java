@@ -1,6 +1,6 @@
 package publicapi.elementcontracts;
 
-import com.github.moaxcp.graphs.Element;
+import com.github.moaxcp.graphs.element.Element;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 import stubs.TestElement;

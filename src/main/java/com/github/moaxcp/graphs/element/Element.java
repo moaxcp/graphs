@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.element;
 
 import com.github.moaxcp.graphs.event.PropertyAddedGraphEvent;
 import com.github.moaxcp.graphs.event.PropertyRemovedGraphEvent;
@@ -11,8 +11,8 @@ import java.util.*;
  * Element provides easy access to the EventBus and properties to child objects.
  */
 public abstract class Element<T extends Element<T>> {
-    EventBus bus;
-    Map<String, Object> local;
+    private EventBus bus;
+    private Map<String, Object> local;
 
     protected Element(EventBus bus) {
         Objects.requireNonNull(bus);

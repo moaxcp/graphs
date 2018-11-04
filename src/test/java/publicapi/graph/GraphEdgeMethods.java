@@ -58,17 +58,4 @@ public class GraphEdgeMethods {
         assertThat(graph).hasNoEdge("A", "B");
         assertThat(graph).hasVertices("A", "B");
     }
-
-    @Test
-    void adjacentEdges() {
-        graph.edge("A", "B");
-        graph.edge("A", "C");
-        graph.edge("Z", "Y");
-
-        var edges = graph.adjacentEdges("A");
-        assertThat(edges).hasSize(2);
-        for(Graph.Edge edge : edges) {
-            assertThat(edge.getLocal().values()).contains("A");
-        }
-    }
 }

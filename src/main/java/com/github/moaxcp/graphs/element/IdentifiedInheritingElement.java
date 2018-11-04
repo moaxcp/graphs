@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.element;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -10,7 +10,7 @@ public abstract class IdentifiedInheritingElement<T extends IdentifiedInheriting
     protected IdentifiedInheritingElement(Object id, Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
         Objects.requireNonNull(id, "id must not be null.");
-        local.put("id", id);
+        super.setProperty("id", id);
     }
 
     public Object getId() {

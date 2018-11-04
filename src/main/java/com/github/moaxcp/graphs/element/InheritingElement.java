@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.element;
 
 import org.greenrobot.eventbus.EventBus;
 

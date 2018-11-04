@@ -2,7 +2,7 @@ package publicapi.elementcontracts;
 
 import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.OptionallyIdentifiedElement;
+import com.github.moaxcp.graphs.element.OptionallyIdentifiedElement;
 import stubs.TestOptionallyIdentifiedElement;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.params.ParameterizedTest;

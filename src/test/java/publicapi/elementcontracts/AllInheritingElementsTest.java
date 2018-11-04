@@ -1,6 +1,7 @@
 package publicapi.elementcontracts;
 
 import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.element.InheritingElement;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;

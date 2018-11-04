@@ -1,6 +1,7 @@
 package publicapi.elementcontracts;
 
 import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.element.Element;
 import com.github.moaxcp.graphs.event.PropertyAddedGraphEvent;
 import com.github.moaxcp.graphs.event.PropertyRemovedGraphEvent;
 import com.github.moaxcp.graphs.event.PropertyUpdatedGraphEvent;
