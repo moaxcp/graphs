@@ -3,26 +3,26 @@ package com.github.moaxcp.graphs.newevents;
 import java.util.Optional;
 
 public abstract class GraphEvent {
-    private Object id;
+    private Object graphId;
 
     protected GraphEvent(Builder builder) {
-        id = builder.id;
+        graphId = builder.graphId;
     }
 
-    public Optional<Object> getId() {
-        return Optional.of(id);
+    public Optional<Object> getGraphId() {
+        return Optional.of(graphId);
     }
 
     public static abstract class Builder<T extends Builder<T>> {
-        private Object id;
+        private Object graphId;
 
         @SuppressWarnings("unchecked")
         protected T self() {
             return (T) this;
         }
 
-        public T id(Object id) {
-            this.id = id;
+        public T graphId(Object graphId) {
+            this.graphId = graphId;
             return self();
         }
 

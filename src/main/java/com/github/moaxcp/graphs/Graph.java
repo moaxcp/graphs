@@ -364,7 +364,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         edgeIds = new LinkedHashMap<>();
         nodeProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
-        getBus().post(graphCreated().build());
+        postCreatedEvent();
     }
 
     public Graph(Object id) {
@@ -375,12 +375,22 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         nodeProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
         super.setProperty("id", Objects.requireNonNull(id));
-        getBus().post(graphCreated().id(id).build());
+        postCreatedEvent();
     }
 
     public Graph(Object id, EventBus bus) {
-        this(bus);
+        super(bus);
+        vertices = new LinkedHashMap<>();
+        edges = new LinkedHashSet<>();
+        edgeIds = new LinkedHashMap<>();
+        nodeProperties = new LinkedHashMap<>();
+        edgeProperties = new LinkedHashMap<>();
         super.setProperty("id", Objects.requireNonNull(id));
+        postCreatedEvent();
+    }
+
+    protected void postCreatedEvent() {
+        getBus().post(graphCreated().graphId(getId().orElse(null)).build());
     }
 
     protected Graph self() {
