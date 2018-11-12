@@ -1,6 +1,6 @@
-package publicapi.directedgraph;
+package publicapi.greenrobot.directedgraph;
 
-import com.github.moaxcp.graphs.DirectedGraph;
+import com.github.moaxcp.graphs.greenrobot.DirectedGraph;
 import org.junit.jupiter.api.Test;
 import static com.github.moaxcp.graphs.Truth.assertThat;
 

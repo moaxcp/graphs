@@ -1,13 +1,12 @@
-package publicapi.graph;
+package publicapi.greenrobot.graph;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.Truth;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
 
 public class MemberEdges {
-    Graph graph = new Graph("graph");
+    UndirectedGraph graph = new UndirectedGraph("graph");
 
     @Test
     void edgesIsEmpty() {

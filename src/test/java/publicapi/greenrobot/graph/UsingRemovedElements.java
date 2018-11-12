@@ -1,6 +1,6 @@
-package publicapi.graph;
+package publicapi.greenrobot.graph;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import org.junit.jupiter.api.Test;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
@@ -8,7 +8,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UsingRemovedElements {
-    Graph graph = new Graph();
+    UndirectedGraph graph = new UndirectedGraph();
     @Test
     void edgeSetFrom() {
         var edge = graph.edge("from", "to");

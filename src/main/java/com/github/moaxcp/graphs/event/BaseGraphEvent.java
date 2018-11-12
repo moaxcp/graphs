@@ -1,20 +1,20 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 
 import java.util.Objects;
 
 public abstract class BaseGraphEvent implements GraphEvent {
 
-    private Graph graph;
+    private UndirectedGraph graph;
 
     @Override
-    public Graph getGraph() {
+    public UndirectedGraph getGraph() {
         return graph;
     }
 
     @Override
-    public void setGraph(Graph graph) {
+    public void setGraph(UndirectedGraph graph) {
         this.graph = graph;
     }
 

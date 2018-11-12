@@ -1,7 +1,5 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.greenrobot;
 
-import com.github.moaxcp.graphs.event.EdgeAddedGraphEvent;
-import com.github.moaxcp.graphs.event.EdgeRemovedGraphEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 import stubs.TestEvent;
@@ -9,10 +7,9 @@ import stubs.TestHandler;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static com.github.moaxcp.graphs.GraphSubject.assertThat;
 
 public class GraphTest {
-    Graph graph = new Graph("graph");
+    UndirectedGraph graph = new UndirectedGraph("graph");
 
     @Test
     void testPublishSubscribe() {

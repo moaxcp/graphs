@@ -1,6 +1,6 @@
-package publicapi.graph;
+package publicapi.greenrobot.graph;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import com.github.moaxcp.graphs.GraphSubject;
 import stubs.TestHandler;
 import com.github.moaxcp.graphs.VertexSubject;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import static com.google.common.truth.Truth.assertThat;
 
 public class GraphVertexMethods {
-    Graph graph = new Graph("graph");
+    UndirectedGraph graph = new UndirectedGraph("graph");
 
     @Test
     void testRemoveVertex() {
@@ -58,8 +58,8 @@ public class GraphVertexMethods {
 
     @Test
     void addExistingVertex() {
-        Graph.Vertex vertexA = graph.vertex("A");
-        Graph.Vertex vertexB = graph.vertex("A");
+        UndirectedGraph.Vertex vertexA = graph.vertex("A");
+        UndirectedGraph.Vertex vertexB = graph.vertex("A");
         VertexSubject.assertThat(vertexA).isSameAs(vertexB);
     }
 

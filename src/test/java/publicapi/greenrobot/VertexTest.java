@@ -1,6 +1,6 @@
-package publicapi;
+package publicapi.greenrobot;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VertexTest {
-    Graph graph = new Graph("graph");
+    UndirectedGraph graph = new UndirectedGraph("graph");
     @Test
     void testSetId() {
         var a = graph.vertex("id");
@@ -38,7 +38,7 @@ public class VertexTest {
 
         var edges = vertex.adjacentEdges();
         assertThat(edges).hasSize(2);
-        for(Graph.Edge edge : edges) {
+        for(UndirectedGraph.Edge edge : edges) {
             assertThat(edge.getLocal().values()).contains("A");
         }
     }
@@ -96,7 +96,7 @@ public class VertexTest {
     @Test
     void testEqualsSymmetric() {
         var vertex1 = graph.vertex("A");
-        var vertex2 = new Graph().vertex("A");
+        var vertex2 = new UndirectedGraph().vertex("A");
         assertEquals(vertex1, vertex2);
         assertEquals(vertex2, vertex1);
     }
@@ -104,8 +104,8 @@ public class VertexTest {
     @Test
     void testEqualsTransitive() {
         var vertex1 = graph.vertex("A");
-        var vertex2 = new Graph().vertex("A");
-        var vertex3 = new Graph().vertex("A");
+        var vertex2 = new UndirectedGraph().vertex("A");
+        var vertex3 = new UndirectedGraph().vertex("A");
         assertEquals(vertex1, vertex2);
         assertEquals(vertex2, vertex3);
         assertEquals(vertex1, vertex3);
@@ -114,7 +114,7 @@ public class VertexTest {
     @Test
     void testEqualsConsistent() {
         var vertex1 = graph.vertex("A");
-        var vertex2 = new Graph().vertex("A");
+        var vertex2 = new UndirectedGraph().vertex("A");
         assertEquals(vertex1, vertex2);
         assertEquals(vertex1, vertex2);
         assertEquals(vertex1, vertex2);
@@ -131,7 +131,7 @@ public class VertexTest {
     @Test
     void testHashCodeForEqualVertices() {
         var vertex1 = graph.vertex("A");
-        var vertex2 = new Graph().vertex("A");
+        var vertex2 = new UndirectedGraph().vertex("A");
         assertEquals(vertex1, vertex2);
         assertThat(vertex1.hashCode()).isEqualTo(vertex2.hashCode());
     }

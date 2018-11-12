@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.Graph.Vertex;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.Vertex;
 import com.google.common.truth.FailureMetadata;
 import com.google.common.truth.Subject;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -14,7 +15,7 @@ import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
 
-public final class GraphSubject extends Subject<GraphSubject, Graph> {
+public final class GraphSubject extends Subject<GraphSubject, UndirectedGraph> {
 
     /**
      * Constructor for use by subclasses. If you want to create an instance of this class itself, call
@@ -23,15 +24,15 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
      * @param metadata
      * @param actual
      */
-    private GraphSubject(FailureMetadata metadata, Graph actual) {
+    private GraphSubject(FailureMetadata metadata, UndirectedGraph actual) {
         super(metadata, actual);
     }
 
-    public static Subject.Factory<GraphSubject, Graph> graphs() {
+    public static Subject.Factory<GraphSubject, UndirectedGraph> graphs() {
         return GraphSubject::new;
     }
 
-    public static GraphSubject assertThat(@Nullable Graph actual) {
+    public static GraphSubject assertThat(@Nullable UndirectedGraph actual) {
         return assertAbout(graphs()).that(actual);
     }
 
@@ -49,13 +50,13 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
     public EdgeSubject hasEdge(Object from, Object to) {
         hasVertexThat(from);
         hasVertexThat(to);
-        Optional<Graph.Edge> find = actual().findEdge(from, to);
+        Optional<UndirectedGraph.Edge> find = actual().findEdge(from, to);
         check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isPresent();
         return assertAbout(edges()).that(find.orElse(null));
     }
 
     public EdgeSubject hasEdge(Object id) {
-        Optional<Graph.Edge> find = actual().findEdge(id);
+        Optional<UndirectedGraph.Edge> find = actual().findEdge(id);
         check("edge(%s)", id).about(optionals()).that(find).isPresent();
         return assertAbout(edges()).that(find.orElse(null));
     }

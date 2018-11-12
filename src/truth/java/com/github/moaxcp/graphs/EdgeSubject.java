@@ -1,5 +1,6 @@
 package com.github.moaxcp.graphs;
 
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import com.google.common.truth.DefaultSubject;
 import com.google.common.truth.FailureMetadata;
 import com.google.common.truth.OptionalSubject;
@@ -12,7 +13,7 @@ import java.util.Optional;
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
 
-public class EdgeSubject extends Subject<EdgeSubject, Graph.Edge> {
+public class EdgeSubject extends Subject<EdgeSubject, UndirectedGraph.Edge> {
     /**
      * Constructor for use by subclasses. If you want to create an instance of this class itself, call
      * {@link Subject#check}{@code .that(actual)}.
@@ -20,15 +21,15 @@ public class EdgeSubject extends Subject<EdgeSubject, Graph.Edge> {
      * @param metadata
      * @param actual
      */
-    private EdgeSubject(FailureMetadata metadata, @NullableDecl Graph.Edge actual) {
+    private EdgeSubject(FailureMetadata metadata, @NullableDecl UndirectedGraph.Edge actual) {
         super(metadata, actual);
     }
 
-    public static Factory<EdgeSubject, Graph.Edge> edges() {
+    public static Factory<EdgeSubject, UndirectedGraph.Edge> edges() {
         return EdgeSubject::new;
     }
 
-    public static EdgeSubject assertThat(@Nullable Graph.Edge actual) {
+    public static EdgeSubject assertThat(@Nullable UndirectedGraph.Edge actual) {
         return assertAbout(edges()).that(actual);
     }
 

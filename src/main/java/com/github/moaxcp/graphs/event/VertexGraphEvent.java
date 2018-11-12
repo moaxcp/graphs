@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.Graph.Vertex;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.Vertex;
 
 public interface VertexGraphEvent extends GraphEvent {
     Vertex getVertex();

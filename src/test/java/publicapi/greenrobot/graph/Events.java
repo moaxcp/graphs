@@ -1,6 +1,6 @@
-package publicapi.graph;
+package publicapi.greenrobot.graph;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import com.github.moaxcp.graphs.GraphSubject;
 import com.github.moaxcp.graphs.event.EdgeAddedGraphEvent;
 import com.github.moaxcp.graphs.event.EdgeRemovedGraphEvent;
@@ -11,7 +11,7 @@ import stubs.TestHandler;
 import static com.google.common.truth.Truth.assertThat;
 
 public class Events {
-    Graph graph = new Graph("graph");
+    UndirectedGraph graph = new UndirectedGraph("graph");
 
     @Test
     void testAddNewEdgeEvent() {

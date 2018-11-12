@@ -1,11 +1,11 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.greenrobot;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 import java.util.Objects;
 
-public class DirectedGraph extends Graph {
+public class DirectedGraph extends UndirectedGraph {
     public DirectedGraph() {
         super();
     }

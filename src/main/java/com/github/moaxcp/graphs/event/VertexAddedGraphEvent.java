@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.Graph.Vertex;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.Vertex;
 
 public class VertexAddedGraphEvent extends BaseVertexGraphEvent {
     @Override
@@ -11,7 +11,7 @@ public class VertexAddedGraphEvent extends BaseVertexGraphEvent {
     }
 
     @Override
-    public VertexAddedGraphEvent withGraph(Graph graph) {
+    public VertexAddedGraphEvent withGraph(UndirectedGraph graph) {
         setGraph(graph);
         return this;
     }

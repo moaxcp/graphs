@@ -1,7 +1,7 @@
 package publicapi.elementcontracts;
 
-import com.github.moaxcp.graphs.DirectedGraph;
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.greenrobot.DirectedGraph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import com.github.moaxcp.graphs.element.OptionallyIdentifiedElement;
 import stubs.TestOptionallyIdentifiedElement;
 import org.greenrobot.eventbus.EventBus;
@@ -18,7 +18,7 @@ public class AllOptionallyIdentifiedElementsTest {
     static Stream<OptionallyIdentifiedElement> elements() {
         return Stream.of(
                 new TestOptionallyIdentifiedElement(EventBus.getDefault()),
-                new Graph(),
+                new UndirectedGraph(),
                 new DirectedGraph());
     }
 

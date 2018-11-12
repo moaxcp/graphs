@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.greenrobot;
 
 import com.github.moaxcp.graphs.element.IdentifiedInheritingElement;
 import com.github.moaxcp.graphs.element.OptionallyIdentifiedElement;
@@ -22,7 +22,7 @@ import static com.github.moaxcp.graphs.newevents.Builders.graphCreated;
  *     </ul>
  * </p>
  */
-public class Graph extends OptionallyIdentifiedElement<Graph> {
+public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph> {
 
     /**
      * Edge represents an undirected edge in this graph.
@@ -175,7 +175,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof Graph.Edge)) {
+            if (!(obj instanceof UndirectedGraph.Edge)) {
                 return false;
             }
             Edge edge = (Edge) obj;
@@ -189,21 +189,21 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
 
         @Override
         protected EdgePropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
-            EdgePropertyAddedGraphEvent event = new EdgePropertyAddedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value);
+            EdgePropertyAddedGraphEvent event = new EdgePropertyAddedGraphEvent().withGraph(UndirectedGraph.this).withEdge(this).withName(name).withValue(value);
             event.check();
             return event;
         }
 
         @Override
         protected EdgePropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-            EdgePropertyRemovedGraphEvent event = new EdgePropertyRemovedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value);
+            EdgePropertyRemovedGraphEvent event = new EdgePropertyRemovedGraphEvent().withGraph(UndirectedGraph.this).withEdge(this).withName(name).withValue(value);
             event.check();
             return event;
         }
 
         @Override
         protected EdgePropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {
-            EdgePropertyUpdatedGraphEvent event = new EdgePropertyUpdatedGraphEvent().withGraph(Graph.this).withEdge(this).withName(name).withValue(value).withOldValue(oldValue);
+            EdgePropertyUpdatedGraphEvent event = new EdgePropertyUpdatedGraphEvent().withGraph(UndirectedGraph.this).withEdge(this).withName(name).withValue(value).withOldValue(oldValue);
             event.check();
             return event;
         }
@@ -313,7 +313,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         @Override
         public final boolean equals(Object obj) {
             if (obj == this) return true;
-            if (!(obj instanceof Graph.Vertex)) {
+            if (!(obj instanceof UndirectedGraph.Vertex)) {
                 return false;
             }
             Vertex vertex = (Vertex) obj;
@@ -327,21 +327,21 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
 
         @Override
         protected VertexPropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
-            VertexPropertyAddedGraphEvent event = new VertexPropertyAddedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value);
+            VertexPropertyAddedGraphEvent event = new VertexPropertyAddedGraphEvent().withGraph(UndirectedGraph.this).withVertex(this).withName(name).withValue(value);
             event.check();
             return event;
         }
 
         @Override
         protected VertexPropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-            VertexPropertyRemovedGraphEvent event = new VertexPropertyRemovedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value);
+            VertexPropertyRemovedGraphEvent event = new VertexPropertyRemovedGraphEvent().withGraph(UndirectedGraph.this).withVertex(this).withName(name).withValue(value);
             event.check();
             return event;
         }
 
         @Override
         protected VertexPropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {
-            VertexPropertyUpdatedGraphEvent event = new VertexPropertyUpdatedGraphEvent().withGraph(Graph.this).withVertex(this).withName(name).withValue(value).withOldValue(oldValue);
+            VertexPropertyUpdatedGraphEvent event = new VertexPropertyUpdatedGraphEvent().withGraph(UndirectedGraph.this).withVertex(this).withName(name).withValue(value).withOldValue(oldValue);
             event.check();
             return event;
         }
@@ -353,11 +353,11 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
     private Map<String, Object> nodeProperties;
     protected Map<String, Object> edgeProperties;
 
-    public Graph() {
+    public UndirectedGraph() {
         this(EventBus.getDefault());
     }
 
-    public Graph(EventBus bus) {
+    public UndirectedGraph(EventBus bus) {
         super(bus);
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashSet<>();
@@ -367,7 +367,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         postCreatedEvent();
     }
 
-    public Graph(Object id) {
+    public UndirectedGraph(Object id) {
         super(EventBus.getDefault());
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashSet<>();
@@ -378,7 +378,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         postCreatedEvent();
     }
 
-    public Graph(Object id, EventBus bus) {
+    public UndirectedGraph(Object id, EventBus bus) {
         super(bus);
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashSet<>();
@@ -393,7 +393,7 @@ public class Graph extends OptionallyIdentifiedElement<Graph> {
         getBus().post(graphCreated().graphId(getId().orElse(null)).build());
     }
 
-    protected Graph self() {
+    protected UndirectedGraph self() {
         return this;
     }
 

@@ -1,7 +1,7 @@
 package publicapi.elementcontracts;
 
-import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.element.InheritingElement;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AllInheritingElementsTest {
     static Map<String, Object> inherited = new HashMap<>();
-    static Graph graph = new Graph("graph");
+    static UndirectedGraph graph = new UndirectedGraph("graph");
     static Stream<InheritingElement> elements() {
         return Stream.of(
                 new TestInheritingElement(inherited, EventBus.getDefault()),

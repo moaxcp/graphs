@@ -1,22 +1,22 @@
 package stubs;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import com.github.moaxcp.graphs.event.GraphEvent;
 
 public class TestEvent implements GraphEvent {
 
     @Override
-    public Graph getGraph() {
+    public UndirectedGraph getGraph() {
         return null;
     }
 
     @Override
-    public void setGraph(Graph graph) {
+    public void setGraph(UndirectedGraph graph) {
 
     }
 
     @Override
-    public GraphEvent withGraph(Graph graph) {
+    public GraphEvent withGraph(UndirectedGraph graph) {
         return null;
     }
 

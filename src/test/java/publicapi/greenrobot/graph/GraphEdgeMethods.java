@@ -1,6 +1,6 @@
-package publicapi.graph;
+package publicapi.greenrobot.graph;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -8,7 +8,7 @@ import static com.google.common.truth.Truth8.assertThat;
 import static com.github.moaxcp.graphs.Truth.assertThat;
 
 public class GraphEdgeMethods {
-    Graph graph = new Graph("graph");
+    UndirectedGraph graph = new UndirectedGraph("graph");
 
     @Test
     void addNewEdge() {
