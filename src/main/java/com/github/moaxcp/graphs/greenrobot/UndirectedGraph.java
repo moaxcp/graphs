@@ -253,34 +253,34 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             super.setProperty(name, value);
         }
 
-        public Vertex connectsTo(String to) {
+        public Vertex connectsTo(Object to) {
             check();
             edge(getId(), to);
             return this;
         }
 
-        public Vertex connectsFrom(String s) {
+        public Vertex connectsFrom(Object s) {
             check();
             edge(s, getId());
             return this;
         }
 
-        public Edge edgeTo(String id) {
+        public Edge edgeTo(Object to) {
             check();
-            return edge(getId(), id);
+            return edge(getId(), to);
         }
 
-        public Edge edgeFrom(String id) {
+        public Edge edgeFrom(Object from) {
             check();
-            return edge(id, getId());
+            return edge(from, getId());
         }
 
-        public Vertex toVertex(String id) {
+        public Vertex toVertex(Object id) {
             check();
             return edgeTo(id).toVertex();
         }
 
-        public Vertex fromVertex(String id) {
+        public Vertex fromVertex(Object id) {
             check();
             return edgeFrom(id).fromVertex();
         }
@@ -433,7 +433,7 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         return vertex;
     }
 
-    public void removeVertex(String id) {
+    public void removeVertex(Object id) {
         Objects.requireNonNull(id);
         var optional = findVertex(id);
         if (!optional.isPresent()) {
