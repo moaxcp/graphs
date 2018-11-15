@@ -1,16 +1,13 @@
 package publicapi.greenrobot.graph;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-import com.github.moaxcp.graphs.GraphSubject;
-import stubs.TestHandler;
-import com.github.moaxcp.graphs.VertexSubject;
-import com.github.moaxcp.graphs.event.EdgeRemovedGraphEvent;
-import com.github.moaxcp.graphs.event.VertexAddedGraphEvent;
-import com.github.moaxcp.graphs.event.VertexRemovedGraphEvent;
-import org.greenrobot.eventbus.EventBus;
-import org.junit.jupiter.api.Test;
-
-import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.*;
+import static com.github.moaxcp.graphs.Truth.*;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.event.*;
+import com.github.moaxcp.graphs.greenrobot.*;
+import org.greenrobot.eventbus.*;
+import org.junit.jupiter.api.*;
+import stubs.*;
 
 public class GraphVertexMethods {
     UndirectedGraph graph = new UndirectedGraph("graph");
@@ -51,16 +48,16 @@ public class GraphVertexMethods {
     void addNewVertex() {
         var vertex = graph.vertex("id");
         GraphSubject.assertThat(graph).hasVertexThat("id").isSameAs(vertex);
-        VertexSubject.assertThat(vertex).hasId("id");
-        VertexSubject.assertThat(vertex).thatProperty("id").hasValue("id");
-        VertexSubject.assertThat(vertex).thatLocal("id").isEqualTo("id");
+        assertThat(vertex).hasId("id");
+        assertThat(vertex).thatProperty("id").hasValue("id");
+        assertThat(vertex).thatLocal("id").isEqualTo("id");
     }
 
     @Test
     void addExistingVertex() {
-        UndirectedGraph.Vertex vertexA = graph.vertex("A");
-        UndirectedGraph.Vertex vertexB = graph.vertex("A");
-        VertexSubject.assertThat(vertexA).isSameAs(vertexB);
+        var vertexA = graph.vertex("A");
+        var vertexB = graph.vertex("A");
+        assertThat(vertexA).isSameAs(vertexB);
     }
 
     @Test
@@ -71,6 +68,6 @@ public class GraphVertexMethods {
         assertThat(handler.getEvent()).isInstanceOf(VertexAddedGraphEvent.class);
         var event = (VertexAddedGraphEvent) handler.getEvent();
         GraphSubject.assertThat(event.getGraph()).isSameAs(graph);
-        VertexSubject.assertThat(event.getVertex()).isSameAs(vertex);
+        assertThat(event.getVertex()).isSameAs(vertex);
     }
 }

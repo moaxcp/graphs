@@ -1,8 +1,7 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.Edge;
-
-import java.util.Objects;
+import com.github.moaxcp.graphs.SimpleGraph.*;
+import java.util.*;
 
 public abstract class BaseEdgeGraphEvent extends BaseGraphEvent implements EdgeGraphEvent {
     private Edge edge;

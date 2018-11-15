@@ -1,8 +1,7 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-
-import java.util.Objects;
+import com.github.moaxcp.graphs.*;
+import java.util.*;
 
 public class GraphPropertyUpdatedGraphEvent extends GraphPropertyGraphEvent implements PropertyUpdatedGraphEvent {
 
@@ -31,7 +30,7 @@ public class GraphPropertyUpdatedGraphEvent extends GraphPropertyGraphEvent impl
     }
 
     @Override
-    public GraphPropertyUpdatedGraphEvent withGraph(UndirectedGraph graph) {
+    public GraphPropertyUpdatedGraphEvent withGraph(SimpleGraph graph) {
         setGraph(graph);
         return this;
     }

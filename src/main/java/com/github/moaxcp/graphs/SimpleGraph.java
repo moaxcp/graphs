@@ -1,14 +1,12 @@
 package com.github.moaxcp.graphs;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Interface for all simple graphs. This includes undirected, directed and specialized graphs such as directed acyclic
  * graph (DAG).
  */
-public interface Graph {
+public interface SimpleGraph {
     public interface Vertex {
         Object getId();
         void setId(Object id);
@@ -23,10 +21,11 @@ public interface Graph {
         Set<Edge> adjacentEdges();
         Set<Edge> inEdges();
         Set<Edge> outEdges();
-        Object getProperty(String name);
+        Optional<Object> getProperty(String name);
         void setProperty(String name, Object value);
         Vertex property(String name, Object value);
         Vertex removeProperty(String name);
+        Map<String, Object> getLocal();
     }
 
     public interface Edge {
@@ -44,10 +43,11 @@ public interface Graph {
         Vertex fromVertex();
         Vertex toVertex();
         boolean isDirected();
-        Object getProperty(String name);
+        Optional<Object> getProperty(String name);
         void setProperty(String name, Object value);
         Edge property(String name, Object value);
         Edge removeProperty(String name);
+        Map<String, Object> getLocal();
         boolean equals(Object from, Object to);
     }
 
@@ -62,20 +62,20 @@ public interface Graph {
     Edge edge(Object from, Object to);
     void removeEdge(Object from, Object to);
     void removeEdge(Object id);
-    Object getId();
+    Optional<Object> getId();
     void setId(Object id);
-    Graph id(Object id);
+    SimpleGraph id(Object id);
     boolean isDirected();
-    Object getProperty(String name);
+    Optional<Object> getProperty(String name);
     void setProperty(String name, Object value);
-    Graph property(String name, Object value);
-    Graph removeProperty(String name);
-    Object getEdgeProperty(String name);
+    SimpleGraph property(String name, Object value);
+    SimpleGraph removeProperty(String name);
+    Optional<Object> getEdgeProperty(String name);
     void setEdgeProperty(String name, Object value);
-    Graph edgeProperty(String name, Object value);
-    Graph removeEdgeProperty(String name);
-    Object getVertexProperty(String name);
+    SimpleGraph edgeProperty(String name, Object value);
+    SimpleGraph removeEdgeProperty(String name);
+    Optional<Object> getVertexProperty(String name);
     void setVertexProperty(String name, Object value);
-    Graph vertexProperty(String name, Object value);
-    Graph removeVertexProperty(String name);
+    SimpleGraph vertexProperty(String name, Object value);
+    SimpleGraph removeVertexProperty(String name);
 }

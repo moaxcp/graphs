@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.Vertex;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.SimpleGraph.*;
 
 public class VertexRemovedGraphEvent extends BaseVertexGraphEvent {
     @Override
@@ -11,7 +11,7 @@ public class VertexRemovedGraphEvent extends BaseVertexGraphEvent {
     }
 
     @Override
-    public VertexRemovedGraphEvent withGraph(UndirectedGraph graph) {
+    public VertexRemovedGraphEvent withGraph(SimpleGraph graph) {
         setGraph(graph);
         return this;
     }

@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import com.github.moaxcp.graphs.*;
 
 public class GraphPropertyAddedGraphEvent extends GraphPropertyGraphEvent implements PropertyAddedGraphEvent {
     @Override
@@ -16,7 +16,7 @@ public class GraphPropertyAddedGraphEvent extends GraphPropertyGraphEvent implem
     }
 
     @Override
-    public GraphPropertyAddedGraphEvent withGraph(UndirectedGraph graph) {
+    public GraphPropertyAddedGraphEvent withGraph(SimpleGraph graph) {
         setGraph(graph);
         return this;
     }

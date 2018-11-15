@@ -1,8 +1,8 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-
-import java.util.Objects;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.SimpleGraph.*;
+import java.util.*;
 
 public class EdgePropertyUpdatedGraphEvent extends EdgePropertyGraphEvent implements PropertyUpdatedGraphEvent {
 
@@ -31,13 +31,13 @@ public class EdgePropertyUpdatedGraphEvent extends EdgePropertyGraphEvent implem
     }
 
     @Override
-    public EdgePropertyUpdatedGraphEvent withGraph(UndirectedGraph graph) {
+    public EdgePropertyUpdatedGraphEvent withGraph(SimpleGraph graph) {
         setGraph(graph);
         return this;
     }
 
     @Override
-    public EdgePropertyUpdatedGraphEvent withEdge(UndirectedGraph.Edge edge) {
+    public EdgePropertyUpdatedGraphEvent withEdge(Edge edge) {
         setEdge(edge);
         return this;
     }

@@ -1,15 +1,12 @@
 package com.github.moaxcp.graphs.greenrobot;
 
-import com.github.moaxcp.graphs.element.IdentifiedInheritingElement;
-import com.github.moaxcp.graphs.element.OptionallyIdentifiedElement;
-import com.github.moaxcp.graphs.element.OptionallyIdentifiedInheritingElement;
+import static com.github.moaxcp.graphs.newevents.Builders.*;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.element.*;
 import com.github.moaxcp.graphs.event.*;
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.github.moaxcp.graphs.newevents.Builders.graphCreated;
+import java.util.stream.*;
+import org.greenrobot.eventbus.*;
 
 /**
  * Graph represents an undrected graph backed by an adjacency list. Methods in Graph provide the following guarentees:
@@ -22,20 +19,20 @@ import static com.github.moaxcp.graphs.newevents.Builders.graphCreated;
  *     </ul>
  * </p>
  */
-public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph> {
+public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph> implements SimpleGraph {
 
     /**
      * Edge represents an undirected edge in this graph.
      */
-    public class Edge extends OptionallyIdentifiedInheritingElement<Edge> {
-        protected Edge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
+    public class UndirectedEdge extends OptionallyIdentifiedInheritingElement<UndirectedEdge> implements Edge {
+        protected UndirectedEdge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(inherited, bus);
             super.setProperty("from", from);
             super.setProperty("to", to);
         }
 
         @Override
-        protected Edge self() {
+        protected UndirectedEdge self() {
             return this;
         }
 
@@ -138,6 +135,11 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         }
 
         @Override
+        public boolean isDirected() {
+            return false;
+        }
+
+        @Override
         public void setProperty(String name, Object value) {
             check();
             if ("from".equals(name)) {
@@ -152,7 +154,7 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         }
 
         @Override
-        public void removeProperty(String name) {
+        public UndirectedEdge removeProperty(String name) {
             check();
             if("id".equals(name)) {
                 getId().ifPresent(edgeIds::remove);
@@ -163,7 +165,7 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             if ("to".equals(name)) {
                 throw new IllegalArgumentException("'to' can not be removed.");
             }
-            super.removeProperty(name);
+            return super.removeProperty(name);
         }
 
         public boolean equals(Object from, Object to) {
@@ -175,10 +177,10 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof UndirectedGraph.Edge)) {
+            if (!(obj instanceof UndirectedEdge)) {
                 return false;
             }
-            Edge edge = (Edge) obj;
+            UndirectedEdge edge = (UndirectedEdge) obj;
             return equals(edge.getFrom(), edge.getTo());
         }
 
@@ -212,13 +214,13 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
     /**
      * Vertex represents a vertex in this graph.
      */
-    public class Vertex extends IdentifiedInheritingElement<Vertex> {
-        private Vertex(Object id, Map<String, Object> inherited, EventBus bus) {
+    public class UndirectedVertex extends IdentifiedInheritingElement<UndirectedVertex> implements Vertex {
+        private UndirectedVertex(Object id, Map<String, Object> inherited, EventBus bus) {
             super(id, inherited, bus);
         }
 
         @Override
-        protected Vertex self() {
+        protected UndirectedVertex self() {
             return this;
         }
 
@@ -285,6 +287,11 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             return edgeFrom(id).fromVertex();
         }
 
+        @Override
+        public Set<Edge> traverseEdges() {
+            return adjacentEdges();
+        }
+
         public Set<Edge> adjacentEdges() {
             check();
             return edges.stream()
@@ -313,10 +320,10 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         @Override
         public final boolean equals(Object obj) {
             if (obj == this) return true;
-            if (!(obj instanceof UndirectedGraph.Vertex)) {
+            if (!(obj instanceof UndirectedVertex)) {
                 return false;
             }
-            Vertex vertex = (Vertex) obj;
+            UndirectedVertex vertex = (UndirectedVertex) obj;
             return Objects.equals(getId(), vertex.getId());
         }
 
@@ -415,6 +422,36 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         edgeProperties.put(key, value);
     }
 
+    @Override
+    public SimpleGraph edgeProperty(String name, Object value) {
+        return null;
+    }
+
+    @Override
+    public SimpleGraph removeEdgeProperty(String name) {
+        return null;
+    }
+
+    @Override
+    public Optional<Object> getVertexProperty(String name) {
+        return null;
+    }
+
+    @Override
+    public void setVertexProperty(String name, Object value) {
+
+    }
+
+    @Override
+    public SimpleGraph vertexProperty(String name, Object value) {
+        return null;
+    }
+
+    @Override
+    public SimpleGraph removeVertexProperty(String name) {
+        return null;
+    }
+
     void publish(GraphEvent event) {
         event.check();
         getBus().post(event);
@@ -425,7 +462,7 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
     }
 
     public Vertex vertex(Object id) {
-        var vertex = vertices.getOrDefault(id, new Vertex(id, nodeProperties, getBus()));
+        var vertex = vertices.getOrDefault(id, new UndirectedVertex(id, nodeProperties, getBus()));
         if (!vertices.containsKey(id)) {
             vertices.put(id, vertex);
             publish(new VertexAddedGraphEvent().withGraph(this).withVertex(vertex));
@@ -462,7 +499,7 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
     }
 
     Edge newEdge(Object from, Object to) {
-        return new Edge(from, to, edgeProperties, getBus());
+        return new UndirectedEdge(from, to, edgeProperties, getBus());
     }
 
     private Edge addEdge(Edge edge) {
@@ -475,6 +512,21 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
 
     public void removeEdge(Object from, Object to) {
         findEdge(from, to).ifPresent(this::removeAndNotify);
+    }
+
+    @Override
+    public void removeEdge(Object id) {
+
+    }
+
+    @Override
+    public boolean isDirected() {
+        return false;
+    }
+
+    @Override
+    public Optional<Object> getEdgeProperty(String name) {
+        return null;
     }
 
     private void removeAndNotify(Edge edge) {

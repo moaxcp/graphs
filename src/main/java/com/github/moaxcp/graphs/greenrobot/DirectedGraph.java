@@ -22,7 +22,7 @@ public class DirectedGraph extends UndirectedGraph {
         super(id, bus);
     }
 
-    public class DirectedEdge extends Edge {
+    public class DirectedEdge extends UndirectedEdge {
         protected DirectedEdge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
             super(from, to, inherited, bus);
         }
@@ -45,7 +45,7 @@ public class DirectedGraph extends UndirectedGraph {
             if (!(obj instanceof DirectedEdge)) {
                 return false;
             }
-            Edge edge = (Edge) obj;
+            UndirectedEdge edge = (UndirectedEdge) obj;
             return (Objects.equals(getFrom(), edge.getFrom()) && (Objects.equals(getTo(), edge.getTo())));
         }
 

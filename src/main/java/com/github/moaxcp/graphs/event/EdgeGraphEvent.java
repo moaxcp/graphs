@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.Edge;
+import com.github.moaxcp.graphs.SimpleGraph.*;
 
 public interface EdgeGraphEvent extends GraphEvent {
     Edge getEdge();

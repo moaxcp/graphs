@@ -1,12 +1,10 @@
 package publicapi.greenrobot;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-import com.github.moaxcp.graphs.Truth;
-import org.junit.jupiter.api.Test;
-
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.github.moaxcp.graphs.greenrobot.*;
+import org.junit.jupiter.api.*;
 
 public class EdgeEquals {
     private UndirectedGraph graph = new UndirectedGraph();
@@ -14,13 +12,13 @@ public class EdgeEquals {
     @Test
     void testEqualsNull() {
         var edge = graph.edge("from", "to");
-        Truth.assertThat(edge).isNotEqualTo(null);
+        assertThat(edge).isNotEqualTo(null);
     }
 
     @Test
     void testEqualsReflexive() {
         var edge = graph.edge("from", "to");
-        Truth.assertThat(edge).isEqualTo(edge);
+        assertThat(edge).isEqualTo(edge);
     }
 
     @Test

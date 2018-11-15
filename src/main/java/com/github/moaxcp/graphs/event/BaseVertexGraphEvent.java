@@ -1,8 +1,7 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.Vertex;
-
-import java.util.Objects;
+import com.github.moaxcp.graphs.SimpleGraph.*;
+import java.util.*;
 
 public abstract class BaseVertexGraphEvent extends BaseGraphEvent implements VertexGraphEvent {
     private Vertex vertex;

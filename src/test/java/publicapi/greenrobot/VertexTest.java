@@ -1,11 +1,10 @@
 package publicapi.greenrobot;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-import org.junit.jupiter.api.Test;
-
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.github.moaxcp.graphs.greenrobot.*;
+import org.junit.jupiter.api.*;
 
 public class VertexTest {
     UndirectedGraph graph = new UndirectedGraph("graph");
@@ -38,7 +37,7 @@ public class VertexTest {
 
         var edges = vertex.adjacentEdges();
         assertThat(edges).hasSize(2);
-        for(UndirectedGraph.Edge edge : edges) {
+        for(var edge : edges) {
             assertThat(edge.getLocal().values()).contains("A");
         }
     }

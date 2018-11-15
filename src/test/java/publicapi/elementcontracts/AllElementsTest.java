@@ -1,22 +1,19 @@
 package publicapi.elementcontracts;
 
-import com.github.moaxcp.graphs.element.Element;
-import com.github.moaxcp.graphs.event.PropertyAddedGraphEvent;
-import com.github.moaxcp.graphs.event.PropertyRemovedGraphEvent;
-import com.github.moaxcp.graphs.event.PropertyUpdatedGraphEvent;
-import com.github.moaxcp.graphs.greenrobot.DirectedGraph;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-import org.greenrobot.eventbus.EventBus;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import stubs.*;
-
-import java.util.HashMap;
-import java.util.stream.Stream;
-
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import com.github.moaxcp.graphs.element.*;
+import com.github.moaxcp.graphs.event.*;
+import com.github.moaxcp.graphs.greenrobot.*;
+import com.github.moaxcp.graphs.greenrobot.DirectedGraph.*;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.*;
+import java.util.*;
+import java.util.stream.*;
+import org.greenrobot.eventbus.*;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.*;
+import stubs.*;
 
 class AllElementsTest {
 
@@ -29,11 +26,11 @@ class AllElementsTest {
                 new TestIdentifiedInheritingElement("id", new HashMap<>(), EventBus.getDefault()),
                 new TestOptionallyIdentifiedElement(EventBus.getDefault()),
                 new TestOptionallyIdentifiedInheritingElement(new HashMap<>(), EventBus.getDefault()),
-                graph.vertex("a"),
-                graph.edge("from", "to"),
+                (UndirectedVertex) graph.vertex("a"),
+                (UndirectedEdge) graph.edge("from", "to"),
                 new UndirectedGraph("id"),
                 new DirectedGraph("id"),
-                directedGraph.edge("from", "to"));
+                (DirectedEdge) directedGraph.edge("from", "to"));
     }
 
     @ParameterizedTest

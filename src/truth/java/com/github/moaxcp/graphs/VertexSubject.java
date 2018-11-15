@@ -1,16 +1,14 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import static com.google.common.truth.OptionalSubject.*;
+import static com.google.common.truth.Truth.*;
+import com.github.moaxcp.graphs.SimpleGraph.*;
 import com.google.common.truth.*;
-import org.checkerframework.checker.nullness.compatqual.NullableDecl;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import java.util.*;
+import org.checkerframework.checker.nullness.compatqual.*;
+import org.checkerframework.checker.nullness.qual.*;
 
-import java.util.Optional;
-
-import static com.google.common.truth.OptionalSubject.optionals;
-import static com.google.common.truth.Truth.assertAbout;
-
-public class VertexSubject extends Subject<VertexSubject, UndirectedGraph.Vertex> {
+public class VertexSubject extends Subject<VertexSubject, Vertex> {
     /**
      * Constructor for use by subclasses. If you want to create an instance of this class itself, call
      * {@link Subject#check}{@code .that(actual)}.
@@ -18,15 +16,15 @@ public class VertexSubject extends Subject<VertexSubject, UndirectedGraph.Vertex
      * @param metadata
      * @param actual
      */
-    private VertexSubject(FailureMetadata metadata, @NullableDecl UndirectedGraph.Vertex actual) {
+    private VertexSubject(FailureMetadata metadata, @NullableDecl Vertex actual) {
         super(metadata, actual);
     }
 
-    public static Subject.Factory<VertexSubject, UndirectedGraph.Vertex> vertices() {
+    public static Subject.Factory<VertexSubject, Vertex> vertices() {
         return VertexSubject::new;
     }
 
-    public static VertexSubject assertThat(@Nullable UndirectedGraph.Vertex actual) {
+    public static VertexSubject assertThat(@Nullable Vertex actual) {
         return assertAbout(vertices()).that(actual);
     }
 

@@ -1,19 +1,16 @@
 package publicapi.elementcontracts;
 
-import com.github.moaxcp.graphs.greenrobot.DirectedGraph;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-import com.github.moaxcp.graphs.element.OptionallyIdentifiedInheritingElement;
-import stubs.TestOptionallyIdentifiedInheritingElement;
-import org.greenrobot.eventbus.EventBus;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth8.assertThat;
+import static com.google.common.truth.Truth8.*;
+import com.github.moaxcp.graphs.element.*;
+import com.github.moaxcp.graphs.greenrobot.*;
+import com.github.moaxcp.graphs.greenrobot.DirectedGraph.*;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.*;
+import java.util.*;
+import java.util.stream.*;
+import org.greenrobot.eventbus.*;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.*;
+import stubs.*;
 
 public class AllOptionallyIdentifiedInheritingElementsTest {
     static Map<String, Object> inherited = new HashMap<>();
@@ -21,8 +18,8 @@ public class AllOptionallyIdentifiedInheritingElementsTest {
     static Stream<OptionallyIdentifiedInheritingElement> elements() {
         return Stream.of(
                 new TestOptionallyIdentifiedInheritingElement(inherited, EventBus.getDefault()),
-                new UndirectedGraph().edge("from", "to"),
-                new DirectedGraph().edge("from", "to"));
+                (UndirectedEdge) new UndirectedGraph().edge("from", "to"),
+                (DirectedEdge) new DirectedGraph().edge("from", "to"));
     }
 
     @ParameterizedTest

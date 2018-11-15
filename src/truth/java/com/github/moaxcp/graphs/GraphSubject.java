@@ -1,21 +1,16 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.Vertex;
-import com.google.common.truth.FailureMetadata;
-import com.google.common.truth.Subject;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import static com.github.moaxcp.graphs.EdgeSubject.*;
+import static com.github.moaxcp.graphs.VertexSubject.*;
+import static com.google.common.truth.Fact.*;
+import static com.google.common.truth.OptionalSubject.*;
+import static com.google.common.truth.Truth.*;
+import com.github.moaxcp.graphs.SimpleGraph.*;
+import com.google.common.truth.*;
+import java.util.*;
+import org.checkerframework.checker.nullness.qual.*;
 
-import java.util.HashSet;
-import java.util.Optional;
-
-import static com.github.moaxcp.graphs.EdgeSubject.edges;
-import static com.github.moaxcp.graphs.VertexSubject.vertices;
-import static com.google.common.truth.Fact.simpleFact;
-import static com.google.common.truth.OptionalSubject.optionals;
-import static com.google.common.truth.Truth.assertAbout;
-
-public final class GraphSubject extends Subject<GraphSubject, UndirectedGraph> {
+public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
 
     /**
      * Constructor for use by subclasses. If you want to create an instance of this class itself, call
@@ -24,15 +19,15 @@ public final class GraphSubject extends Subject<GraphSubject, UndirectedGraph> {
      * @param metadata
      * @param actual
      */
-    private GraphSubject(FailureMetadata metadata, UndirectedGraph actual) {
+    private GraphSubject(FailureMetadata metadata, SimpleGraph actual) {
         super(metadata, actual);
     }
 
-    public static Subject.Factory<GraphSubject, UndirectedGraph> graphs() {
+    public static Subject.Factory<GraphSubject, SimpleGraph> graphs() {
         return GraphSubject::new;
     }
 
-    public static GraphSubject assertThat(@Nullable UndirectedGraph actual) {
+    public static GraphSubject assertThat(@Nullable SimpleGraph actual) {
         return assertAbout(graphs()).that(actual);
     }
 
@@ -50,13 +45,13 @@ public final class GraphSubject extends Subject<GraphSubject, UndirectedGraph> {
     public EdgeSubject hasEdge(Object from, Object to) {
         hasVertexThat(from);
         hasVertexThat(to);
-        Optional<UndirectedGraph.Edge> find = actual().findEdge(from, to);
+        Optional<Edge> find = actual().findEdge(from, to);
         check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isPresent();
         return assertAbout(edges()).that(find.orElse(null));
     }
 
     public EdgeSubject hasEdge(Object id) {
-        Optional<UndirectedGraph.Edge> find = actual().findEdge(id);
+        Optional<Edge> find = actual().findEdge(id);
         check("edge(%s)", id).about(optionals()).that(find).isPresent();
         return assertAbout(edges()).that(find.orElse(null));
     }

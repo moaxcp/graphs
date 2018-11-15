@@ -80,13 +80,14 @@ public abstract class Element<T extends Element<T>> {
         return self();
     }
 
-    public void removeProperty(String name) {
+    public T removeProperty(String name) {
         Objects.requireNonNull(name);
         if(!local.containsKey(name)) {
             throw new IllegalArgumentException("element does not contain property named '" + name + "'.");
         }
         Object remove = local.remove(name);
         notifyRemoveProperty(name, remove);
+        return self();
     }
 
     void notifyAddProperty(String name, Object value) {

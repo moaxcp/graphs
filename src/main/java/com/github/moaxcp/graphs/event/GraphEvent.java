@@ -1,13 +1,13 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import com.github.moaxcp.graphs.*;
 
 public interface GraphEvent {
-    UndirectedGraph getGraph();
+    SimpleGraph getGraph();
 
-    void setGraph(UndirectedGraph graph);
+    void setGraph(SimpleGraph graph);
 
-    GraphEvent withGraph(UndirectedGraph graph);
+    GraphEvent withGraph(SimpleGraph graph);
 
     void check();
 }

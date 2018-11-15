@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs.event;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import com.github.moaxcp.graphs.*;
 
 public class GraphPropertyRemovedGraphEvent extends GraphPropertyGraphEvent implements PropertyRemovedGraphEvent {
     @Override
@@ -16,7 +16,7 @@ public class GraphPropertyRemovedGraphEvent extends GraphPropertyGraphEvent impl
     }
 
     @Override
-    public GraphPropertyRemovedGraphEvent withGraph(UndirectedGraph graph) {
+    public GraphPropertyRemovedGraphEvent withGraph(SimpleGraph graph) {
         setGraph(graph);
         return this;
     }

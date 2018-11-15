@@ -1,5 +1,6 @@
 package publicapi.greenrobot;
 
+import static com.github.moaxcp.graphs.Truth.*;
 import com.github.moaxcp.graphs.greenrobot.DirectedGraph;
 import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -7,12 +8,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth8.assertThat;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static com.github.moaxcp.graphs.Truth.assertThat;
 
 public class EdgeTest {
 

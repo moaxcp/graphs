@@ -25,7 +25,7 @@ public abstract class OptionallyIdentifiedElement<T extends OptionallyIdentified
         super.setProperty("id", id);
     }
 
-    public OptionallyIdentifiedElement<T> id(Object id) {
+    public T id(Object id) {
         setId(id);
         return self();
     }

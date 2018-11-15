@@ -37,10 +37,10 @@ public abstract class IdentifiedInheritingElement<T extends IdentifiedInheriting
     }
 
     @Override
-    public void removeProperty(String name) {
+    public T removeProperty(String name) {
         if ("id".equals(name)) {
             throw new IllegalArgumentException("id can not be removed.");
         }
-        super.removeProperty(name);
+        return super.removeProperty(name);
     }
 }

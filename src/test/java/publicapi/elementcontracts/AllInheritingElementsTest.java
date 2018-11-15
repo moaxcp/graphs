@@ -1,22 +1,17 @@
 package publicapi.elementcontracts;
 
-import com.github.moaxcp.graphs.element.InheritingElement;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
-import org.greenrobot.eventbus.EventBus;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import stubs.TestIdentifiedInheritingElement;
-import stubs.TestInheritingElement;
-import stubs.TestOptionallyIdentifiedInheritingElement;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
-import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth8.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.google.common.truth.Truth8.*;
+import static org.junit.jupiter.api.Assertions.*;
+import com.github.moaxcp.graphs.element.*;
+import com.github.moaxcp.graphs.greenrobot.*;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.*;
+import java.util.*;
+import java.util.stream.*;
+import org.greenrobot.eventbus.*;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.*;
+import stubs.*;
 
 public class AllInheritingElementsTest {
     static Map<String, Object> inherited = new HashMap<>();
@@ -26,8 +21,8 @@ public class AllInheritingElementsTest {
                 new TestInheritingElement(inherited, EventBus.getDefault()),
                 new TestIdentifiedInheritingElement("id", inherited, EventBus.getDefault()),
                 new TestOptionallyIdentifiedInheritingElement(inherited, EventBus.getDefault()),
-                graph.vertex("a"),
-                graph.edge("from", "to"));
+                (UndirectedVertex) graph.vertex("a"),
+                (UndirectedEdge) graph.edge("from", "to"));
     }
 
     @BeforeAll
