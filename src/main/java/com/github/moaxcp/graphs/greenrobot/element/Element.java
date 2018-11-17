@@ -1,11 +1,8 @@
-package com.github.moaxcp.graphs.element;
+package com.github.moaxcp.graphs.greenrobot.element;
 
-import com.github.moaxcp.graphs.event.PropertyAddedGraphEvent;
-import com.github.moaxcp.graphs.event.PropertyRemovedGraphEvent;
-import com.github.moaxcp.graphs.event.PropertyUpdatedGraphEvent;
-import org.greenrobot.eventbus.EventBus;
-
+import com.github.moaxcp.graphs.event.*;
 import java.util.*;
+import org.greenrobot.eventbus.*;
 
 /**
  * Element provides easy access to the EventBus and properties to child objects.

@@ -1,6 +1,6 @@
 package stubs;
 
-import com.github.moaxcp.graphs.element.OptionallyIdentifiedInheritingElement;
+import com.github.moaxcp.graphs.greenrobot.element.OptionallyIdentifiedInheritingElement;
 import com.github.moaxcp.graphs.event.*;
 import org.greenrobot.eventbus.EventBus;
 

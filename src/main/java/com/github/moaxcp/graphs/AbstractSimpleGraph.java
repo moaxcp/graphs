@@ -1,45 +1,103 @@
-package com.github.moaxcp.graphs.greenrobot;
+package com.github.moaxcp.graphs;
 
-import static com.github.moaxcp.graphs.newevents.Builders.*;
-import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.greenrobot.element.*;
-import com.github.moaxcp.graphs.event.*;
+import static java.util.Collections.unmodifiableMap;
+import static java.util.Objects.requireNonNull;
+import static java.util.Optional.ofNullable;
+import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
 import java.util.*;
-import java.util.stream.*;
-import org.greenrobot.eventbus.*;
+import java.util.stream.Collectors;
 
-/**
- * Graph represents an undrected graph backed by an adjacency list. Methods in Graph provide the following guarentees:
- * <p>
- *     <ul>
- *         <li>The graph is always valid. All edges point to vertices within the graph.</li>
- *         <li>Never return null.</li>
- *         <li>Referencing missing elements will create them for most methods.</li>
- *         <li>Changes to the graph, vertices, or edges results in an event</li>
- *     </ul>
- * </p>
- */
-public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph> implements SimpleGraph {
+abstract class AbstractSimpleGraph implements SimpleGraph {
+    private abstract class InheritingElement<T> {
+        private Map<String, Object> inherited;
+        private Map<String, Object> local = new LinkedHashMap<>();
+
+        public InheritingElement(Map<String, Object> inherited) {
+            this.inherited = unmodifiableMap(requireNonNull(inherited, "inherited must not be null."));
+        }
+
+        public Map<String, Object> inherited() {
+            return inherited;
+        }
+
+        @SuppressWarnings("unchecked")
+        T self() {
+            return (T) this;
+        }
+
+        /**
+         * Returns an unmodifiable {@link Map} of all properties set on this Element.
+         * @return all properties set on this element
+         */
+        public Map<String, Object> getLocal() {
+            return unmodifiableMap(local);
+        }
+
+        /**
+         * Returns the value mapped to name.
+         * @param name  of property to return
+         * @return value mapped to name
+         * @throws NullPointerException if name is null
+         */
+        public Optional<Object> getProperty(String name) {
+            Object value = local.get(requireNonNull(name, "name must not be null."));
+            if (value != null) {
+                return Optional.of(value);
+            }
+            return ofNullable(inherited.get(name));
+        }
+
+        /**
+         * Maps name to value
+         * @param name
+         * @param value
+         */
+        public void setProperty(String name, Object value) {
+            requireNonNull(name, "name must not be null.");
+            requireNonNull(value, "value must not be null.");
+            if(name.isEmpty()) {
+                throw new IllegalArgumentException("name must not be empty.");
+            }
+            local.put(name, value);
+        }
+
+        public void addProperties(Map<String, Object> properties) {
+            local.putAll(properties);
+        }
+
+        public T property(String name, Object value) {
+            setProperty(name, value);
+            return self();
+        }
+
+        public T removeProperty(String name) {
+            requireNonNull(name, "name must not be null.");
+            if(!local.containsKey(name)) {
+                throw new IllegalArgumentException("element does not contain property named '" + name + "'.");
+            }
+            local.remove(name);
+            return self();
+        }
+    }
 
     /**
      * Edge represents an undirected edge in this graph.
      */
-    public class UndirectedEdge extends OptionallyIdentifiedInheritingElement<UndirectedEdge> implements Edge {
-        protected UndirectedEdge(Object from, Object to, Map<String, Object> inherited, EventBus bus) {
-            super(inherited, bus);
+    public abstract class AbstractEdge extends InheritingElement<Edge> implements Edge {
+        protected AbstractEdge(Object from, Object to, Map<String, Object> inherited) {
+            super(inherited);
             super.setProperty("from", from);
             super.setProperty("to", to);
-        }
-
-        @Override
-        protected UndirectedEdge self() {
-            return this;
         }
 
         private void check() {
             if(!edges.contains(this)) {
                 throw new IllegalStateException("Edge is not in graph.");
             }
+        }
+
+        public Optional<Object> getId() {
+            return getProperty("id");
         }
 
         @Override
@@ -49,7 +107,19 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             if(id != null) {
                 edgeIds.put(id, this);
             }
-            super.setId(id);
+            if (id == null && !getId().isPresent()) {
+                return;
+            }
+            if (id == null && getId().isPresent()) {
+                removeProperty("id");
+                return;
+            }
+            super.setProperty("id", id);
+        }
+
+        public Edge id(Object id) {
+            setId(id);
+            return self();
         }
 
         /**
@@ -150,11 +220,15 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
                 setTo((value));
                 return;
             }
+            if ("id".equals(name)) {
+                setId(value);
+                return;
+            }
             super.setProperty(name, value);
         }
 
         @Override
-        public UndirectedEdge removeProperty(String name) {
+        public Edge removeProperty(String name) {
             check();
             if("id".equals(name)) {
                 getId().ifPresent(edgeIds::remove);
@@ -177,10 +251,10 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof UndirectedEdge)) {
+            if (!(obj instanceof UndirectedGraph.UndirectedEdge)) {
                 return false;
             }
-            UndirectedEdge edge = (UndirectedEdge) obj;
+            UndirectedGraph.UndirectedEdge edge = (UndirectedGraph.UndirectedEdge) obj;
             return equals(edge.getFrom(), edge.getTo());
         }
 
@@ -188,46 +262,26 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         public int hashCode() {
             return Objects.hash(getFrom(), getTo());
         }
-
-        @Override
-        protected EdgePropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
-            EdgePropertyAddedGraphEvent event = new EdgePropertyAddedGraphEvent().withGraph(UndirectedGraph.this).withEdge(this).withName(name).withValue(value);
-            event.check();
-            return event;
-        }
-
-        @Override
-        protected EdgePropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-            EdgePropertyRemovedGraphEvent event = new EdgePropertyRemovedGraphEvent().withGraph(UndirectedGraph.this).withEdge(this).withName(name).withValue(value);
-            event.check();
-            return event;
-        }
-
-        @Override
-        protected EdgePropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {
-            EdgePropertyUpdatedGraphEvent event = new EdgePropertyUpdatedGraphEvent().withGraph(UndirectedGraph.this).withEdge(this).withName(name).withValue(value).withOldValue(oldValue);
-            event.check();
-            return event;
-        }
     }
 
     /**
      * Vertex represents a vertex in this graph.
      */
-    public class UndirectedVertex extends IdentifiedInheritingElement<UndirectedVertex> implements Vertex {
-        private UndirectedVertex(Object id, Map<String, Object> inherited, EventBus bus) {
-            super(id, inherited, bus);
-        }
-
-        @Override
-        protected UndirectedVertex self() {
-            return this;
+    public abstract class AbstractVertex extends InheritingElement<Vertex> implements Vertex {
+        private AbstractVertex(Object id, Map<String, Object> inherited) {
+            super(inherited);
+            Objects.requireNonNull(id, "id must not be null.");
+            super.setProperty("id", id);
         }
 
         private void check() {
             if(!vertices.containsKey(getId())) {
                 throw new IllegalStateException("Vertex is not in graph.");
             }
+        }
+
+        public Object getId() {
+            return getProperty("id").get();
         }
 
         @Override
@@ -237,7 +291,7 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             Set<? extends Edge> adjacent = adjacentEdges();
             Object oldId = getId();
             vertices.remove(this.getId());
-            super.setId(id);
+            super.setProperty("id", id);
             vertices.put(id, this);
             for (Edge edge : adjacent) {
                 if (edge.getFrom().equals(oldId)) {
@@ -249,9 +303,18 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             }
         }
 
+        public Vertex id(Object id) {
+            setId(id);
+            return self();
+        }
+
         @Override
         public void setProperty(String name, Object value) {
             check();
+            if ("id".equals(name)) {
+                setId(value);
+                return;
+            }
             super.setProperty(name, value);
         }
 
@@ -313,6 +376,15 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
                     .collect(Collectors.toSet());
         }
 
+        @Override
+        public Vertex removeProperty(String name) {
+            if ("id".equals(name)) {
+                throw new IllegalArgumentException("id can not be removed.");
+            }
+            super.removeProperty(name);
+            return self();
+        }
+
         public final String toString() {
             return "Vertex '" + getId() + "' " + getLocal().toString();
         }
@@ -320,10 +392,10 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         @Override
         public final boolean equals(Object obj) {
             if (obj == this) return true;
-            if (!(obj instanceof UndirectedVertex)) {
+            if (!(obj instanceof UndirectedGraph.UndirectedVertex)) {
                 return false;
             }
-            UndirectedVertex vertex = (UndirectedVertex) obj;
+            UndirectedGraph.UndirectedVertex vertex = (UndirectedGraph.UndirectedVertex) obj;
             return Objects.equals(getId(), vertex.getId());
         }
 
@@ -331,77 +403,29 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         public final int hashCode() {
             return Objects.hash(getId());
         }
-
-        @Override
-        protected VertexPropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
-            VertexPropertyAddedGraphEvent event = new VertexPropertyAddedGraphEvent().withGraph(UndirectedGraph.this).withVertex(this).withName(name).withValue(value);
-            event.check();
-            return event;
-        }
-
-        @Override
-        protected VertexPropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-            VertexPropertyRemovedGraphEvent event = new VertexPropertyRemovedGraphEvent().withGraph(UndirectedGraph.this).withVertex(this).withName(name).withValue(value);
-            event.check();
-            return event;
-        }
-
-        @Override
-        protected VertexPropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {
-            VertexPropertyUpdatedGraphEvent event = new VertexPropertyUpdatedGraphEvent().withGraph(UndirectedGraph.this).withVertex(this).withName(name).withValue(value).withOldValue(oldValue);
-            event.check();
-            return event;
-        }
     }
+
 
     private Map<Object, Vertex> vertices;
-    private LinkedHashSet<Edge> edges;
-    private LinkedHashMap<Object, Edge> edgeIds;
-    private Map<String, Object> nodeProperties;
-    protected Map<String, Object> edgeProperties;
+    private Set<Edge> edges;
+    private Map<Object, Edge> edgeIds;
+    private Map<String, Object> vertexProperties;
+    private Map<String, Object> edgeProperties;
+    private Object id;
+    private Map<String, Object> properties;
 
-    public UndirectedGraph() {
-        this(EventBus.getDefault());
-    }
-
-    public UndirectedGraph(EventBus bus) {
-        super(bus);
+    AbstractSimpleGraph() {
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashSet<>();
         edgeIds = new LinkedHashMap<>();
-        nodeProperties = new LinkedHashMap<>();
+        vertexProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
-        postCreatedEvent();
+        properties = new LinkedHashMap<>();
     }
 
-    public UndirectedGraph(Object id) {
-        super(EventBus.getDefault());
-        vertices = new LinkedHashMap<>();
-        edges = new LinkedHashSet<>();
-        edgeIds = new LinkedHashMap<>();
-        nodeProperties = new LinkedHashMap<>();
-        edgeProperties = new LinkedHashMap<>();
-        super.setProperty("id", Objects.requireNonNull(id));
-        postCreatedEvent();
-    }
-
-    public UndirectedGraph(Object id, EventBus bus) {
-        super(bus);
-        vertices = new LinkedHashMap<>();
-        edges = new LinkedHashSet<>();
-        edgeIds = new LinkedHashMap<>();
-        nodeProperties = new LinkedHashMap<>();
-        edgeProperties = new LinkedHashMap<>();
-        super.setProperty("id", Objects.requireNonNull(id));
-        postCreatedEvent();
-    }
-
-    protected void postCreatedEvent() {
-        getBus().post(graphCreated().graphId(getId().orElse(null)).build());
-    }
-
-    protected UndirectedGraph self() {
-        return this;
+    AbstractSimpleGraph(Object id) {
+        this();
+        this.id = id;
     }
 
     public Map<Object, Vertex> getVertices() {
@@ -414,8 +438,8 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
 
     public Map<Object, Edge> getEdgeIds() { return Collections.unmodifiableMap(edgeIds); }
 
-    public void setNodeProperty(String key, Object value) {
-        nodeProperties.put(key, value);
+    public void setVertexProperty(String key, Object value) {
+        vertexProperties.put(key, value);
     }
 
     public void setEdgeProperty(String key, Object value) {
@@ -438,11 +462,6 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
     }
 
     @Override
-    public void setVertexProperty(String name, Object value) {
-
-    }
-
-    @Override
     public SimpleGraph vertexProperty(String name, Object value) {
         return null;
     }
@@ -452,20 +471,14 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         return null;
     }
 
-    void publish(GraphEvent event) {
-        event.check();
-        getBus().post(event);
-    }
-
     public Optional<Vertex> findVertex(Object id) {
         return Optional.ofNullable(vertices.get(id));
     }
 
     public Vertex vertex(Object id) {
-        var vertex = vertices.getOrDefault(id, new UndirectedVertex(id, nodeProperties, getBus()));
+        var vertex = vertices.getOrDefault(id, newVertex(id, vertexProperties));
         if (!vertices.containsKey(id)) {
             vertices.put(id, vertex);
-            publish(new VertexAddedGraphEvent().withGraph(this).withVertex(vertex));
         }
         return vertex;
     }
@@ -481,7 +494,6 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
             removeEdge(edge.getFrom(), edge.getTo());
         }
         Vertex removed = vertices.remove(id);
-        publish(new VertexRemovedGraphEvent().withGraph(this).withVertex(removed));
     }
 
     public Optional<Edge> findEdge(Object from, Object to) {
@@ -495,23 +507,22 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
     }
 
     public Edge edge(Object from, Object to) {
-        return findEdge(from, to).orElseGet(() -> addEdge(newEdge(from, to)));
+        return findEdge(from, to).orElseGet(() -> addEdge(newEdge(from, to, edgeProperties)));
     }
 
-    Edge newEdge(Object from, Object to) {
-        return new UndirectedEdge(from, to, edgeProperties, getBus());
-    }
+    abstract Edge newEdge(Object from, Object to, Map<String, Object> inherited);
+
+    abstract Vertex newVertex(Object id, Map<String, Object> inherited);
 
     private Edge addEdge(Edge edge) {
         vertex(edge.getFrom());
         vertex(edge.getTo());
         edges.add(edge);
-        publish(new EdgeAddedGraphEvent().withGraph(this).withEdge(edge));
         return edge;
     }
 
     public void removeEdge(Object from, Object to) {
-        findEdge(from, to).ifPresent(this::removeAndNotify);
+        findEdge(from, to).ifPresent(edges::remove);
     }
 
     @Override
@@ -529,29 +540,50 @@ public class UndirectedGraph extends OptionallyIdentifiedElement<UndirectedGraph
         return null;
     }
 
-    private void removeAndNotify(Edge edge) {
-        edges.remove(edge);
-        publish(new EdgeRemovedGraphEvent().withGraph(this).withEdge(edge));
+    @Override
+    public Optional<Object> getId() {
+        return Optional.ofNullable(id);
     }
 
     @Override
-    protected GraphPropertyAddedGraphEvent propertyAddedEvent(String name, Object value) {
-        GraphPropertyAddedGraphEvent event = new GraphPropertyAddedGraphEvent().withGraph(this).withName(name).withValue(value);
-        event.check();
-        return event;
+    public void setId(Object id) {
+        this.id = id;
     }
 
     @Override
-    protected GraphPropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-        GraphPropertyRemovedGraphEvent event = new GraphPropertyRemovedGraphEvent().withGraph(this).withName(name).withValue(value);
-        event.check();
-        return event;
+    public SimpleGraph id(Object id) {
+        setId(id);
+        return this;
     }
 
     @Override
-    protected GraphPropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {
-        GraphPropertyUpdatedGraphEvent event = new GraphPropertyUpdatedGraphEvent().withGraph(this).withName(name).withValue(value).withOldValue(oldValue);
-        event.check();
-        return event;
+    public Optional<Object> getProperty(String name) {
+        return Optional.ofNullable(properties.get(name));
+    }
+
+    @Override
+    public void setProperty(String name, Object value) {
+        requireNonNull(name, "name must not be null.");
+        requireNonNull(value, "value must not be null.");
+        if(name.isEmpty()) {
+            throw new IllegalArgumentException("name must not be empty.");
+        }
+        properties.put(name, value);
+    }
+
+    @Override
+    public SimpleGraph property(String name, Object value) {
+        setProperty(name, value);
+        return this;
+    }
+
+    @Override
+    public SimpleGraph removeProperty(String name) {
+        requireNonNull(name, "name must not be null.");
+        if(!properties.containsKey(name)) {
+            throw new IllegalArgumentException("element does not contain property named '" + name + "'.");
+        }
+        properties.remove(name);
+        return this;
     }
 }

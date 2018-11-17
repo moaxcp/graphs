@@ -3,7 +3,7 @@ package publicapi.elementcontracts;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import com.github.moaxcp.graphs.element.*;
+import com.github.moaxcp.graphs.greenrobot.element.*;
 import com.github.moaxcp.graphs.event.*;
 import com.github.moaxcp.graphs.greenrobot.*;
 import com.github.moaxcp.graphs.greenrobot.DirectedGraph.*;

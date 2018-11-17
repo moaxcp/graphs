@@ -1,14 +1,13 @@
-package com.github.moaxcp.graphs.element;
+package com.github.moaxcp.graphs.greenrobot.element;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Map;
 import java.util.Optional;
 
-public abstract class OptionallyIdentifiedInheritingElement<T extends OptionallyIdentifiedInheritingElement<T>> extends InheritingElement<T> {
+public abstract class OptionallyIdentifiedElement<T extends OptionallyIdentifiedElement<T>> extends Element<T> {
 
-    protected OptionallyIdentifiedInheritingElement(Map<String, Object> inherited, EventBus bus) {
-        super(inherited, bus);
+    protected OptionallyIdentifiedElement(EventBus bus) {
+        super(bus);
     }
 
     public Optional<Object> getId() {
