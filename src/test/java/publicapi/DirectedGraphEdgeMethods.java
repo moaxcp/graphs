@@ -1,11 +1,11 @@
-package publicapi.greenrobot.directedgraph;
+package publicapi;
 
-import com.github.moaxcp.graphs.greenrobot.DirectedGraph;
-import org.junit.jupiter.api.Test;
 import static com.github.moaxcp.graphs.Truth.assertThat;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
+import org.junit.jupiter.api.Test;
 
 public class DirectedGraphEdgeMethods {
-    DirectedGraph graph = new DirectedGraph();
+    DirectedEventGraph graph = new DirectedEventGraph();
     @Test
     void edgeIsDirected() {
         var edge1 = graph.edge("A", "B");

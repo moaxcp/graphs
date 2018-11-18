@@ -7,7 +7,7 @@ import com.github.moaxcp.graphs.greenrobot.*;
 import org.junit.jupiter.api.*;
 
 public class EdgeEquals {
-    private UndirectedGraph graph = new UndirectedGraph();
+    private UndirectedEventGraph graph = new UndirectedEventGraph();
 
     @Test
     void testEqualsNull() {
@@ -24,7 +24,7 @@ public class EdgeEquals {
     @Test
     void testEqualsSymmetric() {
         var edge1 = graph.edge("from", "to");
-        var edge2 = new UndirectedGraph().edge("from", "to"); //todo graph should be included in equals
+        var edge2 = new UndirectedEventGraph().edge("from", "to"); //todo graph should be included in equals
         assertEquals(edge1, edge2);
         assertEquals(edge2, edge1);
     }
@@ -32,8 +32,8 @@ public class EdgeEquals {
     @Test
     void testEqualsTransitive() {
         var edge1 = graph.edge("from", "to");
-        var edge2 = new UndirectedGraph().edge("from", "to");
-        var edge3 = new UndirectedGraph().edge("from", "to");
+        var edge2 = new UndirectedEventGraph().edge("from", "to");
+        var edge3 = new UndirectedEventGraph().edge("from", "to");
         assertEquals(edge1, edge2);
         assertEquals(edge2, edge3);
         assertEquals(edge1, edge3);
@@ -42,7 +42,7 @@ public class EdgeEquals {
     @Test
     void testConsistent() {
         var edge1 = graph.edge("from", "to");
-        var edge2 = new UndirectedGraph().edge("from", "to");
+        var edge2 = new UndirectedEventGraph().edge("from", "to");
         assertEquals(edge1, edge2);
         assertEquals(edge1, edge2);
         assertEquals(edge1, edge2);
@@ -51,21 +51,21 @@ public class EdgeEquals {
     @Test
     void testNonDirectional() {
         var edge1 = graph.edge("from", "to");
-        var edge2 = new UndirectedGraph().edge("to", "from");
+        var edge2 = new UndirectedEventGraph().edge("to", "from");
         assertEquals(edge1, edge2);
     }
 
     @Test
     void testAlmostEqualTo() {
         var edge1 = graph.edge("from", "to");
-        var edge2 = new UndirectedGraph().edge("from", "from");
+        var edge2 = new UndirectedEventGraph().edge("from", "from");
         assertNotEquals(edge1, edge2);
     }
 
     @Test
     void testAlmostEqualFrom() {
         var edge1 = graph.edge("from", "to");
-        var edge2 = new UndirectedGraph().edge("to", "to");
+        var edge2 = new UndirectedEventGraph().edge("to", "to");
         assertNotEquals(edge1, edge2);
     }
 
@@ -80,7 +80,7 @@ public class EdgeEquals {
     @Test
     void testHashCodeForEqualEdges() {
         var edge1 = graph.edge("from", "to");
-        var edge2 = new UndirectedGraph().edge("from", "to");
+        var edge2 = new UndirectedEventGraph().edge("from", "to");
         assertEquals(edge1, edge2);
         assertThat(edge1.hashCode()).isEqualTo(edge2.hashCode());
     }

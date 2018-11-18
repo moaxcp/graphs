@@ -1,4 +1,4 @@
-package publicapi.elementcontracts;
+package publicapi.greenrobot.elementcontracts;
 
 import com.github.moaxcp.graphs.greenrobot.element.Element;
 import org.greenrobot.eventbus.EventBus;

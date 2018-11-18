@@ -1,10 +1,10 @@
-package publicapi.elementcontracts;
+package publicapi.greenrobot.elementcontracts;
 
 import static com.google.common.truth.Truth8.*;
 import com.github.moaxcp.graphs.greenrobot.element.*;
 import com.github.moaxcp.graphs.greenrobot.*;
-import com.github.moaxcp.graphs.greenrobot.DirectedGraph.*;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.*;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph.*;
+import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph.*;
 import java.util.*;
 import java.util.stream.*;
 import org.greenrobot.eventbus.*;
@@ -18,8 +18,8 @@ public class AllOptionallyIdentifiedInheritingElementsTest {
     static Stream<OptionallyIdentifiedInheritingElement> elements() {
         return Stream.of(
                 new TestOptionallyIdentifiedInheritingElement(inherited, EventBus.getDefault()),
-                (UndirectedEdge) new UndirectedGraph().edge("from", "to"),
-                (DirectedEdge) new DirectedGraph().edge("from", "to"));
+                (UndirectedEdge) new UndirectedEventGraph().edge("from", "to"),
+                (DirectedEdge) new DirectedEventGraph().edge("from", "to"));
     }
 
     @ParameterizedTest

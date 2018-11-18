@@ -1,15 +1,25 @@
-package publicapi.greenrobot;
+package publicapi;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.github.moaxcp.graphs.SimpleGraph;
 import com.github.moaxcp.graphs.greenrobot.*;
-import org.junit.jupiter.api.*;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class VertexTest {
-    UndirectedGraph graph = new UndirectedGraph("graph");
-    @Test
-    void testSetId() {
+    static Stream<SimpleGraph> graphs() {
+        return Stream.of(
+                new UndirectedEventGraph(),
+                new UndirectedEventGraph(),
+                new DirectedEventGraph());
+    }
+
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testSetId(SimpleGraph graph) {
         var a = graph.vertex("id");
         var from = graph.edge("id", "b");
         var to = graph.edge("c", "id");
@@ -20,15 +30,17 @@ public class VertexTest {
         assertThat(to.getTo()).isEqualTo("a");
     }
 
-    @Test
-    void testToString() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testToString(SimpleGraph graph) {
         var vertex = graph.vertex("id");
         vertex.setProperty("key", "value");
         assertThat(vertex.toString()).isEqualTo("Vertex 'id' {id=id, key=value}");
     }
 
-    @Test
-    void testAdjacentEdges() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testAdjacentEdges(SimpleGraph graph) {
         graph.edge("A", "B");
         graph.edge("A", "C");
         graph.edge("Z", "Y");
@@ -42,8 +54,9 @@ public class VertexTest {
         }
     }
 
-    @Test
-    void testConnectsTo() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testConnectsTo(SimpleGraph graph) {
         var vertex = graph.vertex("A")
                 .connectsTo("B");
         assertThat(vertex.getId()).isEqualTo("A");
@@ -52,8 +65,9 @@ public class VertexTest {
         assertThat(graph.getEdges().iterator().next().getLocal()).containsExactly("from", "A", "to", "B");
     }
 
-    @Test
-    void testConnectsFrom() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testConnectsFrom(SimpleGraph graph) {
         var vertex = graph.vertex("A")
                 .connectsFrom("B");
         assertThat(vertex.getId()).isEqualTo("A");
@@ -62,8 +76,9 @@ public class VertexTest {
         assertThat(graph.getEdges().iterator().next().getLocal()).containsExactly("from", "B", "to", "A");
     }
 
-    @Test
-    void testEdgeTo() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testEdgeTo(SimpleGraph graph) {
         var edge = graph.vertex("A")
                 .edgeTo("B");
         assertThat(edge.getLocal()).containsExactly("from", "A", "to", "B");
@@ -71,8 +86,9 @@ public class VertexTest {
         assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
     }
 
-    @Test
-    void testEdgeFrom() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testEdgeFrom(SimpleGraph graph) {
         var edge = graph.vertex("A")
                 .edgeFrom("B");
         assertThat(edge.getLocal()).containsExactly("from", "B", "to", "A");
@@ -80,57 +96,64 @@ public class VertexTest {
         assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
     }
 
-    @Test
-    void testEqualsNull() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testEqualsNull(SimpleGraph graph) {
         var vertex = graph.vertex("A");
         assertNotEquals(vertex, null);
     }
 
-    @Test
-    void testEqualsReflexive() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testEqualsReflexive(SimpleGraph graph) {
         var vertex = graph.vertex("A");
         assertEquals(vertex, vertex);
     }
 
-    @Test
-    void testEqualsSymmetric() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testEqualsSymmetric(SimpleGraph graph) {
         var vertex1 = graph.vertex("A");
-        var vertex2 = new UndirectedGraph().vertex("A");
+        var vertex2 = new UndirectedEventGraph().vertex("A");
         assertEquals(vertex1, vertex2);
         assertEquals(vertex2, vertex1);
     }
 
-    @Test
-    void testEqualsTransitive() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testEqualsTransitive(SimpleGraph graph) {
         var vertex1 = graph.vertex("A");
-        var vertex2 = new UndirectedGraph().vertex("A");
-        var vertex3 = new UndirectedGraph().vertex("A");
+        var vertex2 = new UndirectedEventGraph().vertex("A");
+        var vertex3 = new UndirectedEventGraph().vertex("A");
         assertEquals(vertex1, vertex2);
         assertEquals(vertex2, vertex3);
         assertEquals(vertex1, vertex3);
     }
 
-    @Test
-    void testEqualsConsistent() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testEqualsConsistent(SimpleGraph graph) {
         var vertex1 = graph.vertex("A");
-        var vertex2 = new UndirectedGraph().vertex("A");
+        var vertex2 = new UndirectedEventGraph().vertex("A");
         assertEquals(vertex1, vertex2);
         assertEquals(vertex1, vertex2);
         assertEquals(vertex1, vertex2);
     }
 
-    @Test
-    void testHashCodeConsistent() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testHashCodeConsistent(SimpleGraph graph) {
         var vertex = graph.vertex("A");
         int hashCode = vertex.hashCode();
         assertThat(vertex.hashCode()).isEqualTo(hashCode);
         assertThat(vertex.hashCode()).isEqualTo(hashCode);
     }
 
-    @Test
-    void testHashCodeForEqualVertices() {
+    @ParameterizedTest
+    @MethodSource("graphs")
+    void testHashCodeForEqualVertices(SimpleGraph graph) {
         var vertex1 = graph.vertex("A");
-        var vertex2 = new UndirectedGraph().vertex("A");
+        var vertex2 = new UndirectedEventGraph().vertex("A");
         assertEquals(vertex1, vertex2);
         assertThat(vertex1.hashCode()).isEqualTo(vertex2.hashCode());
     }

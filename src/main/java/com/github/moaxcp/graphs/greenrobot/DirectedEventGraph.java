@@ -5,20 +5,20 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Map;
 import java.util.Objects;
 
-public class DirectedGraph extends UndirectedGraph {
-    public DirectedGraph() {
+public class DirectedEventGraph extends UndirectedEventGraph {
+    public DirectedEventGraph() {
         super();
     }
 
-    public DirectedGraph(EventBus bus) {
+    public DirectedEventGraph(EventBus bus) {
         super(bus);
     }
 
-    public DirectedGraph(Object id) {
+    public DirectedEventGraph(Object id) {
         super(id);
     }
 
-    public DirectedGraph(Object id, EventBus bus) {
+    public DirectedEventGraph(Object id, EventBus bus) {
         super(id, bus);
     }
 

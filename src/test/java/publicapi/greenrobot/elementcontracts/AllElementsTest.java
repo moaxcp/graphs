@@ -1,4 +1,4 @@
-package publicapi.elementcontracts;
+package publicapi.greenrobot.elementcontracts;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.github.moaxcp.graphs.greenrobot.element.*;
 import com.github.moaxcp.graphs.event.*;
 import com.github.moaxcp.graphs.greenrobot.*;
-import com.github.moaxcp.graphs.greenrobot.DirectedGraph.*;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.*;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph.*;
+import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph.*;
 import java.util.*;
 import java.util.stream.*;
 import org.greenrobot.eventbus.*;
@@ -18,8 +18,8 @@ import stubs.*;
 class AllElementsTest {
 
     static Stream<Element> elements() {
-        UndirectedGraph graph = new UndirectedGraph("graph");
-        DirectedGraph directedGraph = new DirectedGraph("directedGraph");
+        UndirectedEventGraph graph = new UndirectedEventGraph("graph");
+        DirectedEventGraph directedGraph = new DirectedEventGraph("directedGraph");
         return Stream.of(
                 new TestElement(EventBus.getDefault()),
                 new TestInheritingElement(new HashMap<>(), EventBus.getDefault()),
@@ -28,8 +28,8 @@ class AllElementsTest {
                 new TestOptionallyIdentifiedInheritingElement(new HashMap<>(), EventBus.getDefault()),
                 (UndirectedVertex) graph.vertex("a"),
                 (UndirectedEdge) graph.edge("from", "to"),
-                new UndirectedGraph("id"),
-                new DirectedGraph("id"),
+                new UndirectedEventGraph("id"),
+                new DirectedEventGraph("id"),
                 (DirectedEdge) directedGraph.edge("from", "to"));
     }
 

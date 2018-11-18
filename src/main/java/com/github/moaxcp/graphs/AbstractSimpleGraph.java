@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -251,10 +251,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof UndirectedGraph.UndirectedEdge)) {
+            if (!(obj instanceof UndirectedEventGraph.UndirectedEdge)) {
                 return false;
             }
-            UndirectedGraph.UndirectedEdge edge = (UndirectedGraph.UndirectedEdge) obj;
+            UndirectedEventGraph.UndirectedEdge edge = (UndirectedEventGraph.UndirectedEdge) obj;
             return equals(edge.getFrom(), edge.getTo());
         }
 
@@ -268,7 +268,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
      * Vertex represents a vertex in this graph.
      */
     public abstract class AbstractVertex extends InheritingElement<Vertex> implements Vertex {
-        private AbstractVertex(Object id, Map<String, Object> inherited) {
+        protected AbstractVertex(Object id, Map<String, Object> inherited) {
             super(inherited);
             Objects.requireNonNull(id, "id must not be null.");
             super.setProperty("id", id);
@@ -392,10 +392,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         @Override
         public final boolean equals(Object obj) {
             if (obj == this) return true;
-            if (!(obj instanceof UndirectedGraph.UndirectedVertex)) {
+            if (!(obj instanceof UndirectedEventGraph.UndirectedVertex)) {
                 return false;
             }
-            UndirectedGraph.UndirectedVertex vertex = (UndirectedGraph.UndirectedVertex) obj;
+            UndirectedEventGraph.UndirectedVertex vertex = (UndirectedEventGraph.UndirectedVertex) obj;
             return Objects.equals(getId(), vertex.getId());
         }
 

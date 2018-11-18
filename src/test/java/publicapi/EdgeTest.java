@@ -1,25 +1,25 @@
-package publicapi.greenrobot;
+package publicapi;
 
-import static com.github.moaxcp.graphs.Truth.*;
-import com.github.moaxcp.graphs.greenrobot.DirectedGraph;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import static com.github.moaxcp.graphs.Truth.assertThat;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.greenrobot.*;
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
 
 
 public class EdgeTest {
 
-    static Stream<UndirectedGraph> graphs() {
+    static Stream<SimpleGraph> graphs() {
         return Stream.of(
-                new UndirectedGraph(),
-                new DirectedGraph());
+                new UnidrectedGraph(),
+                new UndirectedEventGraph(),
+                new DirectedEventGraph());
     }
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void setId(UndirectedGraph graph) {
+    void setId(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setId("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
@@ -28,7 +28,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void id(UndirectedGraph graph) {
+    void id(SimpleGraph graph) {
         var edge = graph.edge("A", "B").id("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
         assertThat(graph).hasEdge("id").isSameAs(edge);
@@ -36,7 +36,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void changeId(UndirectedGraph graph) {
+    void changeId(SimpleGraph graph) {
         var edge = graph.edge("A", "B").id("id");
         edge.setId("id2");
         assertThat(graph).hasEdge("id2").isSameAs(edge);
@@ -47,7 +47,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void setIdNullRemovesId(UndirectedGraph graph) {
+    void setIdNullRemovesId(SimpleGraph graph) {
         var edge = graph.edge("A", "to").id("id");
         edge.setId(null);
         assertThat(edge).hasNoId();
@@ -56,7 +56,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void removeIdProperty(UndirectedGraph graph) {
+    void removeIdProperty(SimpleGraph graph) {
         var edge = graph.edge("from", "to").id("id");
         edge.removeProperty("id");
         assertThat(edge).hasNoId();
@@ -65,7 +65,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void setFrom(UndirectedGraph graph) {
+    void setFrom(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setFrom("C");
         assertThat(graph).hasVertex("C");
@@ -74,7 +74,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void setTo(UndirectedGraph graph) {
+    void setTo(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setTo("C");
         assertThat(graph).hasVertex("C");
@@ -83,7 +83,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void from(UndirectedGraph graph) {
+    void from(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("A").get();
         assertThat(edge.fromVertex()).isEqualTo(vertex);
@@ -91,7 +91,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void to(UndirectedGraph graph) {
+    void to(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("B").get();
         assertThat(edge.toVertex()).isEqualTo(vertex);
@@ -99,7 +99,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void setProperty(UndirectedGraph graph) {
+    void setProperty(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setProperty("key", "value");
         assertThat(edge).hasPropertyThat("key").hasValue("value");
@@ -107,7 +107,7 @@ public class EdgeTest {
 
     @ParameterizedTest
     @MethodSource("graphs")
-    void setPropertyFrom(UndirectedGraph graph) {
+    void setPropertyFrom(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setProperty("from", "C");
         assertThat(edge).hasFromThat().isEqualTo("C");

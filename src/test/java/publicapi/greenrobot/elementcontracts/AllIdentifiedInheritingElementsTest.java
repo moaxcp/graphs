@@ -1,11 +1,11 @@
-package publicapi.elementcontracts;
+package publicapi.greenrobot.elementcontracts;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import com.github.moaxcp.graphs.greenrobot.element.*;
 import com.github.moaxcp.graphs.greenrobot.*;
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph.*;
+import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph.*;
 import java.util.*;
 import java.util.stream.*;
 import org.greenrobot.eventbus.*;
@@ -16,7 +16,7 @@ import stubs.*;
 class AllIdentifiedInheritingElementsTest {
 
     static Map<String, Object> inherited = new HashMap<>();
-    static UndirectedGraph graph = new UndirectedGraph("graph");
+    static UndirectedEventGraph graph = new UndirectedEventGraph("graph");
     static Stream<InheritingElement> elements() {
         return Stream.of(
                 new TestIdentifiedInheritingElement("id", inherited, EventBus.getDefault()),

@@ -1,6 +1,6 @@
 package publicapi.greenrobot.graph;
 
-import com.github.moaxcp.graphs.greenrobot.UndirectedGraph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 import stubs.TestEventSubscriber;
@@ -12,7 +12,7 @@ public class GraphCreatedEvents {
     void emptyConstructor() {
         var subscriber = new TestEventSubscriber();
         EventBus.getDefault().register(subscriber);
-        new UndirectedGraph();
+        new UndirectedEventGraph();
 
         assertThat(subscriber.getAllEvents()).hasSize(1);
     }
