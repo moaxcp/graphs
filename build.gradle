@@ -18,6 +18,10 @@ reckon {
     snapshotFromProp()
 }
 
+javadoc {
+    options.addBooleanOption('html5', true)
+}
+
 sourceCompatibility = 1.10
 targetCompatibility = 1.10
 

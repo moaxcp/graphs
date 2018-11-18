@@ -17,7 +17,6 @@ import org.greenrobot.eventbus.*;
  *         <li>Referencing missing elements will create them for most methods.</li>
  *         <li>Changes to the graph, vertices, or edges results in an event</li>
  *     </ul>
- * </p>
  */
 public class UndirectedEventGraph extends OptionallyIdentifiedElement<UndirectedEventGraph> implements SimpleGraph {
 
