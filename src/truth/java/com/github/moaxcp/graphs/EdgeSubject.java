@@ -1,5 +1,6 @@
 package com.github.moaxcp.graphs;
 
+import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.*;
 import static com.google.common.truth.Truth.*;
 import com.github.moaxcp.graphs.SimpleGraph.*;
@@ -51,5 +52,17 @@ public class EdgeSubject extends Subject<EdgeSubject, Edge> {
 
     public Subject<DefaultSubject, Object> withLocalProperty(String name) {
         return check("getLocal(%s)", name).that(actual().getLocal().get(name));
+    }
+
+    public void isDirected() {
+        if(!actual().isDirected()) {
+            failWithActual(simpleFact("Expected directed edge."));
+        }
+    }
+
+    public void isNotDirected() {
+        if(actual().isDirected()) {
+            failWithActual(simpleFact("Expected undirected edge."));
+        }
     }
 }

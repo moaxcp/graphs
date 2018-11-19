@@ -7,6 +7,11 @@ public class UndirectedGraph extends AbstractSimpleGraph {
         protected UndirectedEdge(Object from, Object to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
+
+        @Override
+        public boolean isDirected() {
+            return false;
+        }
     }
 
     public class UndirectedVertex extends AbstractVertex {
@@ -15,11 +20,24 @@ public class UndirectedGraph extends AbstractSimpleGraph {
         }
     }
 
+    public UndirectedGraph() {
+
+    }
+
+    public UndirectedGraph(Object id) {
+        super(id);
+    }
+
     Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
         return new UndirectedEdge(from, to, inherited);
     }
 
     Vertex newVertex(Object id, Map<String, Object> inherited) {
         return new UndirectedVertex(id, inherited);
+    }
+
+    @Override
+    public boolean isDirected() {
+        return false;
     }
 }

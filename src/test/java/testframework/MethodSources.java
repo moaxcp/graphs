@@ -11,10 +11,14 @@ public class MethodSources {
                 new DirectedGraph());
     }
 
-    public static Stream<SimpleGraph> unidrectedSimpleGraphs() {
+    public static Stream<SimpleGraph> undirectedSimpleGraphs() {
         return Stream.of(
-                new UndirectedGraph(),
-                new UndirectedEventGraph());
+                new UndirectedGraph());
+    }
+
+    public static Stream<SimpleGraph> directedSimpleGraphs() {
+        return Stream.of(
+                new DirectedGraph());
     }
 
     public static Stream<SimpleGraph> directedEventSimpleGraphs() {

@@ -6,6 +6,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 @Retention(RetentionPolicy.RUNTIME)
 @ParameterizedTest
-@MethodSource("testframework.MethodSources#directedEventSimpleGraphs")
+@MethodSource("testframework.MethodSources#directedSimpleGraphs")
 public @interface DirectedSimpleGraphs {
 }

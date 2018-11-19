@@ -205,11 +205,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         @Override
-        public boolean isDirected() {
-            return false;
-        }
-
-        @Override
         public void setProperty(String name, Object value) {
             check();
             if ("from".equals(name)) {
@@ -251,10 +246,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof UndirectedEventGraph.UndirectedEdge)) {
+            if (!(obj instanceof AbstractEdge)) {
                 return false;
             }
-            UndirectedEventGraph.UndirectedEdge edge = (UndirectedEventGraph.UndirectedEdge) obj;
+            AbstractEdge edge = (AbstractEdge) obj;
             return equals(edge.getFrom(), edge.getTo());
         }
 
@@ -498,11 +493,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     @Override
     public void removeEdge(Object id) {
 
-    }
-
-    @Override
-    public boolean isDirected() {
-        return false;
     }
 
     @Override

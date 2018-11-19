@@ -104,6 +104,18 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
         }
     }
 
+    public void isDirected() {
+        if(!actual().isDirected()) {
+            failWithActual(simpleFact("Expected directed graph."));
+        }
+    }
+
+    public void isNotDirected() {
+        if(actual().isDirected()) {
+            failWithActual(simpleFact("Expected undirected graph."));
+        }
+    }
+
     public OptionalSubject withProperty(String name) {
         return check("getProperty(%s)", name).about(optionals()).that(actual().getProperty(name));
     }
