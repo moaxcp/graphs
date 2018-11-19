@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs;
 
 import java.util.Map;
 
-public class UnidrectedGraph extends AbstractSimpleGraph {
+public class UndirectedGraph extends AbstractSimpleGraph {
     public class UndirectedEdge extends AbstractEdge {
         protected UndirectedEdge(Object from, Object to, Map<String, Object> inherited) {
             super(from, to, inherited);

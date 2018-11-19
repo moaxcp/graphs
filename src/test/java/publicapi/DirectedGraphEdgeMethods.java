@@ -1,13 +1,13 @@
 package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
-import org.junit.jupiter.api.Test;
+import com.github.moaxcp.graphs.SimpleGraph;
+import testframework.DirectedSimpleGraphs;
 
 public class DirectedGraphEdgeMethods {
-    DirectedEventGraph graph = new DirectedEventGraph();
-    @Test
-    void edgeIsDirected() {
+
+    @DirectedSimpleGraphs
+    void edgeIsDirected(SimpleGraph graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("B", "A");
 
@@ -17,8 +17,8 @@ public class DirectedGraphEdgeMethods {
         assertThat(graph).hasEdge("B", "A");
     }
 
-    @Test
-    void otherEdgeIsNotRemoved() {
+    @DirectedSimpleGraphs
+    void otherEdgeIsNotRemoved(SimpleGraph graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("B", "A");
         graph.removeEdge("A", "B");

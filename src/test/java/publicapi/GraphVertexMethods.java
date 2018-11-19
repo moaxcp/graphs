@@ -3,22 +3,11 @@ package publicapi;
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.greenrobot.*;
-import java.util.stream.Stream;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import testframework.SimpleGraphs;
 
 public class GraphVertexMethods {
 
-    static Stream<SimpleGraph> graphs() {
-        return Stream.of(
-                new UnidrectedGraph(),
-                new UndirectedEventGraph(),
-                new DirectedEventGraph());
-    }
-
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void testRemoveVertex(SimpleGraph graph) {
         graph.edge("A", "B");
         graph.edge("A", "C");
@@ -29,8 +18,7 @@ public class GraphVertexMethods {
         assertThat(graph.getVertices()).doesNotContainKey("A");
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void addNewVertex(SimpleGraph graph) {
         var vertex = graph.vertex("id");
         GraphSubject.assertThat(graph).hasVertexThat("id").isSameAs(vertex);
@@ -39,8 +27,7 @@ public class GraphVertexMethods {
         assertThat(vertex).thatLocal("id").isEqualTo("id");
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void addExistingVertex(SimpleGraph graph) {
         var vertexA = graph.vertex("A");
         var vertexB = graph.vertex("A");

@@ -1,4 +1,4 @@
-package stubs;
+package testframework.stubs;
 
 import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.event.*;

@@ -3,7 +3,7 @@ package publicapi.greenrobot.graph;
 import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
-import stubs.TestEventSubscriber;
+import testframework.stubs.TestEventSubscriber;
 
 import static com.google.common.truth.Truth.assertThat;
 

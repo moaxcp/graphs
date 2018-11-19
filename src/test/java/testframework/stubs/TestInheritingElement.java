@@ -1,18 +1,18 @@
-package stubs;
+package testframework.stubs;
 
-import com.github.moaxcp.graphs.greenrobot.element.OptionallyIdentifiedInheritingElement;
+import com.github.moaxcp.graphs.greenrobot.element.InheritingElement;
 import com.github.moaxcp.graphs.event.*;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-public class TestOptionallyIdentifiedInheritingElement extends OptionallyIdentifiedInheritingElement<TestOptionallyIdentifiedInheritingElement> {
-    public TestOptionallyIdentifiedInheritingElement(Map<String, Object> inherited, EventBus bus) {
+public class TestInheritingElement extends InheritingElement<TestInheritingElement> {
+    public TestInheritingElement(Map<String, Object> inherited, EventBus bus) {
         super(inherited, bus);
     }
 
     @Override
-    protected TestOptionallyIdentifiedInheritingElement self() {
+    protected TestInheritingElement self() {
         return this;
     }
 

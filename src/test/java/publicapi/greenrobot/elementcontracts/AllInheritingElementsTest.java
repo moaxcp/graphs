@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.*;
 import org.junit.jupiter.params.provider.*;
-import stubs.*;
+import testframework.stubs.*;
 
 public class AllInheritingElementsTest {
     static Map<String, Object> inherited = new HashMap<>();

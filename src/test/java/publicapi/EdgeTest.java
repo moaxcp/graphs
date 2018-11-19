@@ -1,24 +1,11 @@
 package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.greenrobot.*;
-import java.util.stream.Stream;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-
+import com.github.moaxcp.graphs.SimpleGraph;
+import testframework.SimpleGraphs;
 
 public class EdgeTest {
-
-    static Stream<SimpleGraph> graphs() {
-        return Stream.of(
-                new UnidrectedGraph(),
-                new UndirectedEventGraph(),
-                new DirectedEventGraph());
-    }
-
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void setId(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setId("id");
@@ -26,16 +13,14 @@ public class EdgeTest {
         assertThat(graph).hasEdge("id").isSameAs(edge);
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void id(SimpleGraph graph) {
         var edge = graph.edge("A", "B").id("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
         assertThat(graph).hasEdge("id").isSameAs(edge);
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void changeId(SimpleGraph graph) {
         var edge = graph.edge("A", "B").id("id");
         edge.setId("id2");
@@ -45,8 +30,7 @@ public class EdgeTest {
         assertThat(graph).hasNoEdge("id");
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void setIdNullRemovesId(SimpleGraph graph) {
         var edge = graph.edge("A", "to").id("id");
         edge.setId(null);
@@ -54,8 +38,7 @@ public class EdgeTest {
         assertThat(graph).hasNoEdge("id");
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void removeIdProperty(SimpleGraph graph) {
         var edge = graph.edge("from", "to").id("id");
         edge.removeProperty("id");
@@ -63,8 +46,7 @@ public class EdgeTest {
         assertThat(graph).hasNoEdge("id");
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void setFrom(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setFrom("C");
@@ -72,8 +54,7 @@ public class EdgeTest {
         assertThat(edge).hasFromThat().isEqualTo("C");
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void setTo(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setTo("C");
@@ -81,32 +62,28 @@ public class EdgeTest {
         assertThat(edge).hasToThat().isEqualTo("C");
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void from(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("A").get();
         assertThat(edge.fromVertex()).isEqualTo(vertex);
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void to(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("B").get();
         assertThat(edge.toVertex()).isEqualTo(vertex);
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void setProperty(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setProperty("key", "value");
         assertThat(edge).hasPropertyThat("key").hasValue("value");
     }
 
-    @ParameterizedTest
-    @MethodSource("graphs")
+    @SimpleGraphs
     void setPropertyFrom(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setProperty("from", "C");

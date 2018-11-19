@@ -6,7 +6,7 @@ import com.github.moaxcp.graphs.event.*;
 import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
-import stubs.TestHandler;
+import testframework.stubs.TestHandler;
 
 public class Events {
     UndirectedEventGraph graph = new UndirectedEventGraph("graph");

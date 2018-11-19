@@ -1,14 +1,19 @@
-package stubs;
+package testframework.stubs;
 
-import com.github.moaxcp.graphs.greenrobot.element.IdentifiedInheritingElement;
+import com.github.moaxcp.graphs.greenrobot.element.OptionallyIdentifiedInheritingElement;
 import com.github.moaxcp.graphs.event.*;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-public class TestIdentifiedInheritingElement extends IdentifiedInheritingElement<TestIdentifiedInheritingElement> {
-    public TestIdentifiedInheritingElement(String id, Map<String, Object> inherited, EventBus bus) {
-        super(id, inherited, bus);
+public class TestOptionallyIdentifiedInheritingElement extends OptionallyIdentifiedInheritingElement<TestOptionallyIdentifiedInheritingElement> {
+    public TestOptionallyIdentifiedInheritingElement(Map<String, Object> inherited, EventBus bus) {
+        super(inherited, bus);
+    }
+
+    @Override
+    protected TestOptionallyIdentifiedInheritingElement self() {
+        return this;
     }
 
     @Override
@@ -18,8 +23,7 @@ public class TestIdentifiedInheritingElement extends IdentifiedInheritingElement
 
     @Override
     protected PropertyRemovedGraphEvent propertyRemovedEvent(String name, Object value) {
-        return new GraphPropertyRemovedGraphEvent().withName(name).withValue(value);
-    }
+        return new GraphPropertyRemovedGraphEvent().withName(name).withValue(value);    }
 
     @Override
     protected PropertyUpdatedGraphEvent propertyUpdatedEvent(String name, Object value, Object oldValue) {

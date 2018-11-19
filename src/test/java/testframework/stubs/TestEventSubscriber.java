@@ -1,4 +1,4 @@
-package stubs;
+package testframework.stubs;
 
 import com.github.moaxcp.graphs.newevents.GraphEvent;
 import org.greenrobot.eventbus.Subscribe;

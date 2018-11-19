@@ -428,48 +428,18 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         this.id = id;
     }
 
+    @Override
     public Map<Object, Vertex> getVertices() {
         return Collections.unmodifiableMap(vertices);
     }
 
+    @Override
     public Set<Edge> getEdges() {
         return Collections.unmodifiableSet(edges);
     }
 
+    @Override
     public Map<Object, Edge> getEdgeIds() { return Collections.unmodifiableMap(edgeIds); }
-
-    public void setVertexProperty(String key, Object value) {
-        vertexProperties.put(key, value);
-    }
-
-    public void setEdgeProperty(String key, Object value) {
-        edgeProperties.put(key, value);
-    }
-
-    @Override
-    public SimpleGraph edgeProperty(String name, Object value) {
-        return null;
-    }
-
-    @Override
-    public SimpleGraph removeEdgeProperty(String name) {
-        return null;
-    }
-
-    @Override
-    public Optional<Object> getVertexProperty(String name) {
-        return null;
-    }
-
-    @Override
-    public SimpleGraph vertexProperty(String name, Object value) {
-        return null;
-    }
-
-    @Override
-    public SimpleGraph removeVertexProperty(String name) {
-        return null;
-    }
 
     public Optional<Vertex> findVertex(Object id) {
         return Optional.ofNullable(vertices.get(id));
@@ -536,11 +506,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     @Override
-    public Optional<Object> getEdgeProperty(String name) {
-        return null;
-    }
-
-    @Override
     public Optional<Object> getId() {
         return Optional.ofNullable(id);
     }
@@ -581,9 +546,57 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     public SimpleGraph removeProperty(String name) {
         requireNonNull(name, "name must not be null.");
         if(!properties.containsKey(name)) {
-            throw new IllegalArgumentException("element does not contain property named '" + name + "'.");
+            throw new IllegalArgumentException("graph does not contain property named '" + name + "'.");
         }
         properties.remove(name);
         return this;
+    }
+
+    @Override
+    public void setVertexProperty(String name, Object value) {
+        vertexProperties.put(name, value);
+    }
+
+    @Override
+    public Optional<Object> getEdgeProperty(String name) {
+        return Optional.ofNullable(edgeProperties.get(name));
+    }
+
+    @Override
+    public void setEdgeProperty(String name, Object value) {
+        requireNonNull(name, "name must not be null.");
+        requireNonNull(value, "value must not be null.");
+        edgeProperties.put(name, value);
+    }
+
+    @Override
+    public SimpleGraph edgeProperty(String name, Object value) {
+        setEdgeProperty(name, value);
+        return this;
+    }
+
+    @Override
+    public SimpleGraph removeEdgeProperty(String name) {
+        requireNonNull(name, "name must not be null.");
+        if(!edgeProperties.containsKey(name)) {
+            throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
+        }
+        edgeProperties.remove(name);
+        return this;
+    }
+
+    @Override
+    public Optional<Object> getVertexProperty(String name) {
+        return null;
+    }
+
+    @Override
+    public SimpleGraph vertexProperty(String name, Object value) {
+        return null;
+    }
+
+    @Override
+    public SimpleGraph removeVertexProperty(String name) {
+        return null;
     }
 }

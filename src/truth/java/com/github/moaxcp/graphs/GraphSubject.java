@@ -31,6 +31,10 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
         return assertAbout(graphs()).that(actual);
     }
 
+    public OptionalSubject hasIdThat() {
+        return check("getId()").about(optionals()).that(actual().getId());
+    }
+
     public VertexSubject hasVertexThat(Object id) {
         Optional<Vertex> optional = actual().findVertex(id);
         check("findVertex(%s)", id).about(optionals()).that(optional).isPresent();
@@ -98,5 +102,13 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
         if(keys.size() != 0) {
             //graph has other vertices
         }
+    }
+
+    public OptionalSubject hasPropertyThat(String name) {
+        return check("getProperty(%s)", name).about(optionals()).that(actual().getProperty(name));
+    }
+
+    public OptionalSubject hasEdgePropertyThat(String name) {
+        return check("getEdgeProperty(%s)", name).about(optionals()).that(actual().getEdgeProperty(name));
     }
 }

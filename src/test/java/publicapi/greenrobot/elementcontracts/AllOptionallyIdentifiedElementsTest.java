@@ -3,7 +3,7 @@ package publicapi.greenrobot.elementcontracts;
 import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
 import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import com.github.moaxcp.graphs.greenrobot.element.OptionallyIdentifiedElement;
-import stubs.TestOptionallyIdentifiedElement;
+import testframework.stubs.TestOptionallyIdentifiedElement;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

@@ -11,7 +11,7 @@ import java.util.stream.*;
 import org.greenrobot.eventbus.*;
 import org.junit.jupiter.params.*;
 import org.junit.jupiter.params.provider.*;
-import stubs.*;
+import testframework.stubs.*;
 
 class AllIdentifiedInheritingElementsTest {
 
