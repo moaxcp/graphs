@@ -553,11 +553,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     @Override
-    public void setVertexProperty(String name, Object value) {
-        vertexProperties.put(name, value);
-    }
-
-    @Override
     public Optional<Object> getEdgeProperty(String name) {
         return Optional.ofNullable(edgeProperties.get(name));
     }
@@ -587,16 +582,29 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
     @Override
     public Optional<Object> getVertexProperty(String name) {
-        return null;
+        return Optional.ofNullable(vertexProperties.get(name));
+    }
+
+    @Override
+    public void setVertexProperty(String name, Object value) {
+        requireNonNull(name, "name must not be null.");
+        requireNonNull(value, "value must not be null.");
+        vertexProperties.put(name, value);
     }
 
     @Override
     public SimpleGraph vertexProperty(String name, Object value) {
-        return null;
+        setVertexProperty(name, value);
+        return this;
     }
 
     @Override
     public SimpleGraph removeVertexProperty(String name) {
-        return null;
+        requireNonNull(name, "name must not be null.");
+        if(!vertexProperties.containsKey(name)) {
+            throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
+        }
+        vertexProperties.remove(name);
+        return this;
     }
 }

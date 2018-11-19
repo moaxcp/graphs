@@ -32,12 +32,12 @@ public class VertexSubject extends Subject<VertexSubject, Vertex> {
         check("getId()").that(actual().getId()).isEqualTo(id);
     }
 
-    public OptionalSubject thatProperty(String name) {
+    public OptionalSubject withProperty(String name) {
         Optional<Object> optional = actual().getProperty(name);
         return check("getProperty(%s)", name).about(optionals()).that(optional);
     }
 
-    public Subject<DefaultSubject, Object> thatLocal(String name) {
+    public Subject<DefaultSubject, Object> withLocalProperty(String name) {
         return check("getLocal(%s)", name).that(actual().getLocal().get(name));
     }
 }

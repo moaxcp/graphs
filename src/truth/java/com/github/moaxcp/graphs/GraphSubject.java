@@ -104,11 +104,15 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
         }
     }
 
-    public OptionalSubject hasPropertyThat(String name) {
+    public OptionalSubject withProperty(String name) {
         return check("getProperty(%s)", name).about(optionals()).that(actual().getProperty(name));
     }
 
-    public OptionalSubject hasEdgePropertyThat(String name) {
+    public OptionalSubject withEdgeProperty(String name) {
         return check("getEdgeProperty(%s)", name).about(optionals()).that(actual().getEdgeProperty(name));
+    }
+
+    public OptionalSubject withVertexProperty(String name) {
+        return check("getVertexProperty(%s)", name).about(optionals()).that(actual().getVertexProperty(name));
     }
 }

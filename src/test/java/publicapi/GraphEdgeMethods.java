@@ -21,15 +21,15 @@ public class GraphEdgeMethods {
     @SimpleGraphs
     void newEdgeHasToFromProperties(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
-        assertThat(edge).hasPropertyThat("from").hasValue("A");
-        assertThat(edge).hasPropertyThat("to").hasValue("B");
+        assertThat(edge).withProperty("from").hasValue("A");
+        assertThat(edge).withProperty("to").hasValue("B");
     }
 
     @SimpleGraphs
     void newEdgeHasToFromLocalProperties(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
-        assertThat(edge).thatLocal("from").isEqualTo("A");
-        assertThat(edge).thatLocal("to").isEqualTo("B");
+        assertThat(edge).withLocalProperty("from").isEqualTo("A");
+        assertThat(edge).withLocalProperty("to").isEqualTo("B");
     }
 
     @SimpleGraphs

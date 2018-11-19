@@ -80,7 +80,7 @@ public class EdgeTest {
     void setProperty(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
         edge.setProperty("key", "value");
-        assertThat(edge).hasPropertyThat("key").hasValue("value");
+        assertThat(edge).withProperty("key").hasValue("value");
     }
 
     @SimpleGraphs

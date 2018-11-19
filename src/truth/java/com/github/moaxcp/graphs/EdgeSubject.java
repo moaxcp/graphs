@@ -44,12 +44,12 @@ public class EdgeSubject extends Subject<EdgeSubject, Edge> {
         return check("getTo()").that(actual().getTo());
     }
 
-    public OptionalSubject hasPropertyThat(String name) {
+    public OptionalSubject withProperty(String name) {
         Optional<Object> optional = actual().getProperty(name);
         return check("getProperty(%s)", name).about(optionals()).that(optional);
     }
 
-    public Subject<DefaultSubject, Object> thatLocal(String name) {
+    public Subject<DefaultSubject, Object> withLocalProperty(String name) {
         return check("getLocal(%s)", name).that(actual().getLocal().get(name));
     }
 }

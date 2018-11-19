@@ -28,7 +28,7 @@ public class GraphProperties {
 
     @SimpleGraphs
     void defaultProperty(SimpleGraph graph) {
-        assertThat(graph).hasPropertyThat("property").isEmpty();
+        assertThat(graph).withProperty("property").isEmpty();
     }
 
     @SimpleGraphs
@@ -44,15 +44,21 @@ public class GraphProperties {
     }
 
     @SimpleGraphs
+    void setPorpertyEmptyName(SimpleGraph graph) {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setProperty("", "value"));
+        assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
+    }
+
+    @SimpleGraphs
     void setProperty(SimpleGraph graph) {
         graph.setProperty("property", "value");
-        assertThat(graph).hasPropertyThat("property").hasValue("value");
+        assertThat(graph).withProperty("property").hasValue("value");
     }
 
     @SimpleGraphs
     void property(SimpleGraph graph) {
         SimpleGraph next = graph.property("property", "value");
-        assertThat(graph).hasPropertyThat("property").hasValue("value");
+        assertThat(graph).withProperty("property").hasValue("value");
         assertThat(next).isSameAs(graph);
     }
 
@@ -60,5 +66,12 @@ public class GraphProperties {
     void removePropertyMissing(SimpleGraph graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeProperty("property"));
         assertThat(thrown).hasMessageThat().isEqualTo("graph does not contain property named 'property'.");
+    }
+
+    @SimpleGraphs
+    void removeProperty(SimpleGraph graph) {
+        graph.property("property", "value");
+        graph.removeProperty("property");
+        assertThat(graph).withProperty("property").isEmpty();
     }
 }

@@ -23,8 +23,8 @@ public class GraphVertexMethods {
         var vertex = graph.vertex("id");
         GraphSubject.assertThat(graph).hasVertexThat("id").isSameAs(vertex);
         assertThat(vertex).hasId("id");
-        assertThat(vertex).thatProperty("id").hasValue("id");
-        assertThat(vertex).thatLocal("id").isEqualTo("id");
+        assertThat(vertex).withProperty("id").hasValue("id");
+        assertThat(vertex).withLocalProperty("id").isEqualTo("id");
     }
 
     @SimpleGraphs
