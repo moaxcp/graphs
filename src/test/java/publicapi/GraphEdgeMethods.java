@@ -1,6 +1,8 @@
 package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.google.common.truth.Truth.assertThat;
 import com.github.moaxcp.graphs.SimpleGraph;
 import testframework.SimpleGraphs;
 
@@ -53,5 +55,18 @@ public class GraphEdgeMethods {
         graph.removeEdge("A", "B");
         assertThat(graph).hasNoEdge("A", "B");
         assertThat(graph).hasVertices("A", "B");
+    }
+
+    @SimpleGraphs
+    void removeEdgeWithIdNullId(SimpleGraph graph) {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdge(null));
+        assertThat(thrown).hasMessage("id must not be null.");
+    }
+
+    @SimpleGraphs
+    void removeEdgeWithId(SimpleGraph graph) {
+        graph.edge("A", "B").id("id");
+        graph.removeEdge("id");
+        assertThat(graph).hasNoEdge("id");
     }
 }

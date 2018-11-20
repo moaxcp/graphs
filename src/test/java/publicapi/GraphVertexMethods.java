@@ -2,6 +2,7 @@ package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.*;
 import testframework.SimpleGraphs;
 
@@ -16,6 +17,18 @@ public class GraphVertexMethods {
         graph.removeVertex("A");
         assertThat(graph.getEdges()).hasSize(1);
         assertThat(graph.getVertices()).doesNotContainKey("A");
+    }
+
+    @SimpleGraphs
+    void testRemoveNull(SimpleGraph graph) {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeVertex(null));
+        assertThat(thrown).hasMessage("id must not be null.");
+    }
+
+    @SimpleGraphs
+    void testRemoveVertexMissing(SimpleGraph graph) {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeVertex("A"));
+        assertThat(thrown).hasMessage("vertex 'A' not found.");
     }
 
     @SimpleGraphs

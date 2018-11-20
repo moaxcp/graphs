@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 abstract class AbstractSimpleGraph implements SimpleGraph {
@@ -449,7 +450,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     public void removeVertex(Object id) {
-        Objects.requireNonNull(id);
+        Objects.requireNonNull(id, "id must not be null.");
         var optional = findVertex(id);
         if (!optional.isPresent()) {
             throw new IllegalArgumentException("vertex '" + id + "' not found.");
@@ -487,12 +488,15 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     public void removeEdge(Object from, Object to) {
-        findEdge(from, to).ifPresent(edges::remove);
+        Consumer<Edge> remove = ((Consumer<Edge>) edges::remove)
+                .andThen(edge -> edge.getId().ifPresent(edgeIds::remove));
+        findEdge(from, to).ifPresent(remove);
     }
 
     @Override
     public void removeEdge(Object id) {
-
+        requireNonNull(id, "id must not be null.");
+        findEdge(id).ifPresent(edge -> removeEdge(edge.getFrom(), edge.getTo()));
     }
 
     @Override
