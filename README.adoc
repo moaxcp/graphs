@@ -16,10 +16,10 @@ image:https://sonarcloud.io/api/badges/measure?key=com.github.moaxcp:graphs&metr
 Simple graphs can be undirected or directed. An undirected graph can have only one edge between any two vertices. A
 directed graph can have two edges between any two vertices but they must be in opposite directions.
 
-~~~~
+----
 SimpleGraph undirected = new UnidrectedGraph();
 SimpleGraph directed = new DirectedGraph();
-~~~~
+----
 
 There are three main interfaces: SimpleGraph, Edge, and Vertex. These interfaces support properties.
 
@@ -67,44 +67,44 @@ in the graph.
 vertex() and edge() methods provide an api for creating or finding elements of the graph. If an element already exists
 it is returned.
 
-~~~~
+----
 graph.vertex("A");
 graph.vertex("B");
 graph.edge("A", "B");
-~~~~
+----
 
 It is not necessary to create vertices before creating an edge. One statement will achive the same graph.
 
-~~~~
+----
 graph.edge("A", "B");
-~~~~
+----
 
 Elements are returned which allows method chaining. The same graph can be created using `connectsTo`.
 
-~~~~
+----
 graph.vertex("A").connectsTo("B");
-~~~~
+----
 
 To add the optional id to an edge chain the id method.
 
-~~~~
+----
 graph.edge("A", "B").id("AB");
-~~~~
+----
 
 To add properties use the property method.
 
-~~~~
+----
 graph.vertex("A").property("color", "blue");
 graph.edge("A", "B").property("color", "red");
-~~~~
+----
 
 = Examples
 
-~~~~
+----
 SimpleGraph graph = new DirectedGraph();
 graph.vertex("a")
     .connectsTo("c")
     .connectsTo("b")
 graph.vertex("c")
     .connectsTo("d")
-~~~~
+----
