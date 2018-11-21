@@ -9,7 +9,7 @@ a few principles which keeps things simple for the user:
 * never return null
 
 image:https://travis-ci.org/moaxcp/graphs.svg?branch=master["Build Status", link="https://travis-ci.org/moaxcp/graphs"]
-image:https://sonarcloud.io/api/badges/measure?key=com.github.moaxcp:graphs&metric=coverage["Coverage", link="https://sonarcloud.io/component_measures?id=com.github.moaxcp:graphs&metric=coverage"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp:graphs&metric=coverage["Coverage", link="https://sonarcloud.io/component_measures?id=com.github.moaxcp:graphs&metric=coverage"]
 
 = SimpleGraphs
 
