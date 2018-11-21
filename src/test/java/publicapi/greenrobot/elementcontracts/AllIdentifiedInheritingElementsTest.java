@@ -27,7 +27,7 @@ class AllIdentifiedInheritingElementsTest {
     @MethodSource("elements")
     void testConstructor(IdentifiedInheritingElement element) {
         assertThat(element.getId()).isEqualTo("id");
-        assertThat(element.getLocal()).containsExactly("id", "id");
+        assertThat(element.local()).containsExactly("id", "id");
     }
 
     @ParameterizedTest
@@ -47,7 +47,7 @@ class AllIdentifiedInheritingElementsTest {
     @MethodSource("elements")
     void testSetId(IdentifiedInheritingElement element) {
         element.setId("a");
-        assertThat(element.getLocal()).containsExactly("id", "a");
+        assertThat(element.local()).containsExactly("id", "a");
     }
 
     @ParameterizedTest
@@ -61,7 +61,7 @@ class AllIdentifiedInheritingElementsTest {
     @MethodSource("elements")
     void testSetProperty(IdentifiedInheritingElement element) {
         element.setProperty("key", "value");
-        assertThat(element.getLocal()).containsExactly("id", "id", "key", "value");
+        assertThat(element.local()).containsExactly("id", "id", "key", "value");
     }
 
     @ParameterizedTest
@@ -77,7 +77,7 @@ class AllIdentifiedInheritingElementsTest {
         element.setProperty("key", "value");
         assertThat(element.getProperty("key")).hasValue("value");
         element.removeProperty("key");
-        assertThat(element.getLocal()).containsExactly("id", "id");
+        assertThat(element.local()).containsExactly("id", "id");
     }
 
     @ParameterizedTest

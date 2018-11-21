@@ -43,7 +43,7 @@ class AllElementsTest {
     @MethodSource("elements")
     void testGetLocal(Element element) {
         element.setProperty("key", "value");
-        assertThat(element.getLocal()).containsEntry("key", "value");
+        assertThat(element.local()).containsEntry("key", "value");
     }
 
     @ParameterizedTest
@@ -120,8 +120,8 @@ class AllElementsTest {
         properties.put("key1", "value1");
         properties.put("key2", "value2");
         element.addProperties(properties);
-        assertThat(element.getLocal()).containsEntry("key1", "value1");
-        assertThat(element.getLocal()).containsEntry("key2", "value2");
+        assertThat(element.local()).containsEntry("key1", "value1");
+        assertThat(element.local()).containsEntry("key2", "value2");
     }
 
     @ParameterizedTest

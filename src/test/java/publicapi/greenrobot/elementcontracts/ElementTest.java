@@ -12,6 +12,6 @@ class ElementTest {
     Element element = new TestElement(EventBus.getDefault());
     @Test
     void testCosntructor() {
-        assertThat(element.getLocal()).isEmpty();
+        assertThat(element.local()).isEmpty();
     }
 }

@@ -35,20 +35,15 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
         return check("getId()").about(optionals()).that(actual().getId());
     }
 
-    public VertexSubject hasVertexThat(Object id) {
-        Optional<Vertex> optional = actual().findVertex(id);
-        check("findVertex(%s)", id).about(optionals()).that(optional).isPresent();
-        return assertAbout(vertices()).that(optional.orElse(null));
-    }
-
-    public void hasVertex(Object id) {
-        Optional<Vertex> optional = actual().findVertex(id);
-        check("findVertex(%s)", id).about(optionals()).that(optional).isPresent();
+    public VertexSubject hasVertex(Object id) {
+        Optional<Vertex> find = actual().findVertex(id);
+        check("findVertex(%s)", id).about(optionals()).that(find).isPresent();
+        return assertAbout(vertices()).that(find.orElse(null));
     }
 
     public EdgeSubject hasEdge(Object from, Object to) {
-        hasVertexThat(from);
-        hasVertexThat(to);
+        hasVertex(from);
+        hasVertex(to);
         Optional<Edge> find = actual().findEdge(from, to);
         check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isPresent();
         return assertAbout(edges()).that(find.orElse(null));

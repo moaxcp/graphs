@@ -26,6 +26,12 @@ public class GraphEdgeProperties {
     }
 
     @SimpleGraphs
+    void setPropertyEmptyName(SimpleGraph graph) {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setEdgeProperty("", ""));
+        assertThat(thrown).hasMessage("name must not be empty.");
+    }
+
+    @SimpleGraphs
     void setProperty(SimpleGraph graph) {
         graph.setEdgeProperty("property", "value");
         assertThat(graph).withEdgeProperty("property").hasValue("value");

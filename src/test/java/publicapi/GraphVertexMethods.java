@@ -34,10 +34,10 @@ public class GraphVertexMethods {
     @SimpleGraphs
     void addNewVertex(SimpleGraph graph) {
         var vertex = graph.vertex("id");
-        GraphSubject.assertThat(graph).hasVertexThat("id").isSameAs(vertex);
+        GraphSubject.assertThat(graph).hasVertex("id").isSameAs(vertex);
         assertThat(vertex).hasId("id");
         assertThat(vertex).withProperty("id").hasValue("id");
-        assertThat(vertex).withLocalProperty("id").isEqualTo("id");
+        assertThat(vertex).withLocal().containsExactly("id", "id");
     }
 
     @SimpleGraphs

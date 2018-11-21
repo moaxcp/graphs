@@ -30,7 +30,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * Returns an unmodifiable {@link Map} of all properties set on this Element.
          * @return all properties set on this element
          */
-        public Map<String, Object> getLocal() {
+        public Map<String, Object> local() {
             return unmodifiableMap(local);
         }
 
@@ -41,7 +41,8 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * @throws NullPointerException if name is null
          */
         public Optional<Object> getProperty(String name) {
-            Object value = local.get(requireNonNull(name, "name must not be null."));
+            requireNonNull(name, "name must not be null.");
+            Object value = local.get(name);
             if (value != null) {
                 return Optional.of(value);
             }
@@ -60,10 +61,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
                 throw new IllegalArgumentException("name must not be empty.");
             }
             local.put(name, value);
-        }
-
-        public void addProperties(Map<String, Object> properties) {
-            local.putAll(properties);
         }
 
         public T property(String name, Object value) {
@@ -375,14 +372,14 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         @Override
         public Vertex removeProperty(String name) {
             if ("id".equals(name)) {
-                throw new IllegalArgumentException("id can not be removed.");
+                throw new IllegalArgumentException("id cannot be removed.");
             }
             super.removeProperty(name);
             return self();
         }
 
         public final String toString() {
-            return "Vertex '" + getId() + "' " + getLocal().toString();
+            return "Vertex '" + getId() + "' " + local().toString();
         }
 
         @Override
@@ -555,6 +552,9 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     public void setEdgeProperty(String name, Object value) {
         requireNonNull(name, "name must not be null.");
         requireNonNull(value, "value must not be null.");
+        if(name.isEmpty()) {
+            throw new IllegalArgumentException("name must not be empty.");
+        }
         edgeProperties.put(name, value);
     }
 
@@ -583,6 +583,9 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     public void setVertexProperty(String name, Object value) {
         requireNonNull(name, "name must not be null.");
         requireNonNull(value, "value must not be null.");
+        if(name.isEmpty()) {
+            throw new IllegalArgumentException("name must not be empty.");
+        }
         vertexProperties.put(name, value);
     }
 

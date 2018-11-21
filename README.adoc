@@ -1,5 +1,110 @@
 = graphs
 
+An easy to use java api for graphs which currently supports simple graphs and event streaming. The graph api follows
+a few principles which keeps things simple for the user:
+
+* a graph is always valid
+* referencing missing elements will create them
+* creating and changing the graph, vertices, or edges will result in an event
+* never return null
 
 image:https://travis-ci.org/moaxcp/graphs.svg?branch=master["Build Status", link="https://travis-ci.org/moaxcp/graphs"]
 image:https://sonarcloud.io/api/badges/measure?key=com.github.moaxcp:graphs&metric=coverage["Coverage", link="https://sonarcloud.io/component_measures?id=com.github.moaxcp:graphs&metric=coverage"]
+
+= SimpleGraphs
+
+Simple graphs can be undirected or directed. An undirected graph can have only one edge between any two vertices. A
+directed graph can have two edges between any two vertices but they must be in opposite directions.
+
+~~~~
+SimpleGraph undirected = new UnidrectedGraph();
+SimpleGraph directed = new DirectedGraph();
+~~~~
+
+There are three main interfaces: SimpleGraph, Edge, and Vertex. These interfaces support properties.
+
+== properties
+
+A property must have a name and value. The name and value cannot be null. Certain properties have constraints. Vertex
+must have an `id` property which is unique to each Vertex in the graph. Edge must have a `from` and `to` property
+which always references a valid Vertex `id` in the graph. SimpleGraph and Edge have an optional `id` property.
+
+=== id property
+
+`id` can be any object which correctly implements equals and hashCode. Most of the examples use String but Integer or
+even UUID could be used.
+
+Vertex requires an `id` property. This property must always exist but it can be changed at any time.
+
+```
+graph.vertex("A");
+```
+
+Creates a vertex with id of "A".
+
+```
+graph.vertex("A").id("B");
+```
+
+Creates a vertex with id of "A" and changes it to "B".
+
+SimpleGraph and Edge have an optional `id` property. The `id` in SimpleGraph and Edge can be changed or removed entirely at
+any time.
+
+=== `from` and `to` property
+
+Edge requires `from` and `to` properties. These properties identify the two vertices the edge connects. `from` and `to`
+must always exist but they can be changed to connect different vertices.
+
+=== inherited properties
+
+SimpleGraph contains properties for all edges and all vertices to inherit. Common properties only need to be set once
+in the graph rather than in each individual element. Local properties set on an Edge or Vertex override properties set
+in the graph.
+
+== Vertices and Edges
+
+vertex() and edge() methods provide an api for creating or finding elements of the graph. If an element already exists
+it is returned.
+
+~~~~
+graph.vertex("A");
+graph.vertex("B");
+graph.edge("A", "B");
+~~~~
+
+It is not necessary to create vertices before creating an edge. One statement will achive the same graph.
+
+~~~~
+graph.edge("A", "B");
+~~~~
+
+Elements are returned which allows method chaining. The same graph can be created using `connectsTo`.
+
+~~~~
+graph.vertex("A").connectsTo("B");
+~~~~
+
+To add the optional id to an edge chain the id method.
+
+~~~~
+graph.edge("A", "B").id("AB");
+~~~~
+
+To add properties use the property method.
+
+~~~~
+graph.vertex("A").property("color", "blue");
+graph.edge("A", "B").property("color", "red");
+~~~~
+
+= Examples
+
+~~~~
+SimpleGraph graph = new DirectedGraph();
+graph.vertex("a")
+    .connectsTo("c")
+    .connectsTo("b")
+graph.vertex("c")
+    .connectsTo("d")
+~~~~

@@ -25,7 +25,8 @@ public interface SimpleGraph {
         void setProperty(String name, Object value);
         Vertex property(String name, Object value);
         Vertex removeProperty(String name);
-        Map<String, Object> getLocal();
+        Map<String, Object> inherited();
+        Map<String, Object> local();
     }
 
     public interface Edge {
@@ -47,7 +48,8 @@ public interface SimpleGraph {
         void setProperty(String name, Object value);
         Edge property(String name, Object value);
         Edge removeProperty(String name);
-        Map<String, Object> getLocal();
+        Map<String, Object> inherited();
+        Map<String, Object> local();
         boolean equals(Object from, Object to);
     }
 

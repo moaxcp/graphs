@@ -37,7 +37,11 @@ public class VertexSubject extends Subject<VertexSubject, Vertex> {
         return check("getProperty(%s)", name).about(optionals()).that(optional);
     }
 
-    public Subject<DefaultSubject, Object> withLocalProperty(String name) {
-        return check("getLocal(%s)", name).that(actual().getLocal().get(name));
+    public MapSubject withLocal() {
+        return check("local()").that(actual().local());
+    }
+
+    public MapSubject withInherited() {
+        return check("inherited()").that(actual().inherited());
     }
 }

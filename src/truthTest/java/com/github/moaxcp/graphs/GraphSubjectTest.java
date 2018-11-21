@@ -22,7 +22,7 @@ public class GraphSubjectTest {
     public void doesHaveVertex() {
         SimpleGraph graph = new UndirectedEventGraph();
         graph.vertex("id");
-        assertThat(graph).hasVertexThat("id");
+        assertThat(graph).hasVertex("id");
     }
 
     @Test

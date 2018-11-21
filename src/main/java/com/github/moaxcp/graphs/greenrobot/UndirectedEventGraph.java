@@ -313,7 +313,7 @@ public class UndirectedEventGraph extends OptionallyIdentifiedElement<Undirected
         }
 
         public final String toString() {
-            return "Vertex '" + getId() + "' " + getLocal().toString();
+            return "Vertex '" + getId() + "' " + local().toString();
         }
 
         @Override

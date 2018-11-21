@@ -51,7 +51,7 @@ public class EdgeSubject extends Subject<EdgeSubject, Edge> {
     }
 
     public Subject<DefaultSubject, Object> withLocalProperty(String name) {
-        return check("getLocal(%s)", name).that(actual().getLocal().get(name));
+        return check("getLocal(%s)", name).that(actual().local().get(name));
     }
 
     public void isDirected() {

@@ -30,7 +30,7 @@ public abstract class Element<T extends Element<T>> {
      * Returns an unmodifiable {@link Map} of all properties set on this Element.
      * @return all properties set on this element
      */
-    public Map<String, Object> getLocal() {
+    public Map<String, Object> local() {
         return Collections.unmodifiableMap(local);
     }
 
