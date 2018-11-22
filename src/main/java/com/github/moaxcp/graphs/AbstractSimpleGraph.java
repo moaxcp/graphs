@@ -311,6 +311,16 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             super.setProperty(name, value);
         }
 
+        @Override
+        public Vertex removeProperty(String name) {
+            check();
+            if ("id".equals(name)) {
+                throw new IllegalArgumentException("id cannot be removed.");
+            }
+            super.removeProperty(name);
+            return self();
+        }
+
         public Vertex connectsTo(Object to) {
             check();
             edge(getId(), to);
@@ -348,34 +358,26 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             return adjacentEdges();
         }
 
+        @Override
         public Set<Edge> adjacentEdges() {
             check();
             return edges.stream()
                     .filter(edge -> getId().equals(edge.getFrom()) || getId().equals(edge.getTo()))
                     .collect(Collectors.toSet());
         }
-
+        @Override
         public Set<Edge> inEdges() {
             check();
             return edges.stream()
                     .filter(edge -> getId().equals(edge.getTo()))
                     .collect(Collectors.toSet());
         }
-
+        @Override
         public Set<Edge> outEdges() {
             check();
             return edges.stream()
                     .filter(edge -> getId().equals(edge.getFrom()))
                     .collect(Collectors.toSet());
-        }
-
-        @Override
-        public Vertex removeProperty(String name) {
-            if ("id".equals(name)) {
-                throw new IllegalArgumentException("id cannot be removed.");
-            }
-            super.removeProperty(name);
-            return self();
         }
 
         public final String toString() {

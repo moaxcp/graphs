@@ -209,4 +209,24 @@ public class VertexTest {
         assertThat(vertex).hasId("A");
         assertThat(graph).hasEdge("A", "B");
     }
+
+    @SimpleGraphs
+    void inEdges(SimpleGraph graph) {
+        var edge1 = graph.edge("B", "A");
+        var edge2 = graph.edge("C", "A");
+        var edge3 = graph.edge("D", "A");
+        var result = graph.vertex("A").inEdges();
+
+        assertThat(result).containsExactly(edge1, edge2, edge3);
+    }
+
+    @SimpleGraphs
+    void outEdges(SimpleGraph graph) {
+        var edge1 = graph.edge("A", "B");
+        var edge2 = graph.edge("A", "C");
+        var edge3 = graph.edge("A", "D");
+        var result = graph.vertex("A").outEdges();
+
+        assertThat(result).containsExactly(edge1, edge2, edge3);
+    }
 }

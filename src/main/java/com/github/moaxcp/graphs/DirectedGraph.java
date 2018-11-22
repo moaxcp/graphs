@@ -28,6 +28,11 @@ public class DirectedGraph extends AbstractSimpleGraph {
         private DirectedVertex(Object id, Map<String, Object> inherited) {
             super(id, inherited);
         }
+
+        @Override
+        public Set<Edge> traverseEdges() {
+            return outEdges();
+        }
     }
 
     public DirectedGraph() {
