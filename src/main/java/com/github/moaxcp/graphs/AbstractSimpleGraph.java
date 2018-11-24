@@ -134,7 +134,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          */
         public void setFrom(Object from) {
             check();
-            Objects.requireNonNull(from);
+            requireNonNull(from, "from must not be null.");
             edges.remove(this);
             vertex(from);
             super.setProperty("from", from);
@@ -170,7 +170,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          */
         public void setTo(Object to) {
             check();
-            Objects.requireNonNull(to);
+            Objects.requireNonNull(to, "to must not be null.");
             edges.remove(this);
             vertex(to);
             super.setProperty("to", to);
@@ -204,7 +204,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
         @Override
         public void setProperty(String name, Object value) {
-            check();
             if ("from".equals(name)) {
                 setFrom((value));
                 return;
@@ -217,6 +216,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
                 setId(value);
                 return;
             }
+            check();
             super.setProperty(name, value);
         }
 
@@ -227,10 +227,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
                 getId().ifPresent(edgeIds::remove);
             }
             if ("from".equals(name)) {
-                throw new IllegalArgumentException("'from' can not be removed.");
+                throw new IllegalArgumentException("'from' cannot be removed.");
             }
             if ("to".equals(name)) {
-                throw new IllegalArgumentException("'to' can not be removed.");
+                throw new IllegalArgumentException("'to' cannot be removed.");
             }
             return super.removeProperty(name);
         }
