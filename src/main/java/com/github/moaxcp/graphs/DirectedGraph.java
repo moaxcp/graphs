@@ -17,11 +17,6 @@ public class DirectedGraph extends AbstractSimpleGraph {
         public boolean equals(Object from, Object to) {
             return (Objects.equals(getFrom(), from) && (Objects.equals(getTo(), to)));
         }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(getFrom(), getTo());
-        }
     }
 
     public class DirectedVertex extends AbstractVertex {

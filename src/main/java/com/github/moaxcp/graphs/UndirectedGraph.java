@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import java.util.Map;
+import java.util.*;
 
 public class UndirectedGraph extends AbstractSimpleGraph {
     public class UndirectedEdge extends AbstractEdge {
@@ -12,11 +12,21 @@ public class UndirectedGraph extends AbstractSimpleGraph {
         public boolean isDirected() {
             return false;
         }
+
+        @Override
+        public boolean equals(Object from, Object to) {
+            return (Objects.equals(getFrom(), from) || Objects.equals(getFrom(), to)) && (Objects.equals(getTo(), to) || Objects.equals(getTo(), from));
+        }
     }
 
     public class UndirectedVertex extends AbstractVertex {
         private UndirectedVertex(Object id, Map<String, Object> inherited) {
             super(id, inherited);
+        }
+
+        @Override
+        public Set<Edge> traverseEdges() {
+            return adjacentEdges();
         }
     }
 

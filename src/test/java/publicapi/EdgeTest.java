@@ -4,7 +4,7 @@ import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.SimpleGraph;
-import testframework.SimpleGraphs;
+import testframework.*;
 
 public class EdgeTest {
     @SimpleGraphs
@@ -186,5 +186,41 @@ public class EdgeTest {
         var edge = graph.edge("A", "B");
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> edge.removeProperty("to"));
         assertThat(thrown).hasMessage("'to' cannot be removed.");
+    }
+
+    @SimpleGraphs
+    void equalsSameObject(SimpleGraph graph) {
+        var edge = graph.edge("A", "B");
+        assertThat(edge.equals(edge)).isTrue();
+    }
+
+    @SimpleGraphs
+    void equalsNotEdge(SimpleGraph graph) {
+        var edge = graph.edge("A", "B");
+        assertThat(edge.equals(1)).isFalse();
+    }
+
+    @SimpleGraphs
+    void equalsNotSame(SimpleGraph graph) {
+        var edge = graph.edge("A", "B");
+        assertThat(edge.equals("C", "D")).isFalse();
+    }
+
+    @SimpleGraphs
+    void equalsSameFrom(SimpleGraph graph) {
+        var edge = graph.edge("A", "B");
+        assertThat(edge.equals("A", "C")).isFalse();
+    }
+
+    @SimpleGraphs
+    void equalsSame(SimpleGraph graph) {
+        var edge = graph.edge("A", "B");
+        assertThat(edge.equals("A", "B")).isTrue();
+    }
+
+    @UndirectedSimpleGraphs
+    void equalsOpposite(SimpleGraph graph) {
+        var edge = graph.edge("A", "B");
+        assertThat(edge.equals("B", "A")).isTrue();
     }
 }

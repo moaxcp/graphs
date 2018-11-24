@@ -4,7 +4,7 @@ import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.SimpleGraph;
-import testframework.SimpleGraphs;
+import testframework.*;
 
 public class VertexTest {
 
@@ -228,5 +228,54 @@ public class VertexTest {
         var result = graph.vertex("A").outEdges();
 
         assertThat(result).containsExactly(edge1, edge2, edge3);
+    }
+
+    @UndirectedSimpleGraphs
+    void undirectedTraverseEdges(SimpleGraph graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "C");
+        graph.edge("Z", "Y");
+
+        var vertex = graph.vertex("A");
+
+        var edges = vertex.traverseEdges();
+        assertThat(edges).hasSize(2);
+        for(var edge : edges) {
+            assertThat(edge.local().values()).contains("A");
+        }
+    }
+
+    @DirectedSimpleGraphs
+    void directedTraverseEdges(SimpleGraph graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "C");
+        graph.edge("Z", "Y");
+
+        var vertex = graph.vertex("A");
+
+        var edges = vertex.traverseEdges();
+        assertThat(edges).hasSize(2);
+        for(var edge : edges) {
+            assertThat(edge).hasFromThat().isEqualTo("A");
+        }
+    }
+
+    @SimpleGraphs
+    void equalsSameVertex(SimpleGraph graph) {
+        var vertex = graph.vertex("A");
+        assertThat(vertex.equals(vertex)).isTrue();
+    }
+
+    @SimpleGraphs
+    void equalsNotSameObject(SimpleGraph graph) {
+        var vertex = graph.vertex("A");
+        assertThat(vertex.equals(1)).isFalse();
+    }
+
+    @SimpleGraphs
+    void notEqualsVertex(SimpleGraph graph) {
+        var vertex1 = graph.vertex("A");
+        var vertex2 = graph.vertex("B");
+        assertThat(vertex1.equals(vertex2)).isFalse();
     }
 }

@@ -3,7 +3,6 @@ package com.github.moaxcp.graphs;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
-import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -108,7 +107,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             if (id == null && !getId().isPresent()) {
                 return;
             }
-            if (id == null && getId().isPresent()) {
+            if (id == null) {
                 removeProperty("id");
                 return;
             }
@@ -235,19 +234,15 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             return super.removeProperty(name);
         }
 
-        public boolean equals(Object from, Object to) {
-            return (Objects.equals(getFrom(), from) || Objects.equals(getFrom(), to)) && (Objects.equals(getTo(), to) || Objects.equals(getTo(), from));
-        }
-
         @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof AbstractEdge)) {
+            if (!(obj instanceof Edge)) {
                 return false;
             }
-            AbstractEdge edge = (AbstractEdge) obj;
+            Edge edge = (Edge) obj;
             return equals(edge.getFrom(), edge.getTo());
         }
 
@@ -354,11 +349,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         @Override
-        public Set<Edge> traverseEdges() {
-            return adjacentEdges();
-        }
-
-        @Override
         public Set<Edge> adjacentEdges() {
             check();
             return edges.stream()
@@ -387,10 +377,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         @Override
         public final boolean equals(Object obj) {
             if (obj == this) return true;
-            if (!(obj instanceof UndirectedEventGraph.UndirectedVertex)) {
+            if (!(obj instanceof Vertex)) {
                 return false;
             }
-            UndirectedEventGraph.UndirectedVertex vertex = (UndirectedEventGraph.UndirectedVertex) obj;
+            Vertex vertex = (Vertex) obj;
             return Objects.equals(getId(), vertex.getId());
         }
 
