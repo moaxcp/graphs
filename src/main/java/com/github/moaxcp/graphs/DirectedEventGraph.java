@@ -1,10 +1,12 @@
 package com.github.moaxcp.graphs;
 
+import static com.github.moaxcp.graphs.events.Builders.directedGraphCreated;
 import java.util.*;
+import org.greenrobot.eventbus.EventBus;
 
-public class DirectedEventGraph extends AbstractSimpleEventGraph {
-    public class DirectedEdge extends AbstractEdge {
-        protected DirectedEdge(Object from, Object to, Map<String, Object> inherited) {
+public class DirectedEventGraph extends AbstractSimpleGraph {
+    public class DirectedEventEdge extends AbstractEdge {
+        protected DirectedEventEdge(Object from, Object to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
 
@@ -19,8 +21,8 @@ public class DirectedEventGraph extends AbstractSimpleEventGraph {
         }
     }
 
-    public class DirectedVertex extends AbstractVertex {
-        private DirectedVertex(Object id, Map<String, Object> inherited) {
+    public class DirectedEventVertex extends AbstractVertex {
+        private DirectedEventVertex(Object id, Map<String, Object> inherited) {
             super(id, inherited);
         }
 
@@ -30,20 +32,39 @@ public class DirectedEventGraph extends AbstractSimpleEventGraph {
         }
     }
 
-    public DirectedEventGraph() {
+    private EventBus bus;
 
+    public DirectedEventGraph() {
+        this(EventBus.getDefault());
+    }
+
+    public DirectedEventGraph(EventBus bus) {
+        this.bus = bus;
+        bus.post(directedGraphCreated().build());
     }
 
     public DirectedEventGraph(Object id) {
         super(id);
+        bus = EventBus.getDefault();
+        bus.post(directedGraphCreated().graphId(id).build());
+    }
+
+    public DirectedEventGraph(Object id, EventBus bus) {
+        super(id);
+        this.bus = bus;
+        bus.post(directedGraphCreated().graphId(id).build());
+    }
+
+    protected EventBus getBus() {
+        return bus;
     }
 
     Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
-        return new DirectedEdge(from, to, inherited);
+        return new DirectedEventEdge(from, to, inherited);
     }
 
     Vertex newVertex(Object id, Map<String, Object> inherited) {
-        return new DirectedVertex(id, inherited);
+        return new DirectedEventVertex(id, inherited);
     }
 
     @Override

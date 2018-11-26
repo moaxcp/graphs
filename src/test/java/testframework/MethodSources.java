@@ -23,4 +23,10 @@ public class MethodSources {
                 new DirectedGraph(),
                 new DirectedEventGraph());
     }
+
+    public static Stream<SimpleGraph> eventSimpleGraphs() {
+        return Stream.of(
+                new UndirectedEventGraph(),
+                new DirectedEventGraph());
+    }
 }

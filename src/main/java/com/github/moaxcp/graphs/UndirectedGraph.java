@@ -20,7 +20,7 @@ public class UndirectedGraph extends AbstractSimpleGraph {
     }
 
     public class UndirectedVertex extends AbstractVertex {
-        private UndirectedVertex(Object id, Map<String, Object> inherited) {
+        protected UndirectedVertex(Object id, Map<String, Object> inherited) {
             super(id, inherited);
         }
 

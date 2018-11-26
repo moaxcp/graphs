@@ -20,7 +20,7 @@ public class DirectedGraph extends AbstractSimpleGraph {
     }
 
     public class DirectedVertex extends AbstractVertex {
-        private DirectedVertex(Object id, Map<String, Object> inherited) {
+        protected DirectedVertex(Object id, Map<String, Object> inherited) {
             super(id, inherited);
         }
 
