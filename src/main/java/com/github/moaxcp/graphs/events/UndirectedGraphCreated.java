@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs.events;
 
 import java.util.Objects;
 
-public class UndirectedGraphCreated extends GraphEvent {
+public final class UndirectedGraphCreated extends GraphEvent {
 
     private UndirectedGraphCreated(Builder builder) {
         super(builder);

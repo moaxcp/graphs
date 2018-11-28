@@ -7,4 +7,10 @@ public class Builders {
     public static DirectedGraphCreated.Builder directedGraphCreated() {
         return new DirectedGraphCreated.Builder();
     }
+    public static VertexCreated.Builder vertexCreated() {
+        return new VertexCreated.Builder();
+    }
+    public static EdgeCreated.Builder edgeCreated() {
+        return new EdgeCreated.Builder();
+    }
 }

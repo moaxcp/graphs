@@ -431,10 +431,12 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     public Vertex vertex(Object id) {
-        var vertex = vertices.getOrDefault(id, newVertex(id, vertexProperties));
-        if (!vertices.containsKey(id)) {
-            vertices.put(id, vertex);
-        }
+        return findVertex(id).orElseGet(() -> addVertex(id));
+    }
+
+    Vertex addVertex(Object id) {
+        var vertex = newVertex(id, vertexProperties);
+        vertices.put(id, vertex);
         return vertex;
     }
 
@@ -462,16 +464,17 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     public Edge edge(Object from, Object to) {
-        return findEdge(from, to).orElseGet(() -> addEdge(newEdge(from, to, edgeProperties)));
+        return findEdge(from, to).orElseGet(() -> addEdge(from, to));
     }
 
     abstract Edge newEdge(Object from, Object to, Map<String, Object> inherited);
 
     abstract Vertex newVertex(Object id, Map<String, Object> inherited);
 
-    private Edge addEdge(Edge edge) {
-        vertex(edge.getFrom());
-        vertex(edge.getTo());
+    Edge addEdge(Object from, Object to) {
+        vertex(from);
+        vertex(to);
+        var edge = newEdge(from, to, edgeProperties);
         edges.add(edge);
         return edge;
     }

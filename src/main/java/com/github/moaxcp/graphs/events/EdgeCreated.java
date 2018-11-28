@@ -1,16 +1,15 @@
 package com.github.moaxcp.graphs.events;
 
-import java.util.Optional;
-
 import static java.util.Objects.requireNonNull;
+import java.util.*;
 
-public class EdgeAdded extends GraphEvent {
+public final class EdgeCreated extends GraphEvent {
 
-    private Object edgeId;
-    private Object from;
-    private Object to;
+    private final Object edgeId;
+    private final Object from;
+    private final Object to;
 
-    protected EdgeAdded(Builder builder) {
+    protected EdgeCreated(Builder builder) {
         super(builder);
         edgeId = builder.edgeId;
         from = requireNonNull(builder.from);
@@ -29,7 +28,20 @@ public class EdgeAdded extends GraphEvent {
         return to;
     }
 
-    static class Builder extends GraphEvent.Builder<Builder> {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EdgeCreated that = (EdgeCreated) o;
+        return Objects.equals(getGraphId(), that.getGraphId()) && Objects.equals(edgeId, that.edgeId) && Objects.equals(from, that.from) && Objects.equals(to, that.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGraphId(), edgeId, from, to);
+    }
+
+    public static class Builder extends GraphEvent.Builder<Builder> {
         private Object edgeId;
         private Object from;
         private Object to;
@@ -50,8 +62,8 @@ public class EdgeAdded extends GraphEvent {
         }
 
         @Override
-        public EdgeAdded build() {
-            return new EdgeAdded(this);
+        public EdgeCreated build() {
+            return new EdgeCreated(this);
         }
     }
 }

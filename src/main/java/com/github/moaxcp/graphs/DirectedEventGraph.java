@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import static com.github.moaxcp.graphs.events.Builders.directedGraphCreated;
+import static com.github.moaxcp.graphs.events.Builders.*;
 import java.util.*;
 import org.greenrobot.eventbus.EventBus;
 
@@ -59,12 +59,28 @@ public class DirectedEventGraph extends AbstractSimpleGraph {
         return bus;
     }
 
+    @Override
     Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
         return new DirectedEventEdge(from, to, inherited);
     }
 
+    @Override
+    Edge addEdge(Object from, Object to) {
+        var edge = super.addEdge(from, to);
+        bus.post(edgeCreated().graphId(getId().orElse(null)).from(from).to(to).build());
+        return edge;
+    }
+
+    @Override
     Vertex newVertex(Object id, Map<String, Object> inherited) {
         return new DirectedEventVertex(id, inherited);
+    }
+
+    @Override
+    Vertex addVertex(Object id) {
+        var vertex = super.addVertex(id);
+        bus.post(vertexCreated().graphId(DirectedEventGraph.this.getId().orElse(null)).vertexId(id).build());
+        return vertex;
     }
 
     @Override

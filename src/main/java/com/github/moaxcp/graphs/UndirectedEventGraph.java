@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import static com.github.moaxcp.graphs.events.Builders.undirectedGraphCreated;
+import static com.github.moaxcp.graphs.events.Builders.*;
 import java.util.*;
 import org.greenrobot.eventbus.EventBus;
 
@@ -60,11 +60,15 @@ public class UndirectedEventGraph extends AbstractSimpleGraph {
     }
 
     Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
-        return new UndirectedEventEdge(from, to, inherited);
+        var edge = new UndirectedEventEdge(from, to, inherited);
+        bus.post(edgeCreated().graphId(getId().orElse(null)).from(from).to(to).build());
+        return edge;
     }
 
     Vertex newVertex(Object id, Map<String, Object> inherited) {
-        return new UndirectedEventVertex(id, inherited);
+        var vertex = new UndirectedEventVertex(id, inherited);
+        bus.post(vertexCreated().graphId(getId().orElse(null)).vertexId(id).build());
+        return vertex;
     }
 
     @Override

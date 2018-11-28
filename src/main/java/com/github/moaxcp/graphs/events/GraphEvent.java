@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs.events;
 import java.util.*;
 
 public abstract class GraphEvent {
-    private Object graphId;
+    private final Object graphId;
 
     protected GraphEvent(Builder builder) {
         graphId = builder.graphId;
