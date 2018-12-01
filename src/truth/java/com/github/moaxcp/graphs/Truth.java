@@ -1,6 +1,8 @@
 package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.SimpleGraph.*;
+import com.google.common.truth.IterableSubject;
+import org.greenrobot.eventbus.EventBus;
 
 public class Truth {
     public static GraphSubject assertThat(SimpleGraph graph) {
@@ -13,5 +15,13 @@ public class Truth {
 
     public static VertexSubject assertThat(Vertex vertex) {
         return VertexSubject.assertThat(vertex);
+    }
+
+    public static IterableSubject assertEvents(Runnable action) {
+        return EventBusSubject.assertEvents(action);
+    }
+
+    public static EventBusSubject assertThat(EventBus actual) {
+        return EventBusSubject.assertThat(actual);
     }
 }

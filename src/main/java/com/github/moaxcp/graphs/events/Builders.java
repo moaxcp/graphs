@@ -13,4 +13,7 @@ public class Builders {
     public static EdgeCreated.Builder edgeCreated() {
         return new EdgeCreated.Builder();
     }
+    public static EdgeRemoved.Builder edgeRemoved() {
+        return new EdgeRemoved.Builder();
+    }
 }

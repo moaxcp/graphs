@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 abstract class Property extends GraphEvent {
 
-    private String name;
-    private Object value;
+    private final String name;
+    private final Object value;
 
     protected Property(Builder builder) {
         super(builder);

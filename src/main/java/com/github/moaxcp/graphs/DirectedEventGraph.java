@@ -4,9 +4,9 @@ import static com.github.moaxcp.graphs.events.Builders.*;
 import java.util.*;
 import org.greenrobot.eventbus.EventBus;
 
-public class DirectedEventGraph extends AbstractSimpleGraph {
-    public class DirectedEventEdge extends AbstractEdge {
-        protected DirectedEventEdge(Object from, Object to, Map<String, Object> inherited) {
+public class DirectedEventGraph extends AbstractEventGraph {
+    public class DirectedEventEdge extends EventEdge {
+        private DirectedEventEdge(Object from, Object to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
 
@@ -21,7 +21,7 @@ public class DirectedEventGraph extends AbstractSimpleGraph {
         }
     }
 
-    public class DirectedEventVertex extends AbstractVertex {
+    public class DirectedEventVertex extends EventVertex {
         private DirectedEventVertex(Object id, Map<String, Object> inherited) {
             super(id, inherited);
         }
@@ -32,43 +32,23 @@ public class DirectedEventGraph extends AbstractSimpleGraph {
         }
     }
 
-    private EventBus bus;
-
     public DirectedEventGraph() {
-        this(EventBus.getDefault());
+        getBus().post(directedGraphCreated().build());
     }
 
     public DirectedEventGraph(EventBus bus) {
-        this.bus = bus;
-        bus.post(directedGraphCreated().build());
+        super(bus);
+        getBus().post(directedGraphCreated().build());
     }
 
     public DirectedEventGraph(Object id) {
         super(id);
-        bus = EventBus.getDefault();
-        bus.post(directedGraphCreated().graphId(id).build());
+        getBus().post(directedGraphCreated().graphId(id).build());
     }
 
     public DirectedEventGraph(Object id, EventBus bus) {
-        super(id);
-        this.bus = bus;
-        bus.post(directedGraphCreated().graphId(id).build());
-    }
-
-    protected EventBus getBus() {
-        return bus;
-    }
-
-    @Override
-    Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
-        return new DirectedEventEdge(from, to, inherited);
-    }
-
-    @Override
-    Edge addEdge(Object from, Object to) {
-        var edge = super.addEdge(from, to);
-        bus.post(edgeCreated().graphId(getId().orElse(null)).from(from).to(to).build());
-        return edge;
+        super(id, bus);
+        getBus().post(directedGraphCreated().graphId(id).build());
     }
 
     @Override
@@ -77,10 +57,8 @@ public class DirectedEventGraph extends AbstractSimpleGraph {
     }
 
     @Override
-    Vertex addVertex(Object id) {
-        var vertex = super.addVertex(id);
-        bus.post(vertexCreated().graphId(DirectedEventGraph.this.getId().orElse(null)).vertexId(id).build());
-        return vertex;
+    Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
+        return new DirectedEventEdge(from, to, inherited);
     }
 
     @Override

@@ -9,7 +9,7 @@ public final class EdgeCreated extends GraphEvent {
     private final Object from;
     private final Object to;
 
-    protected EdgeCreated(Builder builder) {
+    private EdgeCreated(Builder builder) {
         super(builder);
         edgeId = builder.edgeId;
         from = requireNonNull(builder.from);

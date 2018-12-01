@@ -5,7 +5,7 @@ import java.util.*;
 public abstract class GraphEvent {
     private final Object graphId;
 
-    protected GraphEvent(Builder builder) {
+    GraphEvent(Builder builder) {
         graphId = builder.graphId;
     }
 

@@ -4,8 +4,8 @@ import static com.github.moaxcp.graphs.events.Builders.*;
 import java.util.*;
 import org.greenrobot.eventbus.EventBus;
 
-public class UndirectedEventGraph extends AbstractSimpleGraph {
-    public class UndirectedEventEdge extends AbstractEdge {
+public class UndirectedEventGraph extends AbstractEventGraph {
+    public class UndirectedEventEdge extends EventEdge {
         protected UndirectedEventEdge(Object from, Object to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
@@ -21,7 +21,7 @@ public class UndirectedEventGraph extends AbstractSimpleGraph {
         }
     }
 
-    public class UndirectedEventVertex extends AbstractVertex {
+    public class UndirectedEventVertex extends EventVertex {
         protected UndirectedEventVertex(Object id, Map<String, Object> inherited) {
             super(id, inherited);
         }
@@ -32,43 +32,33 @@ public class UndirectedEventGraph extends AbstractSimpleGraph {
         }
     }
 
-    private EventBus bus;
-
     public UndirectedEventGraph() {
-        this(EventBus.getDefault());
+        getBus().post(undirectedGraphCreated().build());
     }
 
     public UndirectedEventGraph(EventBus bus) {
-        this.bus = bus;
-        bus.post(undirectedGraphCreated().build());
+        super(bus);
+        getBus().post(undirectedGraphCreated().build());
     }
 
     public UndirectedEventGraph(Object id) {
         super(id);
-        bus = EventBus.getDefault();
-        bus.post(undirectedGraphCreated().graphId(id).graphId(id).build());
+        getBus().post(undirectedGraphCreated().graphId(id).build());
     }
 
     public UndirectedEventGraph(Object id, EventBus bus) {
-        super(id);
-        this.bus = bus;
-        bus.post(undirectedGraphCreated().graphId(id).build());
+        super(id, bus);
+        getBus().post(undirectedGraphCreated().graphId(id).build());
     }
 
-    protected EventBus getBus() {
-        return bus;
-    }
-
-    Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
-        var edge = new UndirectedEventEdge(from, to, inherited);
-        bus.post(edgeCreated().graphId(getId().orElse(null)).from(from).to(to).build());
-        return edge;
-    }
-
+    @Override
     Vertex newVertex(Object id, Map<String, Object> inherited) {
-        var vertex = new UndirectedEventVertex(id, inherited);
-        bus.post(vertexCreated().graphId(getId().orElse(null)).vertexId(id).build());
-        return vertex;
+        return new UndirectedEventVertex(id, inherited);
+    }
+
+    @Override
+    Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
+        return new UndirectedEventEdge(from, to, inherited);
     }
 
     @Override

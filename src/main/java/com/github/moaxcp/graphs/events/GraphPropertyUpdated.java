@@ -1,10 +1,11 @@
 package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
+import java.util.Objects;
 
-public class GraphPropertyUpdated extends Property {
+public final class GraphPropertyUpdated extends Property {
 
-    private Object oldValue;
+    private final Object oldValue;
 
     private GraphPropertyUpdated(Builder builder) {
         super(builder);
@@ -13,6 +14,22 @@ public class GraphPropertyUpdated extends Property {
 
     public Object getOldValue() {
         return oldValue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GraphPropertyUpdated that = (GraphPropertyUpdated) o;
+        return Objects.equals(getGraphId(), that.getGraphId()) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getValue(), that.getValue()) &&
+                Objects.equals(getOldValue(), that.getOldValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGraphId(), getName(), getValue(), getOldValue());
     }
 
     public static class Builder extends Property.Builder<Builder> {

@@ -3,9 +3,9 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 
 public abstract class VertexProperty extends Property {
-    private Object vertexId;
+    private final Object vertexId;
 
-    protected VertexProperty(Builder builder) {
+    VertexProperty(Builder builder) {
         super(builder);
         vertexId = requireNonNull(builder.vertexId);
     }

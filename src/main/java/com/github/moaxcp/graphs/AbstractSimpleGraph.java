@@ -12,7 +12,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         private Map<String, Object> inherited;
         private Map<String, Object> local = new LinkedHashMap<>();
 
-        public InheritingElement(Map<String, Object> inherited) {
+        private InheritingElement(Map<String, Object> inherited) {
             this.inherited = unmodifiableMap(requireNonNull(inherited, "inherited must not be null."));
         }
 

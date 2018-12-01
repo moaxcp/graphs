@@ -7,7 +7,7 @@ public final class VertexCreated extends GraphEvent {
 
     private final Object vertexId;
 
-    protected VertexCreated(Builder builder) {
+    private VertexCreated(Builder builder) {
         super(builder);
         vertexId = requireNonNull(builder.vertexId, "vertexId must not be null.");
     }

@@ -1,9 +1,10 @@
 package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
+import java.util.Objects;
 
-public class EdgePropertyUpdated extends EdgeProperty {
-    private Object oldValue;
+public final class EdgePropertyUpdated extends EdgeProperty {
+    private final Object oldValue;
 
     private EdgePropertyUpdated(Builder builder) {
         super(builder);
@@ -12,6 +13,25 @@ public class EdgePropertyUpdated extends EdgeProperty {
 
     public Object getOldValue() {
         return oldValue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EdgePropertyUpdated that = (EdgePropertyUpdated) o;
+        return Objects.equals(getGraphId(), that.getGraphId()) &&
+                Objects.equals(getEdgeId(), that.getEdgeId()) &&
+                Objects.equals(getFrom(), that.getFrom()) &&
+                Objects.equals(getTo(), that.getTo()) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getValue(), that.getValue()) &&
+                Objects.equals(getOldValue(), that.getOldValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGraphId(), getEdgeId(), getFrom(), getTo(), getName(), getValue(), getOldValue());
     }
 
     public static class Builder extends EdgeProperty.Builder<Builder> {

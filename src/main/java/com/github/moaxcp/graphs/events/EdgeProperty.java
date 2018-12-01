@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.*;
 
 public abstract class EdgeProperty extends Property {
-    private Object edgeId;
-    private Object from;
-    private Object to;
+    private final Object edgeId;
+    private final Object from;
+    private final Object to;
 
     protected EdgeProperty(Builder<?> builder) {
         super(builder);
@@ -16,7 +16,7 @@ public abstract class EdgeProperty extends Property {
     }
 
     public Optional<Object> getEdgeId() {
-        return Optional.of(edgeId);
+        return Optional.ofNullable(edgeId);
     }
 
     public Object getFrom() {
@@ -25,19 +25,6 @@ public abstract class EdgeProperty extends Property {
 
     public Object getTo() {
         return to;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EdgeProperty that = (EdgeProperty) o;
-        return Objects.equals(edgeId, that.edgeId) && Objects.equals(from, that.from) && Objects.equals(to, that.to);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(edgeId, from, to);
     }
 
     public static abstract class Builder<T> extends Property.Builder<Builder<T>> {
