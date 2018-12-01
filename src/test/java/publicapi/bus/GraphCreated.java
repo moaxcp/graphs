@@ -1,6 +1,6 @@
 package publicapi.bus;
 
-import static com.github.moaxcp.graphs.EventBusSubject.assertEvents;
+import static com.github.moaxcp.graphs.Truth.assertEvents;
 import static com.github.moaxcp.graphs.events.Builders.directedGraphCreated;
 import static com.github.moaxcp.graphs.events.Builders.undirectedGraphCreated;
 import com.github.moaxcp.graphs.*;

@@ -26,7 +26,7 @@ public class EventBusSubject extends Subject<EventBusSubject, EventBus> {
         super(metadata, actual);
     }
 
-    public static IterableSubject assertEvents(Runnable action) {
+    static IterableSubject assertEvents(Runnable action) {
         return assertAbout(busses()).that(EventBus.getDefault()).withAction(action);
     }
 

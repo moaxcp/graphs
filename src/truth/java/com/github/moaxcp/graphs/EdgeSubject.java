@@ -25,7 +25,7 @@ public class EdgeSubject extends Subject<EdgeSubject, Edge> {
         return EdgeSubject::new;
     }
 
-    public static EdgeSubject assertThat(@Nullable Edge actual) {
+    static EdgeSubject assertThat(@Nullable Edge actual) {
         return assertAbout(edges()).that(actual);
     }
 

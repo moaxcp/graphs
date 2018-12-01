@@ -34,7 +34,7 @@ public class GraphVertexMethods {
     @SimpleGraphs
     void addNewVertex(SimpleGraph graph) {
         var vertex = graph.vertex("id");
-        GraphSubject.assertThat(graph).hasVertex("id").isSameAs(vertex);
+        assertThat(graph).hasVertex("id").isSameAs(vertex);
         assertThat(vertex).hasId("id");
         assertThat(vertex).withProperty("id").hasValue("id");
         assertThat(vertex).withLocal().containsExactly("id", "id");

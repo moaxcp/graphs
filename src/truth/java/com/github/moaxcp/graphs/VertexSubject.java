@@ -24,7 +24,7 @@ public class VertexSubject extends Subject<VertexSubject, Vertex> {
         return VertexSubject::new;
     }
 
-    public static VertexSubject assertThat(@Nullable Vertex actual) {
+    static VertexSubject assertThat(@Nullable Vertex actual) {
         return assertAbout(vertices()).that(actual);
     }
 

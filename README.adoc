@@ -11,7 +11,44 @@ a few principles which keeps things simple for the user:
 image:https://travis-ci.org/moaxcp/graphs.svg?branch=master["Build Status", link="https://travis-ci.org/moaxcp/graphs"]
 image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp:graphs&metric=coverage["Coverage", link="https://sonarcloud.io/component_measures?id=com.github.moaxcp:graphs&metric=coverage"]
 
-= SimpleGraphs
+= Definitions and concepts
+
+== Graph
+* consists of vertices and edges
+* edges must always connect vertices
+* has properties
+* has properties inherited by all vertices
+* has properties inherited by all edges
+
+== Elements
+* vertices and edges of parent graph
+* inherit properties from parent graph
+* has local properties
+* local properties override inherited properties
+
+== Vertex
+* must have 'id' property
+* id must be unique for all vertices in graph
+
+== Edge
+* must have 'from' and 'to' properties
+* edges must have a 'directed' read only property
+* 'from' and 'to' connect two vertices by id
+* edge is directed if property is true
+
+== Simple graph
+* May be directed or undirected
+* a map of identified vertices
+* a set of all edges
+* a map of identified edges
+* edges may have an 'id' property
+* edges must have a 'directed' read only property
+* undirected may only have one edge between any two vertices
+* directed may only have one edge in each direction between any two vertices
+
+= API
+
+== SimpleGraphs
 
 Simple graphs can be undirected or directed. An undirected graph can have only one edge between any two vertices. A
 directed graph can have two edges between any two vertices but they must be in opposite directions.
@@ -98,7 +135,7 @@ graph.vertex("A").property("color", "blue");
 graph.edge("A", "B").property("color", "red");
 ----
 
-= Examples
+= Building a Graph
 
 ----
 SimpleGraph graph = new DirectedGraph();

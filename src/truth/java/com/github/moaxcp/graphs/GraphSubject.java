@@ -27,7 +27,7 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
         return GraphSubject::new;
     }
 
-    public static GraphSubject assertThat(@Nullable SimpleGraph actual) {
+    static GraphSubject assertThat(@Nullable SimpleGraph actual) {
         return assertAbout(graphs()).that(actual);
     }
 

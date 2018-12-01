@@ -1,6 +1,6 @@
 package publicapi.bus;
 
-import static com.github.moaxcp.graphs.EventBusSubject.assertEvents;
+import static com.github.moaxcp.graphs.Truth.assertEvents;
 import static com.github.moaxcp.graphs.events.Builders.*;
 import com.github.moaxcp.graphs.SimpleGraph;
 import testframework.EventSimpleGraphs;
