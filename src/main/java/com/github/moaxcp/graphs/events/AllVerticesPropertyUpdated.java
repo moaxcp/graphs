@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public final class AllVerticesPropertyUpdated extends Property {
+public final class AllVerticesPropertyUpdated extends PropertyEvent {
     private final Object oldValue;
 
     private AllVerticesPropertyUpdated(Builder builder) {
@@ -31,7 +31,7 @@ public final class AllVerticesPropertyUpdated extends Property {
         return Objects.hash(getGraphId(), getName(), getValue(), oldValue);
     }
 
-    public static class Builder extends Property.Builder<Builder> {
+    public static class Builder extends PropertyEvent.Builder<Builder> {
         private Object oldValue;
 
         public Builder oldValue(Object oldValue) {

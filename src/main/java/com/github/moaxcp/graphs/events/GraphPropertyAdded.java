@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs.events;
 
 import java.util.Objects;
 
-public final class GraphPropertyAdded extends Property {
+public final class GraphPropertyAdded extends PropertyEvent {
 
     private GraphPropertyAdded(Builder builder) {
         super(builder);
@@ -23,7 +23,7 @@ public final class GraphPropertyAdded extends Property {
         return Objects.hash(getGraphId(), getName(), getValue());
     }
 
-    public static class Builder extends Property.Builder<Builder> {
+    public static class Builder extends PropertyEvent.Builder<Builder> {
 
         @Override
         public GraphPropertyAdded build() {

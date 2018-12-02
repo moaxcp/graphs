@@ -2,12 +2,12 @@ package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
 
-abstract class Property extends GraphEvent {
+abstract class PropertyEvent extends GraphEvent {
 
     private final String name;
     private final Object value;
 
-    protected Property(Builder builder) {
+    protected PropertyEvent(Builder builder) {
         super(builder);
         name = requireNonNull(builder.name, "name must not be null.");
         value = requireNonNull(builder.value, "value must not be null.");

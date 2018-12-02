@@ -6,7 +6,7 @@ import static com.github.moaxcp.graphs.events.Builders.undirectedGraphCreated;
 import com.github.moaxcp.graphs.*;
 import org.junit.jupiter.api.Test;
 
-public class GraphCreated {
+public class Graph {
     @Test
     void undirectedEventGraphDefaultConstructor() {
         assertEvents(UndirectedEventGraph::new).containsExactly(undirectedGraphCreated().build());

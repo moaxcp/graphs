@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
 
-public abstract class VertexProperty extends Property {
+public abstract class VertexProperty extends PropertyEvent {
     private final Object vertexId;
 
     VertexProperty(Builder builder) {
@@ -14,7 +14,7 @@ public abstract class VertexProperty extends Property {
         return vertexId;
     }
 
-    public abstract static class Builder<T> extends Property.Builder<Builder<T>> {
+    public abstract static class Builder<T> extends PropertyEvent.Builder<Builder<T>> {
         private Object vertexId;
 
         public Builder vertexId(Object vertexId) {

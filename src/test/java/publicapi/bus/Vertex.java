@@ -5,7 +5,7 @@ import static com.github.moaxcp.graphs.events.Builders.vertexCreated;
 import com.github.moaxcp.graphs.SimpleGraph;
 import testframework.EventSimpleGraphs;
 
-public class VertexCreated {
+public class Vertex {
     @EventSimpleGraphs
     void created(SimpleGraph graph) {
         graph.id("id");

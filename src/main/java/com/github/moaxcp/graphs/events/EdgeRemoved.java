@@ -17,7 +17,7 @@ public final class EdgeRemoved extends GraphEvent {
     }
 
     public Optional<Object> getEdgeId() {
-        return Optional.of(edgeId);
+        return Optional.ofNullable(edgeId);
     }
 
     public Object getFrom() {

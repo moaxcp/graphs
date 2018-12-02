@@ -52,9 +52,8 @@ public class GraphEdgeMethods {
     void removeEdgeThatDoesNotExist(SimpleGraph graph) {
         graph.vertex("A");
         graph.vertex("B");
-        graph.removeEdge("A", "B");
-        assertThat(graph).hasNoEdge("A", "B");
-        assertThat(graph).hasVertices("A", "B");
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("A", "B"));
+        assertThat(thrown).hasMessage("edge from 'A' to 'B' not found.");
     }
 
     @SimpleGraphs

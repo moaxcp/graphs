@@ -482,7 +482,9 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     public void removeEdge(Object from, Object to) {
         Consumer<Edge> remove = ((Consumer<Edge>) edges::remove)
                 .andThen(edge -> edge.getId().ifPresent(edgeIds::remove));
-        findEdge(from, to).ifPresent(remove);
+        var optional = findEdge(from, to);
+        optional.ifPresent(remove);
+        optional.orElseThrow(() -> new IllegalArgumentException("edge from '" + from + "' to '" + to + "' not found."));
     }
 
     @Override

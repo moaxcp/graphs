@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs.events;
 
 import java.util.Objects;
 
-public final class AllEdgesPropertyAdded extends Property {
+public final class AllEdgesPropertyAdded extends PropertyEvent {
 
     private AllEdgesPropertyAdded(Builder builder) {
         super(builder);
@@ -21,7 +21,7 @@ public final class AllEdgesPropertyAdded extends Property {
         return Objects.hash(getGraphId(), getName(), getValue());
     }
 
-    public static class Builder extends Property.Builder<Builder> {
+    public static class Builder extends PropertyEvent.Builder<Builder> {
 
         @Override
         public AllEdgesPropertyAdded build() {

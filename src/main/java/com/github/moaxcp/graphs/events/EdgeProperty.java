@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.*;
 
-public abstract class EdgeProperty extends Property {
+public abstract class EdgeProperty extends PropertyEvent {
     private final Object edgeId;
     private final Object from;
     private final Object to;
@@ -27,7 +27,7 @@ public abstract class EdgeProperty extends Property {
         return to;
     }
 
-    public static abstract class Builder<T> extends Property.Builder<Builder<T>> {
+    public static abstract class Builder<T> extends PropertyEvent.Builder<Builder<T>> {
         private Object edgeId;
         private Object from;
         private Object to;

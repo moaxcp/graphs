@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs.events;
 
 import java.util.Objects;
 
-public final class AllEdgesPropertyRemoved extends Property {
+public final class AllEdgesPropertyRemoved extends PropertyEvent {
 
     private AllEdgesPropertyRemoved(Builder builder) {
         super(builder);
@@ -21,7 +21,7 @@ public final class AllEdgesPropertyRemoved extends Property {
         return Objects.hash(getGraphId(), getName(), getValue());
     }
 
-    public static class Builder extends Property.Builder<Builder> {
+    public static class Builder extends PropertyEvent.Builder<Builder> {
 
         @Override
         public AllEdgesPropertyRemoved build() {
