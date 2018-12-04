@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public final class EdgePropertyUpdated extends EdgeProperty {
+public final class EdgePropertyUpdated extends EdgePropertyEvent {
     private final Object oldValue;
 
     private EdgePropertyUpdated(Builder builder) {
@@ -13,6 +13,10 @@ public final class EdgePropertyUpdated extends EdgeProperty {
 
     public Object getOldValue() {
         return oldValue;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -34,8 +38,12 @@ public final class EdgePropertyUpdated extends EdgeProperty {
         return Objects.hash(getGraphId(), getEdgeId(), getFrom(), getTo(), getName(), getValue(), getOldValue());
     }
 
-    public static class Builder extends EdgeProperty.Builder<Builder> {
+    public static class Builder extends EdgePropertyEvent.Builder<Builder> {
         private Object oldValue;
+
+        private Builder() {
+
+        }
 
         public Builder oldValue(Object oldValue) {
             this.oldValue = oldValue;

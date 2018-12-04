@@ -2,10 +2,14 @@ package com.github.moaxcp.graphs.events;
 
 import java.util.Objects;
 
-public final class VertexPropertyRemoved extends VertexProperty {
+public final class VertexPropertyRemoved extends VertexPropertyEvent {
 
     private VertexPropertyRemoved(Builder builder) {
         super(builder);
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -24,7 +28,11 @@ public final class VertexPropertyRemoved extends VertexProperty {
         return Objects.hash(getGraphId(), getVertexId(), getName(), getValue());
     }
 
-    public static class Builder extends VertexProperty.Builder<Builder> {
+    public static class Builder extends VertexPropertyEvent.Builder<Builder> {
+
+        private Builder() {
+
+        }
 
         @Override
         public VertexPropertyRemoved build() {

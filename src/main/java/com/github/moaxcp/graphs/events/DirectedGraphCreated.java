@@ -8,6 +8,10 @@ public final class DirectedGraphCreated extends GraphEvent {
         super(builder);
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,6 +26,11 @@ public final class DirectedGraphCreated extends GraphEvent {
     }
 
     public static class Builder extends GraphEvent.Builder<Builder> {
+
+        private Builder() {
+
+        }
+
         @Override
         public DirectedGraphCreated build() {
             return new DirectedGraphCreated(this);

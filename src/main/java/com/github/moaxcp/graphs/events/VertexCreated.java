@@ -16,6 +16,10 @@ public final class VertexCreated extends GraphEvent {
         return vertexId;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,6 +35,10 @@ public final class VertexCreated extends GraphEvent {
 
     public static class Builder extends GraphEvent.Builder<Builder> {
         private Object vertexId;
+
+        private Builder() {
+
+        }
 
         public Builder vertexId(Object vertexId) {
             this.vertexId = vertexId;

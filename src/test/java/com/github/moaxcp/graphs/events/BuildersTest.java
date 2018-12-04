@@ -1,8 +1,11 @@
 package com.github.moaxcp.graphs.events;
 
+import static com.github.moaxcp.graphs.events.Builders.*;
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -10,41 +13,41 @@ public class BuildersTest {
 
     static Stream<PropertyEvent.Builder> propertyEventsMissingName() {
         return Stream.of(
-                new AllEdgesPropertyAdded.Builder(),
-                new AllEdgesPropertyRemoved.Builder(),
-                new AllEdgesPropertyUpdated.Builder(),
-                new AllVerticesPropertyAdded.Builder(),
-                new AllVerticesPropertyRemoved.Builder(),
-                new AllVerticesPropertyUpdated.Builder(),
-                new EdgePropertyAdded.Builder(),
-                new EdgePropertyRemoved.Builder(),
-                new EdgePropertyUpdated.Builder(),
-                new GraphPropertyAdded.Builder(),
-                new GraphPropertyRemoved.Builder(),
-                new GraphPropertyUpdated.Builder(),
-                new VertexPropertyAdded.Builder(),
-                new VertexPropertyRemoved.Builder(),
-                new VertexPropertyUpdated.Builder()
+                allEdgesPropertyAdded(),
+                allEdgesPropertyRemoved(),
+                allEdgesPropertyUpdated(),
+                allVerticesPropertyAdded(),
+                allVerticesPropertyRemoved(),
+                allVerticesPropertyUpdated(),
+                edgePropertyAdded(),
+                edgePropertyRemoved(),
+                edgePropertyUpdated(),
+                graphPropertyAdded(),
+                graphPropertyRemoved(),
+                graphPropertyUpdated(),
+                vertexPropertyAdded(),
+                vertexPropertyRemoved(),
+                vertexProeprtyUpdated()
         );
     }
 
     static Stream<PropertyEvent.Builder> propertyEventsMissingValue() {
         return Stream.of(
-                new AllEdgesPropertyAdded.Builder().name("name"),
-                new AllEdgesPropertyRemoved.Builder().name("name"),
-                new AllEdgesPropertyUpdated.Builder().name("name"),
-                new AllVerticesPropertyAdded.Builder().name("name"),
-                new AllVerticesPropertyRemoved.Builder().name("name"),
-                new AllVerticesPropertyUpdated.Builder().name("name"),
-                new EdgePropertyAdded.Builder().name("name"),
-                new EdgePropertyRemoved.Builder().name("name"),
-                new EdgePropertyUpdated.Builder().name("name"),
-                new GraphPropertyAdded.Builder().name("name"),
-                new GraphPropertyRemoved.Builder().name("name"),
-                new GraphPropertyUpdated.Builder().name("name"),
-                new VertexPropertyAdded.Builder().name("name"),
-                new VertexPropertyRemoved.Builder().name("name"),
-                new VertexPropertyUpdated.Builder().name("name")
+                allEdgesPropertyAdded().name("name"),
+                allEdgesPropertyRemoved().name("name"),
+                allEdgesPropertyUpdated().name("name"),
+                allVerticesPropertyAdded().name("name"),
+                allVerticesPropertyRemoved().name("name"),
+                allVerticesPropertyUpdated().name("name"),
+                edgePropertyAdded().name("name"),
+                edgePropertyRemoved().name("name"),
+                edgePropertyUpdated().name("name"),
+                graphPropertyAdded().name("name"),
+                graphPropertyRemoved().name("name"),
+                graphPropertyUpdated().name("name"),
+                vertexPropertyAdded().name("name"),
+                vertexPropertyRemoved().name("name"),
+                vertexProeprtyUpdated().name("name")
         );
     }
 
@@ -60,5 +63,22 @@ public class BuildersTest {
     void eventsMissingPropertyValue(PropertyEvent.Builder builder) {
         Throwable thrown = assertThrows(NullPointerException.class, builder::build);
         assertThat(thrown).hasMessage("value must not be null.");
+    }
+
+    @Test
+    void testAllEdgesPropertyAdded() {
+        var event = AllEdgesPropertyAdded.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testAllEdgesPropertyRemoved() {
+
     }
 }

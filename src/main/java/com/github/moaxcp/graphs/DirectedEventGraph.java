@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import static com.github.moaxcp.graphs.events.Builders.*;
+import static com.github.moaxcp.graphs.events.Builders.directedGraphCreated;
 import java.util.*;
 import org.greenrobot.eventbus.EventBus;
 

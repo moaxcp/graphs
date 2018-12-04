@@ -13,11 +13,10 @@ public abstract class GraphEvent {
         return Optional.ofNullable(graphId);
     }
 
-    public static abstract class Builder<T extends Builder<T>> {
+    public static abstract class Builder<T extends Builder> {
         private Object graphId;
 
-        @SuppressWarnings("unchecked")
-        protected T self() {
+        public T self() {
             return (T) this;
         }
 

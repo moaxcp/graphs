@@ -3,12 +3,12 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.*;
 
-public abstract class EdgeProperty extends PropertyEvent {
+public abstract class EdgePropertyEvent extends PropertyEvent {
     private final Object edgeId;
     private final Object from;
     private final Object to;
 
-    protected EdgeProperty(Builder<?> builder) {
+    protected EdgePropertyEvent(Builder<?> builder) {
         super(builder);
         edgeId = builder.edgeId;
         from = requireNonNull(builder.from);

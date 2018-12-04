@@ -2,10 +2,10 @@ package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
 
-public abstract class VertexProperty extends PropertyEvent {
+public abstract class VertexPropertyEvent extends PropertyEvent {
     private final Object vertexId;
 
-    VertexProperty(Builder builder) {
+    VertexPropertyEvent(Builder builder) {
         super(builder);
         vertexId = requireNonNull(builder.vertexId);
     }

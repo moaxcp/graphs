@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public final class VertexPropertyUpdated extends VertexProperty {
+public final class VertexPropertyUpdated extends VertexPropertyEvent {
     private final Object oldValue;
 
     private VertexPropertyUpdated(Builder builder) {
@@ -13,6 +13,10 @@ public final class VertexPropertyUpdated extends VertexProperty {
 
     public Object getOldValue() {
         return oldValue;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -32,7 +36,7 @@ public final class VertexPropertyUpdated extends VertexProperty {
         return Objects.hash(getGraphId(), getVertexId(), getName(), getValue(), oldValue);
     }
 
-    public static class Builder extends VertexProperty.Builder<Builder> {
+    public static class Builder extends VertexPropertyEvent.Builder<Builder> {
         private Object oldValue;
 
         public Builder oldValue(Object oldValue) {

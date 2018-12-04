@@ -28,6 +28,10 @@ public final class EdgeCreated extends GraphEvent {
         return to;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,6 +49,10 @@ public final class EdgeCreated extends GraphEvent {
         private Object edgeId;
         private Object from;
         private Object to;
+
+        private Builder() {
+
+        }
 
         public Builder edgeId(Object edgeId) {
             this.edgeId = edgeId;

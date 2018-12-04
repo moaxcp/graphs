@@ -8,6 +8,10 @@ public final class AllEdgesPropertyRemoved extends PropertyEvent {
         super(builder);
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,6 +26,10 @@ public final class AllEdgesPropertyRemoved extends PropertyEvent {
     }
 
     public static class Builder extends PropertyEvent.Builder<Builder> {
+
+        private Builder() {
+
+        }
 
         @Override
         public AllEdgesPropertyRemoved build() {

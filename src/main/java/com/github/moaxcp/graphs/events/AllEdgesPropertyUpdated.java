@@ -15,6 +15,10 @@ public final class AllEdgesPropertyUpdated extends PropertyEvent {
         return oldValue;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -29,6 +33,11 @@ public final class AllEdgesPropertyUpdated extends PropertyEvent {
     }
 
     public static class Builder extends PropertyEvent.Builder<Builder> {
+
+        private Builder() {
+
+        }
+
         private Object oldValue;
 
         public Builder oldValue(Object oldValue) {

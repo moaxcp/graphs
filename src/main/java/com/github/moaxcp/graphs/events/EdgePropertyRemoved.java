@@ -2,10 +2,14 @@ package com.github.moaxcp.graphs.events;
 
 import java.util.Objects;
 
-public final class EdgePropertyRemoved extends EdgeProperty {
+public final class EdgePropertyRemoved extends EdgePropertyEvent {
 
     private EdgePropertyRemoved(Builder builder) {
         super(builder);
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -26,7 +30,11 @@ public final class EdgePropertyRemoved extends EdgeProperty {
         return Objects.hash(getGraphId(), getEdgeId(), getFrom(), getTo(), getName(), getValue());
     }
 
-    public static class Builder extends EdgeProperty.Builder<Builder> {
+    public static class Builder extends EdgePropertyEvent.Builder<Builder> {
+
+        private Builder() {
+
+        }
 
         @Override
         public EdgePropertyRemoved build() {

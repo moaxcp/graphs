@@ -15,6 +15,10 @@ public final class AllVerticesPropertyUpdated extends PropertyEvent {
         return oldValue;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,6 +37,10 @@ public final class AllVerticesPropertyUpdated extends PropertyEvent {
 
     public static class Builder extends PropertyEvent.Builder<Builder> {
         private Object oldValue;
+
+        private Builder() {
+
+        }
 
         public Builder oldValue(Object oldValue) {
             this.oldValue = oldValue;

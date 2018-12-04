@@ -28,6 +28,10 @@ public final class EdgeRemoved extends GraphEvent {
         return to;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,9 +50,13 @@ public final class EdgeRemoved extends GraphEvent {
         private Object from;
         private Object to;
 
+        private Builder() {
+
+        }
+
         public Builder edgeId(Object edgeId) {
             this.edgeId = edgeId;
-            return this;
+            return self();
         }
 
         public Builder from(Object from) {

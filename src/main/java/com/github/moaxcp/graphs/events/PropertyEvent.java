@@ -21,18 +21,18 @@ abstract class PropertyEvent extends GraphEvent {
         return value;
     }
 
-    static abstract class Builder<T> extends GraphEvent.Builder<Builder<T>> {
+    static abstract class Builder<T extends Builder> extends GraphEvent.Builder<T> {
         private String name;
         private Object value;
 
-        public Builder<T> name(String name) {
+        public T name(String name) {
             this.name = name;
-            return this;
+            return self();
         }
 
-        public Builder<T> value(Object value) {
+        public T value(Object value) {
             this.value = value;
-            return this;
+            return self();
         }
     }
 }
