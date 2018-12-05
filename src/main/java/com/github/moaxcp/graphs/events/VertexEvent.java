@@ -8,7 +8,7 @@ public abstract class VertexEvent extends GraphEvent {
 
     VertexEvent(Builder builder) {
         super(builder);
-        vertexId = requireNonNull(builder.vertexId);
+        vertexId = requireNonNull(builder.vertexId, "vertexId must not be null.");
     }
 
     public Object getVertexId() {

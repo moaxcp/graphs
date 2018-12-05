@@ -1,6 +1,10 @@
 package com.github.moaxcp.graphs.events;
 
 public class Builders {
+    private Builders() {
+
+    }
+
     public static AllEdgesPropertyAdded.Builder allEdgesPropertyAdded() {
         return AllEdgesPropertyAdded.builder();
     }

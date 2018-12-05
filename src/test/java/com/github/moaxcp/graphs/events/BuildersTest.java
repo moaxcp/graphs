@@ -81,6 +81,18 @@ public class BuildersTest {
     }
 
     @Test
+    void vertexCreatedEventMissingId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> vertexCreated().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("vertexId must not be null.");
+    }
+
+    @Test
+    void vertexRemovedEventMissingId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> vertexRemoved().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("vertexId must not be null.");
+    }
+
+    @Test
     void testAllEdgesPropertyAdded() {
         var event = AllEdgesPropertyAdded.builder()
                 .graphId("graph")
