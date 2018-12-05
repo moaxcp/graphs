@@ -128,9 +128,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         /**
          * Returns id of "from" {@link Vertex}.
          * @return id of "from" {@link Vertex}
+         * @throws IllegalStateException if from is null.
          */
         public Object getFrom() {
-            return getProperty("from").get();
+            return getProperty("from").orElseThrow(() -> new IllegalStateException("'from' should never be set to null."));
         }
 
         /**
@@ -164,9 +165,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         /**
          * Returns id of "to" {@link Vertex}.
          * @return id of "to" {@link Vertex}
+         * @throws IllegalStateException if to is null.
          */
         public Object getTo() {
-            return getProperty("to").get();
+            return getProperty("to").orElseThrow(() -> new IllegalStateException("'to' should never be set to null."));
         }
 
         /**
@@ -275,7 +277,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         public Object getId() {
-            return getProperty("id").get();
+            return getProperty("id").orElseThrow(() -> new IllegalStateException("'id' should never be set to null."));
         }
 
         @Override
@@ -490,7 +492,9 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
                 .andThen(edge -> edge.getId().ifPresent(edgeIds::remove));
         var optional = findEdge(from, to);
         optional.ifPresent(remove);
-        optional.orElseThrow(() -> new IllegalArgumentException("edge from '" + from + "' to '" + to + "' not found."));
+        if(!optional.isPresent()) {
+            throw new IllegalArgumentException("edge from '" + from + "' to '" + to + "' not found.");
+        }
     }
 
     @Override
