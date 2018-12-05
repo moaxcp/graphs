@@ -155,4 +155,217 @@ public class BuildersTest {
         assertThat(event.getValue()).isEqualTo("value");
         assertThat(event.getOldValue()).isEqualTo("oldValue");
     }
+
+    @Test
+    void testDirectedGraphCreated() {
+        var event = DirectedGraphCreated.builder()
+                .graphId("graph")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+    }
+
+    @Test
+    void testUndirectedGraphCreated() {
+        var event = UndirectedGraphCreated.builder()
+                .graphId("graph")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+    }
+
+    @Test
+    void testEdgeCreated() {
+        var event = EdgeCreated.builder()
+                .graphId("graph")
+                .edgeId("edge")
+                .from("A")
+                .to("B")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getFrom()).isEqualTo("A");
+        assertThat(event.getTo()).isEqualTo("B");
+    }
+
+    @Test
+    void testEdgeRemoved() {
+        var event = EdgeRemoved.builder()
+                .graphId("graph")
+                .edgeId("edge")
+                .from("A")
+                .to("B")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getFrom()).isEqualTo("A");
+        assertThat(event.getTo()).isEqualTo("B");
+    }
+
+    @Test
+    void testEdgePropertyAdded() {
+        var event = EdgePropertyAdded.builder()
+                .graphId("graph")
+                .edgeId("edge")
+                .from("A")
+                .to("B")
+                .name("name")
+                .value("value")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getFrom()).isEqualTo("A");
+        assertThat(event.getTo()).isEqualTo("B");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testEdgePropertyRemoved() {
+        var event = EdgePropertyRemoved.builder()
+                .graphId("graph")
+                .edgeId("edge")
+                .from("A")
+                .to("B")
+                .name("name")
+                .value("value")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getFrom()).isEqualTo("A");
+        assertThat(event.getTo()).isEqualTo("B");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testEdgePropertyUpdated() {
+        var event = EdgePropertyUpdated.builder()
+                .graphId("graph")
+                .edgeId("edge")
+                .from("A")
+                .to("B")
+                .name("name")
+                .value("value")
+                .oldValue("oldValue")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getFrom()).isEqualTo("A");
+        assertThat(event.getTo()).isEqualTo("B");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+        assertThat(event.getOldValue()).isEqualTo("oldValue");
+    }
+
+    @Test
+    void testGraphPropertyAdded() {
+        var event = GraphPropertyAdded.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testGraphPropertyRemoved() {
+        var event = GraphPropertyRemoved.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testGraphPropertyUpdated() {
+        var event = GraphPropertyUpdated.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .oldValue("oldValue")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+        assertThat(event.getOldValue()).isEqualTo("oldValue");
+    }
+
+    @Test
+    void testVertexCreated() {
+        var event = VertexCreated.builder()
+                .graphId("graph")
+                .vertexId("A")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getVertexId()).isEqualTo("A");
+    }
+
+    @Test
+    void testVertexRemoved() {
+        var event = VertexRemoved.builder()
+                .graphId("graph")
+                .vertexId("A")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getVertexId()).isEqualTo("A");
+    }
+
+    @Test
+    void testVertexPropertyAdded() {
+        var event = VertexPropertyAdded.builder()
+                .graphId("graph")
+                .vertexId("A")
+                .name("name")
+                .value("value")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getVertexId()).isEqualTo("A");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testVertexPropertyRemoved() {
+        var event = VertexPropertyRemoved.builder()
+                .graphId("graph")
+                .vertexId("A")
+                .name("name")
+                .value("value")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testVertexPropertyUpdated() {
+        var event = VertexPropertyUpdated.builder()
+                .graphId("graph")
+                .vertexId("A")
+                .name("name")
+                .value("value")
+                .oldValue("oldValue")
+                .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+        assertThat(event.getOldValue()).isEqualTo("oldValue");
+    }
 }

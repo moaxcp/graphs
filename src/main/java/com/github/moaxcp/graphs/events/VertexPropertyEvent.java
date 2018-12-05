@@ -28,12 +28,12 @@ public abstract class VertexPropertyEvent extends PropertyEvent {
         return Objects.hash(getGraphId(), getVertexId(), getName(), getValue());
     }
 
-    public abstract static class Builder<T> extends PropertyEvent.Builder<Builder<T>> {
+    public abstract static class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
         private Object vertexId;
 
-        public Builder vertexId(Object vertexId) {
+        public T vertexId(Object vertexId) {
             this.vertexId = vertexId;
-            return this;
+            return self();
         }
     }
 }

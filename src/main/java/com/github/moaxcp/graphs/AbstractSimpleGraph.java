@@ -76,11 +76,17 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             return self();
         }
     }
+    //todo use as key in edges. make edges a map. This makes findEdges faster!
+    protected static class EdgeKey {
+        private Object from;
+        private Object to;
+    }
 
     /**
      * Edge represents an undirected edge in this graph.
      */
     public abstract class AbstractEdge extends InheritingElement<Edge> implements Edge {
+
         protected AbstractEdge(Object from, Object to, Map<String, Object> inherited) {
             super(inherited);
             super.setProperty("from", from);
@@ -391,13 +397,13 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
 
+    private Object id;
+    private Map<String, Object> properties;
+    private Map<String, Object> vertexProperties;
+    private Map<String, Object> edgeProperties;
     private Map<Object, Vertex> vertices;
     private Set<Edge> edges;
     private Map<Object, Edge> edgeIds;
-    private Map<String, Object> vertexProperties;
-    private Map<String, Object> edgeProperties;
-    private Object id;
-    private Map<String, Object> properties;
 
     AbstractSimpleGraph() {
         vertices = new LinkedHashMap<>();
