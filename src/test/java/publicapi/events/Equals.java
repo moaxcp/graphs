@@ -42,7 +42,7 @@ public class Equals {
 
     @Test
     void edgeCreated() {
-        EqualsVerifier.forClass(EdgeCreated.class).verify();
+        EqualsVerifier.forClass(EdgeCreated.class).withRedefinedSuperclass().verify();
     }
 
     @Test
@@ -62,7 +62,7 @@ public class Equals {
 
     @Test
     void edgeRemoved() {
-        EqualsVerifier.forClass(EdgeRemoved.class).verify();
+        EqualsVerifier.forClass(EdgeRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
@@ -87,7 +87,7 @@ public class Equals {
 
     @Test
     void vertexCreated() {
-        EqualsVerifier.forClass(VertexCreated.class).verify();
+        EqualsVerifier.forClass(VertexCreated.class).withRedefinedSuperclass().verify();
     }
 
     @Test
@@ -107,6 +107,6 @@ public class Equals {
 
     @Test
     void vertexRemoved() {
-        EqualsVerifier.forClass(VertexRemoved.class).verify();
+        EqualsVerifier.forClass(VertexRemoved.class).withRedefinedSuperclass().verify();
     }
 }
