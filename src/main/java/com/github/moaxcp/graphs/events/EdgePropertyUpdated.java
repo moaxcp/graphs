@@ -38,7 +38,7 @@ public final class EdgePropertyUpdated extends EdgePropertyEvent {
         return Objects.hash(getGraphId(), getEdgeId(), getFrom(), getTo(), getName(), getValue(), getOldValue());
     }
 
-    public static class Builder extends EdgePropertyEvent.Builder<Builder> {
+    public final static class Builder extends EdgePropertyEvent.Builder<Builder> {
         private Object oldValue;
 
         private Builder() {

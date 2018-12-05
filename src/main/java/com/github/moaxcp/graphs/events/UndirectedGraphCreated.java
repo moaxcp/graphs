@@ -25,7 +25,7 @@ public final class UndirectedGraphCreated extends GraphEvent {
         return Objects.hash(getGraphId());
     }
 
-    public static class Builder extends GraphEvent.Builder<Builder> {
+    public final static class Builder extends GraphEvent.Builder<Builder> {
 
         private Builder() {
 

@@ -7,32 +7,32 @@ import org.junit.jupiter.api.Test;
 public class Equals {
     @Test
     void allEdgesPropertyAdded() {
-        EqualsVerifier.forClass(AllEdgesPropertyAdded.class).verify();
+        EqualsVerifier.forClass(AllEdgesPropertyAdded.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void allEdgesPropertyRemoved() {
-        EqualsVerifier.forClass(AllEdgesPropertyRemoved.class).verify();
+        EqualsVerifier.forClass(AllEdgesPropertyRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void allEdgesPropertyUpdated() {
-        EqualsVerifier.forClass(AllEdgesPropertyUpdated.class).verify();
+        EqualsVerifier.forClass(AllEdgesPropertyUpdated.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void allVerticesPropertyAdded() {
-        EqualsVerifier.forClass(AllVerticesPropertyAdded.class).verify();
+        EqualsVerifier.forClass(AllVerticesPropertyAdded.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void allVerticesPropertyRemoved() {
-        EqualsVerifier.forClass(AllVerticesPropertyRemoved.class).verify();
+        EqualsVerifier.forClass(AllVerticesPropertyRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void allVerticesPropertyUpdated() {
-        EqualsVerifier.forClass(AllVerticesPropertyUpdated.class).verify();
+        EqualsVerifier.forClass(AllVerticesPropertyUpdated.class).withRedefinedSuperclass().verify();
     }
 
     @Test
@@ -47,17 +47,17 @@ public class Equals {
 
     @Test
     void edgePropertyAdded() {
-        EqualsVerifier.forClass(EdgePropertyAdded.class).verify();
+        EqualsVerifier.forClass(EdgePropertyAdded.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void edgePropertyRemoved() {
-        EqualsVerifier.forClass(EdgePropertyRemoved.class).verify();
+        EqualsVerifier.forClass(EdgePropertyRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void edgePropertyUpdated() {
-        EqualsVerifier.forClass(EdgePropertyUpdated.class).verify();
+        EqualsVerifier.forClass(EdgePropertyUpdated.class).withRedefinedSuperclass().verify();
     }
 
     @Test
@@ -67,17 +67,17 @@ public class Equals {
 
     @Test
     void graphPropertyAdded() {
-        EqualsVerifier.forClass(GraphPropertyAdded.class).verify();
+        EqualsVerifier.forClass(GraphPropertyAdded.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void graphPropertyRemoved() {
-        EqualsVerifier.forClass(GraphPropertyRemoved.class).verify();
+        EqualsVerifier.forClass(GraphPropertyRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void graphPropertyUpdated() {
-        EqualsVerifier.forClass(GraphPropertyUpdated.class).verify();
+        EqualsVerifier.forClass(GraphPropertyUpdated.class).withRedefinedSuperclass().verify();
     }
 
     @Test
@@ -92,17 +92,17 @@ public class Equals {
 
     @Test
     void vertexPropertyAdded() {
-        EqualsVerifier.forClass(VertexPropertyAdded.class).verify();
+        EqualsVerifier.forClass(VertexPropertyAdded.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void vertexPropertyRemoved() {
-        EqualsVerifier.forClass(VertexPropertyRemoved.class).verify();
+        EqualsVerifier.forClass(VertexPropertyRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void vertexPropertyUpdated() {
-        EqualsVerifier.forClass(VertexPropertyUpdated.class).verify();
+        EqualsVerifier.forClass(VertexPropertyUpdated.class).withRedefinedSuperclass().verify();
     }
 
     @Test

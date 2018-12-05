@@ -33,7 +33,7 @@ public final class VertexCreated extends GraphEvent {
         return Objects.hash(getGraphId(), vertexId);
     }
 
-    public static class Builder extends GraphEvent.Builder<Builder> {
+    public final static class Builder extends GraphEvent.Builder<Builder> {
         private Object vertexId;
 
         private Builder() {

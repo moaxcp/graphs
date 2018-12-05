@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
+import java.util.Objects;
 
 abstract class PropertyEvent extends GraphEvent {
 
@@ -13,24 +14,37 @@ abstract class PropertyEvent extends GraphEvent {
         value = requireNonNull(builder.value, "value must not be null.");
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public Object getValue() {
+    public final Object getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PropertyEvent that = (PropertyEvent) o;
+        return Objects.equals(getGraphId(), that.getGraphId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getValue(), that.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGraphId(), getName(), getValue());
     }
 
     static abstract class Builder<T extends Builder> extends GraphEvent.Builder<T> {
         private String name;
         private Object value;
 
-        public T name(String name) {
+        public final T name(String name) {
             this.name = name;
             return self();
         }
 
-        public T value(Object value) {
+        public final T value(Object value) {
             this.value = value;
             return self();
         }

@@ -32,7 +32,7 @@ public final class VertexRemoved extends GraphEvent {
         return Objects.hash(getGraphId(), vertexId);
     }
 
-    static class Builder extends GraphEvent.Builder<Builder> {
+    static final class Builder extends GraphEvent.Builder<Builder> {
         private Object vertexId;
 
         public Builder vertexId(Object vertexId) {

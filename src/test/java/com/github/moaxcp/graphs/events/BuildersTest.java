@@ -51,6 +51,14 @@ public class BuildersTest {
         );
     }
 
+    static Stream<PropertyUpdatedEvent.Builder> propertyUpdatedEventsMissingOldValue() {
+        return Stream.of(
+                allEdgesPropertyUpdated().name("name").value("value"),
+                allVerticesPropertyUpdated().name("name").value("value"),
+                graphPropertyUpdated().name("name").value("value")
+        );
+    }
+
     @ParameterizedTest
     @MethodSource("propertyEventsMissingName")
     void eventsMissingPropertyName(PropertyEvent.Builder builder) {
@@ -63,6 +71,13 @@ public class BuildersTest {
     void eventsMissingPropertyValue(PropertyEvent.Builder builder) {
         Throwable thrown = assertThrows(NullPointerException.class, builder::build);
         assertThat(thrown).hasMessage("value must not be null.");
+    }
+
+    @ParameterizedTest
+    @MethodSource("propertyUpdatedEventsMissingOldValue")
+    void eventsMissingPropertyOldValue(PropertyEvent.Builder builder) {
+        Throwable thrown = assertThrows(NullPointerException.class, builder::build);
+        assertThat(thrown).hasMessage("oldValue must not be null.");
     }
 
     @Test
@@ -79,6 +94,65 @@ public class BuildersTest {
 
     @Test
     void testAllEdgesPropertyRemoved() {
+        var event = AllEdgesPropertyRemoved.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
 
+    @Test
+    void testAllEdgesPropertyUpdated() {
+        var event = AllEdgesPropertyUpdated.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .oldValue("oldValue")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+        assertThat(event.getOldValue()).isEqualTo("oldValue");
+    }
+
+    @Test
+    void testAllVerticesPropertyAdded() {
+        var event = AllVerticesPropertyAdded.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testAllVerticesPropertyRemoved() {
+        var event = AllVerticesPropertyRemoved.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+    }
+
+    @Test
+    void testAllVerticesPropertyUpdated() {
+        var event = AllVerticesPropertyUpdated.builder()
+                .graphId("graph")
+                .name("name")
+                .value("value")
+                .oldValue("oldValue")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getName()).isEqualTo("name");
+        assertThat(event.getValue()).isEqualTo("value");
+        assertThat(event.getOldValue()).isEqualTo("oldValue");
     }
 }

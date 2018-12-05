@@ -1,7 +1,5 @@
 package com.github.moaxcp.graphs.events;
 
-import java.util.Objects;
-
 public final class GraphPropertyRemoved extends PropertyEvent {
 
     private GraphPropertyRemoved(Builder builder) {
@@ -12,22 +10,7 @@ public final class GraphPropertyRemoved extends PropertyEvent {
         return new Builder();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GraphPropertyRemoved that = (GraphPropertyRemoved) o;
-        return Objects.equals(getGraphId(), that.getGraphId()) &&
-                Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getValue(), that.getValue());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getGraphId(), getName(), getValue());
-    }
-    
-    public static class Builder extends PropertyEvent.Builder<Builder> {
+    public final static class Builder extends PropertyEvent.Builder<Builder> {
 
         private Builder() {
 

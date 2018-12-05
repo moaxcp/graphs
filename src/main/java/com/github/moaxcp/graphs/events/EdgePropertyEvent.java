@@ -15,36 +15,54 @@ public abstract class EdgePropertyEvent extends PropertyEvent {
         to = requireNonNull(builder.to);
     }
 
-    public Optional<Object> getEdgeId() {
+    public final Optional<Object> getEdgeId() {
         return Optional.ofNullable(edgeId);
     }
 
-    public Object getFrom() {
+    public final Object getFrom() {
         return from;
     }
 
-    public Object getTo() {
+    public final Object getTo() {
         return to;
     }
 
-    public static abstract class Builder<T> extends PropertyEvent.Builder<Builder<T>> {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EdgePropertyEvent that = (EdgePropertyEvent) o;
+        return Objects.equals(getGraphId(), that.getGraphId()) &&
+                Objects.equals(getEdgeId(), that.getEdgeId()) &&
+                Objects.equals(getFrom(), that.getFrom()) &&
+                Objects.equals(getTo(), that.getTo()) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getValue(), that.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGraphId(), getEdgeId(), getFrom(), getTo(), getName(), getValue());
+    }
+
+    public static abstract class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
         private Object edgeId;
         private Object from;
         private Object to;
 
-        public Builder edgeId(Object edgeId) {
+        public final T edgeId(Object edgeId) {
             this.edgeId = edgeId;
-            return this;
+            return self();
         }
 
-        public Builder from(Object from) {
+        public final T from(Object from) {
             this.from = from;
-            return this;
+            return self();
         }
 
-        public Builder to(Object to) {
+        public final T to(Object to) {
             this.to = to;
-            return this;
+            return self();
         }
     }
 }

@@ -45,7 +45,7 @@ public final class EdgeCreated extends GraphEvent {
         return Objects.hash(getGraphId(), edgeId, from, to);
     }
 
-    public static class Builder extends GraphEvent.Builder<Builder> {
+    public final static class Builder extends GraphEvent.Builder<Builder> {
         private Object edgeId;
         private Object from;
         private Object to;

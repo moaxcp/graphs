@@ -36,7 +36,7 @@ public final class VertexPropertyUpdated extends VertexPropertyEvent {
         return Objects.hash(getGraphId(), getVertexId(), getName(), getValue(), oldValue);
     }
 
-    public static class Builder extends VertexPropertyEvent.Builder<Builder> {
+    public final static class Builder extends VertexPropertyEvent.Builder<Builder> {
         private Object oldValue;
 
         public Builder oldValue(Object oldValue) {
