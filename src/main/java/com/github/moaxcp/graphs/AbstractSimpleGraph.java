@@ -8,6 +8,12 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 abstract class AbstractSimpleGraph implements SimpleGraph {
+
+    public static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
+    public static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
+    public static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
+    public static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
+
     private abstract class InheritingElement<T> {
         private Map<String, Object> inherited;
         private Map<String, Object> local = new LinkedHashMap<>();
@@ -40,7 +46,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * @throws NullPointerException if name is null
          */
         public Optional<Object> getProperty(String name) {
-            requireNonNull(name, "name must not be null.");
+            requireNonNull(name, NAME_MUST_NOT_BE_NULL);
             Object value = local.get(name);
             if (value != null) {
                 return Optional.of(value);
@@ -54,10 +60,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * @param value
          */
         public void setProperty(String name, Object value) {
-            requireNonNull(name, "name must not be null.");
-            requireNonNull(value, "value must not be null.");
+            requireNonNull(name, NAME_MUST_NOT_BE_NULL);
+            requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
             if(name.isEmpty()) {
-                throw new IllegalArgumentException("name must not be empty.");
+                throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
             }
             local.put(name, value);
         }
@@ -68,7 +74,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         public T removeProperty(String name) {
-            requireNonNull(name, "name must not be null.");
+            requireNonNull(name, NAME_MUST_NOT_BE_NULL);
             if(!local.containsKey(name)) {
                 throw new IllegalArgumentException("element does not contain property named '" + name + "'.");
             }
@@ -100,7 +106,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         public Optional<Object> getId() {
-            return getProperty("id");
+            return super.getProperty("id");
         }
 
         @Override
@@ -131,7 +137,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * @throws IllegalStateException if from is null.
          */
         public Object getFrom() {
-            return getProperty("from").orElseThrow(() -> new IllegalStateException("'from' should never be set to null."));
+            return super.getProperty("from").orElseThrow(() -> new IllegalStateException("'from' should never be set to null."));
         }
 
         /**
@@ -168,7 +174,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * @throws IllegalStateException if to is null.
          */
         public Object getTo() {
-            return getProperty("to").orElseThrow(() -> new IllegalStateException("'to' should never be set to null."));
+            return super.getProperty("to").orElseThrow(() -> new IllegalStateException("'to' should never be set to null."));
         }
 
         /**
@@ -266,7 +272,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     public abstract class AbstractVertex extends InheritingElement<Vertex> implements Vertex {
         protected AbstractVertex(Object id, Map<String, Object> inherited) {
             super(inherited);
-            Objects.requireNonNull(id, "id must not be null.");
+            Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
             super.setProperty("id", id);
         }
 
@@ -277,13 +283,13 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         public Object getId() {
-            return getProperty("id").orElseThrow(() -> new IllegalStateException("'id' should never be set to null."));
+            return super.getProperty("id").orElseThrow(() -> new IllegalStateException("'id' should never be set to null."));
         }
 
         @Override
         public void setId(Object id) {
             check();
-            Objects.requireNonNull(id, "id must not be null.");
+            Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
             Set<? extends Edge> adjacent = adjacentEdges();
             Object oldId = getId();
             vertices.remove(this.getId());
@@ -449,7 +455,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     public void removeVertex(Object id) {
-        Objects.requireNonNull(id, "id must not be null.");
+        Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
         var optional = findVertex(id);
         if (!optional.isPresent()) {
             throw new IllegalArgumentException("vertex '" + id + "' not found.");
@@ -458,7 +464,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         for (var edge : adjacent) {
             removeEdge(edge.getFrom(), edge.getTo());
         }
-        Vertex removed = vertices.remove(id);
+        vertices.remove(id);
     }
 
     public Optional<Edge> findEdge(Object from, Object to) {
@@ -499,7 +505,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
     @Override
     public void removeEdge(Object id) {
-        requireNonNull(id, "id must not be null.");
+        requireNonNull(id, ID_MUST_NOT_BE_NULL);
         findEdge(id).ifPresent(edge -> removeEdge(edge.getFrom(), edge.getTo()));
     }
 
@@ -526,10 +532,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
     @Override
     public void setProperty(String name, Object value) {
-        requireNonNull(name, "name must not be null.");
-        requireNonNull(value, "value must not be null.");
+        requireNonNull(name, NAME_MUST_NOT_BE_NULL);
+        requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
         if(name.isEmpty()) {
-            throw new IllegalArgumentException("name must not be empty.");
+            throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
         }
         properties.put(name, value);
     }
@@ -542,7 +548,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
     @Override
     public SimpleGraph removeProperty(String name) {
-        requireNonNull(name, "name must not be null.");
+        requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!properties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain property named '" + name + "'.");
         }
@@ -557,10 +563,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
     @Override
     public void setEdgeProperty(String name, Object value) {
-        requireNonNull(name, "name must not be null.");
-        requireNonNull(value, "value must not be null.");
+        requireNonNull(name, NAME_MUST_NOT_BE_NULL);
+        requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
         if(name.isEmpty()) {
-            throw new IllegalArgumentException("name must not be empty.");
+            throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
         }
         edgeProperties.put(name, value);
     }
@@ -573,7 +579,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
     @Override
     public SimpleGraph removeEdgeProperty(String name) {
-        requireNonNull(name, "name must not be null.");
+        requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!edgeProperties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
         }
@@ -588,10 +594,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
     @Override
     public void setVertexProperty(String name, Object value) {
-        requireNonNull(name, "name must not be null.");
-        requireNonNull(value, "value must not be null.");
+        requireNonNull(name, NAME_MUST_NOT_BE_NULL);
+        requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
         if(name.isEmpty()) {
-            throw new IllegalArgumentException("name must not be empty.");
+            throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
         }
         vertexProperties.put(name, value);
     }
@@ -604,7 +610,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
     @Override
     public SimpleGraph removeVertexProperty(String name) {
-        requireNonNull(name, "name must not be null.");
+        requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!vertexProperties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
         }
