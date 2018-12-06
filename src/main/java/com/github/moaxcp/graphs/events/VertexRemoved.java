@@ -10,7 +10,7 @@ public final class VertexRemoved extends VertexEvent {
         return new Builder();
     }
 
-    static final class Builder extends VertexEvent.Builder<Builder> {
+    public static final class Builder extends VertexEvent.Builder<Builder> {
         private Builder() {
 
         }

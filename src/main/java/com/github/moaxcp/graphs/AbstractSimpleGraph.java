@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 
 abstract class AbstractSimpleGraph implements SimpleGraph {
 
-    public static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
-    public static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
-    public static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
-    public static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
+    private static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
+    private static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
+    private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
+    private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
 
     private abstract class InheritingElement<T> {
         private Map<String, Object> inherited;

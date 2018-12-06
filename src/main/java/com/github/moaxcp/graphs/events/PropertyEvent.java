@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-abstract class PropertyEvent extends GraphEvent {
+public abstract class PropertyEvent extends GraphEvent {
 
     private final String name;
     private final Object value;
@@ -35,7 +35,7 @@ abstract class PropertyEvent extends GraphEvent {
         return Objects.hash(getGraphId(), getName(), getValue());
     }
 
-    static abstract class Builder<T extends Builder> extends GraphEvent.Builder<T> {
+    public static abstract class Builder<T extends Builder> extends GraphEvent.Builder<T> {
         private String name;
         private Object value;
 

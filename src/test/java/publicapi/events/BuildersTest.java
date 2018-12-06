@@ -1,9 +1,11 @@
-package com.github.moaxcp.graphs.events;
+package publicapi.events;
 
 import static com.github.moaxcp.graphs.events.Builders.*;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.events.PropertyEvent.Builder;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class BuildersTest {
 
-    static Stream<PropertyEvent.Builder> propertyEventsMissingName() {
+    static Stream<Builder> propertyEventsMissingName() {
         return Stream.of(
                 allEdgesPropertyAdded(),
                 allEdgesPropertyRemoved(),
@@ -31,7 +33,7 @@ public class BuildersTest {
         );
     }
 
-    static Stream<PropertyEvent.Builder> propertyEventsMissingValue() {
+    static Stream<Builder> propertyEventsMissingValue() {
         return Stream.of(
                 allEdgesPropertyAdded().name("name"),
                 allEdgesPropertyRemoved().name("name"),
@@ -61,21 +63,21 @@ public class BuildersTest {
 
     @ParameterizedTest
     @MethodSource("propertyEventsMissingName")
-    void eventsMissingPropertyName(PropertyEvent.Builder builder) {
+    void eventsMissingPropertyName(Builder builder) {
         Throwable thrown = assertThrows(NullPointerException.class, builder::build);
         assertThat(thrown).hasMessage("name must not be null.");
     }
 
     @ParameterizedTest
     @MethodSource("propertyEventsMissingValue")
-    void eventsMissingPropertyValue(PropertyEvent.Builder builder) {
+    void eventsMissingPropertyValue(Builder builder) {
         Throwable thrown = assertThrows(NullPointerException.class, builder::build);
         assertThat(thrown).hasMessage("value must not be null.");
     }
 
     @ParameterizedTest
     @MethodSource("propertyUpdatedEventsMissingOldValue")
-    void eventsMissingPropertyOldValue(PropertyEvent.Builder builder) {
+    void eventsMissingPropertyOldValue(Builder builder) {
         Throwable thrown = assertThrows(NullPointerException.class, builder::build);
         assertThat(thrown).hasMessage("oldValue must not be null.");
     }
