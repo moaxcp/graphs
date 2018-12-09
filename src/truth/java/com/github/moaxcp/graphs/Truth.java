@@ -9,6 +9,10 @@ public class Truth {
         return GraphSubject.assertThat(graph);
     }
 
+    public static EventGraphSubject assertThat(SimpleEventGraph graph) {
+        return EventGraphSubject.assertThat(graph);
+    }
+
     public static EdgeSubject assertThat(Edge edge) {
         return EdgeSubject.assertThat(edge);
     }

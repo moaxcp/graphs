@@ -8,13 +8,9 @@ import static com.google.common.truth.Truth.assertAbout;
 import com.github.moaxcp.graphs.SimpleGraph.*;
 import com.google.common.truth.*;
 import java.util.*;
-import java.util.function.Consumer;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.greenrobot.eventbus.*;
 
 public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
-
-    private EventBus bus = EventBus.getDefault();
 
     /**
      * Constructor for use by subclasses. If you want to create an instance of this class itself, call
@@ -125,18 +121,5 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
 
     public OptionalSubject withVertexProperty(String name) {
         return check("getVertexProperty(%s)", name).about(optionals()).that(actual().getVertexProperty(name));
-    }
-
-    public GraphSubject withBus(EventBus bus) {
-        this.bus = bus;
-        return this;
-    }
-
-    public IterableSubject matchesEventsIn(Consumer<SimpleGraph> action) {
-        var check = new GraphEventCheck(actual());
-        bus.register(check);
-        action.accept(actual());
-        bus.unregister(check);
-        return check("events").that(check.getEventClasses());
     }
 }
