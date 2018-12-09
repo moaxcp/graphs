@@ -1,14 +1,41 @@
 package com.github.moaxcp.graphs;
 
 import static com.github.moaxcp.graphs.events.Builders.*;
+import static java.util.Objects.requireNonNull;
 import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class AbstractEventGraph extends AbstractSimpleGraph {
+public abstract class AbstractEventGraph extends AbstractSimpleGraph implements SimpleEventGraph {
 
     public abstract class EventEdge extends AbstractEdge {
         protected EventEdge(Object from, Object to, Map<String, Object> inherited) {
             super(from, to, inherited);
+        }
+
+        @Override
+        public void setProperty(String name, Object value) {
+            var oldValue = getProperty(name);
+            super.setProperty(name, value);
+            if(oldValue.isPresent()) {
+                bus.post(edgePropertyUpdated().graphId(AbstractEventGraph.this.getId().orElse(null)).edgeId(getId().orElse(null)).from(getFrom()).to(getTo()).name(name).value(value).oldValue(oldValue.orElse(null)).build());
+            } else {
+                bus.post(edgePropertyAdded().graphId(AbstractEventGraph.this.getId().orElse(null)).edgeId(getId().orElse(null)).from(getFrom()).to(getTo()).name(name).value(value).build());
+            }
+        }
+
+        @Override
+        public Edge removeProperty(String name) {
+            var value = getProperty(name);
+            var edge = super.removeProperty(name);
+            bus.post(edgePropertyRemoved()
+                .graphId(AbstractEventGraph.this.getId().orElse(null))
+                .edgeId(getId().orElse(null))
+                .from(getFrom())
+                .to(getTo())
+                .name(name)
+                .value(value)
+                .build());
+            return edge;
         }
     }
 
@@ -20,25 +47,29 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph {
 
     private EventBus bus;
 
-    public AbstractEventGraph() {
-        this(EventBus.getDefault());
-    }
-
     public AbstractEventGraph(EventBus bus) {
-        this.bus = bus;
-    }
-
-    public AbstractEventGraph(Object id) {
-        this(id, EventBus.getDefault());
+        this.bus = requireNonNull(bus, "bus must not be null.");
     }
 
     public AbstractEventGraph(Object id, EventBus bus) {
         super(id);
-        this.bus = bus;
+        this.bus = requireNonNull(bus, "bus must not be null.");
     }
 
-    protected EventBus getBus() {
+    public EventBus getBus() {
         return bus;
+    }
+
+    @Override
+    public void setProperty(String name, Object value) {
+        var oldValue = getProperty(name);
+        super.setProperty(name, value);
+        if(oldValue.isPresent()) {
+            bus.post(graphPropertyUpdated().graphId(getId().orElse(null)).name(name).value(value).oldValue(oldValue.orElse(null)).build());
+        } else {
+            bus.post(graphPropertyAdded().graphId(getId().orElse(null)).name(name).value(value).build());
+        }
+
     }
 
     @Override

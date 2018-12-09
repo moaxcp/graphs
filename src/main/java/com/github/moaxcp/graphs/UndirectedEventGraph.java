@@ -32,18 +32,9 @@ public class UndirectedEventGraph extends AbstractEventGraph {
         }
     }
 
-    public UndirectedEventGraph() {
-        getBus().post(undirectedGraphCreated().build());
-    }
-
     public UndirectedEventGraph(EventBus bus) {
         super(bus);
         getBus().post(undirectedGraphCreated().build());
-    }
-
-    public UndirectedEventGraph(Object id) {
-        super(id);
-        getBus().post(undirectedGraphCreated().graphId(id).build());
     }
 
     public UndirectedEventGraph(Object id, EventBus bus) {

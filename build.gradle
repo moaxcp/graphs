@@ -49,11 +49,12 @@ dependencies {
     truthImplementation 'org.greenrobot:eventbus:3.1.1'
     truthImplementation 'com.google.truth:truth:0.42'
     truthImplementation 'com.google.truth.extensions:truth-java8-extension:0.42'
-    truthTestImplementation 'org.jmockit:jmockit:1.43'
+    truthImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     truthTestImplementation 'org.greenrobot:eventbus:3.1.1'
     truthTestImplementation 'com.google.truth:truth:0.42'
     truthTestImplementation 'com.google.truth.extensions:truth-java8-extension:0.42'
     truthTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    truthTestImplementation 'org.jmockit:jmockit:1.43'
     truthTestImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
     truthTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
@@ -84,6 +85,8 @@ test {
     reports {
         html.enabled = true
     }
+
+    systemProperty "com.google.common.truth.disable_stack_trace_cleaning", "true"
 }
 
 artifacts {

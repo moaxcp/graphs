@@ -32,18 +32,9 @@ public class DirectedEventGraph extends AbstractEventGraph {
         }
     }
 
-    public DirectedEventGraph() {
-        getBus().post(directedGraphCreated().build());
-    }
-
     public DirectedEventGraph(EventBus bus) {
         super(bus);
         getBus().post(directedGraphCreated().build());
-    }
-
-    public DirectedEventGraph(Object id) {
-        super(id);
-        getBus().post(directedGraphCreated().graphId(id).build());
     }
 
     public DirectedEventGraph(Object id, EventBus bus) {

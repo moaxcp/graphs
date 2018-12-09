@@ -506,7 +506,11 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     @Override
     public void removeEdge(Object id) {
         requireNonNull(id, ID_MUST_NOT_BE_NULL);
-        findEdge(id).ifPresent(edge -> removeEdge(edge.getFrom(), edge.getTo()));
+        var optional = findEdge(id);
+        optional.ifPresent(edge -> removeEdge(edge.getFrom(), edge.getTo()));
+        if(!optional.isPresent()) {
+            throw new IllegalArgumentException("edge with id '" + id + "' not found.");
+        }
     }
 
     @Override

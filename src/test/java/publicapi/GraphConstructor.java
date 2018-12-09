@@ -1,6 +1,7 @@
 package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
+import static testframework.MethodSources.testEventBus;
 import com.github.moaxcp.graphs.*;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,8 +13,8 @@ public class GraphConstructor {
         return Stream.of(
                 new UndirectedGraph("id"),
                 new DirectedGraph("id"),
-                new UndirectedEventGraph("id"),
-                new DirectedEventGraph("id")
+                new UndirectedEventGraph("id", testEventBus()),
+                new DirectedEventGraph("id", testEventBus())
         );
     }
 

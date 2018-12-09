@@ -1,35 +1,63 @@
 package publicapi.bus;
 
-import static com.github.moaxcp.graphs.Truth.*;
-import static com.github.moaxcp.graphs.events.Builders.edgeRemoved;
-import com.github.moaxcp.graphs.SimpleGraph;
+import static com.github.moaxcp.graphs.Truth.assertThat;
+import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
 import testframework.EventSimpleGraphs;
 
 public class Edge {
     @EventSimpleGraphs
-    void created(SimpleGraph graph) {
+    void created(SimpleEventGraph graph) {
         graph.id("id");
-        assertThat(graph).matchesEventsIn(g -> g.edge("A", "B"))
-                .containsExactly(VertexCreated.class, VertexCreated.class, EdgeCreated.class).inOrder();
+        assertThat(graph).hasEventsIn(g -> g.edge("A", "B"))
+            .containsExactly(VertexCreated.class, VertexCreated.class, EdgeCreated.class).inOrder();
     }
 
     @EventSimpleGraphs
-    void removed(SimpleGraph graph) {
+    void notCreated(SimpleEventGraph graph) {
+        graph.id("id");
+        graph.edge("A", "B").id("id");
+        assertThat(graph).hasNoEventsIn(g -> g.edge("A", "B"));
+    }
+
+    @EventSimpleGraphs
+    void removed(SimpleEventGraph graph) {
         graph.id("id");
         graph.edge("A", "B");
-        assertThat(graph).matchesEventsIn(g -> g.removeEdge("A", "B")).containsExactly(EdgeRemoved.class);
+        assertThat(graph).hasEventsIn(g -> g.removeEdge("A", "B")).containsExactly(EdgeRemoved.class);
     }
 
     @EventSimpleGraphs
-    void removeWithId(SimpleGraph graph) {
+    void removeWithId(SimpleEventGraph graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
-        assertEvents(() -> graph.removeEdge("edge")).containsExactly(edgeRemoved().graphId("graph").edgeId("edge").from("A").to("B").build());
+        assertThat(graph).hasEventsIn(g -> g.removeEdge("edge")).containsExactly(EdgeRemoved.class);
     }
 
     @EventSimpleGraphs
-    void removeWithIdNoEdge(SimpleGraph graph) {
-        assertEvents(() -> graph.removeEdge("edge")).isEmpty();
+    void addProperty(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.edge("A", "B").id("edge");
+        assertThat(graph)
+            .hasEventsIn(g -> g.edge("A", "B").property("name", "value"))
+            .containsExactly(EdgePropertyAdded.class);
+    }
+
+    @EventSimpleGraphs
+    void removeProperty(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.edge("A", "B").id("edge").property("name", "value");
+        assertThat(graph)
+            .hasEventsIn(g -> g.edge("A", "B").removeProperty("name"))
+            .containsExactly(EdgePropertyRemoved.class);
+    }
+
+    @EventSimpleGraphs
+    void updateProperty(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.edge("A", "B").id("edge").property("name", "value");
+        assertThat(graph)
+            .hasEventsIn(g -> g.edge("A", "B").property("name", "value2"))
+            .containsExactly(EdgePropertyUpdated.class);
     }
 }

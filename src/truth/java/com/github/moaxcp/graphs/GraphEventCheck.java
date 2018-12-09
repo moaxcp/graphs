@@ -8,15 +8,16 @@ import java.util.stream.*;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
- * Using this class depends on an eventbus that throws exceptions.
+ * Using this class depends on an eventbus that throws exceptions. Checking for updates is tricky. This still does
+ * not verify old values in events.
  */
 public class GraphEventCheck {
 
     private final List<Class> classes = new ArrayList<>();
-    private final SimpleGraph graph;
+    private final SimpleGraph actual;
 
-    public GraphEventCheck(SimpleGraph graph) {
-        this.graph = graph;
+    public GraphEventCheck(SimpleGraph actual) {
+        this.actual = actual;
     }
 
     public List<Class> getEventClasses() {
@@ -25,30 +26,30 @@ public class GraphEventCheck {
 
     @Subscribe
     public void graphPropertyAdded(GraphPropertyAdded event) {
-        assertThat(graph).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(graph).withProperty(event.getName()).hasValue(event.getValue());
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).withProperty(event.getName()).hasValue(event.getValue());
         classes.add(event.getClass());
     }
 
     @Subscribe
     public void vertexCreated(VertexCreated event) {
-        assertThat(graph).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(graph).hasVertex(event.getVertexId());
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasVertex(event.getVertexId());
         classes.add(event.getClass());
     }
 
     @Subscribe
     public void edgeCreated(EdgeCreated event) {
-        assertThat(graph).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(graph).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
         classes.add(event.getClass());
     }
 
     @Subscribe
     public void edgePropertyAdded(EdgePropertyAdded event) {
-        assertThat(graph).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(graph).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
-        assertThat(graph).hasEdge(event.getFrom(), event.getTo())
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo())
                 .withLocalProperty(event.getName())
                 .isEqualTo(event.getValue());
         classes.add(event.getClass());
@@ -56,9 +57,9 @@ public class GraphEventCheck {
 
     @Subscribe
     public void edgePropertyRemoved(EdgePropertyRemoved event) {
-        assertThat(graph).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(graph).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
-        assertThat(graph).hasEdge(event.getFrom(), event.getTo())
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo())
             .withLocalProperty(event.getName())
             .isNull();
         classes.add(event.getClass());
@@ -66,9 +67,9 @@ public class GraphEventCheck {
 
     @Subscribe
     public void edgePropertyUpdated(EdgePropertyUpdated event) {
-        assertThat(graph).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(graph).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
-        assertThat(graph).hasEdge(event.getFrom(), event.getTo())
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo())
             .withLocalProperty(event.getName())
             .isEqualTo(event.getValue());
         assertThat(event.getOldValue()).isNotNull();
@@ -77,9 +78,9 @@ public class GraphEventCheck {
 
     @Subscribe
     public void edgeRemoved(EdgeRemoved event) {
-        assertThat(graph).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(graph).hasNoEdge(event.getFrom(), event.getTo());
-        event.getEdgeId().ifPresent(id -> assertThat(graph).hasNoEdge(id));
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasNoEdge(event.getFrom(), event.getTo());
+        event.getEdgeId().ifPresent(id -> assertThat(actual).hasNoEdge(id));
         classes.add(event.getClass());
     }
 

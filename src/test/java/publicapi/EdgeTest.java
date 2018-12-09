@@ -223,4 +223,16 @@ public class EdgeTest {
         var edge = graph.edge("A", "B");
         assertThat(edge.equals("B", "A")).isTrue();
     }
+
+    @SimpleGraphs
+    void removeByFromTo(SimpleGraph graph) {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("A", "B"));
+        assertThat(thrown).hasMessageThat().isEqualTo("edge from 'A' to 'B' not found.");
+    }
+
+    @SimpleGraphs
+    void removeById(SimpleGraph graph) {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("id"));
+        assertThat(thrown).hasMessageThat().isEqualTo("edge with id 'id' not found.");
+    }
 }
