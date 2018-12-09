@@ -5,11 +5,14 @@ a few principles which keeps things simple for the user:
 
 * a graph is always valid
 * referencing missing elements will create them
-* creating and changing the graph, vertices, or edges will result in an event
+* for event graphs, creating and changing a graph, vertices, or edges will result in an event
 * never return null
 
 image:https://travis-ci.org/moaxcp/graphs.svg?branch=master["Build Status", link="https://travis-ci.org/moaxcp/graphs"]
-image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp:graphs&metric=coverage["Coverage", link="https://sonarcloud.io/component_measures?id=com.github.moaxcp:graphs&metric=coverage"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp%3Agraphs&metric=alert_status["Quality Gate", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp%3Agraphs&metric=reliability_rating["Reliability", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp%3Agraphs&metric=sqale_rating["Maintainability", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp:graphs&metric=coverage["Coverage", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
 
 = Definitions and concepts
 

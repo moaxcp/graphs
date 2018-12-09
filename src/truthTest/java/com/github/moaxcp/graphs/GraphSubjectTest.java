@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class GraphSubjectTest {
     @Test
     public void doesNotHaveVertex() {
-        AssertionError expected = expectError(whenTesting -> whenTesting.that(new UndirectedEventGraph()).hasVertex("id"));
+        AssertionError expected = expectError(whenTesting -> whenTesting.that(new UndirectedGraph()).hasVertex("id"));
 
         assertThat(expected).factValue("value of").isEqualTo("graph.findVertex(id)");
         assertThat(expected).factKeys().contains("expected to be present");
@@ -19,14 +19,14 @@ public class GraphSubjectTest {
 
     @Test
     public void doesHaveVertex() {
-        SimpleGraph graph = new UndirectedEventGraph();
+        SimpleGraph graph = new UndirectedGraph();
         graph.vertex("id");
         assertThat(graph).hasVertex("id");
     }
 
     @Test
     public void doesNotHaveEdge() {
-        SimpleGraph graph = new UndirectedEventGraph();
+        SimpleGraph graph = new UndirectedGraph();
         graph.vertex("A");
         graph.vertex("B");
 
@@ -38,7 +38,7 @@ public class GraphSubjectTest {
 
     @Test
     public void doesHaveEdge() {
-        SimpleGraph graph = new UndirectedEventGraph();
+        SimpleGraph graph = new UndirectedGraph();
         graph.edge("A", "B");
         assertThat(graph).hasEdge("A", "B");
     }
