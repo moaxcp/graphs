@@ -38,6 +38,7 @@ public final class EdgePropertyUpdated extends EdgePropertyEvent {
         return Objects.hash(getGraphId(), getEdgeId(), getFrom(), getTo(), getName(), getValue(), getOldValue());
     }
 
+    @SuppressWarnings("squid:S2176")
     public final static class Builder extends EdgePropertyEvent.Builder<Builder> {
         private Object oldValue;
 

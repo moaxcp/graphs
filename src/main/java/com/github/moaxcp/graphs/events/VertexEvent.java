@@ -29,6 +29,7 @@ public abstract class VertexEvent extends GraphEvent {
         return Objects.hash(getGraphId(), getVertexId());
     }
 
+    @SuppressWarnings("squid:S2176")
     public abstract static class Builder<T extends Builder> extends GraphEvent.Builder<T> {
         private Object vertexId;
 

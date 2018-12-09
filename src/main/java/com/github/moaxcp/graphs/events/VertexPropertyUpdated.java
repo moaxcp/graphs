@@ -36,6 +36,7 @@ public final class VertexPropertyUpdated extends VertexPropertyEvent {
         return Objects.hash(getGraphId(), getVertexId(), getName(), getValue(), oldValue);
     }
 
+    @SuppressWarnings("squid:S2176")
     public final static class Builder extends VertexPropertyEvent.Builder<Builder> {
         private Object oldValue;
 

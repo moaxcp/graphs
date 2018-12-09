@@ -37,4 +37,9 @@ public class Graph {
     void addProperty(SimpleEventGraph graph) {
         assertThat(graph).hasEventsIn(g -> g.property("name", "value"));
     }
+
+    @EventSimpleGraphs
+    void removeProperty(SimpleEventGraph graph) {
+        assertThat(graph).hasEventsIn(g -> g.property("name", "value"));
+    }
 }

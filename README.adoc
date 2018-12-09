@@ -13,6 +13,7 @@ image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp
 image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp%3Agraphs&metric=reliability_rating["Reliability", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
 image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp%3Agraphs&metric=sqale_rating["Maintainability", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
 image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp:graphs&metric=coverage["Coverage", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp:graphs&metric=duplicated_lines_density["Duplication", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
 
 = Definitions and concepts
 

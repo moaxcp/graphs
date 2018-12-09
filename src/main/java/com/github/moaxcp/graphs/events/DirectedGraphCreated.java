@@ -8,6 +8,7 @@ public final class DirectedGraphCreated extends GraphEvent {
         super(builder);
     }
 
+    @SuppressWarnings("squid:S2176")
     public static Builder builder() {
         return new Builder();
     }

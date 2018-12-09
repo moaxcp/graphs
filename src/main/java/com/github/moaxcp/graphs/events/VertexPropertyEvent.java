@@ -28,6 +28,7 @@ public abstract class VertexPropertyEvent extends PropertyEvent {
         return Objects.hash(getGraphId(), getVertexId(), getName(), getValue());
     }
 
+    @SuppressWarnings("squid:S2176")
     public abstract static class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
         private Object vertexId;
 

@@ -28,6 +28,7 @@ public abstract class PropertyUpdatedEvent extends PropertyEvent {
         return Objects.hash(getGraphId(), getName(), getValue(), getOldValue());
     }
 
+    @SuppressWarnings("squid:S2176")
     public abstract static class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
         private Object oldValue;
 

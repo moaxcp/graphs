@@ -10,6 +10,7 @@ public final class VertexRemoved extends VertexEvent {
         return new Builder();
     }
 
+    @SuppressWarnings("squid:S2176")
     public static final class Builder extends VertexEvent.Builder<Builder> {
         private Builder() {
 

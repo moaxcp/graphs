@@ -25,6 +25,7 @@ public final class UndirectedGraphCreated extends GraphEvent {
         return Objects.hash(getGraphId());
     }
 
+    @SuppressWarnings("squid:S2176")
     public final static class Builder extends GraphEvent.Builder<Builder> {
 
         private Builder() {

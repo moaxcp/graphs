@@ -10,6 +10,7 @@ public final class GraphPropertyUpdated extends PropertyUpdatedEvent {
         return new Builder();
     }
 
+    @SuppressWarnings("squid:S2176")
     public final static class Builder extends PropertyUpdatedEvent.Builder<Builder> {
 
         private Builder() {

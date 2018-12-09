@@ -69,7 +69,14 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
         } else {
             bus.post(graphPropertyAdded().graphId(getId().orElse(null)).name(name).value(value).build());
         }
+    }
 
+    @Override
+    public SimpleGraph removeProperty(String name) {
+        var value = getProperty(name);
+        super.removeProperty(name);
+        bus.post(graphPropertyRemoved().graphId(getId().orElse(null)).name(name).value(value).build());
+        return this;
     }
 
     @Override

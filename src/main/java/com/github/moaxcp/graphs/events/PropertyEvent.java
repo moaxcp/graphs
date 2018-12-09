@@ -35,6 +35,7 @@ public abstract class PropertyEvent extends GraphEvent {
         return Objects.hash(getGraphId(), getName(), getValue());
     }
 
+    @SuppressWarnings("squid:S2176")
     public static abstract class Builder<T extends Builder> extends GraphEvent.Builder<T> {
         private String name;
         private Object value;

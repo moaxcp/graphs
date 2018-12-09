@@ -43,6 +43,7 @@ public abstract class EdgeEvent extends GraphEvent {
         return Objects.hash(getGraphId(), getEdgeId(), getFrom(), getTo());
     }
 
+    @SuppressWarnings("squid:S2176")
     public static abstract class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
         private Object edgeId;
         private Object from;

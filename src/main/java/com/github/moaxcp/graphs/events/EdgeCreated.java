@@ -10,6 +10,7 @@ public final class EdgeCreated extends EdgeEvent {
         return new Builder();
     }
 
+    @SuppressWarnings("squid:S2176")
     public final static class Builder extends EdgeEvent.Builder<Builder> {
 
         private Builder() {

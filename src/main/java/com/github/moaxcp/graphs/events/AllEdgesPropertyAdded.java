@@ -10,6 +10,7 @@ public final class AllEdgesPropertyAdded extends PropertyEvent {
         return new Builder();
     }
 
+    @SuppressWarnings("squid:S2176")
     public final static class Builder extends PropertyEvent.Builder<Builder> {
 
         private Builder() {
