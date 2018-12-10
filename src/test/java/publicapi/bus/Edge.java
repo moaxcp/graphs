@@ -24,14 +24,14 @@ public class Edge {
     void removed(SimpleEventGraph graph) {
         graph.id("id");
         graph.edge("A", "B");
-        assertThat(graph).hasEventsIn(g -> g.removeEdge("A", "B")).containsExactly(EdgeRemoved.class);
+        assertThat(graph).hasEventsIn(g -> g.removeEdge("A", "B"));
     }
 
     @EventSimpleGraphs
     void removeWithId(SimpleEventGraph graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
-        assertThat(graph).hasEventsIn(g -> g.removeEdge("edge")).containsExactly(EdgeRemoved.class);
+        assertThat(graph).hasEventsIn(g -> g.removeEdge("edge"));
     }
 
     @EventSimpleGraphs
@@ -39,8 +39,7 @@ public class Edge {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
         assertThat(graph)
-            .hasEventsIn(g -> g.edge("A", "B").property("name", "value"))
-            .containsExactly(EdgePropertyAdded.class);
+            .hasEventsIn(g -> g.edge("A", "B").property("name", "value"));
     }
 
     @EventSimpleGraphs
@@ -48,8 +47,7 @@ public class Edge {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
         assertThat(graph)
-            .hasEventsIn(g -> g.edge("A", "B").removeProperty("name"))
-            .containsExactly(EdgePropertyRemoved.class);
+            .hasEventsIn(g -> g.edge("A", "B").removeProperty("name"));
     }
 
     @EventSimpleGraphs
@@ -57,7 +55,6 @@ public class Edge {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
         assertThat(graph)
-            .hasEventsIn(g -> g.edge("A", "B").property("name", "value2"))
-            .containsExactly(EdgePropertyUpdated.class);
+            .hasEventsIn(g -> g.edge("A", "B").property("name", "value2"));
     }
 }

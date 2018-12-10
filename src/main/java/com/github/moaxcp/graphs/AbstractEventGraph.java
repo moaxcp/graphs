@@ -43,6 +43,41 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
         protected EventVertex(Object id, Map<String, Object> inherited) {
             super(id, inherited);
         }
+
+        @Override
+        public void setProperty(String name, Object value) {
+            var oldValue = getProperty(name);
+            super.setProperty(name, value);
+            if(oldValue.isPresent()) {
+                bus.post(vertexPropertyUpdated()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .vertexId(getId())
+                    .name(name)
+                    .value(value)
+                    .oldValue(oldValue.orElse(null))
+                    .build());
+            } else {
+                bus.post(vertexPropertyAdded()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .vertexId(getId())
+                    .name(name)
+                    .value(value)
+                    .build());
+            }
+        }
+
+        @Override
+        public Vertex removeProperty(String name) {
+            var value = getProperty(name);
+            var vertex = super.removeProperty(name);
+            bus.post(vertexPropertyRemoved()
+                .graphId(AbstractEventGraph.this.getId().orElse(null))
+                .vertexId(getId())
+                .name(name)
+                .value(value)
+                .build());
+            return vertex;
+        }
     }
 
     private EventBus bus;
@@ -80,13 +115,6 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
     }
 
     @Override
-    Vertex addVertex(Object id) {
-        var vertex = super.addVertex(id);
-        bus.post(vertexCreated().graphId(getId().orElse(null)).vertexId(id).build());
-        return vertex;
-    }
-
-    @Override
     Edge addEdge(Object from, Object to) {
         var edge = super.addEdge(from, to);
         bus.post(edgeCreated().graphId(getId().orElse(null)).from(from).to(to).build());
@@ -103,5 +131,21 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
                         .edgeId(edge.getId().orElse(null))
                         .from(edge.getFrom())
                         .to(edge.getTo()).build()));
+    }
+
+    @Override
+    Vertex addVertex(Object id) {
+        var vertex = super.addVertex(id);
+        bus.post(vertexCreated().graphId(getId().orElse(null)).vertexId(id).build());
+        return vertex;
+    }
+
+    @Override
+    public void removeVertex(Object id) {
+        var optional = findVertex(id);
+        super.removeVertex(id);
+        optional.ifPresent(vertex -> bus.post(
+            vertexRemoved().graphId(getId().orElse(null)).vertexId(id).build()
+        ));
     }
 }

@@ -29,7 +29,7 @@ public class BuildersTest {
                 graphPropertyUpdated(),
                 vertexPropertyAdded(),
                 vertexPropertyRemoved(),
-                vertexProeprtyUpdated()
+                vertexPropertyUpdated()
         );
     }
 
@@ -49,7 +49,7 @@ public class BuildersTest {
                 graphPropertyUpdated().name("name"),
                 vertexPropertyAdded().name("name"),
                 vertexPropertyRemoved().name("name"),
-                vertexProeprtyUpdated().name("name")
+                vertexPropertyUpdated().name("name")
         );
     }
 

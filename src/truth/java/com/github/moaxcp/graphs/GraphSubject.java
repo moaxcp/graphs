@@ -35,12 +35,6 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
         return check("getId()").about(optionals()).that(actual().getId());
     }
 
-    public VertexSubject hasVertex(Object id) {
-        Optional<Vertex> find = actual().findVertex(id);
-        check("findVertex(%s)", id).about(optionals()).that(find).isPresent();
-        return assertAbout(vertices()).that(find.orElse(null));
-    }
-
     public EdgeSubject hasEdge(Object from, Object to) {
         hasVertex(from);
         hasVertex(to);
@@ -63,6 +57,17 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
     public void hasNoEdge(Object id) {
         var find =actual().findEdge(id);
         check("findEdge(%s)", id).about(optionals()).that(find).isEmpty();
+    }
+
+    public VertexSubject hasVertex(Object id) {
+        Optional<Vertex> find = actual().findVertex(id);
+        check("findVertex(%s)", id).about(optionals()).that(find).isPresent();
+        return assertAbout(vertices()).that(find.orElse(null));
+    }
+
+    public void hasNoVertex(Object id) {
+        var find = actual().findVertex(id);
+        check("findVertex(%s)", id).about(optionals()).that(find).isEmpty();
     }
 
     public void hasVertices(String id, String... ids) {

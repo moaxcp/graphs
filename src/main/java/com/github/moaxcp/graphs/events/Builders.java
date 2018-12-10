@@ -81,7 +81,7 @@ public class Builders {
         return VertexPropertyRemoved.builder();
     }
 
-    public static VertexPropertyUpdated.Builder vertexProeprtyUpdated() {
+    public static VertexPropertyUpdated.Builder vertexPropertyUpdated() {
         return VertexPropertyUpdated.builder();
     }
 

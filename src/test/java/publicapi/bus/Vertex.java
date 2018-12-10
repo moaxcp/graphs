@@ -2,13 +2,57 @@ package publicapi.bus;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import com.github.moaxcp.graphs.SimpleEventGraph;
-import com.github.moaxcp.graphs.events.VertexCreated;
+import com.github.moaxcp.graphs.events.*;
 import testframework.EventSimpleGraphs;
 
 public class Vertex {
     @EventSimpleGraphs
     void created(SimpleEventGraph graph) {
-        graph.id("id");
-        assertThat(graph).hasEventsIn(g -> g.vertex("A")).containsExactly(VertexCreated.class);
+        graph.id("graph");
+        assertThat(graph).hasEventsIn(g -> g.vertex("A"));
+    }
+
+    @EventSimpleGraphs
+    void notCreated(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.vertex("A");
+        assertThat(graph).hasNoEventsIn(g -> g.vertex("A"));
+    }
+
+    @EventSimpleGraphs
+    void remove(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.vertex("A");
+        assertThat(graph).hasEventsIn(g -> g.removeVertex("A"));
+    }
+
+    @EventSimpleGraphs
+    void removeWithEdges(SimpleEventGraph graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "C");
+        graph.edge("A", "D");
+        assertThat(graph).hasEventsIn(g->g.removeVertex("A"))
+            .containsExactly(EdgeRemoved.class, EdgeRemoved.class, EdgeRemoved.class, VertexRemoved.class).inOrder();
+    }
+
+    @EventSimpleGraphs
+    void addProperty(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.vertex("A");
+        assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value"));
+    }
+
+    @EventSimpleGraphs
+    void removeProperty(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.vertex("A").property("name", "value");
+        assertThat(graph).hasEventsIn(g-> g.vertex("A").removeProperty("name"));
+    }
+
+    @EventSimpleGraphs
+    void updateProperty(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.vertex("A").property("name", "value");
+        assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value2"));
     }
 }

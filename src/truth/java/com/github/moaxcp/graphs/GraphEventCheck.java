@@ -32,9 +32,18 @@ public class GraphEventCheck {
     }
 
     @Subscribe
-    public void vertexCreated(VertexCreated event) {
+    public void graphPropertyRemove(GraphPropertyRemoved event) {
         assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(actual).hasVertex(event.getVertexId());
+        assertThat(actual).withProperty(event.getName()).isEmpty();
+        assertThat(event.getValue()).isNotNull();
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
+    public void graphPropertyUpdated(GraphPropertyUpdated event) {
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).withProperty(event.getName()).hasValue(event.getValue());
+        assertThat(event.getOldValue()).isNotNull();
         classes.add(event.getClass());
     }
 
@@ -85,8 +94,57 @@ public class GraphEventCheck {
     }
 
     @Subscribe
+    public void vertexCreated(VertexCreated event) {
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasVertex(event.getVertexId());
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
+    public void vertexRemoved(VertexRemoved event) {
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasNoVertex(event.getVertexId());
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
+    public void vertexPropertyAdded(VertexPropertyAdded event) {
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasVertex(event.getVertexId()).withProperty(event.getName()).hasValue(event.getValue());
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
+    public void vertexPropertyRemoved(VertexPropertyRemoved event) {
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasVertex(event.getVertexId()).withProperty(event.getName()).isEmpty();
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
+    public void vertexPropertyUpdated(VertexPropertyUpdated event) {
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasVertex(event.getVertexId()).withProperty(event.getName()).hasValue(event.getValue());
+        assertThat(event.getOldValue()).isNotNull();
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
     public void otherEvent(Object event) {
-        List<Class<? extends GraphEvent>> supported = Stream.of(GraphPropertyAdded.class, VertexCreated.class, EdgeCreated.class, EdgePropertyAdded.class, EdgePropertyRemoved.class, EdgePropertyUpdated.class, EdgeRemoved.class).collect(Collectors.toList());
+        List<Class<? extends GraphEvent>> supported = Stream.of(
+            GraphPropertyAdded.class,
+            GraphPropertyRemoved.class,
+            GraphPropertyUpdated.class,
+            VertexCreated.class,
+            VertexRemoved.class,
+            VertexPropertyAdded.class,
+            VertexPropertyRemoved.class,
+            VertexPropertyUpdated.class,
+            EdgeCreated.class,
+            EdgePropertyAdded.class,
+            EdgePropertyRemoved.class,
+            EdgePropertyUpdated.class,
+            EdgeRemoved.class).collect(Collectors.toList());
         assertThat(supported).contains(event.getClass());
     }
 }

@@ -35,11 +35,21 @@ public class Graph {
 
     @EventSimpleGraphs
     void addProperty(SimpleEventGraph graph) {
+        graph.id("graph");
         assertThat(graph).hasEventsIn(g -> g.property("name", "value"));
     }
 
     @EventSimpleGraphs
     void removeProperty(SimpleEventGraph graph) {
-        assertThat(graph).hasEventsIn(g -> g.property("name", "value"));
+        graph.id("graph");
+        graph.property("name", "value");
+        assertThat(graph).hasEventsIn(g -> g.removeProperty("name"));
+    }
+
+    @EventSimpleGraphs
+    void updateProperty(SimpleEventGraph graph) {
+        graph.id("graph");
+        graph.property("name", "value");
+        assertThat(graph).hasEventsIn(g -> g.property("name", "value2"));
     }
 }
