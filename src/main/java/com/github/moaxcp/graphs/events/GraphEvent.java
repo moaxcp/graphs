@@ -13,7 +13,7 @@ public abstract class GraphEvent {
         return Optional.ofNullable(graphId);
     }
 
-    public static abstract class Builder<T extends Builder> {
+    public abstract static class Builder<T extends Builder> {
         private Object graphId;
 
         public final T self() {

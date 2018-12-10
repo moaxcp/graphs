@@ -36,7 +36,7 @@ public abstract class PropertyEvent extends GraphEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public static abstract class Builder<T extends Builder> extends GraphEvent.Builder<T> {
+    public abstract static class Builder<T extends Builder> extends GraphEvent.Builder<T> {
         private String name;
         private Object value;
 
