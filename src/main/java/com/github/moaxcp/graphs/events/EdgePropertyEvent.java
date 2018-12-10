@@ -46,7 +46,7 @@ public abstract class EdgePropertyEvent extends PropertyEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public static abstract class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
+    public abstract static class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
         private Object edgeId;
         private Object from;
         private Object to;
