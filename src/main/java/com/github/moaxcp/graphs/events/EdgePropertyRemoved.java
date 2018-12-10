@@ -11,7 +11,7 @@ public final class EdgePropertyRemoved extends EdgePropertyEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public final static class Builder extends EdgePropertyEvent.Builder<Builder> {
+    public static final class Builder extends EdgePropertyEvent.Builder<Builder> {
 
         private Builder() {
 

@@ -11,7 +11,7 @@ public final class AllEdgesPropertyUpdated extends PropertyUpdatedEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public static class Builder extends PropertyUpdatedEvent.Builder<Builder> {
+    public static final class Builder extends PropertyUpdatedEvent.Builder<Builder> {
 
         private Builder() {
 

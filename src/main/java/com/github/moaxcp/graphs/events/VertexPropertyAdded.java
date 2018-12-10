@@ -11,7 +11,7 @@ public final class VertexPropertyAdded extends VertexPropertyEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public final static class Builder extends VertexPropertyEvent.Builder<Builder> {
+    public static final class Builder extends VertexPropertyEvent.Builder<Builder> {
 
         private Builder() {
 

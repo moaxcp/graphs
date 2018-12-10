@@ -11,7 +11,7 @@ public final class AllVerticesPropertyAdded extends PropertyEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public final static class Builder extends PropertyEvent.Builder<Builder> {
+    public static final class Builder extends PropertyEvent.Builder<Builder> {
 
         private Builder() {
 
