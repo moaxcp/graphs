@@ -65,21 +65,21 @@ public class BuildersTest {
     @MethodSource("propertyEventsMissingName")
     void eventsMissingPropertyName(Builder builder) {
         Throwable thrown = assertThrows(NullPointerException.class, builder::build);
-        assertThat(thrown).hasMessage("name must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("name must not be null.");
     }
 
     @ParameterizedTest
     @MethodSource("propertyEventsMissingValue")
     void eventsMissingPropertyValue(Builder builder) {
         Throwable thrown = assertThrows(NullPointerException.class, builder::build);
-        assertThat(thrown).hasMessage("value must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
     }
 
     @ParameterizedTest
     @MethodSource("propertyUpdatedEventsMissingOldValue")
     void eventsMissingPropertyOldValue(Builder builder) {
         Throwable thrown = assertThrows(NullPointerException.class, builder::build);
-        assertThat(thrown).hasMessage("oldValue must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("oldValue must not be null.");
     }
 
     @Test

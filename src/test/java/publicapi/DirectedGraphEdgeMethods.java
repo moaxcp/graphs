@@ -7,7 +7,7 @@ import testframework.DirectedSimpleGraphs;
 public class DirectedGraphEdgeMethods {
 
     @DirectedSimpleGraphs
-    void edgeIsDirected(SimpleGraph graph) {
+    void twoEdgesConnectSameVertices(SimpleGraph graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("B", "A");
 

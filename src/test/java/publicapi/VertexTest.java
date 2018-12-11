@@ -2,6 +2,7 @@ package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.SimpleGraph;
 import testframework.*;
@@ -162,38 +163,42 @@ public class VertexTest {
     void testConnectsTo(SimpleGraph graph) {
         var vertex = graph.vertex("A")
                 .connectsTo("B");
-        assertThat(vertex.getId()).isEqualTo("A");
-        assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
-        assertThat(graph.getEdges()).hasSize(1);
-        assertThat(graph.getEdges().iterator().next().local()).containsExactly("from", "A", "to", "B");
+        assertThat(graph).hasVertex("B");
+        assertThat(graph).hasEdge("A", "B");
     }
 
     @SimpleGraphs
     void testConnectsFrom(SimpleGraph graph) {
         var vertex = graph.vertex("A")
                 .connectsFrom("B");
+        assertThat(graph).hasVertex("B");
+        assertThat(graph).hasEdge("B", "A");
+        var optional = graph.findEdge("B", "A");
+        assertThat(optional).isPresent();
+        var edge = optional.orElse(null);
+        assertThat(edge).hasFromThat().isEqualTo("B");
+        assertThat(edge).hasToThat().isEqualTo("A");
         assertThat(vertex.getId()).isEqualTo("A");
-        assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
-        assertThat(graph.getEdges()).hasSize(1);
-        assertThat(graph.getEdges().iterator().next().local()).containsExactly("from", "B", "to", "A");
     }
 
     @SimpleGraphs
     void testEdgeTo(SimpleGraph graph) {
         var edge = graph.vertex("A")
                 .edgeTo("B");
-        assertThat(edge.local()).containsExactly("from", "A", "to", "B");
-        assertThat(graph.getEdges().iterator().next()).isEqualTo(edge);
-        assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
+        assertThat(graph).hasVertex("B");
+        assertThat(graph).hasEdge("A", "B");
+        assertThat(edge).hasFromThat().isEqualTo("A");
+        assertThat(edge).hasToThat().isEqualTo("B");
     }
 
     @SimpleGraphs
     void testEdgeFrom(SimpleGraph graph) {
         var edge = graph.vertex("A")
                 .edgeFrom("B");
-        assertThat(edge.local()).containsExactly("from", "B", "to", "A");
-        assertThat(graph.getEdges().iterator().next()).isEqualTo(edge);
-        assertThat(graph.getVertices().keySet()).containsExactly("A", "B");
+        assertThat(graph).hasVertex("B");
+        assertThat(graph).hasEdge("B", "A");
+        assertThat(edge).hasFromThat().isEqualTo("B");
+        assertThat(edge).hasToThat().isEqualTo("A");
     }
 
     @SimpleGraphs
