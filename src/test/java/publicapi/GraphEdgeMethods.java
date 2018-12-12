@@ -1,8 +1,8 @@
 package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.SimpleGraph;
 import testframework.SimpleGraphs;
 
@@ -21,17 +21,15 @@ public class GraphEdgeMethods {
     }
 
     @SimpleGraphs
-    void newEdgeHasToFromProperties(SimpleGraph graph) {
+    void newEdgeFromIsSet(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
-        assertThat(edge).withProperty("from").hasValue("A");
-        assertThat(edge).withProperty("to").hasValue("B");
+        assertThat(edge).hasFromThat().isEqualTo("A");
     }
 
     @SimpleGraphs
-    void newEdgeHasToFromLocalProperties(SimpleGraph graph) {
+    void newEdgeToIsSet(SimpleGraph graph) {
         var edge = graph.edge("A", "B");
-        assertThat(edge).withLocalProperty("from").isEqualTo("A");
-        assertThat(edge).withLocalProperty("to").isEqualTo("B");
+        assertThat(edge).hasToThat().isEqualTo("B");
     }
 
     @SimpleGraphs

@@ -82,21 +82,19 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             return self();
         }
     }
-    //todo use as key in edges. make edges a map. This makes findEdges faster!
-    protected static class EdgeKey {
-        private Object from;
-        private Object to;
-    }
 
     /**
      * Edge represents an undirected edge in this graph.
      */
     public abstract class AbstractEdge extends InheritingElement<Edge> implements Edge {
+        private Object id;
+        private Object from;
+        private Object to;
 
         protected AbstractEdge(Object from, Object to, Map<String, Object> inherited) {
             super(inherited);
-            super.setProperty("from", from);
-            super.setProperty("to", to);
+            this.from = from;
+            this.to = to;
         }
 
         private void check() {
@@ -106,24 +104,17 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         public Optional<Object> getId() {
-            return super.getProperty("id");
+            return Optional.ofNullable(id);
         }
 
         @Override
         public void setId(Object id) {
             check();
-            getId().ifPresent(edgeIds::remove);
+            edgeIds.remove(this.id);
             if(id != null) {
                 edgeIds.put(id, this);
             }
-            if (id == null && !getId().isPresent()) {
-                return;
-            }
-            if (id == null) {
-                removeProperty("id");
-                return;
-            }
-            super.setProperty("id", id);
+            this.id = id;
         }
 
         public Edge id(Object id) {
@@ -134,10 +125,9 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         /**
          * Returns id of "from" {@link Vertex}.
          * @return id of "from" {@link Vertex}
-         * @throws IllegalStateException if from is null.
          */
         public Object getFrom() {
-            return super.getProperty("from").orElseThrow(() -> new IllegalStateException("'from' should never be set to null."));
+            return from;
         }
 
         /**
@@ -149,7 +139,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             requireNonNull(from, "from must not be null.");
             edges.remove(this);
             vertex(from);
-            super.setProperty("from", from);
+            this.from = from;
             edges.add(this);
         }
 
@@ -171,10 +161,9 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         /**
          * Returns id of "to" {@link Vertex}.
          * @return id of "to" {@link Vertex}
-         * @throws IllegalStateException if to is null.
          */
         public Object getTo() {
-            return super.getProperty("to").orElseThrow(() -> new IllegalStateException("'to' should never be set to null."));
+            return to;
         }
 
         /**
@@ -186,7 +175,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             Objects.requireNonNull(to, "to must not be null.");
             edges.remove(this);
             vertex(to);
-            super.setProperty("to", to);
+            this.to = to;
             edges.add(this);
         }
 
@@ -205,6 +194,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             return getTo();
         }
 
+        public List<Object> endpoints() {
+            return List.of(from, to);
+        }
+
         public Vertex fromVertex() {
             check();
             return vertex(getFrom());
@@ -217,18 +210,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
 
         @Override
         public void setProperty(String name, Object value) {
-            if ("from".equals(name)) {
-                setFrom((value));
-                return;
-            }
-            if ("to".equals(name)) {
-                setTo((value));
-                return;
-            }
-            if ("id".equals(name)) {
-                setId(value);
-                return;
-            }
             check();
             super.setProperty(name, value);
         }
@@ -236,15 +217,6 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         @Override
         public Edge removeProperty(String name) {
             check();
-            if("id".equals(name)) {
-                getId().ifPresent(edgeIds::remove);
-            }
-            if ("from".equals(name)) {
-                throw new IllegalArgumentException("'from' cannot be removed.");
-            }
-            if ("to".equals(name)) {
-                throw new IllegalArgumentException("'to' cannot be removed.");
-            }
             return super.removeProperty(name);
         }
 

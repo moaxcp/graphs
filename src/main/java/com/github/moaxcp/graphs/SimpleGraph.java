@@ -41,6 +41,7 @@ public interface SimpleGraph {
         void setTo(Object to);
         Object to();
         Edge to(Object to);
+        List<Object> endpoints();
         Vertex fromVertex();
         Vertex toVertex();
         boolean isDirected();

@@ -139,53 +139,10 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void setPropertyFrom(SimpleGraph graph) {
-        var edge = graph.edge("A", "B");
-        edge.setProperty("from", "C");
-        assertThat(edge).hasFromThat().isEqualTo("C");
-    }
-
-    @SimpleGraphs
-    void setPropertyTo(SimpleGraph graph) {
-        var edge = graph.edge("A", "B");
-        edge.setProperty("to", "C");
-        assertThat(edge).hasToThat().isEqualTo("C");
-    }
-
-    @SimpleGraphs
-    void setPropertyId(SimpleGraph graph) {
-        var edge = graph.edge("A", "B");
-        edge.setProperty("id", "id");
-        assertThat(edge).hasIdThat().hasValue("id");
-    }
-
-    @SimpleGraphs
     void removeProperty(SimpleGraph graph) {
         var edge = graph.edge("A", "B").property("name", "value");
         edge.removeProperty("name");
         assertThat(edge).withProperty("name").isEmpty();
-    }
-
-    @SimpleGraphs
-    void removeIdProperty(SimpleGraph graph) {
-        var edge = graph.edge("from", "to").id("id");
-        edge.removeProperty("id");
-        assertThat(edge).hasNoId();
-        assertThat(graph).hasNoEdge("id");
-    }
-
-    @SimpleGraphs
-    void removeFromProperty(SimpleGraph graph) {
-        var edge = graph.edge("A", "B");
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> edge.removeProperty("from"));
-        assertThat(thrown).hasMessage("'from' cannot be removed.");
-    }
-
-    @SimpleGraphs
-    void removeToProperty(SimpleGraph graph) {
-        var edge = graph.edge("A", "B");
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> edge.removeProperty("to"));
-        assertThat(thrown).hasMessage("'to' cannot be removed.");
     }
 
     @SimpleGraphs

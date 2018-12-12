@@ -155,7 +155,7 @@ public class VertexTest {
         var edges = vertex.adjacentEdges();
         assertThat(edges).hasSize(2);
         for(var edge : edges) {
-            assertThat(edge.local().values()).contains("A");
+            assertThat(edge.endpoints()).contains("A");
         }
     }
 
@@ -246,7 +246,7 @@ public class VertexTest {
         var edges = vertex.traverseEdges();
         assertThat(edges).hasSize(2);
         for(var edge : edges) {
-            assertThat(edge.local().values()).contains("A");
+            assertThat(edge.endpoints()).contains("A");
         }
     }
 
