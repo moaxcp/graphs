@@ -242,10 +242,12 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
      * Vertex represents a vertex in this graph.
      */
     public abstract class AbstractVertex extends InheritingElement<Vertex> implements Vertex {
+        private Object id;
+
         protected AbstractVertex(Object id, Map<String, Object> inherited) {
             super(inherited);
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
-            super.setProperty("id", id);
+            this.id = id;
         }
 
         private void check() {
@@ -255,7 +257,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         public Object getId() {
-            return super.getProperty("id").orElseThrow(() -> new IllegalStateException("'id' should never be set to null."));
+            return id;
         }
 
         @Override
@@ -265,7 +267,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             Set<? extends Edge> adjacent = adjacentEdges();
             Object oldId = getId();
             vertices.remove(this.getId());
-            super.setProperty("id", id);
+            this.id = id;
             vertices.put(id, this);
             for (Edge edge : adjacent) {
                 if (edge.getFrom().equals(oldId)) {
@@ -285,19 +287,12 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         @Override
         public void setProperty(String name, Object value) {
             check();
-            if ("id".equals(name)) {
-                setId(value);
-                return;
-            }
             super.setProperty(name, value);
         }
 
         @Override
         public Vertex removeProperty(String name) {
             check();
-            if ("id".equals(name)) {
-                throw new IllegalArgumentException("id cannot be removed.");
-            }
             super.removeProperty(name);
             return self();
         }

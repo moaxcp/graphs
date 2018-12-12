@@ -36,8 +36,6 @@ public class GraphVertexMethods {
         var vertex = graph.vertex("id");
         assertThat(graph).hasVertex("id").isSameAs(vertex);
         assertThat(vertex).hasId("id");
-        assertThat(vertex).withProperty("id").hasValue("id");
-        assertThat(vertex).withLocal().containsExactly("id", "id");
     }
 
     @SimpleGraphs

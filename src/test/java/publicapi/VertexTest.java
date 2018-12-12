@@ -23,15 +23,9 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void localDefault(SimpleGraph graph) {
-        graph.vertex("A");
-        assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A");
-    }
-
-    @SimpleGraphs
     void localWithProperty(SimpleGraph graph) {
         graph.vertex("A").property("color", "blue");
-        assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "color", "blue");
+        assertThat(graph).hasVertex("A").withLocal().containsExactly("color", "blue");
     }
 
     @SimpleGraphs
@@ -78,14 +72,6 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void propertyId(SimpleGraph graph) {
-        var vertex = graph.vertex("A");
-        var result = graph.vertex("A").property("id", "B");
-        assertThat(graph).hasVertex("B");
-        assertThat(result).isSameAs(vertex);
-    }
-
-    @SimpleGraphs
     void property(SimpleGraph graph) {
         graph.vertex("A").property("name", "value");
         assertThat(graph).hasVertex("A").withProperty("name").hasValue("value");
@@ -112,13 +98,6 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void removePropertyId(SimpleGraph graph) {
-        graph.vertex("A");
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.vertex("A").removeProperty("id"));
-        assertThat(thrown).hasMessage("id cannot be removed.");
-    }
-
-    @SimpleGraphs
     void testSetId(SimpleGraph graph) {
         var a = graph.vertex("id");
         var from = graph.edge("id", "b");
@@ -141,7 +120,7 @@ public class VertexTest {
     void testToString(SimpleGraph graph) {
         var vertex = graph.vertex("id");
         vertex.setProperty("key", "value");
-        assertThat(vertex.toString()).isEqualTo("Vertex 'id' {id=id, key=value}");
+        assertThat(vertex.toString()).isEqualTo("Vertex 'id' {key=value}");
     }
 
     @SimpleGraphs
