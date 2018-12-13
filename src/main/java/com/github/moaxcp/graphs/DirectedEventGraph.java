@@ -4,9 +4,9 @@ import static com.github.moaxcp.graphs.events.Builders.directedGraphCreated;
 import java.util.*;
 import org.greenrobot.eventbus.EventBus;
 
-public class DirectedEventGraph extends AbstractEventGraph {
+public class DirectedEventGraph<T> extends AbstractEventGraph<T> {
     public class DirectedEventEdge extends EventEdge {
-        private DirectedEventEdge(Object from, Object to, Map<String, Object> inherited) {
+        private DirectedEventEdge(T from, T to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
 
@@ -16,18 +16,18 @@ public class DirectedEventGraph extends AbstractEventGraph {
         }
 
         @Override
-        public boolean equals(Object from, Object to) {
+        public boolean equals(T from, T to) {
             return (Objects.equals(getFrom(), from) && (Objects.equals(getTo(), to)));
         }
     }
 
     public class DirectedEventVertex extends EventVertex {
-        private DirectedEventVertex(Object id, Map<String, Object> inherited) {
+        private DirectedEventVertex(T id, Map<String, Object> inherited) {
             super(id, inherited);
         }
 
         @Override
-        public Set<Edge> traverseEdges() {
+        public Set<Edge<T>> traverseEdges() {
             return outEdges();
         }
     }
@@ -37,18 +37,18 @@ public class DirectedEventGraph extends AbstractEventGraph {
         getBus().post(directedGraphCreated().build());
     }
 
-    public DirectedEventGraph(Object id, EventBus bus) {
+    public DirectedEventGraph(T id, EventBus bus) {
         super(id, bus);
         getBus().post(directedGraphCreated().graphId(id).build());
     }
 
     @Override
-    Vertex newVertex(Object id, Map<String, Object> inherited) {
+    Vertex<T> newVertex(T id, Map<String, Object> inherited) {
         return new DirectedEventVertex(id, inherited);
     }
 
     @Override
-    Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
+    Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new DirectedEventEdge(from, to, inherited);
     }
 

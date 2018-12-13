@@ -13,29 +13,29 @@ public class MethodSources {
                 .build();
     }
 
-    public static Stream<SimpleGraph> simpleGraphs() {
+    public static Stream<SimpleGraph<String>> simpleGraphs() {
         return Stream.of(
-                new UndirectedGraph(),
-                new DirectedGraph(),
-                new UndirectedEventGraph(testEventBus()),
-                new DirectedEventGraph(testEventBus()));
+                new UndirectedGraph<>(),
+                new DirectedGraph<>(),
+                new UndirectedEventGraph<>(testEventBus()),
+                new DirectedEventGraph<>(testEventBus()));
     }
 
-    public static Stream<SimpleGraph> undirectedSimpleGraphs() {
+    public static Stream<SimpleGraph<String>> undirectedSimpleGraphs() {
         return Stream.of(
-                new UndirectedGraph(),
-                new UndirectedEventGraph(testEventBus()));
+                new UndirectedGraph<>(),
+                new UndirectedEventGraph<>(testEventBus()));
     }
 
-    public static Stream<SimpleGraph> directedSimpleGraphs() {
+    public static Stream<SimpleGraph<String>> directedSimpleGraphs() {
         return Stream.of(
-                new DirectedGraph(),
-                new DirectedEventGraph(testEventBus()));
+                new DirectedGraph<>(),
+                new DirectedEventGraph<>(testEventBus()));
     }
 
-    public static Stream<SimpleEventGraph> eventSimpleGraphs() {
+    public static Stream<SimpleEventGraph<String>> eventSimpleGraphs() {
         return Stream.of(
-                new UndirectedEventGraph(testEventBus()),
-                new DirectedEventGraph(testEventBus()));
+                new UndirectedEventGraph<>(testEventBus()),
+                new DirectedEventGraph<>(testEventBus()));
     }
 }

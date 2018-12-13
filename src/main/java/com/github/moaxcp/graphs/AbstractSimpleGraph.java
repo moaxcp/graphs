@@ -7,14 +7,14 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-abstract class AbstractSimpleGraph implements SimpleGraph {
+abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
 
     private static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
     private static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
     private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
     private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
 
-    private abstract class InheritingElement<T> {
+    private abstract class InheritingElement<E> {
         private Map<String, Object> inherited;
         private Map<String, Object> local = new LinkedHashMap<>();
 
@@ -27,8 +27,8 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         @SuppressWarnings("unchecked")
-        T self() {
-            return (T) this;
+        E self() {
+            return (E) this;
         }
 
         /**
@@ -68,12 +68,12 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             local.put(name, value);
         }
 
-        public T property(String name, Object value) {
+        public E property(String name, Object value) {
             setProperty(name, value);
             return self();
         }
 
-        public T removeProperty(String name) {
+        public E removeProperty(String name) {
             requireNonNull(name, NAME_MUST_NOT_BE_NULL);
             if(!local.containsKey(name)) {
                 throw new IllegalArgumentException("element does not contain property named '" + name + "'.");
@@ -86,12 +86,12 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     /**
      * Edge represents an undirected edge in this graph.
      */
-    public abstract class AbstractEdge extends InheritingElement<Edge> implements Edge {
-        private Object id;
-        private Object from;
-        private Object to;
+    public abstract class AbstractEdge extends InheritingElement<Edge<T>> implements Edge<T> {
+        private T id;
+        private T from;
+        private T to;
 
-        protected AbstractEdge(Object from, Object to, Map<String, Object> inherited) {
+        protected AbstractEdge(T from, T to, Map<String, Object> inherited) {
             super(inherited);
             this.from = from;
             this.to = to;
@@ -103,12 +103,13 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             }
         }
 
-        public Optional<Object> getId() {
+        @Override
+        public Optional<T> getId() {
             return Optional.ofNullable(id);
         }
 
         @Override
-        public void setId(Object id) {
+        public void setId(T id) {
             check();
             edgeIds.remove(this.id);
             if(id != null) {
@@ -117,7 +118,8 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             this.id = id;
         }
 
-        public Edge id(Object id) {
+        @Override
+        public Edge<T> id(T id) {
             setId(id);
             return self();
         }
@@ -126,7 +128,8 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * Returns id of "from" {@link Vertex}.
          * @return id of "from" {@link Vertex}
          */
-        public Object getFrom() {
+        @Override
+        public T getFrom() {
             return from;
         }
 
@@ -134,7 +137,8 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * Sets "from" {@link Vertex} to vertex with id. If vertex does not exist it is created.
          * @param from
          */
-        public void setFrom(Object from) {
+        @Override
+        public void setFrom(T from) {
             check();
             requireNonNull(from, "from must not be null.");
             edges.remove(this);
@@ -149,12 +153,13 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * @param from {@link Vertex} id for "from" vertex
          * @return this edge
          */
-        public Edge from(Object from) {
+        @Override
+        public Edge<T> from(T from) {
             setFrom(from);
             return this;
         }
 
-        public Object from() {
+        public T from() {
             return getFrom();
         }
 
@@ -162,7 +167,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * Returns id of "to" {@link Vertex}.
          * @return id of "to" {@link Vertex}
          */
-        public Object getTo() {
+        public T getTo() {
             return to;
         }
 
@@ -170,7 +175,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * Sets "to" {@link Vertex} to vertex with id. If vertex does not exist it is created.
          * @param to {@link Vertex} id for "to" vertex
          */
-        public void setTo(Object to) {
+        public void setTo(T to) {
             check();
             Objects.requireNonNull(to, "to must not be null.");
             edges.remove(this);
@@ -185,25 +190,26 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
          * @param to {@link Vertex} id for "to" vertex
          * @return this edge
          */
-        public Edge to(Object to) {
+        public Edge<T> to(T to) {
             setTo(to);
             return this;
         }
 
-        public Object to() {
+        public T to() {
             return getTo();
         }
 
-        public List<Object> endpoints() {
+        @Override
+        public List<T> endpoints() {
             return List.of(from, to);
         }
 
-        public Vertex fromVertex() {
+        public Vertex<T> fromVertex() {
             check();
             return vertex(getFrom());
         }
 
-        public Vertex toVertex() {
+        public Vertex<T> toVertex() {
             check();
             return vertex(getTo());
         }
@@ -215,7 +221,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         @Override
-        public Edge removeProperty(String name) {
+        public Edge<T> removeProperty(String name) {
             check();
             return super.removeProperty(name);
         }
@@ -228,7 +234,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             if (!(obj instanceof Edge)) {
                 return false;
             }
-            Edge edge = (Edge) obj;
+            Edge<T> edge = (Edge<T>) obj;
             return equals(edge.getFrom(), edge.getTo());
         }
 
@@ -241,10 +247,10 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     /**
      * Vertex represents a vertex in this graph.
      */
-    public abstract class AbstractVertex extends InheritingElement<Vertex> implements Vertex {
-        private Object id;
+    public abstract class AbstractVertex extends InheritingElement<Vertex<T>> implements Vertex<T> {
+        private T id;
 
-        protected AbstractVertex(Object id, Map<String, Object> inherited) {
+        protected AbstractVertex(T id, Map<String, Object> inherited) {
             super(inherited);
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
             this.id = id;
@@ -256,20 +262,20 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             }
         }
 
-        public Object getId() {
+        public T getId() {
             return id;
         }
 
         @Override
-        public void setId(Object id) {
+        public void setId(T id) {
             check();
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
-            Set<? extends Edge> adjacent = adjacentEdges();
+            Set<? extends Edge<T>> adjacent = adjacentEdges();
             Object oldId = getId();
             vertices.remove(this.getId());
             this.id = id;
             vertices.put(id, this);
-            for (Edge edge : adjacent) {
+            for (Edge<T> edge : adjacent) {
                 if (edge.getFrom().equals(oldId)) {
                     edge.setFrom(id);
                 }
@@ -279,7 +285,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             }
         }
 
-        public Vertex id(Object id) {
+        public Vertex<T> id(T id) {
             setId(id);
             return self();
         }
@@ -291,60 +297,60 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         }
 
         @Override
-        public Vertex removeProperty(String name) {
+        public Vertex<T> removeProperty(String name) {
             check();
             super.removeProperty(name);
             return self();
         }
 
-        public Vertex connectsTo(Object to) {
+        public Vertex<T> connectsTo(T to) {
             check();
             edge(getId(), to);
             return this;
         }
 
-        public Vertex connectsFrom(Object s) {
+        public Vertex<T> connectsFrom(T s) {
             check();
             edge(s, getId());
             return this;
         }
 
-        public Edge edgeTo(Object to) {
+        public Edge<T> edgeTo(T to) {
             check();
             return edge(getId(), to);
         }
 
-        public Edge edgeFrom(Object from) {
+        public Edge<T> edgeFrom(T from) {
             check();
             return edge(from, getId());
         }
 
-        public Vertex toVertex(Object id) {
+        public Vertex<T> toVertex(T id) {
             check();
             return edgeTo(id).toVertex();
         }
 
-        public Vertex fromVertex(Object id) {
+        public Vertex<T> fromVertex(T id) {
             check();
             return edgeFrom(id).fromVertex();
         }
 
         @Override
-        public Set<Edge> adjacentEdges() {
+        public Set<Edge<T>> adjacentEdges() {
             check();
             return edges.stream()
                     .filter(edge -> getId().equals(edge.getFrom()) || getId().equals(edge.getTo()))
                     .collect(Collectors.toSet());
         }
         @Override
-        public Set<Edge> inEdges() {
+        public Set<Edge<T>> inEdges() {
             check();
             return edges.stream()
                     .filter(edge -> getId().equals(edge.getTo()))
                     .collect(Collectors.toSet());
         }
         @Override
-        public Set<Edge> outEdges() {
+        public Set<Edge<T>> outEdges() {
             check();
             return edges.stream()
                     .filter(edge -> getId().equals(edge.getFrom()))
@@ -361,7 +367,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
             if (!(obj instanceof Vertex)) {
                 return false;
             }
-            Vertex vertex = (Vertex) obj;
+            Vertex<T> vertex = (Vertex<T>) obj;
             return Objects.equals(getId(), vertex.getId());
         }
 
@@ -372,13 +378,13 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
 
-    private Object id;
+    private T id;
     private Map<String, Object> properties;
     private Map<String, Object> vertexProperties;
     private Map<String, Object> edgeProperties;
-    private Map<Object, Vertex> vertices;
-    private Set<Edge> edges;
-    private Map<Object, Edge> edgeIds;
+    private Map<T, Vertex<T>> vertices;
+    private Set<Edge<T>> edges;
+    private Map<T, Edge<T>> edgeIds;
 
     AbstractSimpleGraph() {
         vertices = new LinkedHashMap<>();
@@ -389,39 +395,39 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         properties = new LinkedHashMap<>();
     }
 
-    AbstractSimpleGraph(Object id) {
+    AbstractSimpleGraph(T id) {
         this();
         this.id = id;
     }
 
     @Override
-    public Map<Object, Vertex> getVertices() {
+    public Map<T, Vertex<T>> getVertices() {
         return Collections.unmodifiableMap(vertices);
     }
 
     @Override
-    public Set<Edge> getEdges() {
+    public Set<Edge<T>> getEdges() {
         return Collections.unmodifiableSet(edges);
     }
 
     @Override
-    public Map<Object, Edge> getEdgeIds() { return Collections.unmodifiableMap(edgeIds); }
+    public Map<T, Edge<T>> getEdgeIds() { return Collections.unmodifiableMap(edgeIds); }
 
-    public Optional<Vertex> findVertex(Object id) {
+    public Optional<Vertex<T>> findVertex(T id) {
         return Optional.ofNullable(vertices.get(id));
     }
 
-    public Vertex vertex(Object id) {
+    public Vertex<T> vertex(T id) {
         return findVertex(id).orElseGet(() -> addVertex(id));
     }
 
-    Vertex addVertex(Object id) {
+    Vertex<T> addVertex(T id) {
         var vertex = newVertex(id, vertexProperties);
         vertices.put(id, vertex);
         return vertex;
     }
 
-    public void removeVertex(Object id) {
+    public void removeVertex(T id) {
         Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
         var optional = findVertex(id);
         if (!optional.isPresent()) {
@@ -434,25 +440,25 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         vertices.remove(id);
     }
 
-    public Optional<Edge> findEdge(Object from, Object to) {
+    public Optional<Edge<T>> findEdge(T from, T to) {
         return edges.stream()
                 .filter(edge -> edge.equals(from, to))
                 .findFirst();
     }
 
-    public Optional<Edge> findEdge(Object id) {
+    public Optional<Edge<T>> findEdge(T id) {
         return Optional.ofNullable(edgeIds.get(id));
     }
 
-    public Edge edge(Object from, Object to) {
+    public Edge<T> edge(T from, T to) {
         return findEdge(from, to).orElseGet(() -> addEdge(from, to));
     }
 
-    abstract Edge newEdge(Object from, Object to, Map<String, Object> inherited);
+    abstract Edge<T> newEdge(T from, T to, Map<String, Object> inherited);
 
-    abstract Vertex newVertex(Object id, Map<String, Object> inherited);
+    abstract Vertex<T> newVertex(T id, Map<String, Object> inherited);
 
-    Edge addEdge(Object from, Object to) {
+    Edge<T> addEdge(T from, T to) {
         vertex(from);
         vertex(to);
         var edge = newEdge(from, to, edgeProperties);
@@ -460,8 +466,8 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
         return edge;
     }
 
-    public void removeEdge(Object from, Object to) {
-        Consumer<Edge> remove = ((Consumer<Edge>) edges::remove)
+    public void removeEdge(T from, T to) {
+        Consumer<Edge<T>> remove = ((Consumer<Edge<T>>) edges::remove)
                 .andThen(edge -> edge.getId().ifPresent(edgeIds::remove));
         var optional = findEdge(from, to);
         optional.ifPresent(remove);
@@ -471,7 +477,7 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     @Override
-    public void removeEdge(Object id) {
+    public void removeEdge(T id) {
         requireNonNull(id, ID_MUST_NOT_BE_NULL);
         var optional = findEdge(id);
         optional.ifPresent(edge -> removeEdge(edge.getFrom(), edge.getTo()));
@@ -481,17 +487,17 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     @Override
-    public Optional<Object> getId() {
+    public Optional<T> getId() {
         return Optional.ofNullable(id);
     }
 
     @Override
-    public void setId(Object id) {
+    public void setId(T id) {
         this.id = id;
     }
 
     @Override
-    public SimpleGraph id(Object id) {
+    public SimpleGraph<T> id(T id) {
         setId(id);
         return this;
     }
@@ -512,13 +518,13 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     @Override
-    public SimpleGraph property(String name, Object value) {
+    public SimpleGraph<T> property(String name, Object value) {
         setProperty(name, value);
         return this;
     }
 
     @Override
-    public SimpleGraph removeProperty(String name) {
+    public SimpleGraph<T> removeProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!properties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain property named '" + name + "'.");
@@ -543,13 +549,13 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     @Override
-    public SimpleGraph edgeProperty(String name, Object value) {
+    public SimpleGraph<T> edgeProperty(String name, Object value) {
         setEdgeProperty(name, value);
         return this;
     }
 
     @Override
-    public SimpleGraph removeEdgeProperty(String name) {
+    public SimpleGraph<T> removeEdgeProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!edgeProperties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
@@ -574,13 +580,13 @@ abstract class AbstractSimpleGraph implements SimpleGraph {
     }
 
     @Override
-    public SimpleGraph vertexProperty(String name, Object value) {
+    public SimpleGraph<T> vertexProperty(String name, Object value) {
         setVertexProperty(name, value);
         return this;
     }
 
     @Override
-    public SimpleGraph removeVertexProperty(String name) {
+    public SimpleGraph<T> removeVertexProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!vertexProperties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");

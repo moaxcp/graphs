@@ -4,9 +4,9 @@ import static com.github.moaxcp.graphs.events.Builders.*;
 import java.util.*;
 import org.greenrobot.eventbus.EventBus;
 
-public class UndirectedEventGraph extends AbstractEventGraph {
+public class UndirectedEventGraph<T> extends AbstractEventGraph<T> {
     public class UndirectedEventEdge extends EventEdge {
-        protected UndirectedEventEdge(Object from, Object to, Map<String, Object> inherited) {
+        protected UndirectedEventEdge(T from, T to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
 
@@ -16,18 +16,18 @@ public class UndirectedEventGraph extends AbstractEventGraph {
         }
 
         @Override
-        public boolean equals(Object from, Object to) {
+        public boolean equals(T from, T to) {
             return (Objects.equals(getFrom(), from) || Objects.equals(getFrom(), to)) && (Objects.equals(getTo(), to) || Objects.equals(getTo(), from));
         }
     }
 
     public class UndirectedEventVertex extends EventVertex {
-        protected UndirectedEventVertex(Object id, Map<String, Object> inherited) {
+        protected UndirectedEventVertex(T id, Map<String, Object> inherited) {
             super(id, inherited);
         }
 
         @Override
-        public Set<Edge> traverseEdges() {
+        public Set<Edge<T>> traverseEdges() {
             return adjacentEdges();
         }
     }
@@ -37,18 +37,18 @@ public class UndirectedEventGraph extends AbstractEventGraph {
         getBus().post(undirectedGraphCreated().build());
     }
 
-    public UndirectedEventGraph(Object id, EventBus bus) {
+    public UndirectedEventGraph(T id, EventBus bus) {
         super(id, bus);
         getBus().post(undirectedGraphCreated().graphId(id).build());
     }
 
     @Override
-    Vertex newVertex(Object id, Map<String, Object> inherited) {
+    Vertex<T> newVertex(T id, Map<String, Object> inherited) {
         return new UndirectedEventVertex(id, inherited);
     }
 
     @Override
-    Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
+    Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new UndirectedEventEdge(from, to, inherited);
     }
 

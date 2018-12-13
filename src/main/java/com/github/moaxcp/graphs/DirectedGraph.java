@@ -2,9 +2,9 @@ package com.github.moaxcp.graphs;
 
 import java.util.*;
 
-public class DirectedGraph extends AbstractSimpleGraph {
+public class DirectedGraph<T> extends AbstractSimpleGraph<T> {
     public class DirectedEdge extends AbstractEdge {
-        protected DirectedEdge(Object from, Object to, Map<String, Object> inherited) {
+        protected DirectedEdge(T from, T to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
 
@@ -14,18 +14,18 @@ public class DirectedGraph extends AbstractSimpleGraph {
         }
 
         @Override
-        public boolean equals(Object from, Object to) {
+        public boolean equals(T from, T to) {
             return (Objects.equals(getFrom(), from) && (Objects.equals(getTo(), to)));
         }
     }
 
     public class DirectedVertex extends AbstractVertex {
-        protected DirectedVertex(Object id, Map<String, Object> inherited) {
+        protected DirectedVertex(T id, Map<String, Object> inherited) {
             super(id, inherited);
         }
 
         @Override
-        public Set<Edge> traverseEdges() {
+        public Set<Edge<T>> traverseEdges() {
             return outEdges();
         }
     }
@@ -34,15 +34,15 @@ public class DirectedGraph extends AbstractSimpleGraph {
 
     }
 
-    public DirectedGraph(Object id) {
+    public DirectedGraph(T id) {
         super(id);
     }
 
-    Edge newEdge(Object from, Object to, Map<String, Object> inherited) {
+    Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new DirectedEdge(from, to, inherited);
     }
 
-    Vertex newVertex(Object id, Map<String, Object> inherited) {
+    Vertex<T> newVertex(T id, Map<String, Object> inherited) {
         return new DirectedVertex(id, inherited);
     }
 

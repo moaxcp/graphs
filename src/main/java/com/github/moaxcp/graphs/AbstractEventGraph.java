@@ -5,10 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class AbstractEventGraph extends AbstractSimpleGraph implements SimpleEventGraph {
+public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> implements SimpleEventGraph<T> {
 
     public abstract class EventEdge extends AbstractEdge {
-        protected EventEdge(Object from, Object to, Map<String, Object> inherited) {
+        protected EventEdge(T from, T to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
 
@@ -24,7 +24,7 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
         }
 
         @Override
-        public Edge removeProperty(String name) {
+        public Edge<T> removeProperty(String name) {
             var value = getProperty(name);
             var edge = super.removeProperty(name);
             bus.post(edgePropertyRemoved()
@@ -40,7 +40,7 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
     }
 
     public abstract class EventVertex extends AbstractVertex {
-        protected EventVertex(Object id, Map<String, Object> inherited) {
+        protected EventVertex(T id, Map<String, Object> inherited) {
             super(id, inherited);
         }
 
@@ -67,7 +67,7 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
         }
 
         @Override
-        public Vertex removeProperty(String name) {
+        public Vertex<T> removeProperty(String name) {
             var value = getProperty(name);
             var vertex = super.removeProperty(name);
             bus.post(vertexPropertyRemoved()
@@ -86,7 +86,7 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
         this.bus = requireNonNull(bus, "bus must not be null.");
     }
 
-    public AbstractEventGraph(Object id, EventBus bus) {
+    public AbstractEventGraph(T id, EventBus bus) {
         super(id);
         this.bus = requireNonNull(bus, "bus must not be null.");
     }
@@ -107,7 +107,7 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
     }
 
     @Override
-    public SimpleGraph removeProperty(String name) {
+    public SimpleGraph<T> removeProperty(String name) {
         var value = getProperty(name);
         super.removeProperty(name);
         bus.post(graphPropertyRemoved().graphId(getId().orElse(null)).name(name).value(value).build());
@@ -115,14 +115,14 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
     }
 
     @Override
-    Edge addEdge(Object from, Object to) {
+    Edge<T> addEdge(T from, T to) {
         var edge = super.addEdge(from, to);
         bus.post(edgeCreated().graphId(getId().orElse(null)).from(from).to(to).build());
         return edge;
     }
 
     @Override
-    public void removeEdge(Object from, Object to) {
+    public void removeEdge(T from, T to) {
         var optional = findEdge(from, to);
         super.removeEdge(from, to);
         optional.ifPresent(edge -> bus.post(
@@ -134,14 +134,14 @@ public abstract class AbstractEventGraph extends AbstractSimpleGraph implements 
     }
 
     @Override
-    Vertex addVertex(Object id) {
+    Vertex<T> addVertex(T id) {
         var vertex = super.addVertex(id);
         bus.post(vertexCreated().graphId(getId().orElse(null)).vertexId(id).build());
         return vertex;
     }
 
     @Override
-    public void removeVertex(Object id) {
+    public void removeVertex(T id) {
         var optional = findVertex(id);
         super.removeVertex(id);
         optional.ifPresent(vertex -> bus.post(
