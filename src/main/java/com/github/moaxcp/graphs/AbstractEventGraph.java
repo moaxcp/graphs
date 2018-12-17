@@ -13,16 +13,37 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
         }
 
         @Override
-        public Edge<T> id(T id) {
+        public void setId(T id) {
             var oldId = getId();
-            var edge = super.id(id);
-            bus.post(new EdgeIdAdded.Builder<T>()
-                .graphId(AbstractEventGraph.this.getId().orElse(null))
-                .edgeId(id)
-                .from(getFrom())
-                .to(getTo())
-                .build());
-            return edge;
+            if(id == null && !oldId.isPresent()) {
+                return;
+            }
+            super.setId(id);
+            if(id == null) {
+                bus.post(new EdgeIdRemoved.Builder<T>()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .oldEdgeId(oldId.orElse(null))
+                    .from(getFrom())
+                    .to(getTo())
+                    .build());
+                return;
+            }
+            if(oldId.isPresent()) {
+                bus.post(new EdgeIdUpdated.Builder<T>()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .edgeId(id)
+                    .oldEdgeId(oldId.orElse(null))
+                    .from(getFrom())
+                    .to(getTo())
+                    .build());
+            } else {
+                bus.post(new EdgeIdAdded.Builder<T>()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .edgeId(id)
+                    .from(getFrom())
+                    .to(getTo())
+                    .build());
+            }
         }
 
         @Override
