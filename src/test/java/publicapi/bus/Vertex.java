@@ -7,27 +7,27 @@ import testframework.EventSimpleGraphs;
 
 public class Vertex {
     @EventSimpleGraphs
-    void created(SimpleEventGraph graph) {
+    void created(SimpleEventGraph<String> graph) {
         graph.id("graph");
         assertThat(graph).hasEventsIn(g -> g.vertex("A"));
     }
 
     @EventSimpleGraphs
-    void notCreated(SimpleEventGraph graph) {
+    void notCreated(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A");
         assertThat(graph).hasNoEventsIn(g -> g.vertex("A"));
     }
 
     @EventSimpleGraphs
-    void remove(SimpleEventGraph graph) {
+    void remove(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A");
         assertThat(graph).hasEventsIn(g -> g.removeVertex("A"));
     }
 
     @EventSimpleGraphs
-    void removeWithEdges(SimpleEventGraph graph) {
+    void removeWithEdges(SimpleEventGraph<String> graph) {
         graph.edge("A", "B");
         graph.edge("A", "C");
         graph.edge("A", "D");
@@ -36,21 +36,28 @@ public class Vertex {
     }
 
     @EventSimpleGraphs
-    void addProperty(SimpleEventGraph graph) {
+    void updateId(SimpleEventGraph<String> graph) {
+        graph.id("graph");
+        graph.vertex("A");
+        assertThat(graph).hasEventsIn(g -> g.vertex("A").id("B"));
+    }
+
+    @EventSimpleGraphs
+    void addProperty(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A");
         assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value"));
     }
 
     @EventSimpleGraphs
-    void removeProperty(SimpleEventGraph graph) {
+    void removeProperty(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A").property("name", "value");
         assertThat(graph).hasEventsIn(g-> g.vertex("A").removeProperty("name"));
     }
 
     @EventSimpleGraphs
-    void updateProperty(SimpleEventGraph graph) {
+    void updateProperty(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A").property("name", "value");
         assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value2"));

@@ -1,9 +1,9 @@
 package publicapi.events;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.events.*;
-import com.google.common.truth.Truth8;
 import org.junit.jupiter.api.Test;
 
 public class VertexEventBuilders {
@@ -21,13 +21,25 @@ public class VertexEventBuilders {
     }
 
     @Test
+    void vertexIdUpdatedMissingId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new VertexIdUpdated.Builder<String>().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("vertexId must not be null.");
+    }
+
+    @Test
+    void vertexIdUpdatedMissingOldId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new VertexIdUpdated.Builder<String>().vertexId("id1").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("oldVertexId must not be null.");
+    }
+
+    @Test
     void testVertexCreated() {
         var event = new VertexCreated.Builder<String>()
             .graphId("graph")
             .vertexId("A")
             .build();
 
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getVertexId()).isEqualTo("A");
     }
 
@@ -38,8 +50,21 @@ public class VertexEventBuilders {
             .vertexId("A")
             .build();
 
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getVertexId()).isEqualTo("A");
+    }
+
+    @Test
+    void testVertexIdUpdated() {
+        var event = new VertexIdUpdated.Builder<String>()
+            .graphId("graph")
+            .vertexId("id1")
+            .oldVertexId("id2")
+            .build();
+
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getVertexId()).isEqualTo("id1");
+        assertThat(event.getOldVertexId()).isEqualTo("id2");
     }
 
     @Test
@@ -51,7 +76,7 @@ public class VertexEventBuilders {
             .value("value")
             .build();
 
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getVertexId()).isEqualTo("A");
         assertThat(event.getName()).isEqualTo("name");
         assertThat(event.getValue()).isEqualTo("value");
@@ -66,7 +91,7 @@ public class VertexEventBuilders {
             .value("value")
             .build();
 
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getName()).isEqualTo("name");
         assertThat(event.getValue()).isEqualTo("value");
     }
@@ -81,7 +106,7 @@ public class VertexEventBuilders {
             .oldValue("oldValue")
             .build();
 
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getName()).isEqualTo("name");
         assertThat(event.getValue()).isEqualTo("value");
         assertThat(event.getOldValue()).isEqualTo("oldValue");

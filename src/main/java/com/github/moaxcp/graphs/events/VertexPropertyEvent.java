@@ -8,7 +8,7 @@ public abstract class VertexPropertyEvent<K> extends PropertyEvent<K> {
 
     VertexPropertyEvent(Builder<K, ? extends Builder> builder) {
         super(builder);
-        vertexId = requireNonNull(builder.vertexId);
+        vertexId = requireNonNull(builder.vertexId, "vertexId must not be null.");
     }
 
     public K getVertexId() {

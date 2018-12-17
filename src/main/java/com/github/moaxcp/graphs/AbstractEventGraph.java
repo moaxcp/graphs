@@ -94,6 +94,17 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
         }
 
         @Override
+        public void setId(T id) {
+            T oldId = getId();
+            super.setId(id);
+            bus.post(new VertexIdUpdated.Builder<T>()
+                .graphId(AbstractEventGraph.this.getId().orElse(null))
+                .oldVertexId(oldId)
+                .vertexId(id)
+                .build());
+        }
+
+        @Override
         public void setProperty(String name, Object value) {
             var oldValue = getProperty(name);
             super.setProperty(name, value);

@@ -128,6 +128,13 @@ public class GraphEventCheck {
     }
 
     @Subscribe
+    public void vertexIdUpdated(VertexIdUpdated event) {
+        assertThat(actual).hasNoVertex(event.getOldVertexId());
+        assertThat(actual).hasVertex(event.getVertexId()).hasId(event.getVertexId());
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
     public void vertexPropertyAdded(VertexPropertyAdded event) {
         assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
         assertThat(actual).hasVertex(event.getVertexId()).withProperty(event.getName()).hasValue(event.getValue());
@@ -157,6 +164,7 @@ public class GraphEventCheck {
             GraphPropertyUpdated.class,
             VertexCreated.class,
             VertexRemoved.class,
+            VertexIdUpdated.class,
             VertexPropertyAdded.class,
             VertexPropertyRemoved.class,
             VertexPropertyUpdated.class,
