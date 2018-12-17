@@ -1,11 +1,10 @@
 package publicapi.events;
 
-import static com.github.moaxcp.graphs.events.Builders.*;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.events.PropertyEvent.Builder;
+import com.github.moaxcp.graphs.events.GraphEvent.Builder;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,51 +12,51 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class BuildersTest {
 
-    static Stream<Builder> propertyEventsMissingName() {
+    static Stream<Builder<String, ? extends Builder>> propertyEventsMissingName() {
         return Stream.of(
-                allEdgesPropertyAdded(),
-                allEdgesPropertyRemoved(),
-                allEdgesPropertyUpdated(),
-                allVerticesPropertyAdded(),
-                allVerticesPropertyRemoved(),
-                allVerticesPropertyUpdated(),
-                edgePropertyAdded(),
-                edgePropertyRemoved(),
-                edgePropertyUpdated(),
-                graphPropertyAdded(),
-                graphPropertyRemoved(),
-                graphPropertyUpdated(),
-                vertexPropertyAdded(),
-                vertexPropertyRemoved(),
-                vertexPropertyUpdated()
+                new AllEdgesPropertyAdded.Builder<>(),
+                new AllEdgesPropertyRemoved.Builder<>(),
+                new AllEdgesPropertyUpdated.Builder<>(),
+                new AllVerticesPropertyAdded.Builder<>(),
+                new AllVerticesPropertyRemoved.Builder<>(),
+                new AllVerticesPropertyUpdated.Builder<>(),
+                new EdgePropertyAdded.Builder<>(),
+                new EdgePropertyRemoved.Builder<>(),
+                new EdgePropertyUpdated.Builder<>(),
+                new GraphPropertyAdded.Builder<>(),
+                new GraphPropertyRemoved.Builder<>(),
+                new GraphPropertyUpdated.Builder<>(),
+                new VertexPropertyAdded.Builder<>(),
+                new VertexPropertyRemoved.Builder<>(),
+                new VertexPropertyUpdated.Builder<>()
         );
     }
 
-    static Stream<Builder> propertyEventsMissingValue() {
+    static Stream<Builder<String, ? extends Builder>> propertyEventsMissingValue() {
         return Stream.of(
-                allEdgesPropertyAdded().name("name"),
-                allEdgesPropertyRemoved().name("name"),
-                allEdgesPropertyUpdated().name("name"),
-                allVerticesPropertyAdded().name("name"),
-                allVerticesPropertyRemoved().name("name"),
-                allVerticesPropertyUpdated().name("name"),
-                edgePropertyAdded().name("name"),
-                edgePropertyRemoved().name("name"),
-                edgePropertyUpdated().name("name"),
-                graphPropertyAdded().name("name"),
-                graphPropertyRemoved().name("name"),
-                graphPropertyUpdated().name("name"),
-                vertexPropertyAdded().name("name"),
-                vertexPropertyRemoved().name("name"),
-                vertexPropertyUpdated().name("name")
+            new AllEdgesPropertyAdded.Builder<String>().name("name"),
+            new AllEdgesPropertyRemoved.Builder<String>().name("name"),
+            new AllEdgesPropertyUpdated.Builder<String>().name("name"),
+            new AllVerticesPropertyAdded.Builder<String>().name("name"),
+            new AllVerticesPropertyRemoved.Builder<String>().name("name"),
+            new AllVerticesPropertyUpdated.Builder<String>().name("name"),
+            new EdgePropertyAdded.Builder<String>().name("name"),
+            new EdgePropertyRemoved.Builder<String>().name("name"),
+            new EdgePropertyUpdated.Builder<String>().name("name"),
+            new GraphPropertyAdded.Builder<String>().name("name"),
+            new GraphPropertyRemoved.Builder<String>().name("name"),
+            new GraphPropertyUpdated.Builder<String>().name("name"),
+            new VertexPropertyAdded.Builder<String>().name("name"),
+            new VertexPropertyRemoved.Builder<String>().name("name"),
+            new VertexPropertyUpdated.Builder<String>().name("name")
         );
     }
 
-    static Stream<PropertyUpdatedEvent.Builder> propertyUpdatedEventsMissingOldValue() {
+    static Stream propertyUpdatedEventsMissingOldValue() {
         return Stream.of(
-                allEdgesPropertyUpdated().name("name").value("value"),
-                allVerticesPropertyUpdated().name("name").value("value"),
-                graphPropertyUpdated().name("name").value("value")
+                new AllEdgesPropertyUpdated.Builder<String>().name("name").value("value"),
+                new AllVerticesPropertyUpdated.Builder<String>().name("name").value("value"),
+                new GraphPropertyUpdated.Builder<String>().name("name").value("value")
         );
     }
 
@@ -84,23 +83,23 @@ public class BuildersTest {
 
     @Test
     void vertexCreatedEventMissingId() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> vertexCreated().build());
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new VertexCreated.Builder<String>().build());
         assertThat(thrown).hasMessageThat().isEqualTo("vertexId must not be null.");
     }
 
     @Test
     void vertexRemovedEventMissingId() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> vertexRemoved().build());
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new VertexRemoved.Builder<String>().build());
         assertThat(thrown).hasMessageThat().isEqualTo("vertexId must not be null.");
     }
 
     @Test
     void testAllEdgesPropertyAdded() {
-        var event = AllEdgesPropertyAdded.builder()
-                .graphId("graph")
-                .name("name")
-                .value("value")
-                .build();
+        var event = new AllEdgesPropertyAdded.Builder<String>()
+            .graphId("graph")
+            .name("name")
+            .value("value")
+            .build();
         assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getName()).isEqualTo("name");
         assertThat(event.getValue()).isEqualTo("value");
@@ -108,7 +107,7 @@ public class BuildersTest {
 
     @Test
     void testAllEdgesPropertyRemoved() {
-        var event = AllEdgesPropertyRemoved.builder()
+        var event = new AllEdgesPropertyRemoved.Builder<String>()
                 .graphId("graph")
                 .name("name")
                 .value("value")
@@ -120,7 +119,7 @@ public class BuildersTest {
 
     @Test
     void testAllEdgesPropertyUpdated() {
-        var event = AllEdgesPropertyUpdated.builder()
+        var event = new AllEdgesPropertyUpdated.Builder<String>()
                 .graphId("graph")
                 .name("name")
                 .value("value")
@@ -134,7 +133,7 @@ public class BuildersTest {
 
     @Test
     void testAllVerticesPropertyAdded() {
-        var event = AllVerticesPropertyAdded.builder()
+        var event = new AllVerticesPropertyAdded.Builder<String>()
                 .graphId("graph")
                 .name("name")
                 .value("value")
@@ -146,7 +145,7 @@ public class BuildersTest {
 
     @Test
     void testAllVerticesPropertyRemoved() {
-        var event = AllVerticesPropertyRemoved.builder()
+        var event = new AllVerticesPropertyRemoved.Builder<String>()
                 .graphId("graph")
                 .name("name")
                 .value("value")
@@ -158,7 +157,7 @@ public class BuildersTest {
 
     @Test
     void testAllVerticesPropertyUpdated() {
-        var event = AllVerticesPropertyUpdated.builder()
+        var event = new AllVerticesPropertyUpdated.Builder<String>()
                 .graphId("graph")
                 .name("name")
                 .value("value")
@@ -172,7 +171,7 @@ public class BuildersTest {
 
     @Test
     void testDirectedGraphCreated() {
-        var event = DirectedGraphCreated.builder()
+        var event = new DirectedGraphCreated.Builder<String>()
                 .graphId("graph")
                 .build();
 
@@ -181,7 +180,7 @@ public class BuildersTest {
 
     @Test
     void testUndirectedGraphCreated() {
-        var event = UndirectedGraphCreated.builder()
+        var event = new UndirectedGraphCreated.Builder<String>()
                 .graphId("graph")
                 .build();
 
@@ -190,7 +189,7 @@ public class BuildersTest {
 
     @Test
     void testEdgeCreated() {
-        var event = EdgeCreated.builder()
+        var event = new EdgeCreated.Builder<String>()
                 .graphId("graph")
                 .edgeId("edge")
                 .from("A")
@@ -204,7 +203,7 @@ public class BuildersTest {
 
     @Test
     void testEdgeRemoved() {
-        var event = EdgeRemoved.builder()
+        var event = new EdgeRemoved.Builder<String>()
                 .graphId("graph")
                 .edgeId("edge")
                 .from("A")
@@ -218,7 +217,7 @@ public class BuildersTest {
 
     @Test
     void testEdgePropertyAdded() {
-        var event = EdgePropertyAdded.builder()
+        var event = new EdgePropertyAdded.Builder<String>()
                 .graphId("graph")
                 .edgeId("edge")
                 .from("A")
@@ -237,7 +236,7 @@ public class BuildersTest {
 
     @Test
     void testEdgePropertyRemoved() {
-        var event = EdgePropertyRemoved.builder()
+        var event = new EdgePropertyRemoved.Builder<String>()
                 .graphId("graph")
                 .edgeId("edge")
                 .from("A")
@@ -256,7 +255,7 @@ public class BuildersTest {
 
     @Test
     void testEdgePropertyUpdated() {
-        var event = EdgePropertyUpdated.builder()
+        var event = new EdgePropertyUpdated.Builder<String>()
                 .graphId("graph")
                 .edgeId("edge")
                 .from("A")
@@ -277,7 +276,7 @@ public class BuildersTest {
 
     @Test
     void testGraphPropertyAdded() {
-        var event = GraphPropertyAdded.builder()
+        var event = new GraphPropertyAdded.Builder<String>()
                 .graphId("graph")
                 .name("name")
                 .value("value")
@@ -290,7 +289,7 @@ public class BuildersTest {
 
     @Test
     void testGraphPropertyRemoved() {
-        var event = GraphPropertyRemoved.builder()
+        var event = new GraphPropertyRemoved.Builder<String>()
                 .graphId("graph")
                 .name("name")
                 .value("value")
@@ -303,7 +302,7 @@ public class BuildersTest {
 
     @Test
     void testGraphPropertyUpdated() {
-        var event = GraphPropertyUpdated.builder()
+        var event = new GraphPropertyUpdated.Builder<String>()
                 .graphId("graph")
                 .name("name")
                 .value("value")
@@ -318,7 +317,7 @@ public class BuildersTest {
 
     @Test
     void testVertexCreated() {
-        var event = VertexCreated.builder()
+        var event = new VertexCreated.Builder<String>()
                 .graphId("graph")
                 .vertexId("A")
                 .build();
@@ -329,7 +328,7 @@ public class BuildersTest {
 
     @Test
     void testVertexRemoved() {
-        var event = VertexRemoved.builder()
+        var event = new VertexRemoved.Builder<String>()
                 .graphId("graph")
                 .vertexId("A")
                 .build();
@@ -340,7 +339,7 @@ public class BuildersTest {
 
     @Test
     void testVertexPropertyAdded() {
-        var event = VertexPropertyAdded.builder()
+        var event = new VertexPropertyAdded.Builder<String>()
                 .graphId("graph")
                 .vertexId("A")
                 .name("name")
@@ -355,7 +354,7 @@ public class BuildersTest {
 
     @Test
     void testVertexPropertyRemoved() {
-        var event = VertexPropertyRemoved.builder()
+        var event = new VertexPropertyRemoved.Builder<String>()
                 .graphId("graph")
                 .vertexId("A")
                 .name("name")
@@ -369,7 +368,7 @@ public class BuildersTest {
 
     @Test
     void testVertexPropertyUpdated() {
-        var event = VertexPropertyUpdated.builder()
+        var event = new VertexPropertyUpdated.Builder<String>()
                 .graphId("graph")
                 .vertexId("A")
                 .name("name")

@@ -7,35 +7,35 @@ import testframework.EventSimpleGraphs;
 
 public class Edge {
     @EventSimpleGraphs
-    void created(SimpleEventGraph graph) {
+    void created(SimpleEventGraph<String> graph) {
         graph.id("id");
         assertThat(graph).hasEventsIn(g -> g.edge("A", "B"))
             .containsExactly(VertexCreated.class, VertexCreated.class, EdgeCreated.class).inOrder();
     }
 
     @EventSimpleGraphs
-    void notCreated(SimpleEventGraph graph) {
+    void notCreated(SimpleEventGraph<String> graph) {
         graph.id("id");
         graph.edge("A", "B").id("id");
         assertThat(graph).hasNoEventsIn(g -> g.edge("A", "B"));
     }
 
     @EventSimpleGraphs
-    void removed(SimpleEventGraph graph) {
+    void removed(SimpleEventGraph<String> graph) {
         graph.id("id");
         graph.edge("A", "B");
         assertThat(graph).hasEventsIn(g -> g.removeEdge("A", "B"));
     }
 
     @EventSimpleGraphs
-    void removeWithId(SimpleEventGraph graph) {
+    void removeWithId(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
         assertThat(graph).hasEventsIn(g -> g.removeEdge("edge"));
     }
 
     @EventSimpleGraphs
-    void addProperty(SimpleEventGraph graph) {
+    void addProperty(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
         assertThat(graph)
@@ -43,7 +43,7 @@ public class Edge {
     }
 
     @EventSimpleGraphs
-    void removeProperty(SimpleEventGraph graph) {
+    void removeProperty(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
         assertThat(graph)
@@ -51,7 +51,7 @@ public class Edge {
     }
 
     @EventSimpleGraphs
-    void updateProperty(SimpleEventGraph graph) {
+    void updateProperty(SimpleEventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
         assertThat(graph)

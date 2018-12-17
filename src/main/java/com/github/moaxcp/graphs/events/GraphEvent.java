@@ -2,29 +2,27 @@ package com.github.moaxcp.graphs.events;
 
 import java.util.*;
 
-public abstract class GraphEvent {
-    private final Object graphId;
+public abstract class GraphEvent<K> {
+    private final K graphId;
 
-    GraphEvent(Builder builder) {
+    GraphEvent(Builder<K, ? extends Builder> builder) {
         graphId = builder.graphId;
     }
 
-    public final Optional<Object> getGraphId() {
+    public final Optional<K> getGraphId() {
         return Optional.ofNullable(graphId);
     }
 
-    public abstract static class Builder<T extends Builder> {
-        private Object graphId;
+    public abstract static class Builder<K, S extends Builder<K, S>> {
+        private K graphId;
 
-        public final T self() {
-            return (T) this;
-        }
+        public abstract S self();
 
-        public final T graphId(Object graphId) {
+        public final S graphId(K graphId) {
             this.graphId = graphId;
             return self();
         }
 
-        public abstract GraphEvent build();
+        public abstract GraphEvent<K> build();
     }
 }

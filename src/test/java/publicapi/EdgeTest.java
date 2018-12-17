@@ -8,7 +8,7 @@ import testframework.*;
 
 public class EdgeTest {
     @SimpleGraphs
-    void setId(SimpleGraph graph) {
+    void setId(SimpleGraph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setId("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
@@ -16,7 +16,7 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void changeId(SimpleGraph graph) {
+    void changeId(SimpleGraph<String> graph) {
         var edge = graph.edge("A", "B").id("id");
         edge.setId("id2");
         assertThat(graph).hasEdge("id2").isSameAs(edge);
@@ -26,14 +26,14 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void setIdNullNoId(SimpleGraph graph) {
+    void setIdNullNoId(SimpleGraph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setId(null);
         assertThat(edge).hasNoId();
     }
 
     @SimpleGraphs
-    void setIdNullRemovesId(SimpleGraph graph) {
+    void setIdNullRemovesId(SimpleGraph<String> graph) {
         var edge = graph.edge("A", "to").id("id");
         edge.setId(null);
         assertThat(edge).hasNoId();

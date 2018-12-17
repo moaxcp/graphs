@@ -1,24 +1,22 @@
 package com.github.moaxcp.graphs.events;
 
-public final class AllVerticesPropertyUpdated extends PropertyUpdatedEvent {
+public final class AllVerticesPropertyUpdated<K> extends PropertyUpdatedEvent<K> {
 
-    private AllVerticesPropertyUpdated(Builder builder) {
+    private AllVerticesPropertyUpdated(Builder<K> builder) {
         super(builder);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @SuppressWarnings("squid:S2176")
-    public static final class Builder extends PropertyUpdatedEvent.Builder<Builder> {
-        private Builder() {
+    public static final class Builder<K> extends PropertyUpdatedEvent.Builder<K, Builder<K>> {
 
+        @Override
+        public Builder<K> self() {
+            return this;
         }
 
         @Override
-        public AllVerticesPropertyUpdated build() {
-            return new AllVerticesPropertyUpdated(this);
+        public AllVerticesPropertyUpdated<K> build() {
+            return new AllVerticesPropertyUpdated<>(this);
         }
     }
 }

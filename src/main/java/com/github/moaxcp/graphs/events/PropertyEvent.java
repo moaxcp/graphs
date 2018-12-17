@@ -3,12 +3,12 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public abstract class PropertyEvent extends GraphEvent {
+public abstract class PropertyEvent<K> extends GraphEvent<K> {
 
     private final String name;
     private final Object value;
 
-    protected PropertyEvent(Builder builder) {
+    protected PropertyEvent(Builder<K, ? extends Builder> builder) {
         super(builder);
         name = requireNonNull(builder.name, "name must not be null.");
         value = requireNonNull(builder.value, "value must not be null.");
@@ -36,16 +36,16 @@ public abstract class PropertyEvent extends GraphEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public abstract static class Builder<T extends Builder> extends GraphEvent.Builder<T> {
+    public abstract static class Builder<K, S extends Builder<K, S>> extends GraphEvent.Builder<K, S> {
         private String name;
         private Object value;
 
-        public final T name(String name) {
+        public final S name(String name) {
             this.name = name;
             return self();
         }
 
-        public final T value(Object value) {
+        public final S value(Object value) {
             this.value = value;
             return self();
         }

@@ -3,20 +3,16 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public final class EdgePropertyUpdated extends EdgePropertyEvent {
+public final class EdgePropertyUpdated<K> extends EdgePropertyEvent<K> {
     private final Object oldValue;
 
-    private EdgePropertyUpdated(Builder builder) {
+    private EdgePropertyUpdated(Builder<K> builder) {
         super(builder);
         oldValue = requireNonNull(builder.oldValue);
     }
 
     public Object getOldValue() {
         return oldValue;
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     @Override
@@ -39,21 +35,22 @@ public final class EdgePropertyUpdated extends EdgePropertyEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public static final class Builder extends EdgePropertyEvent.Builder<Builder> {
+    public static final class Builder<K> extends EdgePropertyEvent.Builder<K, Builder<K>> {
         private Object oldValue;
 
-        private Builder() {
-
+        @Override
+        public Builder<K> self() {
+            return this;
         }
 
-        public Builder oldValue(Object oldValue) {
+        public Builder<K> oldValue(Object oldValue) {
             this.oldValue = oldValue;
             return this;
         }
 
         @Override
-        public EdgePropertyUpdated build() {
-            return new EdgePropertyUpdated(this);
+        public EdgePropertyUpdated<K> build() {
+            return new EdgePropertyUpdated<>(this);
         }
     }
 }

@@ -3,20 +3,16 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public final class VertexPropertyUpdated extends VertexPropertyEvent {
+public final class VertexPropertyUpdated<K> extends VertexPropertyEvent<K> {
     private final Object oldValue;
 
-    private VertexPropertyUpdated(Builder builder) {
+    private VertexPropertyUpdated(Builder<K> builder) {
         super(builder);
         oldValue = requireNonNull(builder.oldValue);
     }
 
     public Object getOldValue() {
         return oldValue;
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     @Override
@@ -37,17 +33,22 @@ public final class VertexPropertyUpdated extends VertexPropertyEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public static final class Builder extends VertexPropertyEvent.Builder<Builder> {
+    public static final class Builder<K> extends VertexPropertyEvent.Builder<K, Builder<K>> {
         private Object oldValue;
 
-        public Builder oldValue(Object oldValue) {
+        @Override
+        public Builder<K> self() {
+            return this;
+        }
+
+        public Builder<K> oldValue(Object oldValue) {
             this.oldValue = oldValue;
             return this;
         }
 
         @Override
-        public VertexPropertyUpdated build() {
-            return new VertexPropertyUpdated(this);
+        public VertexPropertyUpdated<K> build() {
+            return new VertexPropertyUpdated<>(this);
         }
     }
 }

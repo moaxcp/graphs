@@ -7,7 +7,7 @@ import testframework.DirectedSimpleGraphs;
 public class DirectedGraphEdgeMethods {
 
     @DirectedSimpleGraphs
-    void twoEdgesConnectSameVertices(SimpleGraph graph) {
+    void twoEdgesConnectSameVertices(SimpleGraph<String> graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("B", "A");
 
@@ -18,7 +18,7 @@ public class DirectedGraphEdgeMethods {
     }
 
     @DirectedSimpleGraphs
-    void otherEdgeIsNotRemoved(SimpleGraph graph) {
+    void otherEdgeIsNotRemoved(SimpleGraph<String> graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("B", "A");
         graph.removeEdge("A", "B");

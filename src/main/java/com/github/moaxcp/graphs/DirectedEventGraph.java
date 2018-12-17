@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import static com.github.moaxcp.graphs.events.Builders.directedGraphCreated;
+import com.github.moaxcp.graphs.events.DirectedGraphCreated;
 import java.util.*;
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,12 +34,12 @@ public class DirectedEventGraph<T> extends AbstractEventGraph<T> {
 
     public DirectedEventGraph(EventBus bus) {
         super(bus);
-        getBus().post(directedGraphCreated().build());
+        getBus().post(new DirectedGraphCreated.Builder<T>().build());
     }
 
     public DirectedEventGraph(T id, EventBus bus) {
         super(id, bus);
-        getBus().post(directedGraphCreated().graphId(id).build());
+        getBus().post(new DirectedGraphCreated.Builder<T>().graphId(id).build());
     }
 
     @Override

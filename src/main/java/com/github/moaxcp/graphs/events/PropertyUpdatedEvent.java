@@ -3,10 +3,10 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public abstract class PropertyUpdatedEvent extends PropertyEvent {
+public abstract class PropertyUpdatedEvent<K> extends PropertyEvent<K> {
     private final Object oldValue;
 
-    protected PropertyUpdatedEvent(Builder builder) {
+    protected PropertyUpdatedEvent(Builder<K, ? extends Builder> builder) {
         super(builder);
         oldValue = requireNonNull(builder.oldValue, "oldValue must not be null.");
     }
@@ -29,10 +29,10 @@ public abstract class PropertyUpdatedEvent extends PropertyEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public abstract static class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
+    public abstract static class Builder<K, S extends Builder<K, S>> extends PropertyEvent.Builder<K, S> {
         private Object oldValue;
 
-        public final T oldValue(Object oldValue) {
+        public final S oldValue(Object oldValue) {
             this.oldValue = oldValue;
             return self();
         }

@@ -2,15 +2,10 @@ package com.github.moaxcp.graphs.events;
 
 import java.util.Objects;
 
-public final class DirectedGraphCreated extends GraphEvent {
+public final class DirectedGraphCreated<K> extends GraphEvent<K> {
 
-    private DirectedGraphCreated(Builder builder) {
+    private DirectedGraphCreated(Builder<K> builder) {
         super(builder);
-    }
-
-    @SuppressWarnings("squid:S2176")
-    public static Builder builder() {
-        return new Builder();
     }
 
     @Override
@@ -27,15 +22,16 @@ public final class DirectedGraphCreated extends GraphEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public static final class Builder extends GraphEvent.Builder<Builder> {
+    public static final class Builder<K> extends GraphEvent.Builder<K, Builder<K>> {
 
-        private Builder() {
-
+        @Override
+        public Builder<K> self() {
+            return this;
         }
 
         @Override
-        public DirectedGraphCreated build() {
-            return new DirectedGraphCreated(this);
+        public DirectedGraphCreated<K> build() {
+            return new DirectedGraphCreated<>(this);
         }
     }
 }

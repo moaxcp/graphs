@@ -3,15 +3,15 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public abstract class VertexPropertyEvent extends PropertyEvent {
-    private final Object vertexId;
+public abstract class VertexPropertyEvent<K> extends PropertyEvent<K> {
+    private final K vertexId;
 
-    VertexPropertyEvent(Builder builder) {
+    VertexPropertyEvent(Builder<K, ? extends Builder> builder) {
         super(builder);
         vertexId = requireNonNull(builder.vertexId);
     }
 
-    public Object getVertexId() {
+    public K getVertexId() {
         return vertexId;
     }
 
@@ -29,10 +29,10 @@ public abstract class VertexPropertyEvent extends PropertyEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public abstract static class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
-        private Object vertexId;
+    public abstract static class Builder<K, S extends Builder<K, S>> extends PropertyEvent.Builder<K, S> {
+        private K vertexId;
 
-        public T vertexId(Object vertexId) {
+        public S vertexId(K vertexId) {
             this.vertexId = vertexId;
             return self();
         }

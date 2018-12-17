@@ -12,7 +12,7 @@ public class EdgeIds {
     }
 
     @SimpleGraphs
-    void canAddEdgeId(SimpleGraph graph) {
+    void canAddEdgeId(SimpleGraph<String> graph) {
         var edge = graph.edge("A", "B").id("id");
         assertThat(graph.getEdgeIds()).containsEntry("id", edge);
     }

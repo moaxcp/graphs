@@ -1,24 +1,22 @@
 package com.github.moaxcp.graphs.events;
 
-public final class VertexRemoved extends VertexEvent {
+public final class VertexRemoved<K> extends VertexEvent<K> {
 
-    private VertexRemoved(Builder builder) {
+    private VertexRemoved(Builder<K> builder) {
         super(builder);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @SuppressWarnings("squid:S2176")
-    public static final class Builder extends VertexEvent.Builder<Builder> {
-        private Builder() {
+    public static final class Builder<K> extends VertexEvent.Builder<K, Builder<K>> {
 
+        @Override
+        public Builder<K> self() {
+            return this;
         }
 
         @Override
-        public VertexRemoved build() {
-            return new VertexRemoved(this);
+        public VertexRemoved<K> build() {
+            return new VertexRemoved<>(this);
         }
     }
 }

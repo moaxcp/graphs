@@ -3,27 +3,27 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.*;
 
-public abstract class EdgeEvent extends GraphEvent {
-    private final Object edgeId;
-    private final Object from;
-    private final Object to;
+public abstract class EdgeEvent<K> extends GraphEvent<K> {
+    private final K edgeId;
+    private final K from;
+    private final K to;
 
-    protected EdgeEvent(Builder<?> builder) {
+    protected EdgeEvent(Builder<K, ? extends Builder> builder) {
         super(builder);
         edgeId = builder.edgeId;
         from = requireNonNull(builder.from);
         to = requireNonNull(builder.to);
     }
 
-    public final Optional<Object> getEdgeId() {
+    public final Optional<K> getEdgeId() {
         return Optional.ofNullable(edgeId);
     }
 
-    public final Object getFrom() {
+    public final K getFrom() {
         return from;
     }
 
-    public final Object getTo() {
+    public final K getTo() {
         return to;
     }
 
@@ -44,22 +44,22 @@ public abstract class EdgeEvent extends GraphEvent {
     }
 
     @SuppressWarnings("squid:S2176")
-    public abstract static class Builder<T extends Builder> extends PropertyEvent.Builder<T> {
-        private Object edgeId;
-        private Object from;
-        private Object to;
+    public abstract static class Builder<K, S extends Builder<K, S>> extends GraphEvent.Builder<K, S> {
+        private K edgeId;
+        private K from;
+        private K to;
 
-        public final T edgeId(Object edgeId) {
+        public final S edgeId(K edgeId) {
             this.edgeId = edgeId;
             return self();
         }
 
-        public final T from(Object from) {
+        public final S from(K from) {
             this.from = from;
             return self();
         }
 
-        public final T to(Object to) {
+        public final S to(K to) {
             this.to = to;
             return self();
         }

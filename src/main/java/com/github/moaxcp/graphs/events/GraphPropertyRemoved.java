@@ -1,25 +1,22 @@
 package com.github.moaxcp.graphs.events;
 
-public final class GraphPropertyRemoved extends PropertyEvent {
+public final class GraphPropertyRemoved<K> extends PropertyEvent<K> {
 
-    private GraphPropertyRemoved(Builder builder) {
+    private GraphPropertyRemoved(Builder<K> builder) {
         super(builder);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @SuppressWarnings("squid:S2176")
-    public static final class Builder extends PropertyEvent.Builder<Builder> {
+    public static final class Builder<K> extends PropertyEvent.Builder<K, Builder<K>> {
 
-        private Builder() {
-
+        @Override
+        public Builder<K> self() {
+            return this;
         }
 
         @Override
-        public GraphPropertyRemoved build() {
-            return new GraphPropertyRemoved(this);
+        public GraphPropertyRemoved<K> build() {
+            return new GraphPropertyRemoved<>(this);
         }
     }
 }

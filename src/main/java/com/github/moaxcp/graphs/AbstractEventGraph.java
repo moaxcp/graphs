@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs;
 
-import static com.github.moaxcp.graphs.events.Builders.*;
 import static java.util.Objects.requireNonNull;
+import com.github.moaxcp.graphs.events.*;
 import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,9 +17,24 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
             var oldValue = getProperty(name);
             super.setProperty(name, value);
             if(oldValue.isPresent()) {
-                bus.post(edgePropertyUpdated().graphId(AbstractEventGraph.this.getId().orElse(null)).edgeId(getId().orElse(null)).from(getFrom()).to(getTo()).name(name).value(value).oldValue(oldValue.orElse(null)).build());
+                bus.post(new EdgePropertyUpdated.Builder<T>()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .edgeId(getId().orElse(null))
+                    .from(getFrom())
+                    .to(getTo())
+                    .name(name)
+                    .value(value)
+                    .oldValue(oldValue.orElse(null))
+                    .build());
             } else {
-                bus.post(edgePropertyAdded().graphId(AbstractEventGraph.this.getId().orElse(null)).edgeId(getId().orElse(null)).from(getFrom()).to(getTo()).name(name).value(value).build());
+                bus.post(new EdgePropertyAdded.Builder<T>()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .edgeId(getId().orElse(null))
+                    .from(getFrom())
+                    .to(getTo())
+                    .name(name)
+                    .value(value)
+                    .build());
             }
         }
 
@@ -27,7 +42,7 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
         public Edge<T> removeProperty(String name) {
             var value = getProperty(name);
             var edge = super.removeProperty(name);
-            bus.post(edgePropertyRemoved()
+            bus.post(new EdgePropertyRemoved.Builder<T>()
                 .graphId(AbstractEventGraph.this.getId().orElse(null))
                 .edgeId(getId().orElse(null))
                 .from(getFrom())
@@ -49,7 +64,7 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
             var oldValue = getProperty(name);
             super.setProperty(name, value);
             if(oldValue.isPresent()) {
-                bus.post(vertexPropertyUpdated()
+                bus.post(new VertexPropertyUpdated.Builder<T>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .vertexId(getId())
                     .name(name)
@@ -57,7 +72,7 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
                     .oldValue(oldValue.orElse(null))
                     .build());
             } else {
-                bus.post(vertexPropertyAdded()
+                bus.post(new VertexPropertyAdded.Builder<T>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .vertexId(getId())
                     .name(name)
@@ -70,7 +85,7 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
         public Vertex<T> removeProperty(String name) {
             var value = getProperty(name);
             var vertex = super.removeProperty(name);
-            bus.post(vertexPropertyRemoved()
+            bus.post(new VertexPropertyRemoved.Builder<T>()
                 .graphId(AbstractEventGraph.this.getId().orElse(null))
                 .vertexId(getId())
                 .name(name)
@@ -100,9 +115,17 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
         var oldValue = getProperty(name);
         super.setProperty(name, value);
         if(oldValue.isPresent()) {
-            bus.post(graphPropertyUpdated().graphId(getId().orElse(null)).name(name).value(value).oldValue(oldValue.orElse(null)).build());
+            bus.post(new GraphPropertyUpdated.Builder<T>()
+                .graphId(getId().orElse(null))
+                .name(name).value(value)
+                .oldValue(oldValue.orElse(null))
+                .build());
         } else {
-            bus.post(graphPropertyAdded().graphId(getId().orElse(null)).name(name).value(value).build());
+            bus.post(new GraphPropertyAdded.Builder<T>()
+                .graphId(getId().orElse(null))
+                .name(name)
+                .value(value)
+                .build());
         }
     }
 
@@ -110,14 +133,22 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
     public SimpleGraph<T> removeProperty(String name) {
         var value = getProperty(name);
         super.removeProperty(name);
-        bus.post(graphPropertyRemoved().graphId(getId().orElse(null)).name(name).value(value).build());
+        bus.post(new GraphPropertyRemoved.Builder<T>()
+            .graphId(getId().orElse(null))
+            .name(name)
+            .value(value)
+            .build());
         return this;
     }
 
     @Override
     Edge<T> addEdge(T from, T to) {
         var edge = super.addEdge(from, to);
-        bus.post(edgeCreated().graphId(getId().orElse(null)).from(from).to(to).build());
+        bus.post(new EdgeCreated.Builder<T>()
+            .graphId(getId().orElse(null))
+            .from(from)
+            .to(to)
+            .build());
         return edge;
     }
 
@@ -126,17 +157,21 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
         var optional = findEdge(from, to);
         super.removeEdge(from, to);
         optional.ifPresent(edge -> bus.post(
-                edgeRemoved()
-                        .graphId(getId().orElse(null))
-                        .edgeId(edge.getId().orElse(null))
-                        .from(edge.getFrom())
-                        .to(edge.getTo()).build()));
+            new EdgeRemoved.Builder<T>()
+                .graphId(getId().orElse(null))
+                .edgeId(edge.getId().orElse(null))
+                .from(edge.getFrom())
+                .to(edge.getTo())
+                .build()));
     }
 
     @Override
     Vertex<T> addVertex(T id) {
         var vertex = super.addVertex(id);
-        bus.post(vertexCreated().graphId(getId().orElse(null)).vertexId(id).build());
+        bus.post(new VertexCreated.Builder<T>()
+            .graphId(getId().orElse(null))
+            .vertexId(id)
+            .build());
         return vertex;
     }
 
@@ -144,8 +179,9 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
     public void removeVertex(T id) {
         var optional = findVertex(id);
         super.removeVertex(id);
-        optional.ifPresent(vertex -> bus.post(
-            vertexRemoved().graphId(getId().orElse(null)).vertexId(id).build()
-        ));
+        optional.ifPresent(vertex -> bus.post(new VertexRemoved.Builder<T>()
+            .graphId(getId().orElse(null))
+            .vertexId(id)
+            .build()));
     }
 }

@@ -1,25 +1,22 @@
 package com.github.moaxcp.graphs.events;
 
-public final class EdgePropertyRemoved extends EdgePropertyEvent {
+public final class EdgePropertyRemoved<K> extends EdgePropertyEvent<K> {
 
-    private EdgePropertyRemoved(Builder builder) {
+    private EdgePropertyRemoved(Builder<K> builder) {
         super(builder);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @SuppressWarnings("squid:S2176")
-    public static final class Builder extends EdgePropertyEvent.Builder<Builder> {
+    public static final class Builder<K> extends EdgePropertyEvent.Builder<K, Builder<K>> {
 
-        private Builder() {
-
+        @Override
+        public Builder<K> self() {
+            return this;
         }
 
         @Override
-        public EdgePropertyRemoved build() {
-            return new EdgePropertyRemoved(this);
+        public EdgePropertyRemoved<K> build() {
+            return new EdgePropertyRemoved<>(this);
         }
     }
 }
