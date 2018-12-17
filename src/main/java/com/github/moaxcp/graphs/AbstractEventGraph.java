@@ -13,6 +13,19 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
         }
 
         @Override
+        public Edge<T> id(T id) {
+            var oldId = getId();
+            var edge = super.id(id);
+            bus.post(new EdgeIdAdded.Builder<T>()
+                .graphId(AbstractEventGraph.this.getId().orElse(null))
+                .edgeId(id)
+                .from(getFrom())
+                .to(getTo())
+                .build());
+            return edge;
+        }
+
+        @Override
         public void setProperty(String name, Object value) {
             var oldValue = getProperty(name);
             super.setProperty(name, value);

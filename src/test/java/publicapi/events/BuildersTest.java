@@ -94,6 +94,48 @@ public class BuildersTest {
     }
 
     @Test
+    void edgeCreatedEventMissingFrom() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeCreated.Builder<String>().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
+    }
+
+    @Test
+    void edgeCreatedEventMissingTo() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeCreated.Builder<String>().from("A").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("to must not be null.");
+    }
+
+    @Test
+    void edgeRemovedEventMissingFrom() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeRemoved.Builder<String>().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
+    }
+
+    @Test
+    void edgeRemovedEventMissingTo() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeRemoved.Builder<String>().from("A").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("to must not be null.");
+    }
+
+    @Test
+    void edgeIdAddedEventMissingId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdAdded.Builder<String>().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("edgeId must not be null.");
+    }
+
+    @Test
+    void edgeIdAddedEventMissingFrom() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdAdded.Builder<String>().edgeId("edge").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
+    }
+
+    @Test
+    void edgeIdAddedEventMissingTo() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdAdded.Builder<String>().edgeId("edge").from("A").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("to must not be null.");
+    }
+
+    @Test
     void testAllEdgesPropertyAdded() {
         var event = new AllEdgesPropertyAdded.Builder<String>()
             .graphId("graph")
@@ -211,6 +253,20 @@ public class BuildersTest {
                 .build();
         assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getFrom()).isEqualTo("A");
+        assertThat(event.getTo()).isEqualTo("B");
+    }
+
+    @Test
+    void testEdgeIdAdded() {
+        var event = new EdgeIdAdded.Builder<String>()
+            .graphId("graph")
+            .edgeId("edge")
+            .from("A")
+            .to("B")
+            .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).isEqualTo("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
     }

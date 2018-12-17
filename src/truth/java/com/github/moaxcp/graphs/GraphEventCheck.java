@@ -94,6 +94,13 @@ public class GraphEventCheck {
     }
 
     @Subscribe
+    public void edgeIdAdded(EdgeIdAdded event) {
+        assertThat(actual).hasEdge(event.getEdgeId()).hasIdThat().hasValue(event.getEdgeId());
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo());
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
     public void vertexCreated(VertexCreated event) {
         assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
         assertThat(actual).hasVertex(event.getVertexId());
@@ -144,7 +151,9 @@ public class GraphEventCheck {
             EdgePropertyAdded.class,
             EdgePropertyRemoved.class,
             EdgePropertyUpdated.class,
-            EdgeRemoved.class).collect(Collectors.toList());
+            EdgeRemoved.class,
+            EdgeIdAdded.class)
+            .collect(Collectors.toList());
         assertThat(supported).contains(event.getClass());
     }
 }

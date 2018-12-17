@@ -1,22 +1,22 @@
 package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
-import java.util.*;
+import java.util.Objects;
 
-public abstract class EdgeEvent<K> extends GraphEvent<K> {
+public class EdgeIdAdded<K> extends GraphEvent<K> {
     private final K edgeId;
     private final K from;
     private final K to;
 
-    protected EdgeEvent(Builder<K, ? extends Builder> builder) {
+    protected EdgeIdAdded(Builder<K> builder) {
         super(builder);
-        edgeId = builder.edgeId;
+        edgeId = requireNonNull(builder.edgeId, "edgeId must not be null.");
         from = requireNonNull(builder.from, "from must not be null.");
         to = requireNonNull(builder.to, "to must not be null.");
     }
 
-    public final Optional<K> getEdgeId() {
-        return Optional.ofNullable(edgeId);
+    public final K getEdgeId() {
+        return edgeId;
     }
 
     public final K getFrom() {
@@ -31,37 +31,46 @@ public abstract class EdgeEvent<K> extends GraphEvent<K> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EdgeEvent that = (EdgeEvent) o;
-        return Objects.equals(getGraphId(), that.getGraphId()) &&
-                Objects.equals(getEdgeId(), that.getEdgeId()) &&
-                Objects.equals(getFrom(), that.getFrom()) &&
-                Objects.equals(getTo(), that.getTo());
+        EdgeIdAdded<?> that = (EdgeIdAdded<?>) o;
+        return Objects.equals(edgeId, that.edgeId) &&
+            Objects.equals(from, that.from) &&
+            Objects.equals(to, that.to);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getGraphId(), getEdgeId(), getFrom(), getTo());
+        return Objects.hash(edgeId, from, to);
     }
 
     @SuppressWarnings("squid:S2176")
-    public abstract static class Builder<K, S extends Builder<K, S>> extends GraphEvent.Builder<K, S> {
+    public final static class Builder<K> extends GraphEvent.Builder<K, Builder<K>> {
         private K edgeId;
         private K from;
         private K to;
 
-        public final S edgeId(K edgeId) {
+        public final Builder<K> edgeId(K edgeId) {
             this.edgeId = edgeId;
             return self();
         }
 
-        public final S from(K from) {
+        public final Builder<K> from(K from) {
             this.from = from;
             return self();
         }
 
-        public final S to(K to) {
+        public final Builder<K> to(K to) {
             this.to = to;
             return self();
+        }
+
+        @Override
+        public Builder<K> self() {
+            return this;
+        }
+
+        @Override
+        public EdgeIdAdded<K> build() {
+            return new EdgeIdAdded<>(this);
         }
     }
 }

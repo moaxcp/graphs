@@ -57,4 +57,11 @@ public class Edge {
         assertThat(graph)
             .hasEventsIn(g -> g.edge("A", "B").property("name", "value2"));
     }
+
+    @EventSimpleGraphs
+    void changeId(SimpleEventGraph<String> graph) {
+        graph.edge("A", "B");
+        assertThat(graph)
+            .hasEventsIn(g -> g.edge("A", "B").id("edge"));
+    }
 }
