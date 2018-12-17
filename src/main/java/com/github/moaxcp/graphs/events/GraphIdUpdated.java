@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
+import java.util.Objects;
 
 public final class GraphIdUpdated<K> {
 
@@ -18,6 +19,19 @@ public final class GraphIdUpdated<K> {
 
     public final K getOldGraphId() {
         return oldGraphId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GraphIdUpdated<?> that = (GraphIdUpdated<?>) o;
+        return Objects.equals(graphId, that.graphId) && Objects.equals(oldGraphId, that.oldGraphId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(graphId, oldGraphId);
     }
 
     @SuppressWarnings("squid:S2176")

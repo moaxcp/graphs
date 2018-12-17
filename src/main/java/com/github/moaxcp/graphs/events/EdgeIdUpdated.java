@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public class EdgeIdUpdated<K> extends GraphEvent<K> {
+public final class EdgeIdUpdated<K> extends GraphEvent<K> {
     private final K edgeId;
     private final K oldEdgeId;
     private final K from;
@@ -38,13 +38,12 @@ public class EdgeIdUpdated<K> extends GraphEvent<K> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EdgeIdUpdated<?> that = (EdgeIdUpdated<?>) o;
-        return Objects.equals(from, that.from) &&
-            Objects.equals(to, that.to);
+        return Objects.equals(getGraphId(), that.getGraphId()) && Objects.equals(edgeId, that.edgeId) && Objects.equals(oldEdgeId, that.oldEdgeId) && Objects.equals(from, that.from) && Objects.equals(to, that.to);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(from, to);
+        return Objects.hash(getGraphId(), edgeId, oldEdgeId, from, to);
     }
 
     @SuppressWarnings("squid:S2176")

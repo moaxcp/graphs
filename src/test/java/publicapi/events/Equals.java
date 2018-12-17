@@ -36,6 +36,21 @@ public class Equals {
     }
 
     @Test
+    void graphIdAdded() {
+        EqualsVerifier.forClass(GraphIdAdded.class).verify();
+    }
+
+    @Test
+    void graphIdRemoved() {
+        EqualsVerifier.forClass(GraphIdRemoved.class).verify();
+    }
+
+    @Test
+    void graphIdUpdated() {
+        EqualsVerifier.forClass(GraphIdUpdated.class).verify();
+    }
+
+    @Test
     void directedGraphCreated() {
         EqualsVerifier.forClass(DirectedGraphCreated.class).verify();
     }
@@ -63,6 +78,21 @@ public class Equals {
     @Test
     void edgeRemoved() {
         EqualsVerifier.forClass(EdgeRemoved.class).withRedefinedSuperclass().verify();
+    }
+
+    @Test
+    void edgeIdAdded() {
+        EqualsVerifier.forClass(EdgeIdAdded.class).verify();
+    }
+
+    @Test
+    void edgeIdUpdated() {
+        EqualsVerifier.forClass(EdgeIdUpdated.class).verify();
+    }
+
+    @Test
+    void edgeIdRemoved() {
+        EqualsVerifier.forClass(EdgeIdRemoved.class).verify();
     }
 
     @Test
@@ -108,5 +138,10 @@ public class Equals {
     @Test
     void vertexRemoved() {
         EqualsVerifier.forClass(VertexRemoved.class).withRedefinedSuperclass().verify();
+    }
+
+    @Test
+    void vertexIdUpdated() {
+        EqualsVerifier.forClass(VertexIdUpdated.class).withRedefinedSuperclass().verify();
     }
 }
