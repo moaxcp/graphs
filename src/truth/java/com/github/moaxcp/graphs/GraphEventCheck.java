@@ -48,6 +48,25 @@ public class GraphEventCheck {
     }
 
     @Subscribe
+    public void graphIdAdded(GraphIdAdded event) {
+        assertThat(actual).hasIdThat().hasValue(event.getGraphId());
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
+    public void graphIdRemoved(GraphIdRemoved event) {
+        assertThat(actual).hasIdThat().isEmpty();
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
+    public void graphIdUpdated(GraphIdUpdated event) {
+        assertThat(actual).hasIdThat().hasValue(event.getGraphId());
+        assertThat(event.getOldGraphId()).isNotNull();
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
     public void edgeCreated(EdgeCreated event) {
         assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
         assertThat(actual).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
@@ -158,10 +177,13 @@ public class GraphEventCheck {
 
     @Subscribe
     public void otherEvent(Object event) {
-        List<Class<? extends GraphEvent>> supported = Stream.of(
+        List<Class<?>> supported = Stream.of(
             GraphPropertyAdded.class,
             GraphPropertyRemoved.class,
             GraphPropertyUpdated.class,
+            GraphIdAdded.class,
+            GraphIdRemoved.class,
+            GraphIdUpdated.class,
             VertexCreated.class,
             VertexRemoved.class,
             VertexIdUpdated.class,

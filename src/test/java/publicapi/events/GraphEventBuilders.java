@@ -2,6 +2,7 @@ package publicapi.events;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.events.*;
 import org.junit.jupiter.api.Test;
 
@@ -140,5 +141,58 @@ public class GraphEventBuilders {
         assertThat(event.getName()).isEqualTo("name");
         assertThat(event.getValue()).isEqualTo("value");
         assertThat(event.getOldValue()).isEqualTo("oldValue");
+    }
+
+    @Test
+    void testGraphIdAddedMissingId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new GraphIdAdded.Builder<String>().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("graphId must not be null.");
+    }
+
+    @Test
+    void testGraphIdAdded() {
+        var event = new GraphIdAdded.Builder<String>()
+            .graphId("graph")
+            .build();
+
+        assertThat(event.getGraphId()).isEqualTo("graph");
+    }
+
+    @Test
+    void testGraphIdRemovedMissingId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new GraphIdRemoved.Builder<String>().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("graphId must not be null.");
+    }
+
+    @Test
+    void testGraphIdRemoved() {
+        var event = new GraphIdRemoved.Builder<String>()
+            .graphId("graph")
+            .build();
+
+        assertThat(event.getGraphId()).isEqualTo("graph");
+    }
+
+    @Test
+    void testGraphIdUpdatedMissingId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new GraphIdUpdated.Builder<String>().build());
+        assertThat(thrown).hasMessageThat().isEqualTo("graphId must not be null.");
+    }
+
+    @Test
+    void testGraphIdUpdatedMissingOldId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new GraphIdUpdated.Builder<String>().graphId("graph").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("oldGraphId must not be null.");
+    }
+
+    @Test
+    void testGraphIdUpdated() {
+        var event = new GraphIdUpdated.Builder<String>()
+            .graphId("id1")
+            .oldGraphId("id2")
+            .build();
+
+        assertThat(event.getGraphId()).isEqualTo("id1");
+        assertThat(event.getOldGraphId()).isEqualTo("id2");
     }
 }

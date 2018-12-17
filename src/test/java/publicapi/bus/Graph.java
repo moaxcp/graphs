@@ -52,4 +52,21 @@ public class Graph {
         graph.property("name", "value");
         assertThat(graph).hasEventsIn(g -> g.property("name", "value2"));
     }
+
+    @EventSimpleGraphs
+    void addId(SimpleEventGraph<String> graph) {
+        assertThat(graph).hasEventsIn(g-> g.id("graph"));
+    }
+
+    @EventSimpleGraphs
+    void removeId(SimpleEventGraph<String> graph) {
+        graph.id("graph");
+        assertThat(graph).hasEventsIn(g-> g.id(null));
+    }
+
+    @EventSimpleGraphs
+    void updateId(SimpleEventGraph<String> graph) {
+        graph.id("id1");
+        assertThat(graph).hasEventsIn(g-> g.id("id2"));
+    }
 }
