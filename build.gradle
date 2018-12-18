@@ -8,6 +8,7 @@ plugins {
     id 'nebula.javadoc-jar' version '8.2.1'
     id 'org.ajoberstar.git-publish' version '0.4.1'
     id 'org.sonarqube' version '2.6.2'
+    id "me.champeau.gradle.jmh" version "0.4.7"
 }
 
 group = 'com.github.moaxcp'
@@ -71,6 +72,10 @@ dependencies {
     checkstyle 'com.puppycrawl.tools:checkstyle:8.12'
 }
 
+dependencies {
+    jmh 'com.google.guava:guava:27.0.1-jre'
+}
+
 repositories {
     jcenter()
 }
@@ -122,3 +127,14 @@ task truthTest(type: Test) {
 }
 
 check.dependsOn truthTest
+
+jmh {
+//    jvmArgs = ['-ea']
+//    iterations = 1
+    fork = 2
+//    failOnError = true
+//    warmupIterations = 0
+//    benchmarkMode = ['ss', 'avgt']
+    resultsFile = project.file("${project.projectDir}/reports/jmh/not-optimized.txt")
+
+}

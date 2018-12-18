@@ -1,0 +1,11 @@
+Benchmark                             Mode  Cnt     Score     Error  Units
+EdgeMethods.directedAdjaentEdges     thrpt   10   733.743 ±  30.379  ops/s
+EdgeMethods.directedFindFirstEdge    thrpt   10   638.401 ±   8.592  ops/s
+EdgeMethods.directedFindLastEdge     thrpt   10   632.895 ±   9.188  ops/s
+EdgeMethods.directedInEdges          thrpt   10   772.222 ±   6.673  ops/s
+EdgeMethods.directedOutEdges         thrpt   10   765.829 ±  16.507  ops/s
+EdgeMethods.undirectedAdjaentEdges   thrpt   10  2766.938 ± 218.510  ops/s
+EdgeMethods.undirectedFindFirstEdge  thrpt   10  1477.654 ± 361.592  ops/s
+EdgeMethods.undirectedFindLastEdge   thrpt   10  1634.057 ± 254.077  ops/s
+EdgeMethods.undirectedInEdges        thrpt   10  3232.655 ± 114.671  ops/s
+EdgeMethods.undirectedOutEdges       thrpt   10  3201.491 ± 465.918  ops/s
