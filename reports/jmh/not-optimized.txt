@@ -1,11 +1,71 @@
-Benchmark                             Mode  Cnt     Score     Error  Units
-EdgeMethods.directedAdjaentEdges     thrpt   10   733.743 ±  30.379  ops/s
-EdgeMethods.directedFindFirstEdge    thrpt   10   638.401 ±   8.592  ops/s
-EdgeMethods.directedFindLastEdge     thrpt   10   632.895 ±   9.188  ops/s
-EdgeMethods.directedInEdges          thrpt   10   772.222 ±   6.673  ops/s
-EdgeMethods.directedOutEdges         thrpt   10   765.829 ±  16.507  ops/s
-EdgeMethods.undirectedAdjaentEdges   thrpt   10  2766.938 ± 218.510  ops/s
-EdgeMethods.undirectedFindFirstEdge  thrpt   10  1477.654 ± 361.592  ops/s
-EdgeMethods.undirectedFindLastEdge   thrpt   10  1634.057 ± 254.077  ops/s
-EdgeMethods.undirectedInEdges        thrpt   10  3232.655 ± 114.671  ops/s
-EdgeMethods.undirectedOutEdges       thrpt   10  3201.491 ± 465.918  ops/s
+Benchmark                  (directed)  (vertices)   Mode  Cnt      Score   Error   Units
+EdgeMethods.adjaentEdges         true           2  thrpt        4774.403          ops/ms
+EdgeMethods.adjaentEdges         true           3  thrpt        3526.657          ops/ms
+EdgeMethods.adjaentEdges         true           4  thrpt        2637.658          ops/ms
+EdgeMethods.adjaentEdges         true           5  thrpt        2106.562          ops/ms
+EdgeMethods.adjaentEdges         true           6  thrpt        1680.917          ops/ms
+EdgeMethods.adjaentEdges         true           7  thrpt        1166.108          ops/ms
+EdgeMethods.adjaentEdges         true           8  thrpt        1082.754          ops/ms
+EdgeMethods.adjaentEdges        false           2  thrpt        7260.944          ops/ms
+EdgeMethods.adjaentEdges        false           3  thrpt        6562.837          ops/ms
+EdgeMethods.adjaentEdges        false           4  thrpt        6395.920          ops/ms
+EdgeMethods.adjaentEdges        false           5  thrpt        6163.284          ops/ms
+EdgeMethods.adjaentEdges        false           6  thrpt        5892.948          ops/ms
+EdgeMethods.adjaentEdges        false           7  thrpt        5689.674          ops/ms
+EdgeMethods.adjaentEdges        false           8  thrpt        5466.952          ops/ms
+EdgeMethods.findFirstEdge        true           2  thrpt       13282.884          ops/ms
+EdgeMethods.findFirstEdge        true           3  thrpt       12385.307          ops/ms
+EdgeMethods.findFirstEdge        true           4  thrpt       12738.212          ops/ms
+EdgeMethods.findFirstEdge        true           5  thrpt       12399.322          ops/ms
+EdgeMethods.findFirstEdge        true           6  thrpt       12679.091          ops/ms
+EdgeMethods.findFirstEdge        true           7  thrpt       12520.390          ops/ms
+EdgeMethods.findFirstEdge        true           8  thrpt       12109.117          ops/ms
+EdgeMethods.findFirstEdge       false           2  thrpt       13116.537          ops/ms
+EdgeMethods.findFirstEdge       false           3  thrpt       12275.444          ops/ms
+EdgeMethods.findFirstEdge       false           4  thrpt       13008.145          ops/ms
+EdgeMethods.findFirstEdge       false           5  thrpt       12018.051          ops/ms
+EdgeMethods.findFirstEdge       false           6  thrpt       13054.655          ops/ms
+EdgeMethods.findFirstEdge       false           7  thrpt       12223.963          ops/ms
+EdgeMethods.findFirstEdge       false           8  thrpt       12223.800          ops/ms
+EdgeMethods.findLastEdge         true           2  thrpt       11171.268          ops/ms
+EdgeMethods.findLastEdge         true           3  thrpt        6642.742          ops/ms
+EdgeMethods.findLastEdge         true           4  thrpt        4095.075          ops/ms
+EdgeMethods.findLastEdge         true           5  thrpt        2684.497          ops/ms
+EdgeMethods.findLastEdge         true           6  thrpt        2083.002          ops/ms
+EdgeMethods.findLastEdge         true           7  thrpt        1530.194          ops/ms
+EdgeMethods.findLastEdge         true           8  thrpt        1229.464          ops/ms
+EdgeMethods.findLastEdge        false           2  thrpt       11679.162          ops/ms
+EdgeMethods.findLastEdge        false           3  thrpt        9189.543          ops/ms
+EdgeMethods.findLastEdge        false           4  thrpt        7408.398          ops/ms
+EdgeMethods.findLastEdge        false           5  thrpt        7349.064          ops/ms
+EdgeMethods.findLastEdge        false           6  thrpt        6316.726          ops/ms
+EdgeMethods.findLastEdge        false           7  thrpt        5737.706          ops/ms
+EdgeMethods.findLastEdge        false           8  thrpt        5211.660          ops/ms
+EdgeMethods.inEdges              true           2  thrpt        6060.906          ops/ms
+EdgeMethods.inEdges              true           3  thrpt        4709.991          ops/ms
+EdgeMethods.inEdges              true           4  thrpt        3435.634          ops/ms
+EdgeMethods.inEdges              true           5  thrpt        2781.222          ops/ms
+EdgeMethods.inEdges              true           6  thrpt        2056.757          ops/ms
+EdgeMethods.inEdges              true           7  thrpt        1706.967          ops/ms
+EdgeMethods.inEdges              true           8  thrpt        1303.554          ops/ms
+EdgeMethods.inEdges             false           2  thrpt        7195.237          ops/ms
+EdgeMethods.inEdges             false           3  thrpt        6735.402          ops/ms
+EdgeMethods.inEdges             false           4  thrpt        6430.093          ops/ms
+EdgeMethods.inEdges             false           5  thrpt        6488.038          ops/ms
+EdgeMethods.inEdges             false           6  thrpt        6213.628          ops/ms
+EdgeMethods.inEdges             false           7  thrpt        5945.988          ops/ms
+EdgeMethods.inEdges             false           8  thrpt        5768.140          ops/ms
+EdgeMethods.outEdges             true           2  thrpt        5805.905          ops/ms
+EdgeMethods.outEdges             true           3  thrpt        4237.047          ops/ms
+EdgeMethods.outEdges             true           4  thrpt        3329.157          ops/ms
+EdgeMethods.outEdges             true           5  thrpt        2608.639          ops/ms
+EdgeMethods.outEdges             true           6  thrpt        2294.004          ops/ms
+EdgeMethods.outEdges             true           7  thrpt        1697.821          ops/ms
+EdgeMethods.outEdges             true           8  thrpt        1439.168          ops/ms
+EdgeMethods.outEdges            false           2  thrpt        7104.997          ops/ms
+EdgeMethods.outEdges            false           3  thrpt        7039.635          ops/ms
+EdgeMethods.outEdges            false           4  thrpt        6526.255          ops/ms
+EdgeMethods.outEdges            false           5  thrpt        6173.853          ops/ms
+EdgeMethods.outEdges            false           6  thrpt        5973.234          ops/ms
+EdgeMethods.outEdges            false           7  thrpt        5827.745          ops/ms
+EdgeMethods.outEdges            false           8  thrpt        5555.695          ops/ms

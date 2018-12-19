@@ -129,12 +129,13 @@ task truthTest(type: Test) {
 check.dependsOn truthTest
 
 jmh {
+    timeUnit = 'ms'
 //    jvmArgs = ['-ea']
-//    iterations = 1
-    fork = 2
+    iterations = 1
+    fork = 1
 //    failOnError = true
-//    warmupIterations = 0
-//    benchmarkMode = ['ss', 'avgt']
+    warmupIterations = 0
+    benchmarkMode = ['thrpt']
     resultsFile = project.file("${project.projectDir}/reports/jmh/not-optimized.txt")
 
 }
