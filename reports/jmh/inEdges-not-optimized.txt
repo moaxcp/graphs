@@ -1,0 +1,15 @@
+Benchmark            (directed)  (vertices)   Mode  Cnt     Score     Error   Units
+EdgeMethods.inEdges        true           2  thrpt    5  6303.555 ±  47.164  ops/ms
+EdgeMethods.inEdges        true           3  thrpt    5  4781.709 ±  50.859  ops/ms
+EdgeMethods.inEdges        true           4  thrpt    5  3711.749 ±  77.310  ops/ms
+EdgeMethods.inEdges        true           5  thrpt    5  2795.585 ±  39.729  ops/ms
+EdgeMethods.inEdges        true           6  thrpt    5  2374.407 ±  31.017  ops/ms
+EdgeMethods.inEdges        true           7  thrpt    5  1766.496 ±  47.545  ops/ms
+EdgeMethods.inEdges        true           8  thrpt    5  1587.967 ±  37.326  ops/ms
+EdgeMethods.inEdges       false           2  thrpt    5  7629.098 ± 178.168  ops/ms
+EdgeMethods.inEdges       false           3  thrpt    5  7210.513 ±  83.337  ops/ms
+EdgeMethods.inEdges       false           4  thrpt    5  6594.404 ± 189.212  ops/ms
+EdgeMethods.inEdges       false           5  thrpt    5  6448.054 ± 114.811  ops/ms
+EdgeMethods.inEdges       false           6  thrpt    5  6305.861 ± 104.929  ops/ms
+EdgeMethods.inEdges       false           7  thrpt    5  6050.859 ±  72.642  ops/ms
+EdgeMethods.inEdges       false           8  thrpt    5  5304.271 ± 123.731  ops/ms

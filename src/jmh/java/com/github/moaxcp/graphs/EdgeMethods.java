@@ -39,6 +39,7 @@ public class EdgeMethods {
                 }
             }
         }
+        System.out.println("edges: " + graph.getEdges().size());
     }
 
     @Benchmark
