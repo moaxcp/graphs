@@ -14,11 +14,6 @@ public class UndirectedEventGraph<T> extends AbstractEventGraph<T> {
         public boolean isDirected() {
             return false;
         }
-
-        @Override
-        public boolean equals(T from, T to) {
-            return (Objects.equals(getFrom(), from) || Objects.equals(getFrom(), to)) && (Objects.equals(getTo(), to) || Objects.equals(getTo(), from));
-        }
     }
 
     public class UndirectedEventVertex extends EventVertex {
@@ -50,6 +45,11 @@ public class UndirectedEventGraph<T> extends AbstractEventGraph<T> {
     @Override
     Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new UndirectedEventEdge(from, to, inherited);
+    }
+
+    @Override
+    EdgeKey<T> newEdgeKey(T from, T to) {
+        return new UndirectedEdgeKey<>(from, to);
     }
 
     @Override

@@ -51,11 +51,10 @@ public interface SimpleGraph<T> {
         Edge<T> removeProperty(String name);
         Map<String, Object> inherited();
         Map<String, Object> local();
-        boolean equals(T from, T to);
     }
 
     Map<T, Vertex<T>> getVertices();
-    Set<Edge<T>> getEdges();
+    Collection<Edge<T>> getEdges();
     Map<T, Edge<T>> getEdgeIds();
     Optional<Vertex<T>> findVertex(T id);
     Vertex<T> vertex(T id);

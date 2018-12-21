@@ -12,11 +12,6 @@ public class DirectedGraph<T> extends AbstractSimpleGraph<T> {
         public boolean isDirected() {
             return true;
         }
-
-        @Override
-        public boolean equals(T from, T to) {
-            return (Objects.equals(getFrom(), from) && (Objects.equals(getTo(), to)));
-        }
     }
 
     public class DirectedVertex extends AbstractVertex {
@@ -40,6 +35,11 @@ public class DirectedGraph<T> extends AbstractSimpleGraph<T> {
 
     Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new DirectedEdge(from, to, inherited);
+    }
+
+    @Override
+    EdgeKey<T> newEdgeKey(T from, T to) {
+        return new DirectedEdgeKey<>(from, to);
     }
 
     Vertex<T> newVertex(T id, Map<String, Object> inherited) {

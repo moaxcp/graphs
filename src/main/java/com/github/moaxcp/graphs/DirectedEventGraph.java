@@ -14,11 +14,6 @@ public class DirectedEventGraph<T> extends AbstractEventGraph<T> {
         public boolean isDirected() {
             return true;
         }
-
-        @Override
-        public boolean equals(T from, T to) {
-            return (Objects.equals(getFrom(), from) && (Objects.equals(getTo(), to)));
-        }
     }
 
     public class DirectedEventVertex extends EventVertex {
@@ -50,6 +45,11 @@ public class DirectedEventGraph<T> extends AbstractEventGraph<T> {
     @Override
     Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new DirectedEventEdge(from, to, inherited);
+    }
+
+    @Override
+    EdgeKey<T> newEdgeKey(T from, T to) {
+        return new DirectedEdgeKey<>(from, to);
     }
 
     @Override

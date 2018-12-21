@@ -12,11 +12,6 @@ public class UndirectedGraph<T> extends AbstractSimpleGraph<T> {
         public boolean isDirected() {
             return false;
         }
-
-        @Override
-        public boolean equals(T from, T to) {
-            return (Objects.equals(getFrom(), from) || Objects.equals(getFrom(), to)) && (Objects.equals(getTo(), to) || Objects.equals(getTo(), from));
-        }
     }
 
     public class UndirectedVertex extends AbstractVertex {
@@ -40,6 +35,11 @@ public class UndirectedGraph<T> extends AbstractSimpleGraph<T> {
 
     Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new UndirectedEdge(from, to, inherited);
+    }
+
+    @Override
+    EdgeKey<T> newEdgeKey(T from, T to) {
+        return new UndirectedEdgeKey<>(from, to);
     }
 
     Vertex<T> newVertex(T id, Map<String, Object> inherited) {

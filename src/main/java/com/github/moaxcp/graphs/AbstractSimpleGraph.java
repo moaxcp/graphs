@@ -4,7 +4,6 @@ import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
@@ -98,7 +97,8 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         }
 
         private void check() {
-            if(!edges.contains(this)) {
+            EdgeKey<T> key = newEdgeKey(from, to);
+            if(!edges.keySet().contains(key)) {
                 throw new IllegalStateException("Edge is not in graph.");
             }
         }
@@ -141,10 +141,12 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         public void setFrom(T from) {
             check();
             requireNonNull(from, "from must not be null.");
-            edges.remove(this);
+            EdgeKey<T> oldKey = newEdgeKey(this.from, this.to);
+            edges.remove(oldKey);
             vertex(from);
             this.from = from;
-            edges.add(this);
+            EdgeKey<T> key = newEdgeKey(this.from, this.to);
+            edges.put(key, this);
         }
 
         /**
@@ -178,10 +180,12 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         public void setTo(T to) {
             check();
             Objects.requireNonNull(to, "to must not be null.");
-            edges.remove(this);
+            EdgeKey<T> oldKey = newEdgeKey(this.from, this.to);
+            edges.remove(oldKey);
             vertex(to);
             this.to = to;
-            edges.add(this);
+            EdgeKey<T> key = newEdgeKey(this.from, this.to);
+            edges.put(key, this);
         }
 
         /**
@@ -224,23 +228,6 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         public Edge<T> removeProperty(String name) {
             check();
             return super.removeProperty(name);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof Edge)) {
-                return false;
-            }
-            Edge<T> edge = (Edge<T>) obj;
-            return equals(edge.getFrom(), edge.getTo());
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(getFrom(), getTo());
         }
     }
 
@@ -338,21 +325,21 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         @Override
         public Set<Edge<T>> adjacentEdges() {
             check();
-            return edges.stream()
+            return edges.values().stream()
                     .filter(edge -> getId().equals(edge.getFrom()) || getId().equals(edge.getTo()))
                     .collect(Collectors.toSet());
         }
         @Override
         public Set<Edge<T>> inEdges() {
             check();
-            return edges.stream()
+            return edges.values().stream()
                     .filter(edge -> getId().equals(edge.getTo()))
                     .collect(Collectors.toSet());
         }
         @Override
         public Set<Edge<T>> outEdges() {
             check();
-            return edges.stream()
+            return edges.values().stream()
                     .filter(edge -> getId().equals(edge.getFrom()))
                     .collect(Collectors.toSet());
         }
@@ -383,13 +370,17 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     private Map<String, Object> vertexProperties;
     private Map<String, Object> edgeProperties;
     private Map<T, Vertex<T>> vertices;
-    private Set<Edge<T>> edges;
+    private Map<EdgeKey<T>, Edge<T>> edges;
     private Map<T, Edge<T>> edgeIds;
+    private Map<T, List<Edge<T>>> fromEdges;
+    private Map<T, List<Edge<T>>> toEdges;
 
     AbstractSimpleGraph() {
         vertices = new LinkedHashMap<>();
-        edges = new LinkedHashSet<>();
+        edges = new LinkedHashMap<>();
         edgeIds = new LinkedHashMap<>();
+        fromEdges = new HashMap<>();
+        toEdges = new HashMap<>();
         vertexProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
         properties = new LinkedHashMap<>();
@@ -406,8 +397,8 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     }
 
     @Override
-    public Set<Edge<T>> getEdges() {
-        return Collections.unmodifiableSet(edges);
+    public Collection<Edge<T>> getEdges() {
+        return Collections.unmodifiableCollection(edges.values());
     }
 
     @Override
@@ -441,9 +432,9 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     }
 
     public Optional<Edge<T>> findEdge(T from, T to) {
-        return edges.stream()
-                .filter(edge -> edge.equals(from, to))
-                .findFirst();
+        var key = newEdgeKey(from, to);
+        var edge = edges.get(key);
+        return Optional.ofNullable(edge);
     }
 
     public Optional<Edge<T>> findEdge(T id) {
@@ -456,24 +447,25 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
 
     abstract Edge<T> newEdge(T from, T to, Map<String, Object> inherited);
 
+    abstract EdgeKey<T> newEdgeKey(T from, T to);
+
     abstract Vertex<T> newVertex(T id, Map<String, Object> inherited);
 
     Edge<T> addEdge(T from, T to) {
         vertex(from);
         vertex(to);
         var edge = newEdge(from, to, edgeProperties);
-        edges.add(edge);
+        edges.put(newEdgeKey(from, to), edge);
         return edge;
     }
 
     public void removeEdge(T from, T to) {
-        Consumer<Edge<T>> remove = ((Consumer<Edge<T>>) edges::remove)
-                .andThen(edge -> edge.getId().ifPresent(edgeIds::remove));
-        var optional = findEdge(from, to);
-        optional.ifPresent(remove);
-        if(!optional.isPresent()) {
+        EdgeKey<T> key = newEdgeKey(from, to);
+        var edge = edges.remove(key);
+        if(edge == null) {
             throw new IllegalArgumentException("edge from '" + from + "' to '" + to + "' not found.");
         }
+        edge.getId().ifPresent(edgeIds::remove);
     }
 
     @Override
