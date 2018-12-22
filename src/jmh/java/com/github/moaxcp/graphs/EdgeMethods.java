@@ -53,7 +53,7 @@ public class EdgeMethods {
     }
 
     @Benchmark
-    public Set<Edge<Integer>> adjaentEdges() {
+    public Set<Edge<Integer>> adjacentEdges() {
         return graph.vertex(lastTo).adjacentEdges();
     }
 

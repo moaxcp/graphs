@@ -15,7 +15,7 @@ public class GraphTest {
     @Test
     void undirectedEventGraphIdWithBus() {
         var bus = EventBus.builder().build();
-        var graph = new UndirectedEventGraph("id", bus);
+        var graph = new UndirectedEventGraph<>("id", bus);
         assertThat(graph.getBus()).isSameAs(bus);
     }
     @Test
@@ -28,7 +28,7 @@ public class GraphTest {
     @Test
     void directedEventGraphIdWithBus() {
         var bus = EventBus.builder().build();
-        var graph = new DirectedEventGraph("id", bus);
+        var graph = new DirectedEventGraph<>("id", bus);
         assertThat(graph.getBus()).isSameAs(bus);
     }
 }

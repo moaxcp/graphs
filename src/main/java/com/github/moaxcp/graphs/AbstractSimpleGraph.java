@@ -1,10 +1,9 @@
 package com.github.moaxcp.graphs;
 
-import static java.util.Collections.unmodifiableMap;
+import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
-import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toSet;
 import java.util.*;
-import java.util.stream.Collectors;
 
 abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
 
@@ -12,75 +11,6 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     private static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
     private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
     private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
-
-    private abstract class InheritingElement<E> {
-        private Map<String, Object> inherited;
-        private Map<String, Object> local = new LinkedHashMap<>();
-
-        private InheritingElement(Map<String, Object> inherited) {
-            this.inherited = unmodifiableMap(requireNonNull(inherited, "inherited must not be null."));
-        }
-
-        public Map<String, Object> inherited() {
-            return inherited;
-        }
-
-        @SuppressWarnings("unchecked")
-        E self() {
-            return (E) this;
-        }
-
-        /**
-         * Returns an unmodifiable {@link Map} of all properties set on this Element.
-         * @return all properties set on this element
-         */
-        public Map<String, Object> local() {
-            return unmodifiableMap(local);
-        }
-
-        /**
-         * Returns the value mapped to name.
-         * @param name  of property to return
-         * @return value mapped to name
-         * @throws NullPointerException if name is null
-         */
-        public Optional<Object> getProperty(String name) {
-            requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-            Object value = local.get(name);
-            if (value != null) {
-                return Optional.of(value);
-            }
-            return ofNullable(inherited.get(name));
-        }
-
-        /**
-         * Maps name to value
-         * @param name
-         * @param value
-         */
-        public void setProperty(String name, Object value) {
-            requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-            requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
-            if(name.isEmpty()) {
-                throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
-            }
-            local.put(name, value);
-        }
-
-        public E property(String name, Object value) {
-            setProperty(name, value);
-            return self();
-        }
-
-        public E removeProperty(String name) {
-            requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-            if(!local.containsKey(name)) {
-                throw new IllegalArgumentException("element does not contain property named '" + name + "'.");
-            }
-            local.remove(name);
-            return self();
-        }
-    }
 
     /**
      * Edge represents an undirected edge in this graph.
@@ -325,23 +255,29 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         @Override
         public Set<Edge<T>> adjacentEdges() {
             check();
-            return edges.values().stream()
-                    .filter(edge -> getId().equals(edge.getFrom()) || getId().equals(edge.getTo()))
-                    .collect(Collectors.toSet());
+            Set<Edge<T>> edges = adjacentEdges.get(id);
+            if(edges == null) {
+                return Collections.emptySet();
+            }
+            return unmodifiableSet(edges);
         }
         @Override
         public Set<Edge<T>> inEdges() {
             check();
-            return edges.values().stream()
-                    .filter(edge -> getId().equals(edge.getTo()))
-                    .collect(Collectors.toSet());
+            Set<Edge<T>> edges = inEdges.get(id);
+            if(edges == null) {
+                return Collections.emptySet();
+            }
+            return unmodifiableSet(edges);
         }
         @Override
         public Set<Edge<T>> outEdges() {
             check();
-            return edges.values().stream()
-                    .filter(edge -> getId().equals(edge.getFrom()))
-                    .collect(Collectors.toSet());
+            Set<Edge<T>> edges = outEdges.get(id);
+            if(edges == null) {
+                return Collections.emptySet();
+            }
+            return unmodifiableSet(edges);
         }
 
         public final String toString() {
@@ -372,15 +308,17 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     private Map<T, Vertex<T>> vertices;
     private Map<EdgeKey<T>, Edge<T>> edges;
     private Map<T, Edge<T>> edgeIds;
-    private Map<T, List<Edge<T>>> fromEdges;
-    private Map<T, List<Edge<T>>> toEdges;
+    private Map<T, Set<Edge<T>>> adjacentEdges;
+    private Map<T, Set<Edge<T>>> inEdges;
+    private Map<T, Set<Edge<T>>> outEdges;
 
     AbstractSimpleGraph() {
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashMap<>();
         edgeIds = new LinkedHashMap<>();
-        fromEdges = new HashMap<>();
-        toEdges = new HashMap<>();
+        adjacentEdges = new LinkedHashMap<>();
+        inEdges = new LinkedHashMap<>();
+        outEdges = new LinkedHashMap<>();
         vertexProperties = new LinkedHashMap<>();
         edgeProperties = new LinkedHashMap<>();
         properties = new LinkedHashMap<>();
@@ -424,7 +362,9 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         if (!optional.isPresent()) {
             throw new IllegalArgumentException("vertex '" + id + "' not found.");
         }
-        var adjacent = optional.get().adjacentEdges();
+        var adjacent = optional.get().adjacentEdges().stream()
+            .map(e-> newEdgeKey(e.getFrom(), e.getTo()))
+            .collect(toSet());
         for (var edge : adjacent) {
             removeEdge(edge.getFrom(), edge.getTo());
         }
@@ -455,8 +395,24 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         vertex(from);
         vertex(to);
         var edge = newEdge(from, to, edgeProperties);
-        edges.put(newEdgeKey(from, to), edge);
+        var edgeKey = newEdgeKey(from, to);
+        edges.put(edgeKey, edge);
+        adjacentEdges.compute(edgeKey.getFrom(), (k, v) -> mergeSet(edge, v));
+        adjacentEdges.compute(edgeKey.getTo(), (k, v) -> mergeSet(edge, v));
+        inEdges.compute(edgeKey.getTo(), (k, v) -> mergeSet(edge, v));
+        outEdges.compute(edgeKey.getFrom(), (k, v) -> mergeSet(edge, v));
         return edge;
+    }
+
+    private Set<Edge<T>> mergeSet(Edge<T> edge, Set<Edge<T>> set) {
+        if(set == null) {
+            set = new LinkedHashSet<>();
+            set.add(edge);
+        }
+        else {
+            set.add(edge);
+        }
+        return set;
     }
 
     public void removeEdge(T from, T to) {
@@ -466,6 +422,26 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
             throw new IllegalArgumentException("edge from '" + from + "' to '" + to + "' not found.");
         }
         edge.getId().ifPresent(edgeIds::remove);
+        var fromSet = adjacentEdges.get(from);
+        fromSet.remove(edge);
+        if(fromSet.isEmpty()) {
+            adjacentEdges.remove(from);
+        }
+        var toSet = adjacentEdges.get(to);
+        toSet.remove(edge);
+        if(toSet.isEmpty()) {
+            adjacentEdges.remove(to);
+        }
+        var outSet = outEdges.get(from);
+        outSet.remove(edge);
+        if(outSet.isEmpty()) {
+            outEdges.remove(from);
+        }
+        var inSet = inEdges.get(to);
+        inSet.remove(edge);
+        if(inSet.isEmpty()) {
+            inEdges.remove(to);
+        }
     }
 
     @Override
