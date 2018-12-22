@@ -15,12 +15,12 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     /**
      * Edge represents an undirected edge in this graph.
      */
-    public abstract class AbstractEdge extends InheritingElement<Edge<T>> implements Edge<T> {
+    public class SimpleEdge extends InheritingElement<Edge<T>> implements Edge<T> {
         private T id;
         private T from;
         private T to;
 
-        protected AbstractEdge(T from, T to, Map<String, Object> inherited) {
+        protected SimpleEdge(T from, T to, Map<String, Object> inherited) {
             super(inherited);
             this.from = from;
             this.to = to;
@@ -34,7 +34,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         }
 
         @Override
-        public Optional<T> getId() {
+        public final Optional<T> getId() {
             return Optional.ofNullable(id);
         }
 
@@ -49,7 +49,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         }
 
         @Override
-        public Edge<T> id(T id) {
+        public final Edge<T> id(T id) {
             setId(id);
             return self();
         }
@@ -59,7 +59,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
          * @return id of "from" {@link Vertex}
          */
         @Override
-        public T getFrom() {
+        public final T getFrom() {
             return from;
         }
 
@@ -91,7 +91,8 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
             return this;
         }
 
-        public T from() {
+        @Override
+        public final T from() {
             return getFrom();
         }
 
@@ -99,7 +100,8 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
          * Returns id of "to" {@link Vertex}.
          * @return id of "to" {@link Vertex}
          */
-        public T getTo() {
+        @Override
+        public final T getTo() {
             return to;
         }
 
@@ -107,6 +109,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
          * Sets "to" {@link Vertex} to vertex with id. If vertex does not exist it is created.
          * @param to {@link Vertex} id for "to" vertex
          */
+        @Override
         public void setTo(T to) {
             check();
             Objects.requireNonNull(to, "to must not be null.");
@@ -124,26 +127,33 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
          * @param to {@link Vertex} id for "to" vertex
          * @return this edge
          */
-        public Edge<T> to(T to) {
+        @Override
+        public final Edge<T> to(T to) {
             setTo(to);
             return this;
         }
 
-        public T to() {
+        @Override
+        public final T to() {
             return getTo();
         }
 
         @Override
-        public List<T> endpoints() {
+        public final boolean isDirected() {
+            return AbstractSimpleGraph.this.isDirected();
+        }
+
+        @Override
+        public final List<T> endpoints() {
             return List.of(from, to);
         }
 
-        public Vertex<T> fromVertex() {
+        public final Vertex<T> fromVertex() {
             check();
             return vertex(getFrom());
         }
 
-        public Vertex<T> toVertex() {
+        public final Vertex<T> toVertex() {
             check();
             return vertex(getTo());
         }
@@ -164,10 +174,10 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     /**
      * Vertex represents a vertex in this graph.
      */
-    public abstract class AbstractVertex extends InheritingElement<Vertex<T>> implements Vertex<T> {
+    public class SimpleVertex extends InheritingElement<Vertex<T>> implements Vertex<T> {
         private T id;
 
-        protected AbstractVertex(T id, Map<String, Object> inherited) {
+        protected SimpleVertex(T id, Map<String, Object> inherited) {
             super(inherited);
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
             this.id = id;
@@ -385,11 +395,15 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         return findEdge(from, to).orElseGet(() -> addEdge(from, to));
     }
 
-    abstract Edge<T> newEdge(T from, T to, Map<String, Object> inherited);
+    Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
+        return new SimpleEdge(from, to, inherited);
+    }
 
     abstract EdgeKey<T> newEdgeKey(T from, T to);
 
-    abstract Vertex<T> newVertex(T id, Map<String, Object> inherited);
+    Vertex<T> newVertex(T id, Map<String, Object> inherited) {
+        return new SimpleVertex(id, inherited);
+    }
 
     Edge<T> addEdge(T from, T to) {
         vertex(from);

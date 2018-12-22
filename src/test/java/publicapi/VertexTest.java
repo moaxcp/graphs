@@ -214,36 +214,6 @@ public class VertexTest {
         assertThat(result).containsExactly(edge1, edge2, edge3);
     }
 
-    @UndirectedSimpleGraphs
-    void undirectedTraverseEdges(SimpleGraph<String> graph) {
-        graph.edge("A", "B");
-        graph.edge("A", "C");
-        graph.edge("Z", "Y");
-
-        var vertex = graph.vertex("A");
-
-        var edges = vertex.traverseEdges();
-        assertThat(edges).hasSize(2);
-        for(var edge : edges) {
-            assertThat(edge.endpoints()).contains("A");
-        }
-    }
-
-    @DirectedSimpleGraphs
-    void directedTraverseEdges(SimpleGraph<String> graph) {
-        graph.edge("A", "B");
-        graph.edge("A", "C");
-        graph.edge("Z", "Y");
-
-        var vertex = graph.vertex("A");
-
-        var edges = vertex.traverseEdges();
-        assertThat(edges).hasSize(2);
-        for(var edge : edges) {
-            assertThat(edge).hasFromThat().isEqualTo("A");
-        }
-    }
-
     @SimpleGraphs
     void equalsSameVertex(SimpleGraph<String> graph) {
         var vertex = graph.vertex("A");

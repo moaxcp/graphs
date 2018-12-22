@@ -79,14 +79,6 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void traverseEdges(SimpleGraph graph) {
-        var vertex = graph.vertex("A");
-        graph.removeVertex("A");
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.traverseEdges());
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
-    }
-
-    @SimpleGraphs
     void adjacentEdges(SimpleGraph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");

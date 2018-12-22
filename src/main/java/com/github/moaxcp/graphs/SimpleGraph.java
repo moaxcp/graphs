@@ -17,7 +17,6 @@ public interface SimpleGraph<T> {
         Edge<T> edgeFrom(T from);
         Vertex<T> toVertex(T to);
         Vertex<T> fromVertex(T from);
-        Set<Edge<T>> traverseEdges();
         Set<Edge<T>> adjacentEdges();
         Set<Edge<T>> inEdges();
         Set<Edge<T>> outEdges();

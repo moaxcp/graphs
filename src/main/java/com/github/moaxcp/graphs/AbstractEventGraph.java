@@ -7,7 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 
 public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> implements SimpleEventGraph<T> {
 
-    public abstract class EventEdge extends AbstractEdge {
+    public class EventEdge extends SimpleEdge {
         protected EventEdge(T from, T to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
@@ -88,7 +88,7 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
         }
     }
 
-    public abstract class EventVertex extends AbstractVertex {
+    public class EventVertex extends SimpleVertex {
         protected EventVertex(T id, Map<String, Object> inherited) {
             super(id, inherited);
         }
@@ -209,6 +209,16 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
             .value(value)
             .build());
         return this;
+    }
+
+    @Override
+    Vertex<T> newVertex(T id, Map<String, Object> inherited) {
+        return new EventVertex(id, inherited);
+    }
+
+    @Override
+    Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
+        return new EventEdge(from, to, inherited);
     }
 
     @Override
