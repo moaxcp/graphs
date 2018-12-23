@@ -4,6 +4,7 @@ import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.SimpleGraph;
+import nl.jqno.equalsverifier.*;
 import testframework.*;
 
 public class EdgeTest {
@@ -146,15 +147,9 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void equalsSameObject(SimpleGraph graph) {
+    void testEquals(SimpleGraph<String> graph) {
         var edge = graph.edge("A", "B");
-        assertThat(edge.equals(edge)).isTrue();
-    }
-
-    @SimpleGraphs
-    void equalsNotEdge(SimpleGraph graph) {
-        var edge = graph.edge("A", "B");
-        assertThat(edge.equals(1)).isFalse();
+        EqualsVerifier.forClass(edge.getClass()).suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
     @SimpleGraphs

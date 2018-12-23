@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 import java.util.*;
 
-abstract class InheritingElement<S> {
+class InheritingElement<S> {
     private static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
     private static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
     private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
@@ -16,12 +16,15 @@ abstract class InheritingElement<S> {
         this.inherited = unmodifiableMap(requireNonNull(inherited, "inherited must not be null."));
     }
 
-    public Map<String, Object> inherited() {
-        return inherited;
+    public final Map<String, Object> inherited() {
+        if(inherited == null) {
+            return null;
+        }
+        return unmodifiableMap(inherited);
     }
 
     @SuppressWarnings("unchecked")
-    S self() {
+    final S self() {
         return (S) this;
     }
 
@@ -29,7 +32,10 @@ abstract class InheritingElement<S> {
      * Returns an unmodifiable {@link Map} of all properties set on this Element.
      * @return all properties set on this element
      */
-    public Map<String, Object> local() {
+    public final Map<String, Object> local() {
+        if(local == null) {
+            return null;
+        }
         return unmodifiableMap(local);
     }
 
@@ -39,7 +45,7 @@ abstract class InheritingElement<S> {
      * @return value mapped to name
      * @throws NullPointerException if name is null
      */
-    public Optional<Object> getProperty(String name) {
+    public final Optional<Object> getProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         Object value = local.get(name);
         if (value != null) {
@@ -62,7 +68,7 @@ abstract class InheritingElement<S> {
         local.put(name, value);
     }
 
-    public S property(String name, Object value) {
+    public final S property(String name, Object value) {
         setProperty(name, value);
         return self();
     }

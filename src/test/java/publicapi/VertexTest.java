@@ -5,6 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.SimpleGraph;
+import nl.jqno.equalsverifier.*;
 import testframework.*;
 
 public class VertexTest {
@@ -117,13 +118,6 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void testToString(SimpleGraph<String> graph) {
-        var vertex = graph.vertex("id");
-        vertex.setProperty("key", "value");
-        assertThat(vertex.toString()).isEqualTo("Vertex 'id' {key=value}");
-    }
-
-    @SimpleGraphs
     void testAdjacentEdges(SimpleGraph<String> graph) {
         graph.edge("A", "B");
         graph.edge("A", "C");
@@ -215,21 +209,8 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void equalsSameVertex(SimpleGraph<String> graph) {
+    void testEquals(SimpleGraph<String> graph) {
         var vertex = graph.vertex("A");
-        assertThat(vertex.equals(vertex)).isTrue();
-    }
-
-    @SimpleGraphs
-    void equalsNotSameObject(SimpleGraph<String> graph) {
-        var vertex = graph.vertex("A");
-        assertThat(vertex.equals(1)).isFalse();
-    }
-
-    @SimpleGraphs
-    void notEqualsVertex(SimpleGraph<String> graph) {
-        var vertex1 = graph.vertex("A");
-        var vertex2 = graph.vertex("B");
-        assertThat(vertex1.equals(vertex2)).isFalse();
+        EqualsVerifier.forClass(vertex.getClass()).suppress(Warning.NONFINAL_FIELDS).verify();
     }
 }

@@ -169,6 +169,23 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
             check();
             return super.removeProperty(name);
         }
+
+        @Override
+        public final boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof AbstractSimpleGraph<?>.SimpleEdge)) return false;
+            SimpleEdge that = (SimpleEdge) o;
+            return Objects.equals(id, that.id) &&
+                Objects.equals(from, that.from) &&
+                Objects.equals(to, that.to) &&
+                Objects.equals(local(), that.local()) &&
+                Objects.equals(inherited(), that.inherited());
+        }
+
+        @Override
+        public final int hashCode() {
+            return Objects.hash(id, from, to, local(), inherited());
+        }
     }
 
     /**
@@ -290,23 +307,19 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
             return unmodifiableSet(edges);
         }
 
-        public final String toString() {
-            return "Vertex '" + getId() + "' " + local().toString();
-        }
-
         @Override
-        public final boolean equals(Object obj) {
-            if (obj == this) return true;
-            if (!(obj instanceof Vertex)) {
-                return false;
-            }
-            Vertex<T> vertex = (Vertex<T>) obj;
-            return Objects.equals(getId(), vertex.getId());
+        public final boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof AbstractSimpleGraph<?>.SimpleVertex)) return false;
+            SimpleVertex that = (SimpleVertex) o;
+            return Objects.equals(id, that.id) &&
+                Objects.equals(local(), that.local()) &&
+                Objects.equals(inherited(), that.inherited());
         }
 
         @Override
         public final int hashCode() {
-            return Objects.hash(getId());
+            return Objects.hash(id, local(), inherited());
         }
     }
 
