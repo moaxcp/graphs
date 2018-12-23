@@ -33,6 +33,12 @@ public class MethodSources {
                 new DirectedEventGraph<>(testEventBus()));
     }
 
+    public static Stream<SimpleGraph<String>> nonEventSimpleGraphs() {
+        return Stream.of(
+            new UndirectedGraph<>(),
+            new DirectedGraph<>());
+    }
+
     public static Stream<SimpleEventGraph<String>> eventSimpleGraphs() {
         return Stream.of(
                 new UndirectedEventGraph<>(testEventBus()),

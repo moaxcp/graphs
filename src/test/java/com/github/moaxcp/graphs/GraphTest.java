@@ -1,8 +1,10 @@
 package com.github.moaxcp.graphs;
 
 import static com.google.common.truth.Truth.assertThat;
+import nl.jqno.equalsverifier.*;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
+import testframework.*;
 
 public class GraphTest {
     @Test
@@ -30,5 +32,24 @@ public class GraphTest {
         var bus = EventBus.builder().build();
         var graph = new DirectedEventGraph<>("id", bus);
         assertThat(graph.getBus()).isSameAs(bus);
+    }
+
+    @NonEventSimpleGraphs
+    void testNonEventSimpleGraphEquals(SimpleGraph<String> graph) {
+        EqualsVerifier
+            .forClass(graph.getClass())
+            .withIgnoredFields("edgeIds", "adjacentEdges", "inEdges", "outEdges")
+            .suppress(Warning.NONFINAL_FIELDS)
+            .verify();
+    }
+
+    @EventSimpleGraphs
+    void testEventSimpleGraphEquals(SimpleGraph<String> graph) {
+        EqualsVerifier
+            .forClass(graph.getClass())
+            .withIgnoredFields("edgeIds", "adjacentEdges", "inEdges", "outEdges", "bus")
+            .withPrefabValues(EventBus.class, EventBus.getDefault(), EventBus.builder().build())
+            .suppress(Warning.NONFINAL_FIELDS)
+            .verify();
     }
 }

@@ -589,4 +589,17 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         vertexProperties.remove(name);
         return this;
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractSimpleGraph)) return false;
+        AbstractSimpleGraph<?> that = (AbstractSimpleGraph<?>) o;
+        return Objects.equals(id, that.id) && Objects.equals(properties, that.properties) && Objects.equals(vertexProperties, that.vertexProperties) && Objects.equals(edgeProperties, that.edgeProperties) && Objects.equals(vertices, that.vertices) && Objects.equals(edges, that.edges);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(id, properties, vertexProperties, edgeProperties, vertices, edges);
+    }
 }
