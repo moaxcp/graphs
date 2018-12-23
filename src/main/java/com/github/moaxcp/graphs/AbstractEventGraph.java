@@ -22,7 +22,7 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
             if(id == null) {
                 bus.post(new EdgeIdRemoved.Builder<T>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
-                    .oldEdgeId(oldId.orElse(null))
+                    .edgeId(oldId.orElse(null))
                     .from(getFrom())
                     .to(getTo())
                     .build());

@@ -127,7 +127,7 @@ public class GraphEventCheck {
 
     @Subscribe
     public void edgeIdUpdated(EdgeIdUpdated event) {
-        assertThat(event.getOldEdgeId()).isNotNull();
+        assertThat(event.getEdgeId()).isNotNull();
         assertThat(actual).hasEdge(event.getFrom(), event.getTo()).hasIdThat().hasValue(event.getEdgeId());
         classes.add(event.getClass());
     }

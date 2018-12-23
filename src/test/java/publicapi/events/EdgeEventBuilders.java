@@ -33,14 +33,8 @@ public class EdgeEventBuilders {
     }
 
     @Test
-    void edgeIdAddedEventMissingId() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdAdded.Builder<String>().build());
-        assertThat(thrown).hasMessageThat().isEqualTo("edgeId must not be null.");
-    }
-
-    @Test
     void edgeIdAddedEventMissingFrom() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdAdded.Builder<String>().edgeId("edge").build());
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdAdded.Builder<String>().build());
         assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
     }
 
@@ -51,45 +45,51 @@ public class EdgeEventBuilders {
     }
 
     @Test
-    void edgeIdRemovedEventMissingOldEdgeId() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdRemoved.Builder<String>().build());
-        assertThat(thrown).hasMessageThat().isEqualTo("oldEdgeId must not be null.");
+    void edgeIdAddedEventMissingId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdAdded.Builder<String>().from("A").to("B").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("edgeId must not be null.");
     }
 
     @Test
     void edgeIdRemovedEventMissingFrom() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdRemoved.Builder<String>().oldEdgeId("edge").build());
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdRemoved.Builder<String>().build());
         assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
     }
 
     @Test
     void edgeIdRemovedEventMissingTo() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdRemoved.Builder<String>().oldEdgeId("edge").from("A").build());
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdRemoved.Builder<String>().from("A").build());
         assertThat(thrown).hasMessageThat().isEqualTo("to must not be null.");
     }
 
     @Test
-    void edgeIdUpdatedEventMissingEdgeId() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdUpdated.Builder<String>().build());
+    void edgeIdRemovedEventMissingEdgeId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdRemoved.Builder<String>().from("A").to("B").build());
         assertThat(thrown).hasMessageThat().isEqualTo("edgeId must not be null.");
     }
 
     @Test
-    void edgeIdUpdatedEventMissingOldEdgeId() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdUpdated.Builder<String>().edgeId("id1").build());
-        assertThat(thrown).hasMessageThat().isEqualTo("oldEdgeId must not be null.");
-    }
-
-    @Test
     void edgeIdUpdatedEventMissingFrom() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdUpdated.Builder<String>().edgeId("id1").oldEdgeId("id2").build());
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdUpdated.Builder<String>().build());
         assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
     }
 
     @Test
     void edgeIdUpdatedEventMissingTo() {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdUpdated.Builder<String>().edgeId("id1").oldEdgeId("id2").from("A").build());
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdUpdated.Builder<String>().from("A").build());
         assertThat(thrown).hasMessageThat().isEqualTo("to must not be null.");
+    }
+
+    @Test
+    void edgeIdUpdatedEventMissingEdgeId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdUpdated.Builder<String>().from("from").to("to").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("edgeId must not be null.");
+    }
+
+    @Test
+    void edgeIdUpdatedEventMissingOldEdgeId() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeIdUpdated.Builder<String>().from("from").to("to").edgeId("id1").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("oldEdgeId must not be null.");
     }
 
     @Test
@@ -138,12 +138,12 @@ public class EdgeEventBuilders {
     void testEdgeIdRemoved() {
         var event = new EdgeIdRemoved.Builder<String>()
             .graphId("graph")
-            .oldEdgeId("edge")
+            .edgeId("edge")
             .from("A")
             .to("B")
             .build();
         Truth8.assertThat(event.getGraphId()).hasValue("graph");
-        assertThat(event.getOldEdgeId()).isEqualTo("edge");
+        assertThat(event.getEdgeId()).isEqualTo("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
     }

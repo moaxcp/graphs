@@ -82,17 +82,17 @@ public class Equals {
 
     @Test
     void edgeIdAdded() {
-        EqualsVerifier.forClass(EdgeIdAdded.class).verify();
+        EqualsVerifier.forClass(EdgeIdAdded.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void edgeIdUpdated() {
-        EqualsVerifier.forClass(EdgeIdUpdated.class).verify();
+        EqualsVerifier.forClass(EdgeIdUpdated.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void edgeIdRemoved() {
-        EqualsVerifier.forClass(EdgeIdRemoved.class).verify();
+        EqualsVerifier.forClass(EdgeIdRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
