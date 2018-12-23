@@ -3,18 +3,12 @@ package com.github.moaxcp.graphs.events;
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
-public final class GraphIdUpdated<K> {
-
-    private final K graphId;
+public final class GraphIdUpdated<K> extends GraphRequiredIdEvent<K> {
     private final K oldGraphId;
 
     private GraphIdUpdated(Builder<K> builder) {
-        graphId = requireNonNull(builder.graphId, "graphId must not be null.");
+        super(builder);
         oldGraphId = requireNonNull(builder.oldGraphId, "oldGraphId must not be null.");
-    }
-
-    public final K getGraphId() {
-        return graphId;
     }
 
     public final K getOldGraphId() {
@@ -26,27 +20,26 @@ public final class GraphIdUpdated<K> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GraphIdUpdated<?> that = (GraphIdUpdated<?>) o;
-        return Objects.equals(graphId, that.graphId) && Objects.equals(oldGraphId, that.oldGraphId);
+        return Objects.equals(getGraphId(), that.getGraphId()) &&
+            Objects.equals(oldGraphId, that.oldGraphId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(graphId, oldGraphId);
+        return Objects.hash(getGraphId(), oldGraphId);
     }
 
     @SuppressWarnings("squid:S2176")
-    public static final class Builder<K> {
+    public static final class Builder<K> extends GraphRequiredIdEvent.Builder<K, Builder<K>> {
 
-        private K graphId;
         private K oldGraphId;
-
-        public Builder<K> graphId(K graphId) {
-            this.graphId = graphId;
-            return this;
-        }
 
         public Builder<K> oldGraphId(K oldGraphId) {
             this.oldGraphId = oldGraphId;
+            return self();
+        }
+
+        public Builder<K> self() {
             return this;
         }
 

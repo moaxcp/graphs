@@ -37,17 +37,17 @@ public class Equals {
 
     @Test
     void graphIdAdded() {
-        EqualsVerifier.forClass(GraphIdAdded.class).verify();
+        EqualsVerifier.forClass(GraphIdAdded.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void graphIdRemoved() {
-        EqualsVerifier.forClass(GraphIdRemoved.class).verify();
+        EqualsVerifier.forClass(GraphIdRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
     void graphIdUpdated() {
-        EqualsVerifier.forClass(GraphIdUpdated.class).verify();
+        EqualsVerifier.forClass(GraphIdUpdated.class).withRedefinedSuperclass().verify();
     }
 
     @Test

@@ -1,7 +1,6 @@
 package com.github.moaxcp.graphs.events;
 
 import static java.util.Objects.requireNonNull;
-import java.util.Objects;
 
 public abstract class EdgeEvent<K> extends GraphEvent<K> {
     private final K from;
@@ -19,21 +18,6 @@ public abstract class EdgeEvent<K> extends GraphEvent<K> {
 
     public final K getTo() {
         return to;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EdgeEvent<?> that = (EdgeEvent<?>) o;
-        return Objects.equals(getGraphId(), that.getGraphId()) &&
-            Objects.equals(from, that.from) &&
-            Objects.equals(to, that.to);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getGraphId(), from, to);
     }
 
     @SuppressWarnings("squid:S2176")
