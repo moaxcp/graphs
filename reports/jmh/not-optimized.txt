@@ -1,21 +1,23 @@
-Benchmark                  (directed)  (vertices)   Mode  Cnt   Score   Error   Units
-EdgeMethods.adjaentEdges         true           2  thrpt        0.006          ops/ns
-EdgeMethods.adjaentEdges         true         100  thrpt       ≈ 10⁻⁵          ops/ns
-EdgeMethods.adjaentEdges        false           2  thrpt        0.008          ops/ns
-EdgeMethods.adjaentEdges        false         100  thrpt        0.001          ops/ns
-EdgeMethods.findFirstEdge        true           2  thrpt        0.012          ops/ns
-EdgeMethods.findFirstEdge        true         100  thrpt        0.014          ops/ns
-EdgeMethods.findFirstEdge       false           2  thrpt        0.012          ops/ns
-EdgeMethods.findFirstEdge       false         100  thrpt        0.013          ops/ns
-EdgeMethods.findLastEdge         true           2  thrpt        0.009          ops/ns
-EdgeMethods.findLastEdge         true         100  thrpt       ≈ 10⁻⁵          ops/ns
-EdgeMethods.findLastEdge        false           2  thrpt        0.010          ops/ns
-EdgeMethods.findLastEdge        false         100  thrpt        0.001          ops/ns
-EdgeMethods.inEdges              true           2  thrpt        0.007          ops/ns
-EdgeMethods.inEdges              true         100  thrpt       ≈ 10⁻⁵          ops/ns
-EdgeMethods.inEdges             false           2  thrpt        0.007          ops/ns
-EdgeMethods.inEdges             false         100  thrpt        0.001          ops/ns
-EdgeMethods.outEdges             true           2  thrpt        0.006          ops/ns
-EdgeMethods.outEdges             true         100  thrpt       ≈ 10⁻⁵          ops/ns
-EdgeMethods.outEdges            false           2  thrpt        0.008          ops/ns
-EdgeMethods.outEdges            false         100  thrpt        0.001          ops/ns
+Benchmark                 (directed)  (vertices)   Mode  Cnt      Score     Error   Units
+EdgeMethods.findLastEdge        true           2  thrpt   25   9075.913 ± 435.258  ops/ms
+EdgeMethods.findLastEdge        true          10  thrpt   25    806.274 ±  53.672  ops/ms
+EdgeMethods.findLastEdge        true          20  thrpt   25    206.582 ±   4.633  ops/ms
+EdgeMethods.findLastEdge        true          30  thrpt   25     92.775 ±   1.116  ops/ms
+EdgeMethods.findLastEdge        true          40  thrpt   25     51.796 ±   2.861  ops/ms
+EdgeMethods.findLastEdge        true          50  thrpt   25     31.120 ±   0.576  ops/ms
+EdgeMethods.findLastEdge        true          60  thrpt   25     21.562 ±   0.552  ops/ms
+EdgeMethods.findLastEdge        true          70  thrpt   25     15.386 ±   0.424  ops/ms
+EdgeMethods.findLastEdge        true          80  thrpt   25     11.788 ±   0.402  ops/ms
+EdgeMethods.findLastEdge        true          90  thrpt   25      9.358 ±   0.345  ops/ms
+EdgeMethods.findLastEdge        true         100  thrpt   25      7.368 ±   0.327  ops/ms
+EdgeMethods.findLastEdge       false           2  thrpt   25  11249.892 ± 471.689  ops/ms
+EdgeMethods.findLastEdge       false          10  thrpt   25   4546.559 ± 277.693  ops/ms
+EdgeMethods.findLastEdge       false          20  thrpt   25   2807.191 ± 107.636  ops/ms
+EdgeMethods.findLastEdge       false          30  thrpt   25   2064.258 ±  16.087  ops/ms
+EdgeMethods.findLastEdge       false          40  thrpt   25   1601.484 ±  14.293  ops/ms
+EdgeMethods.findLastEdge       false          50  thrpt   25   1324.174 ±   7.443  ops/ms
+EdgeMethods.findLastEdge       false          60  thrpt   25   1120.640 ±   6.594  ops/ms
+EdgeMethods.findLastEdge       false          70  thrpt   25    972.866 ±   6.415  ops/ms
+EdgeMethods.findLastEdge       false          80  thrpt   25    853.427 ±   3.801  ops/ms
+EdgeMethods.findLastEdge       false          90  thrpt   25    770.106 ±   3.061  ops/ms
+EdgeMethods.findLastEdge       false         100  thrpt   25    696.285 ±   2.847  ops/ms

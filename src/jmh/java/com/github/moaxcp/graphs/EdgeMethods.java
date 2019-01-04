@@ -7,14 +7,14 @@ import org.openjdk.jmh.annotations.*;
 @State(Scope.Thread)
 public class EdgeMethods {
 
-    @Param({"2", "100"})
+    @Param({"2", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"})
     public int vertices;
 
     @Param({"true", "false"})
     public boolean directed;
 
     private SimpleGraph<Integer> graph;
-    private Vertex<Integer> lastVertex;
+    private Vertex<Integer> vertex;
     private Integer lastFrom;
     private Integer lastTo;
 
@@ -25,7 +25,7 @@ public class EdgeMethods {
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
                     graph.edge(i, j);
-                    lastVertex = graph.edge(j, i).toVertex();
+                    vertex = graph.edge(j, i).toVertex();
                     lastFrom = j;
                     lastTo = i;
                 }
@@ -34,7 +34,7 @@ public class EdgeMethods {
             graph = new UndirectedGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
-                    lastVertex = graph.edge(i, j).toVertex();
+                    vertex = graph.edge(i, j).toVertex();
                     lastFrom = i;
                     lastTo = j;
                 }
@@ -55,16 +55,16 @@ public class EdgeMethods {
 
     @Benchmark
     public Set<Edge<Integer>> adjaentEdges() {
-        return lastVertex.adjacentEdges();
+        return vertex.adjacentEdges();
     }
 
     @Benchmark
     public Set<Edge<Integer>> inEdges() {
-        return lastVertex.inEdges();
+        return vertex.inEdges();
     }
 
     @Benchmark
     public Set<Edge<Integer>> outEdges() {
-        return lastVertex.outEdges();
+        return vertex.outEdges();
     }
 }

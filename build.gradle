@@ -129,16 +129,16 @@ task truthTest(type: Test) {
 check.dependsOn truthTest
 
 jmh {
-//    include = ['outEdges']
-    timeUnit = 'ns'
+    include = ['findLastEdge']
+    timeUnit = 'ms'
 //    jvmArgs = ['-ea']
-    iterations = 1
-    fork = 1
+//    iterations = 1
+//    fork = 1
 //    failOnError = true
-    warmupIterations = 2
+//    warmupIterations = 0
 //    timeout = '10s'
 //    timeOnIteration = '3s'
-    benchmarkMode = ['thrpt']
+//    benchmarkMode = ['thrpt']
     resultsFile = project.file("${project.projectDir}/reports/jmh/not-optimized.txt")
 
 }
