@@ -1,19 +1,21 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.SimpleGraph.Edge;
+import com.github.moaxcp.graphs.SimpleGraph.*;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.*;
 
-@State(Scope.Benchmark)
+@State(Scope.Thread)
 public class EdgeMethods {
 
-    @Param({"2", "3", "4", "5", "6", "7", "8"})
+    @Param({"2", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"})
     public int vertices;
 
     @Param({"true", "false"})
     public boolean directed;
 
     private SimpleGraph<Integer> graph;
+    private Vertex<Integer> vertex;
     private Integer lastFrom;
     private Integer lastTo;
 
@@ -24,7 +26,7 @@ public class EdgeMethods {
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
                     graph.edge(i, j);
-                    graph.edge(j, i);
+                    vertex = graph.edge(j, i).toVertex();
                     lastFrom = j;
                     lastTo = i;
                 }
@@ -33,7 +35,7 @@ public class EdgeMethods {
             graph = new UndirectedGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
-                    graph.edge(i, j);
+                    vertex = graph.edge(i, j).toVertex();
                     lastFrom = i;
                     lastTo = j;
                 }
@@ -42,28 +44,25 @@ public class EdgeMethods {
         System.out.println("edges: " + graph.getEdges().size());
     }
 
+    @BenchmarkMode(Mode.Throughput)
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
     @Benchmark
     public Edge<Integer> findLastEdge() {
         return graph.edge(lastFrom, lastTo);
     }
 
     @Benchmark
-    public Edge<Integer> findFirstEdge() {
-        return graph.edge(0, 0);
-    }
-
-    @Benchmark
     public Set<Edge<Integer>> adjacentEdges() {
-        return graph.vertex(lastTo).adjacentEdges();
+        return vertex.adjacentEdges();
     }
 
     @Benchmark
     public Set<Edge<Integer>> inEdges() {
-        return graph.vertex(lastTo).inEdges();
+        return vertex.inEdges();
     }
 
     @Benchmark
     public Set<Edge<Integer>> outEdges() {
-        return graph.vertex(lastTo).outEdges();
+        return vertex.outEdges();
     }
 }
