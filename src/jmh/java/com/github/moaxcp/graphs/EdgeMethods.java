@@ -2,7 +2,6 @@ package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.SimpleGraph.*;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.*;
 
 @State(Scope.Thread)
@@ -44,8 +43,6 @@ public class EdgeMethods {
         System.out.println("edges: " + graph.getEdges().size());
     }
 
-    @BenchmarkMode(Mode.Throughput)
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
     @Benchmark
     public Edge<Integer> findLastEdge() {
         return graph.edge(lastFrom, lastTo);

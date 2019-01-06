@@ -130,12 +130,12 @@ check.dependsOn truthTest
 
 jmh {
     include = ['findLastEdge']
-//    timeUnit = 'ms'
+    timeUnit = 'ms'
 //    jvmArgs = ['-ea']
-    iterations = 1
-    fork = 1
+//    iterations = 1
+//    fork = 1
 //    failOnError = true
-    warmupIterations = 1
+//    warmupIterations = 1
 //    timeout = '10s'
 //    timeOnIteration = '3s'
 //    benchmarkMode = ['thrpt']
