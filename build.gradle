@@ -129,7 +129,7 @@ task truthTest(type: Test) {
 check.dependsOn truthTest
 
 jmh {
-    include = ['findLastEdge']
+//    include = ['findFirstEdge']
     timeUnit = 'ms'
 //    jvmArgs = ['-ea']
 //    iterations = 1
