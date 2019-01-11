@@ -44,6 +44,11 @@ public class EdgeMethods {
     }
 
     @Benchmark
+    public Edge<Integer> findFirstEdge() {
+        return graph.edge(0, 0);
+    }
+
+    @Benchmark
     public Edge<Integer> findLastEdge() {
         return graph.edge(lastFrom, lastTo);
     }
