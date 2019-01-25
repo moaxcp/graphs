@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class GraphConstructor {
 
-    static Stream<SimpleGraph> id() {
+    static Stream<Graph> id() {
         return Stream.of(
                 new UndirectedGraph("id"),
                 new DirectedGraph("id"),
@@ -20,7 +20,7 @@ public class GraphConstructor {
 
     @ParameterizedTest
     @MethodSource("id")
-    void hasId(SimpleGraph graph) {
+    void hasId(Graph graph) {
         assertThat(graph).hasIdThat().hasValue("id");
     }
 }

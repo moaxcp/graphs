@@ -6,7 +6,7 @@ import java.util.*;
  * Interface for all simple graphs. This includes undirected, directed and specialized graphs such as directed acyclic
  * graph (DAG).
  */
-public interface SimpleGraph<T> {
+public interface Graph<T> {
     public interface Vertex<T> {
         T getId();
         void setId(T id);
@@ -65,18 +65,18 @@ public interface SimpleGraph<T> {
     void removeEdge(T id);
     Optional<T> getId();
     void setId(T id);
-    SimpleGraph<T> id(T id);
+    Graph<T> id(T id);
     boolean isDirected();
     Optional<Object> getProperty(String name);
     void setProperty(String name, Object value);
-    SimpleGraph<T> property(String name, Object value);
-    SimpleGraph<T> removeProperty(String name);
+    Graph<T> property(String name, Object value);
+    Graph<T> removeProperty(String name);
     Optional<Object> getEdgeProperty(String name);
     void setEdgeProperty(String name, Object value);
-    SimpleGraph<T> edgeProperty(String name, Object value);
-    SimpleGraph<T> removeEdgeProperty(String name);
+    Graph<T> edgeProperty(String name, Object value);
+    Graph<T> removeEdgeProperty(String name);
     Optional<Object> getVertexProperty(String name);
     void setVertexProperty(String name, Object value);
-    SimpleGraph<T> vertexProperty(String name, Object value);
-    SimpleGraph<T> removeVertexProperty(String name);
+    Graph<T> vertexProperty(String name, Object value);
+    Graph<T> removeVertexProperty(String name);
 }

@@ -3,13 +3,13 @@ package publicapi;
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.SimpleGraph;
+import com.github.moaxcp.graphs.Graph;
 import nl.jqno.equalsverifier.*;
 import testframework.*;
 
 public class EdgeTest {
     @SimpleGraphs
-    void setId(SimpleGraph<String> graph) {
+    void setId(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setId("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
@@ -17,7 +17,7 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void changeId(SimpleGraph<String> graph) {
+    void changeId(Graph<String> graph) {
         var edge = graph.edge("A", "B").id("id");
         edge.setId("id2");
         assertThat(graph).hasEdge("id2").isSameAs(edge);
@@ -27,14 +27,14 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void setIdNullNoId(SimpleGraph<String> graph) {
+    void setIdNullNoId(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setId(null);
         assertThat(edge).hasNoId();
     }
 
     @SimpleGraphs
-    void setIdNullRemovesId(SimpleGraph<String> graph) {
+    void setIdNullRemovesId(Graph<String> graph) {
         var edge = graph.edge("A", "to").id("id");
         edge.setId(null);
         assertThat(edge).hasNoId();
@@ -42,14 +42,14 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void id(SimpleGraph graph) {
+    void id(Graph graph) {
         var edge = graph.edge("A", "B").id("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
         assertThat(graph).hasEdge("id").isSameAs(edge);
     }
 
     @SimpleGraphs
-    void setFrom(SimpleGraph graph) {
+    void setFrom(Graph graph) {
         var edge = graph.edge("A", "B");
         edge.setFrom("C");
         assertThat(graph).hasVertex("C");
@@ -57,21 +57,21 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void setFromNull(SimpleGraph graph) {
+    void setFromNull(Graph graph) {
         var edge = graph.edge("A", "B");
         Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setFrom(null));
         assertThat(thrown).hasMessage("from must not be null.");
     }
 
     @SimpleGraphs
-    void setFromCreatesNewVertex(SimpleGraph graph) {
+    void setFromCreatesNewVertex(Graph graph) {
         var edge = graph.edge("A", "B");
         edge.setFrom("C");
         assertThat(graph).hasVertex("C");
     }
 
     @SimpleGraphs
-    void from(SimpleGraph graph) {
+    void from(Graph graph) {
         var edge = graph.edge("A", "B");
         var result = edge.from("C");
         assertThat(edge).hasFromThat().isEqualTo("C");
@@ -79,12 +79,12 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void fromGet(SimpleGraph graph) {
+    void fromGet(Graph graph) {
         assertThat(graph.edge("A", "B").from()).isEqualTo("A");
     }
 
     @SimpleGraphs
-    void setTo(SimpleGraph graph) {
+    void setTo(Graph graph) {
         var edge = graph.edge("A", "B");
         edge.setTo("C");
         assertThat(graph).hasVertex("C");
@@ -92,21 +92,21 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void setToNull(SimpleGraph graph) {
+    void setToNull(Graph graph) {
         var edge = graph.edge("A", "B");
         Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setTo(null));
         assertThat(thrown).hasMessage("to must not be null.");
     }
 
     @SimpleGraphs
-    void setToCreatesNewVertex(SimpleGraph graph) {
+    void setToCreatesNewVertex(Graph graph) {
         var edge = graph.edge("A", "B");
         edge.setTo("C");
         assertThat(graph).hasVertex("C");
     }
 
     @SimpleGraphs
-    void to(SimpleGraph graph) {
+    void to(Graph graph) {
         var edge = graph.edge("A", "B");
         var result = edge.to("C");
         assertThat(edge).hasToThat().isEqualTo("C");
@@ -114,52 +114,52 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void toGet(SimpleGraph graph) {
+    void toGet(Graph graph) {
         assertThat(graph.edge("A", "B").to()).isEqualTo("B");
     }
 
     @SimpleGraphs
-    void fromVertex(SimpleGraph graph) {
+    void fromVertex(Graph graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("A").get();
         assertThat(edge.fromVertex()).isEqualTo(vertex);
     }
 
     @SimpleGraphs
-    void toVertex(SimpleGraph graph) {
+    void toVertex(Graph graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("B").get();
         assertThat(edge.toVertex()).isEqualTo(vertex);
     }
 
     @SimpleGraphs
-    void setProperty(SimpleGraph graph) {
+    void setProperty(Graph graph) {
         var edge = graph.edge("A", "B");
         edge.setProperty("key", "value");
         assertThat(edge).withProperty("key").hasValue("value");
     }
 
     @SimpleGraphs
-    void removeProperty(SimpleGraph graph) {
+    void removeProperty(Graph graph) {
         var edge = graph.edge("A", "B").property("name", "value");
         edge.removeProperty("name");
         assertThat(edge).withProperty("name").isEmpty();
     }
 
     @SimpleGraphs
-    void testEquals(SimpleGraph<String> graph) {
+    void testEquals(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         EqualsVerifier.forClass(edge.getClass()).suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
     @SimpleGraphs
-    void removeByFromTo(SimpleGraph graph) {
+    void removeByFromTo(Graph graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("A", "B"));
         assertThat(thrown).hasMessageThat().isEqualTo("edge from 'A' to 'B' not found.");
     }
 
     @SimpleGraphs
-    void removeById(SimpleGraph graph) {
+    void removeById(Graph graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("id"));
         assertThat(thrown).hasMessageThat().isEqualTo("edge with id 'id' not found.");
     }

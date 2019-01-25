@@ -4,94 +4,94 @@ import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.SimpleGraph;
+import com.github.moaxcp.graphs.Graph;
 import nl.jqno.equalsverifier.*;
 import testframework.*;
 
 public class VertexTest {
 
     @SimpleGraphs
-    void inheritedDefault(SimpleGraph<String> graph) {
+    void inheritedDefault(Graph<String> graph) {
         graph.vertex("A");
         assertThat(graph).hasVertex("A").withInherited().isEmpty();
     }
 
     @SimpleGraphs
-    void inheritedWithProperty(SimpleGraph<String> graph) {
+    void inheritedWithProperty(Graph<String> graph) {
         graph.vertex("A");
         graph.vertexProperty("color", "blue");
         assertThat(graph).hasVertex("A").withInherited().containsExactly("color", "blue");
     }
 
     @SimpleGraphs
-    void localWithProperty(SimpleGraph<String> graph) {
+    void localWithProperty(Graph<String> graph) {
         graph.vertex("A").property("color", "blue");
         assertThat(graph).hasVertex("A").withLocal().containsExactly("color", "blue");
     }
 
     @SimpleGraphs
-    void getPropertyInherited(SimpleGraph<String> graph) {
+    void getPropertyInherited(Graph<String> graph) {
         graph.vertexProperty("color", "blue");
         graph.vertex("A");
         assertThat(graph).hasVertex("A").withProperty("color").hasValue("blue");
     }
 
     @SimpleGraphs
-    void getPropertyLocal(SimpleGraph<String> graph) {
+    void getPropertyLocal(Graph<String> graph) {
         graph.vertex("A").property("color", "blue");
         assertThat(graph).hasVertex("A").withProperty("color").hasValue("blue");
     }
 
     @SimpleGraphs
-    void getPropertyDefault(SimpleGraph<String> graph) {
+    void getPropertyDefault(Graph<String> graph) {
         graph.vertex("A");
         assertThat(graph).hasVertex("A").withProperty("color").isEmpty();
     }
 
     @SimpleGraphs
-    void setPropertyNullName(SimpleGraph<String> graph) {
+    void setPropertyNullName(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.vertex("A").setProperty(null, null));
         assertThat(thrown).hasMessage("name must not be null.");
     }
 
     @SimpleGraphs
-    void setPropertyNullValue(SimpleGraph<String> graph) {
+    void setPropertyNullValue(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.vertex("A").setProperty("", null));
         assertThat(thrown).hasMessage("value must not be null.");
     }
 
     @SimpleGraphs
-    void setPropertyEmptyName(SimpleGraph<String> graph) {
+    void setPropertyEmptyName(Graph<String> graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.vertex("A").setProperty("", ""));
         assertThat(thrown).hasMessage("name must not be empty.");
     }
 
     @SimpleGraphs
-    void setProperty(SimpleGraph<String> graph) {
+    void setProperty(Graph<String> graph) {
         graph.vertex("A").setProperty("name", "value");
         assertThat(graph).hasVertex("A").withProperty("name").hasValue("value");
     }
 
     @SimpleGraphs
-    void property(SimpleGraph<String> graph) {
+    void property(Graph<String> graph) {
         graph.vertex("A").property("name", "value");
         assertThat(graph).hasVertex("A").withProperty("name").hasValue("value");
     }
 
     @SimpleGraphs
-    void removePropertyNullName(SimpleGraph<String> graph) {
+    void removePropertyNullName(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.vertex("A").removeProperty(null));
         assertThat(thrown).hasMessage("name must not be null.");
     }
 
     @SimpleGraphs
-    void removePropertyNameMissing(SimpleGraph<String> graph) {
+    void removePropertyNameMissing(Graph<String> graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.vertex("A").removeProperty("name"));
         assertThat(thrown).hasMessage("element does not contain property named 'name'.");
     }
 
     @SimpleGraphs
-    void removeProperty(SimpleGraph<String> graph) {
+    void removeProperty(Graph<String> graph) {
         graph.vertex("A").property("name", "value");
         var result = graph.vertex("A").removeProperty("name");
         assertThat(graph).hasVertex("A").withProperty("name").isEmpty();
@@ -99,7 +99,7 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void testSetId(SimpleGraph<String> graph) {
+    void testSetId(Graph<String> graph) {
         var a = graph.vertex("id");
         var from = graph.edge("id", "b");
         var to = graph.edge("c", "id");
@@ -111,14 +111,14 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void aVoid(SimpleGraph<String> graph) {
+    void aVoid(Graph<String> graph) {
         var vertex = graph.vertex("A").id("B");
         assertThat(vertex).hasId("B");
         assertThat(vertex).isSameAs(graph.vertex("B"));
     }
 
     @SimpleGraphs
-    void testAdjacentEdges(SimpleGraph<String> graph) {
+    void testAdjacentEdges(Graph<String> graph) {
         graph.edge("A", "B");
         graph.edge("A", "C");
         graph.edge("Z", "Y");
@@ -133,7 +133,7 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void testConnectsTo(SimpleGraph<String> graph) {
+    void testConnectsTo(Graph<String> graph) {
         var vertex = graph.vertex("A")
                 .connectsTo("B");
         assertThat(graph).hasVertex("B");
@@ -141,7 +141,7 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void testConnectsFrom(SimpleGraph<String> graph) {
+    void testConnectsFrom(Graph<String> graph) {
         var vertex = graph.vertex("A")
                 .connectsFrom("B");
         assertThat(graph).hasVertex("B");
@@ -155,7 +155,7 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void testEdgeTo(SimpleGraph<String> graph) {
+    void testEdgeTo(Graph<String> graph) {
         var edge = graph.vertex("A")
                 .edgeTo("B");
         assertThat(graph).hasVertex("B");
@@ -165,7 +165,7 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void testEdgeFrom(SimpleGraph<String> graph) {
+    void testEdgeFrom(Graph<String> graph) {
         var edge = graph.vertex("A")
                 .edgeFrom("B");
         assertThat(graph).hasVertex("B");
@@ -175,21 +175,21 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void toVertex(SimpleGraph<String> graph) {
+    void toVertex(Graph<String> graph) {
         var vertex = graph.vertex("A").toVertex("B");
         assertThat(vertex).hasId("B");
         assertThat(graph).hasEdge("A", "B");
     }
 
     @SimpleGraphs
-    void fromVertex(SimpleGraph<String> graph) {
+    void fromVertex(Graph<String> graph) {
         var vertex = graph.vertex("B").fromVertex("A");
         assertThat(vertex).hasId("A");
         assertThat(graph).hasEdge("A", "B");
     }
 
     @SimpleGraphs
-    void inEdges(SimpleGraph<String> graph) {
+    void inEdges(Graph<String> graph) {
         var edge1 = graph.edge("B", "A");
         var edge2 = graph.edge("C", "A");
         var edge3 = graph.edge("D", "A");
@@ -199,7 +199,7 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void outEdges(SimpleGraph<String> graph) {
+    void outEdges(Graph<String> graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("A", "C");
         var edge3 = graph.edge("A", "D");
@@ -209,7 +209,7 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void testEquals(SimpleGraph<String> graph) {
+    void testEquals(Graph<String> graph) {
         var vertex = graph.vertex("A");
         EqualsVerifier.forClass(vertex.getClass()).suppress(Warning.NONFINAL_FIELDS).verify();
     }

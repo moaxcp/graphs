@@ -14,9 +14,9 @@ import org.greenrobot.eventbus.Subscribe;
 public class GraphEventCheck {
 
     private final List<Class> classes = new ArrayList<>();
-    private final SimpleGraph actual;
+    private final Graph actual;
 
-    public GraphEventCheck(SimpleGraph actual) {
+    public GraphEventCheck(Graph actual) {
         this.actual = actual;
     }
 

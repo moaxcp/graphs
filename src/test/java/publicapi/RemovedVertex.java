@@ -2,12 +2,12 @@ package publicapi;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.SimpleGraph;
+import com.github.moaxcp.graphs.Graph;
 import testframework.SimpleGraphs;
 
 public class RemovedVertex {
     @SimpleGraphs
-    void setId(SimpleGraph graph) {
+    void setId(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.setId("B"));
@@ -15,7 +15,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void id(SimpleGraph graph) {
+    void id(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.id("B"));
@@ -23,7 +23,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void setProperty(SimpleGraph graph) {
+    void setProperty(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.setProperty("name", "value"));
@@ -31,7 +31,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void property(SimpleGraph graph) {
+    void property(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.property("name", "value"));
@@ -39,7 +39,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void removeProperty(SimpleGraph graph) {
+    void removeProperty(Graph graph) {
         var vertex = graph.vertex("A").property("name", "value");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.removeProperty("name"));
@@ -47,7 +47,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void connectsTo(SimpleGraph graph) {
+    void connectsTo(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsTo("B"));
@@ -55,7 +55,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void connectsFrom(SimpleGraph graph) {
+    void connectsFrom(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsFrom("B"));
@@ -63,7 +63,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void edgeTo(SimpleGraph graph) {
+    void edgeTo(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.edgeTo("B"));
@@ -71,7 +71,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void edgeFrom(SimpleGraph graph) {
+    void edgeFrom(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.edgeFrom("B"));
@@ -79,7 +79,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void adjacentEdges(SimpleGraph graph) {
+    void adjacentEdges(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.adjacentEdges());
@@ -87,7 +87,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void inEdges(SimpleGraph graph) {
+    void inEdges(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.inEdges());
@@ -95,7 +95,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void outEdges(SimpleGraph graph) {
+    void outEdges(Graph graph) {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.outEdges());

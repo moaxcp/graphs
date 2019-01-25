@@ -1,13 +1,13 @@
 package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import com.github.moaxcp.graphs.SimpleGraph;
+import com.github.moaxcp.graphs.Graph;
 import testframework.DirectedSimpleGraphs;
 
 public class DirectedGraphEdgeMethods {
 
     @DirectedSimpleGraphs
-    void twoEdgesConnectSameVertices(SimpleGraph<String> graph) {
+    void twoEdgesConnectSameVertices(Graph<String> graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("B", "A");
 
@@ -18,7 +18,7 @@ public class DirectedGraphEdgeMethods {
     }
 
     @DirectedSimpleGraphs
-    void otherEdgeIsNotRemoved(SimpleGraph<String> graph) {
+    void otherEdgeIsNotRemoved(Graph<String> graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("B", "A");
         graph.removeEdge("A", "B");

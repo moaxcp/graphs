@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-public class DirectedGraph<T> extends AbstractSimpleGraph<T> {
+public class DirectedGraph<T> extends AbstractGraph<T> {
 
     public DirectedGraph() {
 

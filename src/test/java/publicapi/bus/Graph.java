@@ -34,38 +34,38 @@ public class Graph {
     }
 
     @EventSimpleGraphs
-    void addProperty(SimpleEventGraph graph) {
+    void addProperty(EventGraph graph) {
         graph.id("graph");
         assertThat(graph).hasEventsIn(g -> g.property("name", "value"));
     }
 
     @EventSimpleGraphs
-    void removeProperty(SimpleEventGraph graph) {
+    void removeProperty(EventGraph graph) {
         graph.id("graph");
         graph.property("name", "value");
         assertThat(graph).hasEventsIn(g -> g.removeProperty("name"));
     }
 
     @EventSimpleGraphs
-    void updateProperty(SimpleEventGraph graph) {
+    void updateProperty(EventGraph graph) {
         graph.id("graph");
         graph.property("name", "value");
         assertThat(graph).hasEventsIn(g -> g.property("name", "value2"));
     }
 
     @EventSimpleGraphs
-    void addId(SimpleEventGraph<String> graph) {
+    void addId(EventGraph<String> graph) {
         assertThat(graph).hasEventsIn(g-> g.id("graph"));
     }
 
     @EventSimpleGraphs
-    void removeId(SimpleEventGraph<String> graph) {
+    void removeId(EventGraph<String> graph) {
         graph.id("graph");
         assertThat(graph).hasEventsIn(g-> g.id(null));
     }
 
     @EventSimpleGraphs
-    void updateId(SimpleEventGraph<String> graph) {
+    void updateId(EventGraph<String> graph) {
         graph.id("id1");
         assertThat(graph).hasEventsIn(g-> g.id("id2"));
     }

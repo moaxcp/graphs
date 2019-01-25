@@ -19,14 +19,14 @@ public class GraphSubjectTest {
 
     @Test
     public void doesHaveVertex() {
-        SimpleGraph graph = new UndirectedGraph();
+        Graph graph = new UndirectedGraph();
         graph.vertex("id");
         assertThat(graph).hasVertex("id");
     }
 
     @Test
     public void doesNotHaveEdge() {
-        SimpleGraph graph = new UndirectedGraph();
+        Graph graph = new UndirectedGraph();
         graph.vertex("A");
         graph.vertex("B");
 
@@ -38,12 +38,12 @@ public class GraphSubjectTest {
 
     @Test
     public void doesHaveEdge() {
-        SimpleGraph graph = new UndirectedGraph();
+        Graph graph = new UndirectedGraph();
         graph.edge("A", "B");
         assertThat(graph).hasEdge("A", "B");
     }
 
-    private static AssertionError expectError(SimpleSubjectBuilderCallback<GraphSubject, SimpleGraph> assertionCallback) {
+    private static AssertionError expectError(SimpleSubjectBuilderCallback<GraphSubject, Graph> assertionCallback) {
         return ExpectFailure.expectFailureAbout(graphs(), assertionCallback);
     }
 }

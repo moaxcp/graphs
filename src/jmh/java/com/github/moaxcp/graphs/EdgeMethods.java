@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.SimpleGraph.*;
+import com.github.moaxcp.graphs.Graph.*;
 import java.util.Set;
 import org.openjdk.jmh.annotations.*;
 
@@ -13,7 +13,7 @@ public class EdgeMethods {
     @Param({"true", "false"})
     public boolean directed;
 
-    private SimpleGraph<Integer> graph;
+    private Graph<Integer> graph;
     private Vertex<Integer> vertex;
     private Integer lastFrom;
     private Integer lastTo;

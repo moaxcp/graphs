@@ -35,7 +35,7 @@ public class GraphTest {
     }
 
     @NonEventSimpleGraphs
-    void testNonEventSimpleGraphEquals(SimpleGraph<String> graph) {
+    void testNonEventSimpleGraphEquals(Graph<String> graph) {
         EqualsVerifier
             .forClass(graph.getClass())
             .withIgnoredFields("edgeIds", "adjacentEdges", "inEdges", "outEdges")
@@ -44,7 +44,7 @@ public class GraphTest {
     }
 
     @EventSimpleGraphs
-    void testEventSimpleGraphEquals(SimpleGraph<String> graph) {
+    void testEventSimpleGraphEquals(Graph<String> graph) {
         EqualsVerifier
             .forClass(graph.getClass())
             .withIgnoredFields("edgeIds", "adjacentEdges", "inEdges", "outEdges", "bus")

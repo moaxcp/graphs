@@ -2,6 +2,6 @@ package com.github.moaxcp.graphs;
 
 import org.greenrobot.eventbus.EventBus;
 
-public interface SimpleEventGraph<T> extends SimpleGraph<T> {
+public interface EventGraph<T> extends Graph<T> {
     EventBus getBus();
 }

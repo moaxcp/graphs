@@ -9,7 +9,7 @@ import testframework.SimpleGraphs;
 public class GraphVertexMethods {
 
     @SimpleGraphs
-    void testRemoveVertex(SimpleGraph graph) {
+    void testRemoveVertex(Graph graph) {
         graph.edge("A", "B");
         graph.edge("A", "C");
         graph.edge("Z", "Y");
@@ -20,26 +20,26 @@ public class GraphVertexMethods {
     }
 
     @SimpleGraphs
-    void testRemoveNull(SimpleGraph graph) {
+    void testRemoveNull(Graph graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeVertex(null));
         assertThat(thrown).hasMessage("id must not be null.");
     }
 
     @SimpleGraphs
-    void testRemoveVertexMissing(SimpleGraph graph) {
+    void testRemoveVertexMissing(Graph graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeVertex("A"));
         assertThat(thrown).hasMessage("vertex 'A' not found.");
     }
 
     @SimpleGraphs
-    void addNewVertex(SimpleGraph graph) {
+    void addNewVertex(Graph graph) {
         var vertex = graph.vertex("id");
         assertThat(graph).hasVertex("id").isSameAs(vertex);
         assertThat(vertex).hasId("id");
     }
 
     @SimpleGraphs
-    void addExistingVertex(SimpleGraph graph) {
+    void addExistingVertex(Graph graph) {
         var vertexA = graph.vertex("A");
         var vertexB = graph.vertex("A");
         assertThat(vertexA).isSameAs(vertexB);

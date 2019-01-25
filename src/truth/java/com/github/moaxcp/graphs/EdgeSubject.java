@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs;
 import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.*;
 import static com.google.common.truth.Truth.*;
-import com.github.moaxcp.graphs.SimpleGraph.*;
+import com.github.moaxcp.graphs.Graph.*;
 import com.google.common.truth.*;
 import java.util.*;
 import org.checkerframework.checker.nullness.compatqual.*;

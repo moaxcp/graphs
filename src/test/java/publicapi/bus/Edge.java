@@ -7,35 +7,35 @@ import testframework.EventSimpleGraphs;
 
 public class Edge {
     @EventSimpleGraphs
-    void created(SimpleEventGraph<String> graph) {
+    void created(EventGraph<String> graph) {
         graph.id("id");
         assertThat(graph).hasEventsIn(g -> g.edge("A", "B"))
             .containsExactly(VertexCreated.class, VertexCreated.class, EdgeCreated.class).inOrder();
     }
 
     @EventSimpleGraphs
-    void notCreated(SimpleEventGraph<String> graph) {
+    void notCreated(EventGraph<String> graph) {
         graph.id("id");
         graph.edge("A", "B").id("id");
         assertThat(graph).hasNoEventsIn(g -> g.edge("A", "B"));
     }
 
     @EventSimpleGraphs
-    void removed(SimpleEventGraph<String> graph) {
+    void removed(EventGraph<String> graph) {
         graph.id("id");
         graph.edge("A", "B");
         assertThat(graph).hasEventsIn(g -> g.removeEdge("A", "B"));
     }
 
     @EventSimpleGraphs
-    void removeWithId(SimpleEventGraph<String> graph) {
+    void removeWithId(EventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
         assertThat(graph).hasEventsIn(g -> g.removeEdge("edge"));
     }
 
     @EventSimpleGraphs
-    void addProperty(SimpleEventGraph<String> graph) {
+    void addProperty(EventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
         assertThat(graph)
@@ -43,7 +43,7 @@ public class Edge {
     }
 
     @EventSimpleGraphs
-    void removeProperty(SimpleEventGraph<String> graph) {
+    void removeProperty(EventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
         assertThat(graph)
@@ -51,7 +51,7 @@ public class Edge {
     }
 
     @EventSimpleGraphs
-    void updateProperty(SimpleEventGraph<String> graph) {
+    void updateProperty(EventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
         assertThat(graph)
@@ -59,26 +59,26 @@ public class Edge {
     }
 
     @EventSimpleGraphs
-    void edgeIdAdded(SimpleEventGraph<String> graph) {
+    void edgeIdAdded(EventGraph<String> graph) {
         graph.edge("A", "B");
         assertThat(graph)
             .hasEventsIn(g -> g.edge("A", "B").id("edge"));
     }
 
     @EventSimpleGraphs
-    void edgeIdRemovedNoId(SimpleEventGraph<String> graph) {
+    void edgeIdRemovedNoId(EventGraph<String> graph) {
         graph.edge("A", "B");
         assertThat(graph).hasNoEventsIn(g -> g.edge("A", "B").id(null));
     }
 
     @EventSimpleGraphs
-    void edgeIdRemoved(SimpleEventGraph<String> graph) {
+    void edgeIdRemoved(EventGraph<String> graph) {
         graph.edge("A", "B").id("edge");
         assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id(null));
     }
 
     @EventSimpleGraphs
-    void edgeIdUpdated(SimpleEventGraph<String> graph) {
+    void edgeIdUpdated(EventGraph<String> graph) {
         graph.edge("A", "B").id("id1");
         assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id("id2"));
     }

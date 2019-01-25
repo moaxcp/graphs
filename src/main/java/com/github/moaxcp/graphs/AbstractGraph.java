@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 import java.util.*;
 
-abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
+abstract class AbstractGraph<T> implements Graph<T> {
 
     private static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
     private static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
@@ -140,7 +140,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
 
         @Override
         public final boolean isDirected() {
-            return AbstractSimpleGraph.this.isDirected();
+            return AbstractGraph.this.isDirected();
         }
 
         @Override
@@ -173,7 +173,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         @Override
         public final boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof AbstractSimpleGraph<?>.SimpleEdge)) return false;
+            if (!(o instanceof AbstractGraph<?>.SimpleEdge)) return false;
             SimpleEdge that = (SimpleEdge) o;
             return Objects.equals(id, that.id) &&
                 Objects.equals(from, that.from) &&
@@ -310,7 +310,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         @Override
         public final boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof AbstractSimpleGraph<?>.SimpleVertex)) return false;
+            if (!(o instanceof AbstractGraph<?>.SimpleVertex)) return false;
             SimpleVertex that = (SimpleVertex) o;
             return Objects.equals(id, that.id) &&
                 Objects.equals(local(), that.local()) &&
@@ -335,7 +335,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     private Map<T, Set<Edge<T>>> inEdges;
     private Map<T, Set<Edge<T>>> outEdges;
 
-    AbstractSimpleGraph() {
+    AbstractGraph() {
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashMap<>();
         edgeIds = new LinkedHashMap<>();
@@ -347,7 +347,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
         properties = new LinkedHashMap<>();
     }
 
-    AbstractSimpleGraph(T id) {
+    AbstractGraph(T id) {
         this();
         this.id = id;
     }
@@ -492,7 +492,7 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     }
 
     @Override
-    public SimpleGraph<T> id(T id) {
+    public Graph<T> id(T id) {
         setId(id);
         return this;
     }
@@ -513,13 +513,13 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     }
 
     @Override
-    public SimpleGraph<T> property(String name, Object value) {
+    public Graph<T> property(String name, Object value) {
         setProperty(name, value);
         return this;
     }
 
     @Override
-    public SimpleGraph<T> removeProperty(String name) {
+    public Graph<T> removeProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!properties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain property named '" + name + "'.");
@@ -544,13 +544,13 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     }
 
     @Override
-    public SimpleGraph<T> edgeProperty(String name, Object value) {
+    public Graph<T> edgeProperty(String name, Object value) {
         setEdgeProperty(name, value);
         return this;
     }
 
     @Override
-    public SimpleGraph<T> removeEdgeProperty(String name) {
+    public Graph<T> removeEdgeProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!edgeProperties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
@@ -575,13 +575,13 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     }
 
     @Override
-    public SimpleGraph<T> vertexProperty(String name, Object value) {
+    public Graph<T> vertexProperty(String name, Object value) {
         setVertexProperty(name, value);
         return this;
     }
 
     @Override
-    public SimpleGraph<T> removeVertexProperty(String name) {
+    public Graph<T> removeVertexProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!vertexProperties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
@@ -593,8 +593,8 @@ abstract class AbstractSimpleGraph<T> implements SimpleGraph<T> {
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AbstractSimpleGraph)) return false;
-        AbstractSimpleGraph<?> that = (AbstractSimpleGraph<?>) o;
+        if (!(o instanceof AbstractGraph)) return false;
+        AbstractGraph<?> that = (AbstractGraph<?>) o;
         return Objects.equals(id, that.id) && Objects.equals(properties, that.properties) && Objects.equals(vertexProperties, that.vertexProperties) && Objects.equals(edgeProperties, that.edgeProperties) && Objects.equals(vertices, that.vertices) && Objects.equals(edges, that.edges);
     }
 

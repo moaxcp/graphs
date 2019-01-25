@@ -5,12 +5,12 @@ import static com.github.moaxcp.graphs.VertexSubject.vertices;
 import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
-import com.github.moaxcp.graphs.SimpleGraph.*;
+import com.github.moaxcp.graphs.Graph.*;
 import com.google.common.truth.*;
 import java.util.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
+public final class GraphSubject extends Subject<GraphSubject, Graph> {
 
     /**
      * Constructor for use by subclasses. If you want to create an instance of this class itself, call
@@ -19,15 +19,15 @@ public final class GraphSubject extends Subject<GraphSubject, SimpleGraph> {
      * @param metadata
      * @param actual
      */
-    private GraphSubject(FailureMetadata metadata, SimpleGraph actual) {
+    private GraphSubject(FailureMetadata metadata, Graph actual) {
         super(metadata, actual);
     }
 
-    public static Subject.Factory<GraphSubject, SimpleGraph> graphs() {
+    public static Subject.Factory<GraphSubject, Graph> graphs() {
         return GraphSubject::new;
     }
 
-    static GraphSubject assertThat(@Nullable SimpleGraph actual) {
+    static GraphSubject assertThat(@Nullable Graph actual) {
         return assertAbout(graphs()).that(actual);
     }
 

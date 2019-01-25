@@ -6,13 +6,13 @@ import java.util.function.Consumer;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class EventGraphSubject extends Subject<EventGraphSubject, SimpleEventGraph> {
+public final class EventGraphSubject extends Subject<EventGraphSubject, EventGraph> {
 
-    public static Subject.Factory<EventGraphSubject, SimpleEventGraph> eventGraphs() {
+    public static Subject.Factory<EventGraphSubject, EventGraph> eventGraphs() {
         return EventGraphSubject::new;
     }
 
-    static EventGraphSubject assertThat(@Nullable SimpleEventGraph actual) {
+    static EventGraphSubject assertThat(@Nullable EventGraph actual) {
         return assertAbout(eventGraphs()).that(actual);
     }
 
@@ -23,11 +23,11 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, SimpleEv
      * @param metadata
      * @param actual
      */
-    protected EventGraphSubject(FailureMetadata metadata, @NullableDecl SimpleEventGraph actual) {
+    protected EventGraphSubject(FailureMetadata metadata, @NullableDecl EventGraph actual) {
         super(metadata, actual);
     }
 
-    public IterableSubject hasEventsIn(Consumer<SimpleEventGraph> action) {
+    public IterableSubject hasEventsIn(Consumer<EventGraph> action) {
         var check = new GraphEventCheck(actual());
         actual().getBus().register(check);
         action.accept(actual());
@@ -38,7 +38,7 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, SimpleEv
         return check("events").that(check.getEventClasses());
     }
 
-    public void hasNoEventsIn(Consumer<SimpleEventGraph> action) {
+    public void hasNoEventsIn(Consumer<EventGraph> action) {
         var check = new GraphEventCheck(actual());
         actual().getBus().register(check);
         action.accept(actual());

@@ -5,7 +5,7 @@ import com.github.moaxcp.graphs.events.*;
 import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> implements SimpleEventGraph<T> {
+public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements EventGraph<T> {
 
     public class EventEdge extends SimpleEdge {
         protected EventEdge(T from, T to, Map<String, Object> inherited) {
@@ -200,7 +200,7 @@ public abstract class AbstractEventGraph<T> extends AbstractSimpleGraph<T> imple
     }
 
     @Override
-    public SimpleGraph<T> removeProperty(String name) {
+    public Graph<T> removeProperty(String name) {
         var value = getProperty(name);
         super.removeProperty(name);
         bus.post(new GraphPropertyRemoved.Builder<T>()
