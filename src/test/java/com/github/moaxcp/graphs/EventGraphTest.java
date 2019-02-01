@@ -6,7 +6,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 import testframework.*;
 
-public class GraphTest {
+public class EventGraphTest {
     @Test
     void undirectedEventGraphBus() {
         var bus = EventBus.builder().build();

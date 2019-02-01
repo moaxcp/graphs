@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs;
 
 import java.util.Objects;
 
-public class UndirectedEdgeKey<T> extends EdgeKey<T> {
+final class UndirectedEdgeKey<T> extends EdgeKey<T> {
 
     public UndirectedEdgeKey(T from, T to) {
         super(from, to);
