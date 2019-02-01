@@ -20,6 +20,12 @@ public class GraphProperties {
     }
 
     @SimpleGraphs
+    void setIdNull(Graph graph) {
+        graph.setId(null);
+        assertThat(graph).hasIdThat().isEmpty();
+    }
+
+    @SimpleGraphs
     void id(Graph graph) {
         Graph next = graph.id("id");
         assertThat(graph).hasIdThat().hasValue("id");

@@ -199,6 +199,11 @@ public class VertexTest {
     }
 
     @SimpleGraphs
+    void inEdgesEmpty(Graph<String> graph) {
+        assertThat(graph.vertex("A").inEdges()).isEmpty();
+    }
+
+    @SimpleGraphs
     void outEdges(Graph<String> graph) {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("A", "C");
@@ -206,6 +211,11 @@ public class VertexTest {
         var result = graph.vertex("A").outEdges();
 
         assertThat(result).containsExactly(edge1, edge2, edge3);
+    }
+
+    @SimpleGraphs
+    void outEdgesEmpty(Graph<String> graph) {
+        assertThat(graph.vertex("A").outEdges()).isEmpty();
     }
 
     @SimpleGraphs
