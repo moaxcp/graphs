@@ -1,6 +1,7 @@
 package testframework;
 
 import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.greenrobot.*;
 import java.util.stream.Stream;
 import org.greenrobot.eventbus.EventBus;
 

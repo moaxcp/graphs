@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs;
 
 import static com.google.common.truth.Truth.assertThat;
+import com.github.moaxcp.graphs.greenrobot.*;
 import nl.jqno.equalsverifier.*;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;

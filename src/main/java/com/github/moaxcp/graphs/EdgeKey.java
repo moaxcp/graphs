@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs;
 
 import static java.util.Objects.requireNonNull;
 
-abstract class EdgeKey<T> {
+public abstract class EdgeKey<T> {
     private T from;
     private T to;
 

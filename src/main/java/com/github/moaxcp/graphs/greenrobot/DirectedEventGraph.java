@@ -1,5 +1,6 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.greenrobot;
 
+import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.DirectedGraphCreated;
 import org.greenrobot.eventbus.EventBus;
 
@@ -16,7 +17,7 @@ public class DirectedEventGraph<T> extends AbstractEventGraph<T> {
     }
 
     @Override
-    EdgeKey<T> newEdgeKey(T from, T to) {
+    protected EdgeKey<T> newEdgeKey(T from, T to) {
         return new DirectedEdgeKey<>(from, to);
     }
 

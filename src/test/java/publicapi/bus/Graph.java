@@ -4,6 +4,7 @@ import static com.github.moaxcp.graphs.Truth.assertThat;
 import static testframework.MethodSources.testEventBus;
 import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.greenrobot.*;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 import testframework.EventSimpleGraphs;

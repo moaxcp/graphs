@@ -415,7 +415,7 @@ abstract class AbstractGraph<T> implements Graph<T> {
         return new SimpleEdge(from, to, inherited);
     }
 
-    abstract EdgeKey<T> newEdgeKey(T from, T to);
+    protected abstract EdgeKey<T> newEdgeKey(T from, T to);
 
     Vertex<T> newVertex(T id, Map<String, Object> inherited) {
         return new SimpleVertex(id, inherited);

@@ -11,7 +11,7 @@ public class UndirectedGraph<T> extends AbstractGraph<T> {
     }
 
     @Override
-    EdgeKey<T> newEdgeKey(T from, T to) {
+    protected EdgeKey<T> newEdgeKey(T from, T to) {
         return new UndirectedEdgeKey<>(from, to);
     }
 
