@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 import java.util.*;
 
-abstract class AbstractGraph<T> implements Graph<T> {
+public abstract class AbstractGraph<T> implements Graph<T> {
 
     private static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
     private static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
@@ -335,7 +335,7 @@ abstract class AbstractGraph<T> implements Graph<T> {
     private Map<T, Set<Edge<T>>> inEdges;
     private Map<T, Set<Edge<T>>> outEdges;
 
-    AbstractGraph() {
+    protected AbstractGraph() {
         vertices = new LinkedHashMap<>();
         edges = new LinkedHashMap<>();
         edgeIds = new LinkedHashMap<>();
@@ -347,7 +347,7 @@ abstract class AbstractGraph<T> implements Graph<T> {
         properties = new LinkedHashMap<>();
     }
 
-    AbstractGraph(T id) {
+    protected AbstractGraph(T id) {
         this();
         this.id = id;
     }
@@ -373,7 +373,7 @@ abstract class AbstractGraph<T> implements Graph<T> {
         return findVertex(id).orElseGet(() -> addVertex(id));
     }
 
-    Vertex<T> addVertex(T id) {
+    protected Vertex<T> addVertex(T id) {
         var vertex = newVertex(id, vertexProperties);
         vertices.put(id, vertex);
         return vertex;
@@ -411,17 +411,17 @@ abstract class AbstractGraph<T> implements Graph<T> {
         return findEdge(from, to).orElseGet(() -> addEdge(from, to));
     }
 
-    Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
+    protected Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new SimpleEdge(from, to, inherited);
     }
 
     protected abstract EdgeKey<T> newEdgeKey(T from, T to);
 
-    Vertex<T> newVertex(T id, Map<String, Object> inherited) {
+    protected Vertex<T> newVertex(T id, Map<String, Object> inherited) {
         return new SimpleVertex(id, inherited);
     }
 
-    Edge<T> addEdge(T from, T to) {
+    protected Edge<T> addEdge(T from, T to) {
         vertex(from);
         vertex(to);
         var edge = newEdge(from, to, edgeProperties);

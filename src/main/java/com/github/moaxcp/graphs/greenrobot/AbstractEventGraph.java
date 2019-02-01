@@ -1,6 +1,7 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.greenrobot;
 
 import static java.util.Objects.requireNonNull;
+import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
 import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
@@ -212,17 +213,17 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     @Override
-    Vertex<T> newVertex(T id, Map<String, Object> inherited) {
+    protected Vertex<T> newVertex(T id, Map<String, Object> inherited) {
         return new EventVertex(id, inherited);
     }
 
     @Override
-    Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
+    protected Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
         return new EventEdge(from, to, inherited);
     }
 
     @Override
-    Edge<T> addEdge(T from, T to) {
+    protected Edge<T> addEdge(T from, T to) {
         var edge = super.addEdge(from, to);
         bus.post(new EdgeCreated.Builder<T>()
             .graphId(getId().orElse(null))
@@ -246,7 +247,7 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     @Override
-    Vertex<T> addVertex(T id) {
+    protected Vertex<T> addVertex(T id) {
         var vertex = super.addVertex(id);
         bus.post(new VertexCreated.Builder<T>()
             .graphId(getId().orElse(null))
