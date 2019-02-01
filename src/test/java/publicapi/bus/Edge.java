@@ -24,14 +24,14 @@ public class Edge {
     void removed(EventGraph<String> graph) {
         graph.id("id");
         graph.edge("A", "B");
-        assertThat(graph).hasEventsIn(g -> g.removeEdge("A", "B"));
+        assertThat(graph).hasEventsIn(g -> g.removeEdge("A", "B")).containsExactly(EdgeRemoved.class);
     }
 
     @EventSimpleGraphs
     void removeWithId(EventGraph<String> graph) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
-        assertThat(graph).hasEventsIn(g -> g.removeEdge("edge"));
+        assertThat(graph).hasEventsIn(g -> g.removeEdge("edge")).containsExactly(EdgeRemoved.class);
     }
 
     @EventSimpleGraphs
@@ -39,7 +39,7 @@ public class Edge {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
         assertThat(graph)
-            .hasEventsIn(g -> g.edge("A", "B").property("name", "value"));
+            .hasEventsIn(g -> g.edge("A", "B").property("name", "value")).containsExactly(EdgePropertyAdded.class);
     }
 
     @EventSimpleGraphs
@@ -47,7 +47,7 @@ public class Edge {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
         assertThat(graph)
-            .hasEventsIn(g -> g.edge("A", "B").removeProperty("name"));
+            .hasEventsIn(g -> g.edge("A", "B").removeProperty("name")).containsExactly(EdgePropertyRemoved.class);
     }
 
     @EventSimpleGraphs
@@ -55,14 +55,13 @@ public class Edge {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
         assertThat(graph)
-            .hasEventsIn(g -> g.edge("A", "B").property("name", "value2"));
+            .hasEventsIn(g -> g.edge("A", "B").property("name", "value2")).containsExactly(EdgePropertyUpdated.class);
     }
 
     @EventSimpleGraphs
     void edgeIdAdded(EventGraph<String> graph) {
         graph.edge("A", "B");
-        assertThat(graph)
-            .hasEventsIn(g -> g.edge("A", "B").id("edge"));
+        assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id("edge")).containsExactly(EdgeIdAdded.class);
     }
 
     @EventSimpleGraphs
@@ -74,12 +73,12 @@ public class Edge {
     @EventSimpleGraphs
     void edgeIdRemoved(EventGraph<String> graph) {
         graph.edge("A", "B").id("edge");
-        assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id(null));
+        assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id(null)).containsExactly(EdgeIdRemoved.class);
     }
 
     @EventSimpleGraphs
     void edgeIdUpdated(EventGraph<String> graph) {
         graph.edge("A", "B").id("id1");
-        assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id("id2"));
+        assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id("id2")).containsExactly(EdgeIdUpdated.class);
     }
 }

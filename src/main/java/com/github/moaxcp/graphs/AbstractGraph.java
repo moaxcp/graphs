@@ -395,12 +395,15 @@ abstract class AbstractGraph<T> implements Graph<T> {
     }
 
     public Optional<Edge<T>> findEdge(T from, T to) {
+        requireNonNull(from, "from must not be null.");
+        requireNonNull(to, "to must not be null.");
         var key = newEdgeKey(from, to);
         var edge = edges.get(key);
         return Optional.ofNullable(edge);
     }
 
     public Optional<Edge<T>> findEdge(T id) {
+        requireNonNull(id, "id must not be null.");
         return Optional.ofNullable(edgeIds.get(id));
     }
 
@@ -443,6 +446,8 @@ abstract class AbstractGraph<T> implements Graph<T> {
     }
 
     public void removeEdge(T from, T to) {
+        requireNonNull(from, "from must not be null.");
+        requireNonNull(to, "to must not be null.");
         EdgeKey<T> key = newEdgeKey(from, to);
         var edge = edges.remove(key);
         if(edge == null) {

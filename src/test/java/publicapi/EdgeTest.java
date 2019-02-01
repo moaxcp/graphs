@@ -151,16 +151,4 @@ public class EdgeTest {
         var edge = graph.edge("A", "B");
         EqualsVerifier.forClass(edge.getClass()).suppress(Warning.NONFINAL_FIELDS).verify();
     }
-
-    @SimpleGraphs
-    void removeByFromTo(Graph graph) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("A", "B"));
-        assertThat(thrown).hasMessageThat().isEqualTo("edge from 'A' to 'B' not found.");
-    }
-
-    @SimpleGraphs
-    void removeById(Graph graph) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("id"));
-        assertThat(thrown).hasMessageThat().isEqualTo("edge with id 'id' not found.");
-    }
 }

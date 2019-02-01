@@ -9,7 +9,7 @@ public class Vertex {
     @EventSimpleGraphs
     void created(EventGraph<String> graph) {
         graph.id("graph");
-        assertThat(graph).hasEventsIn(g -> g.vertex("A"));
+        assertThat(graph).hasEventsIn(g -> g.vertex("A")).containsExactly(VertexCreated.class);
     }
 
     @EventSimpleGraphs
@@ -23,7 +23,7 @@ public class Vertex {
     void remove(EventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A");
-        assertThat(graph).hasEventsIn(g -> g.removeVertex("A"));
+        assertThat(graph).hasEventsIn(g -> g.removeVertex("A")).containsExactly(VertexRemoved.class);
     }
 
     @EventSimpleGraphs
@@ -39,27 +39,27 @@ public class Vertex {
     void updateId(EventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A");
-        assertThat(graph).hasEventsIn(g -> g.vertex("A").id("B"));
+        assertThat(graph).hasEventsIn(g -> g.vertex("A").id("B")).containsExactly(VertexIdUpdated.class);
     }
 
     @EventSimpleGraphs
     void addProperty(EventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A");
-        assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value"));
+        assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value")).containsExactly(VertexPropertyAdded.class);
     }
 
     @EventSimpleGraphs
     void removeProperty(EventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A").property("name", "value");
-        assertThat(graph).hasEventsIn(g-> g.vertex("A").removeProperty("name"));
+        assertThat(graph).hasEventsIn(g-> g.vertex("A").removeProperty("name")).containsExactly(VertexPropertyRemoved.class);
     }
 
     @EventSimpleGraphs
     void updateProperty(EventGraph<String> graph) {
         graph.id("graph");
         graph.vertex("A").property("name", "value");
-        assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value2"));
+        assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value2")).containsExactly(VertexPropertyUpdated.class);
     }
 }
