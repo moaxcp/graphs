@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs;
 
 import static com.google.common.truth.Truth.assertAbout;
+import com.github.moaxcp.graphs.greenrobot.EventGraph;
 import com.google.common.truth.*;
 import java.util.function.Consumer;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;

@@ -1,17 +1,17 @@
 package com.github.moaxcp.graphs;
 
-public class UndirectedGraph<T> extends AbstractGraph<T> {
+public class UndirectedGraph<ID> extends AbstractGraph<ID> {
 
     public UndirectedGraph() {
 
     }
 
-    public UndirectedGraph(T id) {
+    public UndirectedGraph(ID id) {
         super(id);
     }
 
     @Override
-    protected EdgeKey<T> newEdgeKey(T from, T to) {
+    protected EdgeKey<ID> newEdgeKey(ID from, ID to) {
         return new UndirectedEdgeKey<>(from, to);
     }
 

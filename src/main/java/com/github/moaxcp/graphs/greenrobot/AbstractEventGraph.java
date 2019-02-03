@@ -6,22 +6,22 @@ import com.github.moaxcp.graphs.events.*;
 import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements EventGraph<T> {
+public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implements EventGraph<ID> {
 
     public class EventEdge extends SimpleEdge {
-        protected EventEdge(T from, T to, Map<String, Object> inherited) {
+        protected EventEdge(ID from, ID to, Map<String, Object> inherited) {
             super(from, to, inherited);
         }
 
         @Override
-        public void setId(T id) {
+        public void setId(ID id) {
             var oldId = getId();
             if(id == null && !oldId.isPresent()) {
                 return;
             }
             super.setId(id);
             if(id == null) {
-                bus.post(new EdgeIdRemoved.Builder<T>()
+                bus.post(new EdgeIdRemoved.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .edgeId(oldId.orElse(null))
                     .from(getFrom())
@@ -30,7 +30,7 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
                 return;
             }
             if(oldId.isPresent()) {
-                bus.post(new EdgeIdUpdated.Builder<T>()
+                bus.post(new EdgeIdUpdated.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .edgeId(id)
                     .oldEdgeId(oldId.orElse(null))
@@ -38,7 +38,7 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
                     .to(getTo())
                     .build());
             } else {
-                bus.post(new EdgeIdAdded.Builder<T>()
+                bus.post(new EdgeIdAdded.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .edgeId(id)
                     .from(getFrom())
@@ -52,7 +52,7 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
             var oldValue = getProperty(name);
             super.setProperty(name, value);
             if(oldValue.isPresent()) {
-                bus.post(new EdgePropertyUpdated.Builder<T>()
+                bus.post(new EdgePropertyUpdated.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .edgeId(getId().orElse(null))
                     .from(getFrom())
@@ -62,7 +62,7 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
                     .oldValue(oldValue.orElse(null))
                     .build());
             } else {
-                bus.post(new EdgePropertyAdded.Builder<T>()
+                bus.post(new EdgePropertyAdded.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .edgeId(getId().orElse(null))
                     .from(getFrom())
@@ -74,10 +74,10 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
         }
 
         @Override
-        public Edge<T> removeProperty(String name) {
+        public Edge<ID> removeProperty(String name) {
             var value = getProperty(name);
             var edge = super.removeProperty(name);
-            bus.post(new EdgePropertyRemoved.Builder<T>()
+            bus.post(new EdgePropertyRemoved.Builder<ID>()
                 .graphId(AbstractEventGraph.this.getId().orElse(null))
                 .edgeId(getId().orElse(null))
                 .from(getFrom())
@@ -90,15 +90,15 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     public class EventVertex extends SimpleVertex {
-        protected EventVertex(T id, Map<String, Object> inherited) {
+        protected EventVertex(ID id, Map<String, Object> inherited) {
             super(id, inherited);
         }
 
         @Override
-        public void setId(T id) {
-            T oldId = getId();
+        public void setId(ID id) {
+            ID oldId = getId();
             super.setId(id);
-            bus.post(new VertexIdUpdated.Builder<T>()
+            bus.post(new VertexIdUpdated.Builder<ID>()
                 .graphId(AbstractEventGraph.this.getId().orElse(null))
                 .oldVertexId(oldId)
                 .vertexId(id)
@@ -110,7 +110,7 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
             var oldValue = getProperty(name);
             super.setProperty(name, value);
             if(oldValue.isPresent()) {
-                bus.post(new VertexPropertyUpdated.Builder<T>()
+                bus.post(new VertexPropertyUpdated.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .vertexId(getId())
                     .name(name)
@@ -118,7 +118,7 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
                     .oldValue(oldValue.orElse(null))
                     .build());
             } else {
-                bus.post(new VertexPropertyAdded.Builder<T>()
+                bus.post(new VertexPropertyAdded.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
                     .vertexId(getId())
                     .name(name)
@@ -128,10 +128,10 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
         }
 
         @Override
-        public Vertex<T> removeProperty(String name) {
+        public Vertex<ID> removeProperty(String name) {
             var value = getProperty(name);
             var vertex = super.removeProperty(name);
-            bus.post(new VertexPropertyRemoved.Builder<T>()
+            bus.post(new VertexPropertyRemoved.Builder<ID>()
                 .graphId(AbstractEventGraph.this.getId().orElse(null))
                 .vertexId(getId())
                 .name(name)
@@ -147,7 +147,7 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
         this.bus = requireNonNull(bus, "bus must not be null.");
     }
 
-    public AbstractEventGraph(T id, EventBus bus) {
+    public AbstractEventGraph(ID id, EventBus bus) {
         super(id);
         this.bus = requireNonNull(bus, "bus must not be null.");
     }
@@ -157,25 +157,25 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     @Override
-    public void setId(T id) {
+    public void setId(ID id) {
         var oldId = getId();
         super.setId(id);
         if(id == null && !oldId.isPresent()) {
             return;
         }
         if(id == null) {
-            bus.post(new GraphIdRemoved.Builder<T>()
+            bus.post(new GraphIdRemoved.Builder<ID>()
                 .graphId(oldId.orElse(null))
                 .build());
             return;
         }
         if(oldId.isPresent()) {
-            bus.post(new GraphIdUpdated.Builder<T>()
+            bus.post(new GraphIdUpdated.Builder<ID>()
                 .graphId(id)
                 .oldGraphId(oldId.orElse(null))
                 .build());
         } else {
-            bus.post(new GraphIdAdded.Builder<T>()
+            bus.post(new GraphIdAdded.Builder<ID>()
                 .graphId(id)
                 .build());
         }
@@ -186,13 +186,13 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
         var oldValue = getProperty(name);
         super.setProperty(name, value);
         if(oldValue.isPresent()) {
-            bus.post(new GraphPropertyUpdated.Builder<T>()
+            bus.post(new GraphPropertyUpdated.Builder<ID>()
                 .graphId(getId().orElse(null))
                 .name(name).value(value)
                 .oldValue(oldValue.orElse(null))
                 .build());
         } else {
-            bus.post(new GraphPropertyAdded.Builder<T>()
+            bus.post(new GraphPropertyAdded.Builder<ID>()
                 .graphId(getId().orElse(null))
                 .name(name)
                 .value(value)
@@ -201,10 +201,10 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     @Override
-    public Graph<T> removeProperty(String name) {
+    public Graph<ID> removeProperty(String name) {
         var value = getProperty(name);
         super.removeProperty(name);
-        bus.post(new GraphPropertyRemoved.Builder<T>()
+        bus.post(new GraphPropertyRemoved.Builder<ID>()
             .graphId(getId().orElse(null))
             .name(name)
             .value(value)
@@ -213,19 +213,19 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     @Override
-    protected Vertex<T> newVertex(T id, Map<String, Object> inherited) {
+    protected Vertex<ID> newVertex(ID id, Map<String, Object> inherited) {
         return new EventVertex(id, inherited);
     }
 
     @Override
-    protected Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
+    protected Edge<ID> newEdge(ID from, ID to, Map<String, Object> inherited) {
         return new EventEdge(from, to, inherited);
     }
 
     @Override
-    protected Edge<T> addEdge(T from, T to) {
+    protected Edge<ID> addEdge(ID from, ID to) {
         var edge = super.addEdge(from, to);
-        bus.post(new EdgeCreated.Builder<T>()
+        bus.post(new EdgeCreated.Builder<ID>()
             .graphId(getId().orElse(null))
             .from(from)
             .to(to)
@@ -234,11 +234,11 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     @Override
-    public void removeEdge(T from, T to) {
+    public void removeEdge(ID from, ID to) {
         var optional = findEdge(from, to);
         super.removeEdge(from, to);
         optional.ifPresent(edge -> bus.post(
-            new EdgeRemoved.Builder<T>()
+            new EdgeRemoved.Builder<ID>()
                 .graphId(getId().orElse(null))
                 .edgeId(edge.getId().orElse(null))
                 .from(edge.getFrom())
@@ -247,9 +247,9 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     @Override
-    protected Vertex<T> addVertex(T id) {
+    protected Vertex<ID> addVertex(ID id) {
         var vertex = super.addVertex(id);
-        bus.post(new VertexCreated.Builder<T>()
+        bus.post(new VertexCreated.Builder<ID>()
             .graphId(getId().orElse(null))
             .vertexId(id)
             .build());
@@ -257,10 +257,10 @@ public abstract class AbstractEventGraph<T> extends AbstractGraph<T> implements 
     }
 
     @Override
-    public void removeVertex(T id) {
+    public void removeVertex(ID id) {
         var optional = findVertex(id);
         super.removeVertex(id);
-        optional.ifPresent(vertex -> bus.post(new VertexRemoved.Builder<T>()
+        optional.ifPresent(vertex -> bus.post(new VertexRemoved.Builder<ID>()
             .graphId(getId().orElse(null))
             .vertexId(id)
             .build()));

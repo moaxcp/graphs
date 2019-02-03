@@ -1,17 +1,17 @@
 package com.github.moaxcp.graphs;
 
-public class DirectedGraph<T> extends AbstractGraph<T> {
+public class DirectedGraph<ID> extends AbstractGraph<ID> {
 
     public DirectedGraph() {
 
     }
 
-    public DirectedGraph(T id) {
+    public DirectedGraph(ID id) {
         super(id);
     }
 
     @Override
-    protected EdgeKey<T> newEdgeKey(T from, T to) {
+    protected EdgeKey<ID> newEdgeKey(ID from, ID to) {
         return new DirectedEdgeKey<>(from, to);
     }
 

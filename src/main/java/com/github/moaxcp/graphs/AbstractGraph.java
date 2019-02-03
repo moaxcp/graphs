@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 import java.util.*;
 
-public abstract class AbstractGraph<T> implements Graph<T> {
+public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     private static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
     private static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
@@ -15,31 +15,31 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     /**
      * Edge represents an undirected edge in this graph.
      */
-    public class SimpleEdge extends InheritingElement<Edge<T>> implements Edge<T> {
-        private T id;
-        private T from;
-        private T to;
+    public class SimpleEdge extends InheritingElement<Edge<ID>> implements Edge<ID> {
+        private ID id;
+        private ID from;
+        private ID to;
 
-        protected SimpleEdge(T from, T to, Map<String, Object> inherited) {
+        protected SimpleEdge(ID from, ID to, Map<String, Object> inherited) {
             super(inherited);
             this.from = from;
             this.to = to;
         }
 
         private void check() {
-            EdgeKey<T> key = newEdgeKey(from, to);
+            EdgeKey<ID> key = newEdgeKey(from, to);
             if(!edges.keySet().contains(key)) {
                 throw new IllegalStateException("Edge is not in graph.");
             }
         }
 
         @Override
-        public final Optional<T> getId() {
+        public final Optional<ID> getId() {
             return Optional.ofNullable(id);
         }
 
         @Override
-        public void setId(T id) {
+        public void setId(ID id) {
             check();
             edgeIds.remove(this.id);
             if(id != null) {
@@ -49,7 +49,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         }
 
         @Override
-        public final Edge<T> id(T id) {
+        public final Edge<ID> id(ID id) {
             setId(id);
             return self();
         }
@@ -59,7 +59,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
          * @return id of "from" {@link Vertex}
          */
         @Override
-        public final T getFrom() {
+        public final ID getFrom() {
             return from;
         }
 
@@ -68,14 +68,14 @@ public abstract class AbstractGraph<T> implements Graph<T> {
          * @param from
          */
         @Override
-        public void setFrom(T from) {
+        public void setFrom(ID from) {
             check();
             requireNonNull(from, "from must not be null.");
-            EdgeKey<T> oldKey = newEdgeKey(this.from, this.to);
+            EdgeKey<ID> oldKey = newEdgeKey(this.from, this.to);
             edges.remove(oldKey);
             vertex(from);
             this.from = from;
-            EdgeKey<T> key = newEdgeKey(this.from, this.to);
+            EdgeKey<ID> key = newEdgeKey(this.from, this.to);
             edges.put(key, this);
         }
 
@@ -86,13 +86,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
          * @return this edge
          */
         @Override
-        public Edge<T> from(T from) {
+        public Edge<ID> from(ID from) {
             setFrom(from);
             return this;
         }
 
         @Override
-        public final T from() {
+        public final ID from() {
             return getFrom();
         }
 
@@ -101,7 +101,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
          * @return id of "to" {@link Vertex}
          */
         @Override
-        public final T getTo() {
+        public final ID getTo() {
             return to;
         }
 
@@ -110,14 +110,14 @@ public abstract class AbstractGraph<T> implements Graph<T> {
          * @param to {@link Vertex} id for "to" vertex
          */
         @Override
-        public void setTo(T to) {
+        public void setTo(ID to) {
             check();
             Objects.requireNonNull(to, "to must not be null.");
-            EdgeKey<T> oldKey = newEdgeKey(this.from, this.to);
+            EdgeKey<ID> oldKey = newEdgeKey(this.from, this.to);
             edges.remove(oldKey);
             vertex(to);
             this.to = to;
-            EdgeKey<T> key = newEdgeKey(this.from, this.to);
+            EdgeKey<ID> key = newEdgeKey(this.from, this.to);
             edges.put(key, this);
         }
 
@@ -128,13 +128,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
          * @return this edge
          */
         @Override
-        public final Edge<T> to(T to) {
+        public final Edge<ID> to(ID to) {
             setTo(to);
             return this;
         }
 
         @Override
-        public final T to() {
+        public final ID to() {
             return getTo();
         }
 
@@ -144,16 +144,18 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         }
 
         @Override
-        public final List<T> endpoints() {
+        public final List<ID> endpoints() {
             return List.of(from, to);
         }
 
-        public final Vertex<T> fromVertex() {
+        @Override
+        public final Vertex<ID> fromVertex() {
             check();
             return vertex(getFrom());
         }
 
-        public final Vertex<T> toVertex() {
+        @Override
+        public final Vertex<ID> toVertex() {
             check();
             return vertex(getTo());
         }
@@ -165,7 +167,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         }
 
         @Override
-        public Edge<T> removeProperty(String name) {
+        public Edge<ID> removeProperty(String name) {
             check();
             return super.removeProperty(name);
         }
@@ -191,10 +193,10 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     /**
      * Vertex represents a vertex in this graph.
      */
-    public class SimpleVertex extends InheritingElement<Vertex<T>> implements Vertex<T> {
-        private T id;
+    public class SimpleVertex extends InheritingElement<Vertex<ID>> implements Vertex<ID> {
+        private ID id;
 
-        protected SimpleVertex(T id, Map<String, Object> inherited) {
+        protected SimpleVertex(ID id, Map<String, Object> inherited) {
             super(inherited);
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
             this.id = id;
@@ -206,20 +208,20 @@ public abstract class AbstractGraph<T> implements Graph<T> {
             }
         }
 
-        public T getId() {
+        public ID getId() {
             return id;
         }
 
         @Override
-        public void setId(T id) {
+        public void setId(ID id) {
             check();
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
-            Set<? extends Edge<T>> adjacent = adjacentEdges();
+            Set<? extends Edge<ID>> adjacent = adjacentEdges();
             Object oldId = getId();
             vertices.remove(this.getId());
             this.id = id;
             vertices.put(id, this);
-            for (Edge<T> edge : adjacent) {
+            for (Edge<ID> edge : adjacent) {
                 if (edge.getFrom().equals(oldId)) {
                     edge.setFrom(id);
                 }
@@ -229,7 +231,8 @@ public abstract class AbstractGraph<T> implements Graph<T> {
             }
         }
 
-        public Vertex<T> id(T id) {
+        @Override
+        public Vertex<ID> id(ID id) {
             setId(id);
             return self();
         }
@@ -241,66 +244,74 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         }
 
         @Override
-        public Vertex<T> removeProperty(String name) {
+        public Vertex<ID> removeProperty(String name) {
             check();
             super.removeProperty(name);
             return self();
         }
 
-        public Vertex<T> connectsTo(T to) {
+        @Override
+        public Vertex<ID> connectsTo(ID to) {
             check();
             edge(getId(), to);
             return this;
         }
 
-        public Vertex<T> connectsFrom(T s) {
+        @Override
+        public Vertex<ID> connectsFrom(ID s) {
             check();
             edge(s, getId());
             return this;
         }
 
-        public Edge<T> edgeTo(T to) {
+        @Override
+        public Edge<ID> edgeTo(ID to) {
             check();
             return edge(getId(), to);
         }
 
-        public Edge<T> edgeFrom(T from) {
+        @Override
+        public Edge<ID> edgeFrom(ID from) {
             check();
             return edge(from, getId());
         }
 
-        public Vertex<T> toVertex(T id) {
+        @Override
+        public Vertex<ID> toVertex(ID id) {
             check();
             return edgeTo(id).toVertex();
         }
 
-        public Vertex<T> fromVertex(T id) {
+        @Override
+        public Vertex<ID> fromVertex(ID id) {
             check();
             return edgeFrom(id).fromVertex();
         }
 
         @Override
-        public Set<Edge<T>> adjacentEdges() {
+        public Set<Edge<ID>> adjacentEdges() {
             check();
-            Set<Edge<T>> edges = adjacentEdges.get(id);
+            Set<Edge<ID>> edges = adjacentEdges.get(id);
             if(edges == null) {
                 return Collections.emptySet();
             }
             return unmodifiableSet(edges);
         }
+
         @Override
-        public Set<Edge<T>> inEdges() {
+        public Set<Edge<ID>> inEdges() {
             check();
-            Set<Edge<T>> edges = inEdges.get(id);
+            Set<Edge<ID>> edges = inEdges.get(id);
             if(edges == null) {
                 return Collections.emptySet();
             }
             return unmodifiableSet(edges);
         }
+
         @Override
-        public Set<Edge<T>> outEdges() {
+        public Set<Edge<ID>> outEdges() {
             check();
-            Set<Edge<T>> edges = outEdges.get(id);
+            Set<Edge<ID>> edges = outEdges.get(id);
             if(edges == null) {
                 return Collections.emptySet();
             }
@@ -324,16 +335,16 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     }
 
 
-    private T id;
+    private ID id;
     private Map<String, Object> properties;
     private Map<String, Object> vertexProperties;
     private Map<String, Object> edgeProperties;
-    private Map<T, Vertex<T>> vertices;
-    private Map<EdgeKey<T>, Edge<T>> edges;
-    private Map<T, Edge<T>> edgeIds;
-    private Map<T, Set<Edge<T>>> adjacentEdges;
-    private Map<T, Set<Edge<T>>> inEdges;
-    private Map<T, Set<Edge<T>>> outEdges;
+    private Map<ID, Vertex<ID>> vertices;
+    private Map<EdgeKey<ID>, Edge<ID>> edges;
+    private Map<ID, Edge<ID>> edgeIds;
+    private Map<ID, Set<Edge<ID>>> adjacentEdges;
+    private Map<ID, Set<Edge<ID>>> inEdges;
+    private Map<ID, Set<Edge<ID>>> outEdges;
 
     protected AbstractGraph() {
         vertices = new LinkedHashMap<>();
@@ -347,39 +358,42 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         properties = new LinkedHashMap<>();
     }
 
-    protected AbstractGraph(T id) {
+    protected AbstractGraph(ID id) {
         this();
         this.id = id;
     }
 
     @Override
-    public Map<T, Vertex<T>> getVertices() {
+    public Map<ID, Vertex<ID>> getVertices() {
         return Collections.unmodifiableMap(vertices);
     }
 
     @Override
-    public Collection<Edge<T>> getEdges() {
+    public Collection<Edge<ID>> getEdges() {
         return Collections.unmodifiableCollection(edges.values());
     }
 
     @Override
-    public Map<T, Edge<T>> getEdgeIds() { return Collections.unmodifiableMap(edgeIds); }
+    public Map<ID, Edge<ID>> getEdgeIds() { return Collections.unmodifiableMap(edgeIds); }
 
-    public Optional<Vertex<T>> findVertex(T id) {
+    @Override
+    public Optional<Vertex<ID>> findVertex(ID id) {
         return Optional.ofNullable(vertices.get(id));
     }
 
-    public Vertex<T> vertex(T id) {
+    @Override
+    public Vertex<ID> vertex(ID id) {
         return findVertex(id).orElseGet(() -> addVertex(id));
     }
 
-    protected Vertex<T> addVertex(T id) {
+    protected Vertex<ID> addVertex(ID id) {
         var vertex = newVertex(id, vertexProperties);
         vertices.put(id, vertex);
         return vertex;
     }
 
-    public void removeVertex(T id) {
+    @Override
+    public void removeVertex(ID id) {
         Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
         var optional = findVertex(id);
         if (!optional.isPresent()) {
@@ -394,7 +408,8 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         vertices.remove(id);
     }
 
-    public Optional<Edge<T>> findEdge(T from, T to) {
+    @Override
+    public Optional<Edge<ID>> findEdge(ID from, ID to) {
         requireNonNull(from, "from must not be null.");
         requireNonNull(to, "to must not be null.");
         var key = newEdgeKey(from, to);
@@ -402,26 +417,28 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         return Optional.ofNullable(edge);
     }
 
-    public Optional<Edge<T>> findEdge(T id) {
+    @Override
+    public Optional<Edge<ID>> findEdge(ID id) {
         requireNonNull(id, "id must not be null.");
         return Optional.ofNullable(edgeIds.get(id));
     }
 
-    public Edge<T> edge(T from, T to) {
+    @Override
+    public Edge<ID> edge(ID from, ID to) {
         return findEdge(from, to).orElseGet(() -> addEdge(from, to));
     }
 
-    protected Edge<T> newEdge(T from, T to, Map<String, Object> inherited) {
+    protected Edge<ID> newEdge(ID from, ID to, Map<String, Object> inherited) {
         return new SimpleEdge(from, to, inherited);
     }
 
-    protected abstract EdgeKey<T> newEdgeKey(T from, T to);
+    protected abstract EdgeKey<ID> newEdgeKey(ID from, ID to);
 
-    protected Vertex<T> newVertex(T id, Map<String, Object> inherited) {
+    protected Vertex<ID> newVertex(ID id, Map<String, Object> inherited) {
         return new SimpleVertex(id, inherited);
     }
 
-    protected Edge<T> addEdge(T from, T to) {
+    protected Edge<ID> addEdge(ID from, ID to) {
         vertex(from);
         vertex(to);
         var edge = newEdge(from, to, edgeProperties);
@@ -434,7 +451,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         return edge;
     }
 
-    private Set<Edge<T>> mergeSet(Edge<T> edge, Set<Edge<T>> set) {
+    private Set<Edge<ID>> mergeSet(Edge<ID> edge, Set<Edge<ID>> set) {
         if(set == null) {
             set = new LinkedHashSet<>();
             set.add(edge);
@@ -445,10 +462,11 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         return set;
     }
 
-    public void removeEdge(T from, T to) {
+    @Override
+    public void removeEdge(ID from, ID to) {
         requireNonNull(from, "from must not be null.");
         requireNonNull(to, "to must not be null.");
-        EdgeKey<T> key = newEdgeKey(from, to);
+        EdgeKey<ID> key = newEdgeKey(from, to);
         var edge = edges.remove(key);
         if(edge == null) {
             throw new IllegalArgumentException("edge from '" + from + "' to '" + to + "' not found.");
@@ -477,7 +495,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     }
 
     @Override
-    public void removeEdge(T id) {
+    public void removeEdge(ID id) {
         requireNonNull(id, ID_MUST_NOT_BE_NULL);
         var optional = findEdge(id);
         optional.ifPresent(edge -> removeEdge(edge.getFrom(), edge.getTo()));
@@ -487,17 +505,17 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     }
 
     @Override
-    public Optional<T> getId() {
+    public Optional<ID> getId() {
         return Optional.ofNullable(id);
     }
 
     @Override
-    public void setId(T id) {
+    public void setId(ID id) {
         this.id = id;
     }
 
     @Override
-    public Graph<T> id(T id) {
+    public Graph<ID> id(ID id) {
         setId(id);
         return this;
     }
@@ -518,13 +536,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     }
 
     @Override
-    public Graph<T> property(String name, Object value) {
+    public Graph<ID> property(String name, Object value) {
         setProperty(name, value);
         return this;
     }
 
     @Override
-    public Graph<T> removeProperty(String name) {
+    public Graph<ID> removeProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!properties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain property named '" + name + "'.");
@@ -549,13 +567,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     }
 
     @Override
-    public Graph<T> edgeProperty(String name, Object value) {
+    public Graph<ID> edgeProperty(String name, Object value) {
         setEdgeProperty(name, value);
         return this;
     }
 
     @Override
-    public Graph<T> removeEdgeProperty(String name) {
+    public Graph<ID> removeEdgeProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!edgeProperties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
@@ -580,13 +598,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     }
 
     @Override
-    public Graph<T> vertexProperty(String name, Object value) {
+    public Graph<ID> vertexProperty(String name, Object value) {
         setVertexProperty(name, value);
         return this;
     }
 
     @Override
-    public Graph<T> removeVertexProperty(String name) {
+    public Graph<ID> removeVertexProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!vertexProperties.containsKey(name)) {
             throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");

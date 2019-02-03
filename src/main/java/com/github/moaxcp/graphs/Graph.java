@@ -14,21 +14,21 @@ import java.util.*;
  *
  * <p>Undirected graphs ignore 'from'/'to' order in edges.</p>
  *
- * @param <T> type of all identifiers in graph
+ * @param <ID> type of all identifiers in graph
  */
-public interface Graph<T> {
+public interface Graph<ID> {
     /**
      * Vertex of graph. A vertex must have an identifier unique to all vertices in the graph.
      *
-     * @param <T> type of identifier
+     * @param <ID> type of identifier
      */
-    public interface Vertex<T> {
+    public interface Vertex<ID> {
         /**
          * returns identifier of vertex.
          *
          * @return identifier of vertex
          */
-        T getId();
+        ID getId();
 
         /**
          * sets identifier of vertex.
@@ -36,7 +36,7 @@ public interface Graph<T> {
          * @param id identifier of vertex
          * @throws NullPointerException if id is null
          */
-        void setId(T id);
+        void setId(ID id);
 
         /**
          * sets identifier of this vertex. This vertex is returned.
@@ -45,7 +45,7 @@ public interface Graph<T> {
          * @return this vertex
          * @throws NullPointerException if id is null
          */
-        Vertex<T> id(T id);
+        Vertex<ID> id(ID id);
 
         /**
          * Ensures this vertex connects to the vertex with an 'id' property equal to the 'to' parameter. The
@@ -62,7 +62,7 @@ public interface Graph<T> {
          * @return this vertex
          * @throws NullPointerException if to is null
          */
-        Vertex<T> connectsTo(T to);
+        Vertex<ID> connectsTo(ID to);
 
         /**
          * Ensures this vertex connects to the vertex with an 'id' property equal to the 'from' parameter. The
@@ -79,7 +79,7 @@ public interface Graph<T> {
          * @return this vertex
          * @throws NullPointerException if from is null
          */
-        Vertex<T> connectsFrom(T from);
+        Vertex<ID> connectsFrom(ID from);
 
         /**
          * Ensures this vertex connects to the vertex with an 'id' property equal to the 'to' parameter. The
@@ -96,7 +96,7 @@ public interface Graph<T> {
          * @return edge between this vertex and the 'to' vertex
          * @throws NullPointerException if to is null
          */
-        Edge<T> edgeTo(T to);
+        Edge<ID> edgeTo(ID to);
 
         /**
          * Ensures this vertex connects to the vertex with an 'id' property equal to the 'from' parameter. The
@@ -113,7 +113,7 @@ public interface Graph<T> {
          * @return edge from 'from' vertex to this vertex
          * @throws NullPointerException if from is null
          */
-        Edge<T> edgeFrom(T from);
+        Edge<ID> edgeFrom(ID from);
 
         /**
          * Ensures this vertex connects to the vertex with an 'id' property equal to the 'to' parameter. The
@@ -130,7 +130,7 @@ public interface Graph<T> {
          * @return 'to' vertex
          * @throws NullPointerException if to is null
          */
-        Vertex<T> toVertex(T to);
+        Vertex<ID> toVertex(ID to);
 
         /**
          * Ensures this vertex connects to the vertex with an 'id' property equal to the 'from' parameter. The
@@ -147,28 +147,28 @@ public interface Graph<T> {
          * @return 'from' vertex
          * @throws NullPointerException if from is null
          */
-        Vertex<T> fromVertex(T from);
+        Vertex<ID> fromVertex(ID from);
 
         /**
          * Returns the set of all edges connecting to this vertex.
          *
          * @return set of adjacent edges
          */
-        Set<Edge<T>> adjacentEdges();
+        Set<Edge<ID>> adjacentEdges();
 
         /**
          * Returns the set of edges connecting to this vertex where 'to' is the 'id' of this vertex
          *
          * @return incoming edges
          */
-        Set<Edge<T>> inEdges();
+        Set<Edge<ID>> inEdges();
 
         /**
          * Returns the set of edges connecting to this vertex where 'from' is the 'id' of this vertex
          *
          * @return outgoing edges
          */
-        Set<Edge<T>> outEdges();
+        Set<Edge<ID>> outEdges();
 
         /**
          * Returns {@link Optional} of a property. If the property does not exist the returned {@link Optional} is
@@ -200,7 +200,7 @@ public interface Graph<T> {
          * @return this vertex
          * @throws NullPointerException if name or value is null
          */
-        Vertex<T> property(String name, Object value);
+        Vertex<ID> property(String name, Object value);
 
         /**
          * Removes property from local properties returning this vertex.
@@ -209,7 +209,7 @@ public interface Graph<T> {
          * @return this vertex
          * @throws NullPointerException if name is null
          */
-        Vertex<T> removeProperty(String name);
+        Vertex<ID> removeProperty(String name);
 
         /**
          * Returns an unmodifiable map of inherited properties
@@ -230,15 +230,15 @@ public interface Graph<T> {
      * An edge between two vertices in a graph. Edge direction depends on graph type. If the graph is directed
      * {@link #isDirected()} will return true.
      *
-     * @param <T> type of identifier
+     * @param <ID> type of identifier
      */
-    public interface Edge<T> {
+    public interface Edge<ID> {
         /**
          * Returns optional identifier of this edge.
          *
          * @return optional identifier
          */
-        Optional<T> getId();
+        Optional<ID> getId();
 
         /**
          * Sets identifier of this edge.
@@ -246,7 +246,7 @@ public interface Graph<T> {
          * @param id of edge
          * @throws NullPointerException if id is null
          */
-        void setId(T id);
+        void setId(ID id);
 
         /**
          * Sets identifier of this edge.
@@ -255,14 +255,14 @@ public interface Graph<T> {
          * @return this edge
          * @throws NullPointerException if id is null
          */
-        Edge<T> id(T id);
+        Edge<ID> id(ID id);
 
         /**
          * Returns vertex id of 'from' endpoint.
          *
          * @return id of 'from' endpoint
          */
-        T getFrom();
+        ID getFrom();
 
         /**
          * Sets vertex id of 'from' endpoint. If vertex does not exist it is created.
@@ -270,14 +270,14 @@ public interface Graph<T> {
          * @param from endpoint
          * @throws NullPointerException if from is null
          */
-        void setFrom(T from);
+        void setFrom(ID from);
 
         /**
          * Returns vertex id of 'from' endpoint.
          *
          * @return id of 'from' endpoint
          */
-        T from();
+        ID from();
 
         /**
          * Sets vertex id of 'from' endpoint. If vertex does not exist it is created.
@@ -286,14 +286,14 @@ public interface Graph<T> {
          * @return this edge
          * @throws NullPointerException if from is null
          */
-        Edge<T> from(T from);
+        Edge<ID> from(ID from);
 
         /**
          * Returns vertex id of 'to' endpoint.
          *
          * @return id of 'to' endpoint
          */
-        T getTo();
+        ID getTo();
 
         /**
          * Sets vertex id of 'to' endpoint. If vertex does not exist it is created.
@@ -301,14 +301,14 @@ public interface Graph<T> {
          * @param to endpoint
          * @throws NullPointerException if to is null
          */
-        void setTo(T to);
+        void setTo(ID to);
 
         /**
          * Returns vertex id of 'to' endpoint.
          *
          * @return id of 'to' endpoint
          */
-        T to();
+        ID to();
 
         /**
          * Sets vertex id of 'to' endpoint. If vertex does not exist it is created.
@@ -316,28 +316,28 @@ public interface Graph<T> {
          * @param to endpoint
          * @return this edge
          */
-        Edge<T> to(T to);
+        Edge<ID> to(ID to);
 
         /**
          * Returns ordered pair of endpoint ids. 'from' endpoint id is always first followed by 'to' endpoint id.
          *
          * @return order pair of endpoints
          */
-        List<T> endpoints();
+        List<ID> endpoints();
 
         /**
          * Returns 'from' vertex
          *
          * @return 'from' vertex
          */
-        Vertex<T> fromVertex();
+        Vertex<ID> fromVertex();
 
         /**
          * Returns 'to' vertex
          *
          * @return 'to' vertex
          */
-        Vertex<T> toVertex();
+        Vertex<ID> toVertex();
 
         /**
          * Returns true if this edge is directed. This edge is always directed if the parent graph is directed.
@@ -376,7 +376,7 @@ public interface Graph<T> {
          * @return this edge
          * @throws NullPointerException if name or value is null
          */
-        Edge<T> property(String name, Object value);
+        Edge<ID> property(String name, Object value);
 
         /**
          * Removes property from local properties returning this edge.
@@ -385,7 +385,7 @@ public interface Graph<T> {
          * @return this edge
          * @throws NullPointerException if name is null
          */
-        Edge<T> removeProperty(String name);
+        Edge<ID> removeProperty(String name);
 
         /**
          * Returns an unmodifiable map of inherited properties
@@ -408,21 +408,21 @@ public interface Graph<T> {
      *
      * @return ordered map of all vertices in this graph
      */
-    Map<T, Vertex<T>> getVertices();
+    Map<ID, Vertex<ID>> getVertices();
 
     /**
      * Returns an ordered collection of all edges in this graph.
      *
      * @return ordered collection of all edges
      */
-    Collection<Edge<T>> getEdges();
+    Collection<Edge<ID>> getEdges();
 
     /**
      * Returns a map of edge ids to edges.
      *
      * @return map of edge ids to edges
      */
-    Map<T, Edge<T>> getEdgeIds();
+    Map<ID, Edge<ID>> getEdgeIds();
 
     /**
      * Finds vertex with given id. If vertex is not in this graph the optional is empty.
@@ -431,7 +431,7 @@ public interface Graph<T> {
      * @return optional of vertex
      * @throws NullPointerException if id is null
      */
-    Optional<Vertex<T>> findVertex(T id);
+    Optional<Vertex<ID>> findVertex(ID id);
 
     /**
      * Ensure a vertex exists with id and returns the vertex. If the vertex does not exist it is created.
@@ -440,7 +440,7 @@ public interface Graph<T> {
      * @return created or existing vertex
      * @throws NullPointerException if id is null
      */
-    Vertex<T> vertex(T id);
+    Vertex<ID> vertex(ID id);
 
     /**
      * Removes vertex with given id. If edges connect to the vertex they are removed first.
@@ -448,7 +448,7 @@ public interface Graph<T> {
      * @param id of vertex
      * @throws NullPointerException if id is null
      */
-    void removeVertex(T id);
+    void removeVertex(ID id);
 
     /**
      * Finds edge connecting 'from' and 'to' vertex. If edge is not in this graph the optional is empty. The order of
@@ -460,7 +460,7 @@ public interface Graph<T> {
      * @return optional of edge
      * @throws NullPointerException if from or to is null
      */
-    Optional<Edge<T>> findEdge(T from, T to);
+    Optional<Edge<ID>> findEdge(ID from, ID to);
 
     /**
      * finds edge with given id. If edge is not in this graph the optional is empty.
@@ -469,7 +469,7 @@ public interface Graph<T> {
      * @return optional of edge
      * @throws NullPointerException if id is null
      */
-    Optional<Edge<T>> findEdge(T id);
+    Optional<Edge<ID>> findEdge(ID id);
 
     /**
      * Ensures an edge exists between 'from' and 'to' vertices. If an edge does not exist it is created. If any of the
@@ -482,7 +482,7 @@ public interface Graph<T> {
      * @param to   of edge
      * @return
      */
-    Edge<T> edge(T from, T to);
+    Edge<ID> edge(ID from, ID to);
 
     /**
      * Removes edge with given from and to.
@@ -491,7 +491,7 @@ public interface Graph<T> {
      * @throws NullPointerException if from or to is null
      * @throws IllegalArgumentException if edge does not exist
      */
-    void removeEdge(T from, T to);
+    void removeEdge(ID from, ID to);
 
     /**
      * Removes edge with given id
@@ -499,20 +499,20 @@ public interface Graph<T> {
      * @throws NullPointerException if id is null
      * @throws IllegalArgumentException if edge with id does not exist
      */
-    void removeEdge(T id);
+    void removeEdge(ID id);
 
     /**
      * Returns the id of this graph. If the id is not set and empty optional is returned.
      * @return optional of id
      */
-    Optional<T> getId();
+    Optional<ID> getId();
 
     /**
      * Sets the id of this graph.
      * @param id of graph
      * @throws NullPointerException if id is null
      */
-    void setId(T id);
+    void setId(ID id);
 
     /**
      * Sets the id of this graph
@@ -520,7 +520,7 @@ public interface Graph<T> {
      * @return this graph
      * @throws NullPointerException if id is null
      */
-    Graph<T> id(T id);
+    Graph<ID> id(ID id);
 
     /**
      * Returns true if this graph is directed.
@@ -555,7 +555,7 @@ public interface Graph<T> {
      * @return this graph
      * @throws NullPointerException if name or value is null
      */
-    Graph<T> property(String name, Object value);
+    Graph<ID> property(String name, Object value);
 
     /**
      * Removes property on this graph returning this graph
@@ -564,7 +564,7 @@ public interface Graph<T> {
      * @return this graph
      * @throws NullPointerException if name is null
      */
-    Graph<T> removeProperty(String name);
+    Graph<ID> removeProperty(String name);
 
     /**
      * Returns {@link Optional} of an edge property. If the property does not exist the returned {@link Optional} is
@@ -593,7 +593,7 @@ public interface Graph<T> {
      * @return this graph
      * @throws NullPointerException if name or value is null
      */
-    Graph<T> edgeProperty(String name, Object value);
+    Graph<ID> edgeProperty(String name, Object value);
 
     /**
      * Removes edge property returning this graph
@@ -602,7 +602,7 @@ public interface Graph<T> {
      * @return this graph
      * @throws NullPointerException if name is null
      */
-    Graph<T> removeEdgeProperty(String name);
+    Graph<ID> removeEdgeProperty(String name);
 
     /**
      * Returns {@link Optional} of a vertex property. If the property does not exist the returned {@link Optional} is
@@ -631,7 +631,7 @@ public interface Graph<T> {
      * @return
      * @throws NullPointerException if name or value is null
      */
-    Graph<T> vertexProperty(String name, Object value);
+    Graph<ID> vertexProperty(String name, Object value);
 
     /**
      * Removes vertex property returning this graph
@@ -640,5 +640,5 @@ public interface Graph<T> {
      * @return this graph
      * @throws NullPointerException if name is null
      */
-    Graph<T> removeVertexProperty(String name);
+    Graph<ID> removeVertexProperty(String name);
 }

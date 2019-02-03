@@ -1,8 +1,8 @@
 package publicapi.bus;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.greenrobot.EventGraph;
 import testframework.EventSimpleGraphs;
 
 public class Edge {

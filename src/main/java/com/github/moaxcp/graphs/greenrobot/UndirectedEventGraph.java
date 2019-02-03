@@ -4,20 +4,20 @@ import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.UndirectedGraphCreated;
 import org.greenrobot.eventbus.EventBus;
 
-public class UndirectedEventGraph<T> extends AbstractEventGraph<T> {
+public class UndirectedEventGraph<ID> extends AbstractEventGraph<ID> {
 
     public UndirectedEventGraph(EventBus bus) {
         super(bus);
-        getBus().post(new UndirectedGraphCreated.Builder<T>().build());
+        getBus().post(new UndirectedGraphCreated.Builder<ID>().build());
     }
 
-    public UndirectedEventGraph(T id, EventBus bus) {
+    public UndirectedEventGraph(ID id, EventBus bus) {
         super(id, bus);
-        getBus().post(new UndirectedGraphCreated.Builder<T>().graphId(id).build());
+        getBus().post(new UndirectedGraphCreated.Builder<ID>().graphId(id).build());
     }
 
     @Override
-    protected EdgeKey<T> newEdgeKey(T from, T to) {
+    protected EdgeKey<ID> newEdgeKey(ID from, ID to) {
         return new UndirectedEdgeKey<>(from, to);
     }
 

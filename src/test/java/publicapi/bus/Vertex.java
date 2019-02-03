@@ -1,7 +1,7 @@
 package publicapi.bus;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import com.github.moaxcp.graphs.EventGraph;
+import com.github.moaxcp.graphs.greenrobot.EventGraph;
 import com.github.moaxcp.graphs.events.*;
 import testframework.EventSimpleGraphs;
 
