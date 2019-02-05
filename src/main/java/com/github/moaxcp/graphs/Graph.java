@@ -4,8 +4,7 @@ import java.util.*;
 
 /**
  * A graph is composed of vertices and edges. A vertex is able to connect to other vertices through edges. Edges
- * connect two vertices. A graph can be directed or undirected. If a graph is directed its edges are treated as
- * directed otherwise if a graph is undirected edges are treated as undirected.
+ * connect two vertices. A graph can be directed or undirected.
  *
  * <p>Vertices have an 'id' which uniquely identifies the vertex within the graph. Edges have a 'to' and 'from'
  * property which are the ids of the vertex endpoints. Edges are optionally identified.</p>
@@ -13,6 +12,8 @@ import java.util.*;
  * <p>At all times the graph is valid event when removing connected vertices.</p>
  *
  * <p>Undirected graphs ignore 'from'/'to' order in edges.</p>
+ *
+ * <p>Once a vertex or edge is removed it can no longer modify the graph or be modified.</p>
  *
  * @param <ID> type of all identifiers in graph
  */
@@ -362,8 +363,8 @@ public interface Graph<ID> {
         /**
          * Sets the value of a local property.
          *
-         * @param name
-         * @param value
+         * @param name of property
+         * @param value of property
          * @throws NullPointerException if name or value is null
          */
         void setProperty(String name, Object value);
@@ -480,7 +481,7 @@ public interface Graph<ID> {
      *
      * @param from of edge
      * @param to   of edge
-     * @return
+     * @return created or existing edge
      */
     Edge<ID> edge(ID from, ID to);
 
@@ -628,7 +629,7 @@ public interface Graph<ID> {
      *
      * @param name  of property
      * @param value of property
-     * @return
+     * @return created or existing edge
      * @throws NullPointerException if name or value is null
      */
     Graph<ID> vertexProperty(String name, Object value);

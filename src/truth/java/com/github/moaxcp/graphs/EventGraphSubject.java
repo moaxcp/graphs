@@ -1,19 +1,19 @@
 package com.github.moaxcp.graphs;
 
 import static com.google.common.truth.Truth.assertAbout;
-import com.github.moaxcp.graphs.greenrobot.EventGraph;
 import com.google.common.truth.*;
 import java.util.function.Consumer;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.greenrobot.eventbus.EventBus;
 
-public final class EventGraphSubject extends Subject<EventGraphSubject, EventGraph> {
+public final class EventGraphSubject extends Subject<EventGraphSubject, EventGraph<String, EventBus>> {
 
-    public static Subject.Factory<EventGraphSubject, EventGraph> eventGraphs() {
+    public static Subject.Factory<EventGraphSubject, EventGraph<String, EventBus>> eventGraphs() {
         return EventGraphSubject::new;
     }
 
-    static EventGraphSubject assertThat(@Nullable EventGraph actual) {
+    static EventGraphSubject assertThat(@Nullable EventGraph<String, EventBus> actual) {
         return assertAbout(eventGraphs()).that(actual);
     }
 
@@ -24,11 +24,11 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, EventGra
      * @param metadata
      * @param actual
      */
-    protected EventGraphSubject(FailureMetadata metadata, @NullableDecl EventGraph actual) {
+    protected EventGraphSubject(FailureMetadata metadata, @NullableDecl EventGraph<String, EventBus> actual) {
         super(metadata, actual);
     }
 
-    public IterableSubject hasEventsIn(Consumer<EventGraph> action) {
+    public IterableSubject hasEventsIn(Consumer<EventGraph<String, EventBus>> action) {
         var check = new GraphEventCheck(actual());
         actual().getBus().register(check);
         action.accept(actual());
@@ -39,7 +39,7 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, EventGra
         return check("events").that(check.getEventClasses());
     }
 
-    public void hasNoEventsIn(Consumer<EventGraph> action) {
+    public void hasNoEventsIn(Consumer<EventGraph<String, EventBus>> action) {
         var check = new GraphEventCheck(actual());
         actual().getBus().register(check);
         action.accept(actual());

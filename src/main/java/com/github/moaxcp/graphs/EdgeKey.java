@@ -16,8 +16,8 @@ public abstract class EdgeKey<ID> {
 
     /**
      * Creates an EdgeKey with given from and to params.
-     * @param from
-     * @param to
+     * @param from vertex id
+     * @param to vertex id
      */
     public EdgeKey(ID from, ID to) {
         this.from = requireNonNull(from);

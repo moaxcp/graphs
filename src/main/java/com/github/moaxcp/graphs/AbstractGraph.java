@@ -5,6 +5,12 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 import java.util.*;
 
+/**
+ * This class provides a partial implementation of the {@link Graph} interface.
+ *
+ * <p>Vertices and edges are stored in insertion order.</p>
+ * @param <ID> type of all identifiers in graph
+ */
 public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     private static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
@@ -12,9 +18,6 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
     private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
 
-    /**
-     * Edge represents an undirected edge in this graph.
-     */
     public class SimpleEdge extends InheritingElement<Edge<ID>> implements Edge<ID> {
         private ID id;
         private ID from;
@@ -54,19 +57,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             return self();
         }
 
-        /**
-         * Returns id of "from" {@link Vertex}.
-         * @return id of "from" {@link Vertex}
-         */
         @Override
         public final ID getFrom() {
             return from;
         }
 
-        /**
-         * Sets "from" {@link Vertex} to vertex with id. If vertex does not exist it is created.
-         * @param from
-         */
         @Override
         public void setFrom(ID from) {
             check();
@@ -79,12 +74,6 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             edges.put(key, this);
         }
 
-        /**
-         * Sets "from" {@link Vertex} to vertex with id returning this {@link Edge}. If vertex does not exist it is
-         * created.
-         * @param from {@link Vertex} id for "from" vertex
-         * @return this edge
-         */
         @Override
         public Edge<ID> from(ID from) {
             setFrom(from);
@@ -96,19 +85,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             return getFrom();
         }
 
-        /**
-         * Returns id of "to" {@link Vertex}.
-         * @return id of "to" {@link Vertex}
-         */
         @Override
         public final ID getTo() {
             return to;
         }
 
-        /**
-         * Sets "to" {@link Vertex} to vertex with id. If vertex does not exist it is created.
-         * @param to {@link Vertex} id for "to" vertex
-         */
         @Override
         public void setTo(ID to) {
             check();
@@ -121,12 +102,6 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             edges.put(key, this);
         }
 
-        /**
-         * Sets "to" {@link Vertex} to vertex with id returning this {@link Edge}. If vertex does not exist it is
-         * created.
-         * @param to {@link Vertex} id for "to" vertex
-         * @return this edge
-         */
         @Override
         public final Edge<ID> to(ID to) {
             setTo(to);
@@ -190,9 +165,6 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         }
     }
 
-    /**
-     * Vertex represents a vertex in this graph.
-     */
     public class SimpleVertex extends InheritingElement<Vertex<ID>> implements Vertex<ID> {
         private ID id;
 

@@ -1,33 +1,34 @@
 package publicapi.bus;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import com.github.moaxcp.graphs.greenrobot.EventGraph;
+import com.github.moaxcp.graphs.EventGraph;
 import com.github.moaxcp.graphs.events.*;
+import org.greenrobot.eventbus.EventBus;
 import testframework.EventSimpleGraphs;
 
 public class Vertex {
     @EventSimpleGraphs
-    void created(EventGraph<String> graph) {
+    void created(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         assertThat(graph).hasEventsIn(g -> g.vertex("A")).containsExactly(VertexCreated.class);
     }
 
     @EventSimpleGraphs
-    void notCreated(EventGraph<String> graph) {
+    void notCreated(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         graph.vertex("A");
         assertThat(graph).hasNoEventsIn(g -> g.vertex("A"));
     }
 
     @EventSimpleGraphs
-    void remove(EventGraph<String> graph) {
+    void remove(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         graph.vertex("A");
         assertThat(graph).hasEventsIn(g -> g.removeVertex("A")).containsExactly(VertexRemoved.class);
     }
 
     @EventSimpleGraphs
-    void removeWithEdges(EventGraph<String> graph) {
+    void removeWithEdges(EventGraph<String, EventBus> graph) {
         graph.edge("A", "B");
         graph.edge("A", "C");
         graph.edge("A", "D");
@@ -36,28 +37,28 @@ public class Vertex {
     }
 
     @EventSimpleGraphs
-    void updateId(EventGraph<String> graph) {
+    void updateId(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         graph.vertex("A");
         assertThat(graph).hasEventsIn(g -> g.vertex("A").id("B")).containsExactly(VertexIdUpdated.class);
     }
 
     @EventSimpleGraphs
-    void addProperty(EventGraph<String> graph) {
+    void addProperty(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         graph.vertex("A");
         assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value")).containsExactly(VertexPropertyAdded.class);
     }
 
     @EventSimpleGraphs
-    void removeProperty(EventGraph<String> graph) {
+    void removeProperty(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         graph.vertex("A").property("name", "value");
         assertThat(graph).hasEventsIn(g-> g.vertex("A").removeProperty("name")).containsExactly(VertexPropertyRemoved.class);
     }
 
     @EventSimpleGraphs
-    void updateProperty(EventGraph<String> graph) {
+    void updateProperty(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         graph.vertex("A").property("name", "value");
         assertThat(graph).hasEventsIn(g-> g.vertex("A").property("name", "value2")).containsExactly(VertexPropertyUpdated.class);

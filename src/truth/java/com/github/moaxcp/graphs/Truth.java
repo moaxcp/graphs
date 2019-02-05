@@ -1,7 +1,6 @@
 package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.Graph.*;
-import com.github.moaxcp.graphs.greenrobot.EventGraph;
 import com.google.common.truth.IterableSubject;
 import org.greenrobot.eventbus.EventBus;
 

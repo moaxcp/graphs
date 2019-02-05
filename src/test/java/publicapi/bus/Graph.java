@@ -2,6 +2,7 @@ package publicapi.bus;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static testframework.MethodSources.testEventBus;
+import com.github.moaxcp.graphs.EventGraph;
 import com.github.moaxcp.graphs.events.*;
 import com.github.moaxcp.graphs.greenrobot.*;
 import org.greenrobot.eventbus.EventBus;
@@ -34,38 +35,38 @@ public class Graph {
     }
 
     @EventSimpleGraphs
-    void addProperty(EventGraph graph) {
+    void addProperty(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         assertThat(graph).hasEventsIn(g -> g.property("name", "value")).containsExactly(GraphPropertyAdded.class);
     }
 
     @EventSimpleGraphs
-    void removeProperty(EventGraph graph) {
+    void removeProperty(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         graph.property("name", "value");
         assertThat(graph).hasEventsIn(g -> g.removeProperty("name")).containsExactly(GraphPropertyRemoved.class);
     }
 
     @EventSimpleGraphs
-    void updateProperty(EventGraph graph) {
+    void updateProperty(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         graph.property("name", "value");
         assertThat(graph).hasEventsIn(g -> g.property("name", "value2")).containsExactly(GraphPropertyUpdated.class);
     }
 
     @EventSimpleGraphs
-    void addId(EventGraph<String> graph) {
+    void addId(EventGraph<String, EventBus> graph) {
         assertThat(graph).hasEventsIn(g-> g.id("graph")).containsExactly(GraphIdAdded.class);
     }
 
     @EventSimpleGraphs
-    void removeId(EventGraph<String> graph) {
+    void removeId(EventGraph<String, EventBus> graph) {
         graph.id("graph");
         assertThat(graph).hasEventsIn(g-> g.id(null)).containsExactly(GraphIdRemoved.class);
     }
 
     @EventSimpleGraphs
-    void updateId(EventGraph<String> graph) {
+    void updateId(EventGraph<String, EventBus> graph) {
         graph.id("id1");
         assertThat(graph).hasEventsIn(g-> g.id("id2")).containsExactly(GraphIdUpdated.class);
     }

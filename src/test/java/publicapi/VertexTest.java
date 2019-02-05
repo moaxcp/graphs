@@ -221,6 +221,6 @@ public class VertexTest {
     @SimpleGraphs
     void testEquals(Graph<String> graph) {
         var vertex = graph.vertex("A");
-        EqualsVerifier.forClass(vertex.getClass()).suppress(Warning.NONFINAL_FIELDS).verify();
+        EqualsVerifier.forClass(vertex.getClass()).suppress(Warning.NONFINAL_FIELDS, Warning.NULL_FIELDS).verify();
     }
 }

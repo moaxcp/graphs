@@ -21,6 +21,8 @@ reckon {
 
 javadoc {
     options.addBooleanOption('html5', true)
+    options.links 'https://docs.oracle.com/javase/10/docs/api/'
+    options.links 'http://greenrobot.org/files/eventbus/javadoc/3.0/'
 }
 
 sourceCompatibility = 1.10

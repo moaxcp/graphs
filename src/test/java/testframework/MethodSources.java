@@ -40,7 +40,7 @@ public class MethodSources {
             new DirectedGraph<>());
     }
 
-    public static Stream<EventGraph<String>> eventSimpleGraphs() {
+    public static Stream<EventGraph<String, EventBus>> eventSimpleGraphs() {
         return Stream.of(
                 new UndirectedEventGraph<>(testEventBus()),
                 new DirectedEventGraph<>(testEventBus()));

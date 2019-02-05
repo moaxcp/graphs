@@ -42,14 +42,14 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void id(Graph graph) {
+    void id(Graph<String> graph) {
         var edge = graph.edge("A", "B").id("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
         assertThat(graph).hasEdge("id").isSameAs(edge);
     }
 
     @SimpleGraphs
-    void setFrom(Graph graph) {
+    void setFrom(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setFrom("C");
         assertThat(graph).hasVertex("C");
@@ -57,21 +57,21 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void setFromNull(Graph graph) {
+    void setFromNull(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setFrom(null));
         assertThat(thrown).hasMessage("from must not be null.");
     }
 
     @SimpleGraphs
-    void setFromCreatesNewVertex(Graph graph) {
+    void setFromCreatesNewVertex(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setFrom("C");
         assertThat(graph).hasVertex("C");
     }
 
     @SimpleGraphs
-    void from(Graph graph) {
+    void from(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         var result = edge.from("C");
         assertThat(edge).hasFromThat().isEqualTo("C");
@@ -79,12 +79,12 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void fromGet(Graph graph) {
+    void fromGet(Graph<String> graph) {
         assertThat(graph.edge("A", "B").from()).isEqualTo("A");
     }
 
     @SimpleGraphs
-    void setTo(Graph graph) {
+    void setTo(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setTo("C");
         assertThat(graph).hasVertex("C");
@@ -92,21 +92,21 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void setToNull(Graph graph) {
+    void setToNull(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setTo(null));
         assertThat(thrown).hasMessage("to must not be null.");
     }
 
     @SimpleGraphs
-    void setToCreatesNewVertex(Graph graph) {
+    void setToCreatesNewVertex(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setTo("C");
         assertThat(graph).hasVertex("C");
     }
 
     @SimpleGraphs
-    void to(Graph graph) {
+    void to(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         var result = edge.to("C");
         assertThat(edge).hasToThat().isEqualTo("C");
@@ -114,33 +114,33 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
-    void toGet(Graph graph) {
+    void toGet(Graph<String> graph) {
         assertThat(graph.edge("A", "B").to()).isEqualTo("B");
     }
 
     @SimpleGraphs
-    void fromVertex(Graph graph) {
+    void fromVertex(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("A").get();
         assertThat(edge.fromVertex()).isEqualTo(vertex);
     }
 
     @SimpleGraphs
-    void toVertex(Graph graph) {
+    void toVertex(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         var vertex = graph.findVertex("B").get();
         assertThat(edge.toVertex()).isEqualTo(vertex);
     }
 
     @SimpleGraphs
-    void setProperty(Graph graph) {
+    void setProperty(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         edge.setProperty("key", "value");
         assertThat(edge).withProperty("key").hasValue("value");
     }
 
     @SimpleGraphs
-    void removeProperty(Graph graph) {
+    void removeProperty(Graph<String> graph) {
         var edge = graph.edge("A", "B").property("name", "value");
         edge.removeProperty("name");
         assertThat(edge).withProperty("name").isEmpty();
@@ -149,6 +149,6 @@ public class EdgeTest {
     @SimpleGraphs
     void testEquals(Graph<String> graph) {
         var edge = graph.edge("A", "B");
-        EqualsVerifier.forClass(edge.getClass()).suppress(Warning.NONFINAL_FIELDS).verify();
+        EqualsVerifier.forClass(edge.getClass()).suppress(Warning.NONFINAL_FIELDS, Warning.NULL_FIELDS).verify();
     }
 }
