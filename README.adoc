@@ -16,6 +16,7 @@ image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp
 = Definitions and concepts
 
 == Graph
+
 * consists of vertices and edges
 * May be directed or undirected
 * edges must always connect vertices
@@ -54,8 +55,8 @@ directed graph can have two edges between any two vertices but they must be in o
 ----
 Graph undirected = new UnidrectedGraph();
 Graph directed = new DirectedGraph();
-Graph undirectedEvent = new UnidrectedEventGraph();
-Graph directedEvent = new DirectedEventGraph();
+Graph undirectedEvent = new UnidrectedEventGraph(EventBus.getDefault());
+Graph directedEvent = new DirectedEventGraph(EventBus.getDefault());
 ----
 
 There are three main interfaces: Graph, Edge, and Vertex. Edge and Vertex are inner-classes of Graph.
@@ -153,3 +154,31 @@ Graph and Edge have an optional `id`. The `id` in Graph and Edge can be changed 
 Edge requires `from` and `to`. These properties identify the two vertices the edge connects. `from` and `to`
 must always exist but they can be changed to connect different vertices.
 
+== Event Graphs
+
+Event graphs post to an EventBus after a change has been made to the graph.
+
+----
+Graph graph = new DirectedEventGraph(EventBus.getDefault());
+graph.edge("A", "B");
+----
+
+The above code will send 4 events to the bus in order: DirectedGraphCreated, VertexCreated, VertexCreated, EdgeCreated.
+A subscriber to these events can create a view of the graph as it is modified.
+
+= Releases
+
+== 0.1.0
+
+This release includes the main Graph interface and implementations for undirected and directed graphs. There are also
+event graph implementations which post to greenrobot's event bus. The events are immutable and may be used to track
+changes in the graph by visualizations and other tools. Some edge methods have been benchmarked using jmh and optimized
+for performance.
+
+= License
+
+The license can be found in the LICENSE file.
+
+MIT License
+
+Copyright (c) 2019 John Mercier
