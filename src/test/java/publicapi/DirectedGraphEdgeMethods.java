@@ -2,7 +2,6 @@ package publicapi;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import com.github.moaxcp.graphs.Graph;
-import org.junit.jupiter.api.Test;
 import testframework.DirectedSimpleGraphs;
 
 public class DirectedGraphEdgeMethods {
@@ -23,10 +22,5 @@ public class DirectedGraphEdgeMethods {
         var edge1 = graph.edge("A", "B");
         var edge2 = graph.edge("B", "A");
         graph.removeEdge("A", "B");
-    }
-
-    @Test
-    void fail() {
-        assert false;
     }
 }
