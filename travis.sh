@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+ls
+
 if [ "$TRAVIS_PULL_REQUEST" == "true" ]; then
     echo "build for pull request not yet supported"
     exit 1
