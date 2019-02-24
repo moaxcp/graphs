@@ -32,7 +32,7 @@ elif [ "$TRAVIS_BRANCH" == "master" ]; then
     ./gradlew build
 
     # publish snapshot
-    ./gradlew publish
+    ./gradlew --stacktrace --info publish
         -Dnexus.username=moaxcp \
         -Dnexus.password=$NEXUS_PASSWORD \
         -Psigning.keyId=A9A4043B \
