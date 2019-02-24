@@ -31,6 +31,8 @@ elif [ "$TRAVIS_BRANCH" == "master" ]; then
     # run build
     ./gradlew build
 
+    openssl aes-256-cbc -K $encrypted_89c9bd3bab4e_key -iv $encrypted_89c9bd3bab4e_iv -in signingkey.gpg.enc -out signingkey.gpg -d
+
     # publish snapshot
     ./gradlew publish
         -Dnexus.username=moaxcp \
