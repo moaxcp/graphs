@@ -8,7 +8,7 @@ fi
 
 if [ -n "$TRAVIS_TAG" ]; then
     echo "release for $TRAVIS_TAG"
-    ./gradlew uploadArchives \
+    ./gradlew publish \
         -Dnexus.username=moaxcp \
         -Dnexus.password=$NEXUS_PASSWORD \
         -Psigning.keyId=A9A4043B \
@@ -23,12 +23,16 @@ elif [ "$TRAVIS_BRANCH" == "master" ]; then
     echo "build for master branch"
 
     # update sonar (including failing tests)
+    ./gradlew -x test build
     ./gradlew test || true
-    git fetch --unshallow || true #get all commit history for exact blame info
+    git fetch --unshallow #get all commit history for exact blame info
     ./gradlew -x test -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=moaxcp -Dsonar.login=$SONAR_TOKEN sonarqube
 
     # run build
     ./gradlew build
+
+    # publish snapshot
+    ./gradlew publish
 else
     echo "build for different branch not yet supported"
     exit 1
