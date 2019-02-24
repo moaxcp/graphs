@@ -33,6 +33,11 @@ elif [ "$TRAVIS_BRANCH" == "master" ]; then
 
     # publish snapshot
     ./gradlew publish
+        -Dnexus.username=moaxcp \
+        -Dnexus.password=$NEXUS_PASSWORD \
+        -Psigning.keyId=A9A4043B \
+        -Psigning.secretKeyRingFile=signingkey.gpg \
+        -Psigning.password=$SIGNING_PASSWORD
 else
     echo "build for different branch not yet supported"
     exit 1
