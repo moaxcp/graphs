@@ -6,22 +6,6 @@ if [ "$TRAVIS_PULL_REQUEST" == "true" ]; then
     exit 1
 fi
 
-if [ -n "$TRAVIS_TAG" ]; then
-    echo "release for $TRAVIS_TAG"
-    publish
-
-    ./gradlew closeAndReleaseRepository --info --stacktrace \
-        -Dnexus.username=moaxcp \
-        -Dnexus.password=$NEXUS_PASSWORD
-
-elif [ "$TRAVIS_BRANCH" == "master" ]; then
-    echo "build for master branch"
-    publish
-else
-    echo "build for different branch not yet supported"
-    exit 1
-fi
-
 publish() {
     # update sonar (including failing tests)
     ./gradlew -x test build
@@ -39,5 +23,20 @@ publish() {
         -Psigning.keyId=A9A4043B \
         -Psigning.secretKeyRingFile=signingkey.gpg \
         -Psigning.password=$SIGNING_PASSWORD
-
 }
+
+if [ -n "$TRAVIS_TAG" ]; then
+    echo "release for $TRAVIS_TAG"
+    publish
+
+    ./gradlew closeAndReleaseRepository --info --stacktrace \
+        -Dnexus.username=moaxcp \
+        -Dnexus.password=$NEXUS_PASSWORD
+
+elif [ "$TRAVIS_BRANCH" == "master" ]; then
+    echo "build for master branch"
+    publish
+else
+    echo "build for different branch not yet supported"
+    exit 1
+fi
