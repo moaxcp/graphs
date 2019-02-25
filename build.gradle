@@ -10,7 +10,7 @@ plugins {
     id 'org.sonarqube' version '2.7'
     id 'me.champeau.gradle.jmh' version '0.4.8'
     id 'org.javamodularity.moduleplugin' version '1.4.0'
-    id 'io.codearte.nexus-staging'
+    id 'io.codearte.nexus-staging' version '0.20.0'
 }
 
 group = 'com.github.moaxcp'
