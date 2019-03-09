@@ -206,3 +206,8 @@ publishing {
 signing {
     sign publishing.publications.mavenJava
 }
+
+nexusStaging {
+    username = System.getProperty('nexus.username')
+    password = System.getProperty('nexus.password')
+}
