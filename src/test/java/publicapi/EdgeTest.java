@@ -71,6 +71,30 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
+    void setFromChangesChangesAdjacentEdges(Graph<String> graph) {
+        var edge = graph.edge("id", "B");
+        edge.setFrom("A");
+        var inEdges = edge.fromVertex().adjacentEdges();
+        assertThat(inEdges).containsExactly(edge);
+    }
+
+    @SimpleGraphs
+    void setFromChangesChangesInEdges(Graph<String> graph) {
+        var edge = graph.edge("id", "B");
+        edge.setFrom("A");
+        var inEdges = edge.toVertex().inEdges();
+        assertThat(inEdges).containsExactly(edge);
+    }
+
+    @SimpleGraphs
+    void setFromChangesChangesOutEdges(Graph<String> graph) {
+        var edge = graph.edge("A", "id");
+        edge.setTo("A");
+        var outEdges = edge.fromVertex().outEdges();
+        assertThat(outEdges).containsExactly(edge);
+    }
+
+    @SimpleGraphs
     void from(Graph<String> graph) {
         var edge = graph.edge("A", "B");
         var result = edge.from("C");
@@ -103,6 +127,30 @@ public class EdgeTest {
         var edge = graph.edge("A", "B");
         edge.setTo("C");
         assertThat(graph).hasVertex("C");
+    }
+
+    @SimpleGraphs
+    void setToChangesChangesAdjacentEdges(Graph<String> graph) {
+        var edge = graph.edge("A", "id");
+        edge.setTo("B");
+        var adjacentEdges = edge.toVertex().adjacentEdges();
+        assertThat(adjacentEdges).containsExactly(edge);
+    }
+
+    @SimpleGraphs
+    void setToChangesChangesInEdges(Graph<String> graph) {
+        var edge = graph.edge("A", "id");
+        edge.setTo("B");
+        var inEdges = edge.toVertex().inEdges();
+        assertThat(inEdges).containsExactly(edge);
+    }
+
+    @SimpleGraphs
+    void setToChangesChangesOutEdges(Graph<String> graph) {
+        var edge = graph.edge("A", "id");
+        edge.setTo("A");
+        var outEdges = edge.toVertex().inEdges();
+        assertThat(outEdges).containsExactly(edge);
     }
 
     @SimpleGraphs

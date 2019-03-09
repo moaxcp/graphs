@@ -111,7 +111,25 @@ public class VertexTest {
     }
 
     @SimpleGraphs
-    void aVoid(Graph<String> graph) {
+    void testSetIdAlreadyExists(Graph<String> graph) {
+        graph.vertex("a").property("key", "value");
+        var vertex = graph.vertex("id");
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> vertex.id("a"));
+        assertThat(ex).hasMessageThat().isEqualTo("vertex with id a already exists.");
+    }
+
+    @SimpleGraphs
+    void edgeAfterSetId(Graph<String> graph) {
+        graph.edge("id", "b");
+        graph.edge("c", "id");
+        graph.vertex("id").setId("a");
+
+        assertThat(graph).hasEdge("a", "b");
+        assertThat(graph).hasEdge("c", "a");
+    }
+
+    @SimpleGraphs
+    void testId(Graph<String> graph) {
         var vertex = graph.vertex("A").id("B");
         assertThat(vertex).hasId("B");
         assertThat(vertex).isSameAs(graph.vertex("B"));
@@ -127,6 +145,27 @@ public class VertexTest {
 
         var edges = vertex.adjacentEdges();
         assertThat(edges).hasSize(2);
+        for(var edge : edges) {
+            assertThat(edge.endpoints()).contains("A");
+        }
+    }
+
+    @SimpleGraphs
+    void adjacentEdgesEmpty(Graph<String> graph) {
+        assertThat(graph.vertex("A").adjacentEdges()).isEmpty();
+    }
+
+    @SimpleGraphs
+    void adjacentEdgesAfterSetId(Graph<String> graph) {
+        graph.edge("id", "B");
+        graph.edge("id", "C");
+        graph.edge("D", "id");
+        graph.edge("Z", "Y");
+
+        var vertex = graph.vertex("id").id("A");
+
+        var edges = vertex.adjacentEdges();
+        assertThat(edges).hasSize(3);
         for(var edge : edges) {
             assertThat(edge.endpoints()).contains("A");
         }
@@ -199,6 +238,22 @@ public class VertexTest {
     }
 
     @SimpleGraphs
+    void inEdgesAfterSetId(Graph<String> graph) {
+        graph.edge("B", "id");
+        graph.edge("C", "id");
+        graph.edge("D", "id");
+        graph.edge("Z", "Y");
+
+        var vertex = graph.vertex("id").id("A");
+
+        var edges = vertex.adjacentEdges();
+        assertThat(edges).hasSize(3);
+        for(var edge : edges) {
+            assertThat(edge.to()).isEqualTo("A");
+        }
+    }
+
+    @SimpleGraphs
     void inEdgesEmpty(Graph<String> graph) {
         assertThat(graph.vertex("A").inEdges()).isEmpty();
     }
@@ -211,6 +266,22 @@ public class VertexTest {
         var result = graph.vertex("A").outEdges();
 
         assertThat(result).containsExactly(edge1, edge2, edge3);
+    }
+
+    @SimpleGraphs
+    void outEdgesAfterSetId(Graph<String> graph) {
+        graph.edge("id", "B");
+        graph.edge("id", "C");
+        graph.edge("id", "D");
+        graph.edge("Z", "Y");
+
+        var vertex = graph.vertex("id").id("A");
+
+        var edges = vertex.adjacentEdges();
+        assertThat(edges).hasSize(3);
+        for(var edge : edges) {
+            assertThat(edge.from()).isEqualTo("A");
+        }
     }
 
     @SimpleGraphs

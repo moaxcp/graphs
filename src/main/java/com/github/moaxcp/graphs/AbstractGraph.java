@@ -1,5 +1,6 @@
 package com.github.moaxcp.graphs;
 
+import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
@@ -68,7 +69,13 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             requireNonNull(from, "from must not be null.");
             EdgeKey<ID> oldKey = newEdgeKey(this.from, this.to);
             edges.remove(oldKey);
+            adjacentEdges.get(this.from).remove(this);
+            inEdges.get(to).remove(this);
+            outEdges.get(this.from).remove(this);
             vertex(from);
+            adjacentEdges.compute(from, (k, v) -> mergeSet(this, v));
+            inEdges.compute(to, (k, v) -> mergeSet(this, v));
+            outEdges.compute(from, (k, v) -> mergeSet(this, v));
             this.from = from;
             EdgeKey<ID> key = newEdgeKey(this.from, this.to);
             edges.put(key, this);
@@ -96,7 +103,13 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             Objects.requireNonNull(to, "to must not be null.");
             EdgeKey<ID> oldKey = newEdgeKey(this.from, this.to);
             edges.remove(oldKey);
+            adjacentEdges.get(this.to).remove(this);
+            inEdges.get(this.to).remove(this);
+            outEdges.get(this.from).remove(this);
             vertex(to);
+            adjacentEdges.compute(to, (k, v) -> mergeSet(this, v));
+            inEdges.compute(to, (k, v) -> mergeSet(this, v));
+            outEdges.compute(from, (k, v) -> mergeSet(this, v));
             this.to = to;
             EdgeKey<ID> key = newEdgeKey(this.from, this.to);
             edges.put(key, this);
@@ -188,11 +201,17 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         public void setId(ID id) {
             check();
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
-            Set<? extends Edge<ID>> adjacent = adjacentEdges();
+            if(findVertex(id).isPresent()) {
+                throw new IllegalArgumentException("vertex with id a already exists.");
+            }
+            Set<? extends Edge<ID>> adjacent = new LinkedHashSet<>(adjacentEdges());
             Object oldId = getId();
             vertices.remove(this.getId());
             this.id = id;
             vertices.put(id, this);
+            if(adjacent == null) {
+                return;
+            }
             for (Edge<ID> edge : adjacent) {
                 if (edge.getFrom().equals(oldId)) {
                     edge.setFrom(id);
@@ -265,7 +284,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             check();
             Set<Edge<ID>> edges = adjacentEdges.get(id);
             if(edges == null) {
-                return Collections.emptySet();
+                return emptySet();
             }
             return unmodifiableSet(edges);
         }
@@ -275,7 +294,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             check();
             Set<Edge<ID>> edges = inEdges.get(id);
             if(edges == null) {
-                return Collections.emptySet();
+                return emptySet();
             }
             return unmodifiableSet(edges);
         }
@@ -285,7 +304,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             check();
             Set<Edge<ID>> edges = outEdges.get(id);
             if(edges == null) {
-                return Collections.emptySet();
+                return emptySet();
             }
             return unmodifiableSet(edges);
         }
