@@ -168,11 +168,11 @@ A subscriber to these events can create a view of the graph as it is modified.
 
 = Releases
 
-== 0.2.0-SNAPSHOT
+== 0.2.0
 
-Javadoc for `Vertex.setId` has been updated to throw IllegalArgumentException of a vertex with id already exists.
-Removed EventBus.getBus and generic type.
-Fixed bug #22 where setting `from` or `to` on an edge does not result in an event
+Javadoc for `Vertex.setId` has been updated to throw IllegalArgumentException of a vertex with id already exists. This
+case is also now tested. `getBus` and generic type `BUS` has been removed from EventGraph. Fixed bug #22 where setting
+`from` or `to` on an edge does not result in an event.
 
 == 0.1.1
 
