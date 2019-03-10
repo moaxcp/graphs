@@ -10,8 +10,8 @@ a few principles which keeps things simple for the user:
 
 image:https://travis-ci.org/moaxcp/graphs.svg?branch=master["Build Status", link="https://travis-ci.org/moaxcp/graphs"]
 image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp%3Agraphs&metric=alert_status["Quality Gate", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
-image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp:graphs&metric=coverage["Coverage", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
-image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp:graphs&metric=duplicated_lines_density["Duplication", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp%3Agraphs"]
+image:https://img.shields.io/maven-central/v/com.github.moaxcp/graphs.svg["Maven Central", link="https://mvnrepository.com/artifact/com.github.moaxcp/graphs"]
+image:https://www.javadoc.io/badge/com.github.moaxcp/graphs.svg["Javadocs", link="https://www.javadoc.io/doc/com.github.moaxcp/graphs"]
 
 = Definitions and concepts
 
@@ -167,6 +167,17 @@ The above code will send 4 events to the bus in order: DirectedGraphCreated, Ver
 A subscriber to these events can create a view of the graph as it is modified.
 
 = Releases
+
+== next
+
+Javadoc for `Vertex.setId` has been updated to throw IllegalArgumentException of a vertex with id already exists.
+Removed EventBus.getBus and generic type.
+
+== 0.1.1
+
+This release fixes a major issue where changing a vertex id resulted in adjacentEdges, inEdges, and outEdges being
+inaccurate. A check was also added to `Vertex.setId` which throws IllegalArgumentException if a vertex with id already
+exists.
 
 == 0.1.0
 

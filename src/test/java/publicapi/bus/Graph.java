@@ -35,39 +35,39 @@ public class Graph {
     }
 
     @EventSimpleGraphs
-    void addProperty(EventGraph<String, EventBus> graph) {
+    void addProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        assertThat(graph).hasEventsIn(g -> g.property("name", "value")).containsExactly(GraphPropertyAdded.class);
+        assertThat(graph).with(bus).hasEventsIn(g -> g.property("name", "value")).containsExactly(GraphPropertyAdded.class);
     }
 
     @EventSimpleGraphs
-    void removeProperty(EventGraph<String, EventBus> graph) {
-        graph.id("graph");
-        graph.property("name", "value");
-        assertThat(graph).hasEventsIn(g -> g.removeProperty("name")).containsExactly(GraphPropertyRemoved.class);
-    }
-
-    @EventSimpleGraphs
-    void updateProperty(EventGraph<String, EventBus> graph) {
+    void removeProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
-        assertThat(graph).hasEventsIn(g -> g.property("name", "value2")).containsExactly(GraphPropertyUpdated.class);
+        assertThat(graph).with(bus).hasEventsIn(g -> g.removeProperty("name")).containsExactly(GraphPropertyRemoved.class);
     }
 
     @EventSimpleGraphs
-    void addId(EventGraph<String, EventBus> graph) {
-        assertThat(graph).hasEventsIn(g-> g.id("graph")).containsExactly(GraphIdAdded.class);
-    }
-
-    @EventSimpleGraphs
-    void removeId(EventGraph<String, EventBus> graph) {
+    void updateProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        assertThat(graph).hasEventsIn(g-> g.id(null)).containsExactly(GraphIdRemoved.class);
+        graph.property("name", "value");
+        assertThat(graph).with(bus).hasEventsIn(g -> g.property("name", "value2")).containsExactly(GraphPropertyUpdated.class);
     }
 
     @EventSimpleGraphs
-    void updateId(EventGraph<String, EventBus> graph) {
+    void addId(EventGraph<String> graph, EventBus bus) {
+        assertThat(graph).with(bus).hasEventsIn(g-> g.id("graph")).containsExactly(GraphIdAdded.class);
+    }
+
+    @EventSimpleGraphs
+    void removeId(EventGraph<String> graph, EventBus bus) {
+        graph.id("graph");
+        assertThat(graph).with(bus).hasEventsIn(g-> g.id(null)).containsExactly(GraphIdRemoved.class);
+    }
+
+    @EventSimpleGraphs
+    void updateId(EventGraph<String> graph, EventBus bus) {
         graph.id("id1");
-        assertThat(graph).hasEventsIn(g-> g.id("id2")).containsExactly(GraphIdUpdated.class);
+        assertThat(graph).with(bus).hasEventsIn(g-> g.id("id2")).containsExactly(GraphIdUpdated.class);
     }
 }

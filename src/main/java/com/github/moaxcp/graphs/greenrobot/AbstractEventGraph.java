@@ -6,7 +6,7 @@ import com.github.moaxcp.graphs.events.*;
 import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implements EventGraph<ID, EventBus> {
+public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implements EventGraph<ID> {
 
     public class EventEdge extends SimpleEdge {
         protected EventEdge(ID from, ID to, Map<String, Object> inherited) {

@@ -36,6 +36,7 @@ public interface Graph<ID> {
          *
          * @param id identifier of vertex
          * @throws NullPointerException if id is null
+         * @throws IllegalArgumentException if a vertex with id already exists in the graph
          */
         void setId(ID id);
 
@@ -45,6 +46,7 @@ public interface Graph<ID> {
          * @param id identifier of vertex.
          * @return this vertex
          * @throws NullPointerException if id is null
+         * @throws IllegalArgumentException if a vertex with id already exists in the graph
          */
         Vertex<ID> id(ID id);
 

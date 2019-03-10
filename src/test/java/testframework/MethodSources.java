@@ -4,6 +4,9 @@ import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.greenrobot.*;
 import java.util.stream.Stream;
 import org.greenrobot.eventbus.EventBus;
+import org.junit.jupiter.params.provider.Arguments;
+
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class MethodSources {
 
@@ -40,9 +43,11 @@ public class MethodSources {
             new DirectedGraph<>());
     }
 
-    public static Stream<EventGraph<String, EventBus>> eventSimpleGraphs() {
+    public static Stream<Arguments> eventSimpleGraphs() {
+        EventBus undirected = testEventBus();
+        EventBus directed = testEventBus();
         return Stream.of(
-                new UndirectedEventGraph<>(testEventBus()),
-                new DirectedEventGraph<>(testEventBus()));
+                arguments(new UndirectedEventGraph<>(undirected), undirected),
+                arguments(new DirectedEventGraph<>(directed), directed));
     }
 }

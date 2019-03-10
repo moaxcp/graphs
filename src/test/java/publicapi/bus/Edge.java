@@ -8,78 +8,78 @@ import testframework.EventSimpleGraphs;
 
 public class Edge {
     @EventSimpleGraphs
-    void created(EventGraph<String, EventBus> graph) {
+    void created(EventGraph<String> graph, EventBus bus) {
         graph.id("id");
-        assertThat(graph).hasEventsIn(g -> g.edge("A", "B"))
+        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("A", "B"))
             .containsExactly(VertexCreated.class, VertexCreated.class, EdgeCreated.class).inOrder();
     }
 
     @EventSimpleGraphs
-    void notCreated(EventGraph<String, EventBus> graph) {
+    void notCreated(EventGraph<String> graph, EventBus bus) {
         graph.id("id");
         graph.edge("A", "B").id("id");
-        assertThat(graph).hasNoEventsIn(g -> g.edge("A", "B"));
+        assertThat(graph).with(bus).hasNoEventsIn(g -> g.edge("A", "B"));
     }
 
     @EventSimpleGraphs
-    void removed(EventGraph<String, EventBus> graph) {
+    void removed(EventGraph<String> graph, EventBus bus) {
         graph.id("id");
         graph.edge("A", "B");
-        assertThat(graph).hasEventsIn(g -> g.removeEdge("A", "B")).containsExactly(EdgeRemoved.class);
+        assertThat(graph).with(bus).hasEventsIn(g -> g.removeEdge("A", "B")).containsExactly(EdgeRemoved.class);
     }
 
     @EventSimpleGraphs
-    void removeWithId(EventGraph<String, EventBus> graph) {
+    void removeWithId(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
-        assertThat(graph).hasEventsIn(g -> g.removeEdge("edge")).containsExactly(EdgeRemoved.class);
+        assertThat(graph).with(bus).hasEventsIn(g -> g.removeEdge("edge")).containsExactly(EdgeRemoved.class);
     }
 
     @EventSimpleGraphs
-    void addProperty(EventGraph<String, EventBus> graph) {
+    void addProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edge("A", "B").id("edge");
-        assertThat(graph)
+        assertThat(graph).with(bus)
             .hasEventsIn(g -> g.edge("A", "B").property("name", "value")).containsExactly(EdgePropertyAdded.class);
     }
 
     @EventSimpleGraphs
-    void removeProperty(EventGraph<String, EventBus> graph) {
+    void removeProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
-        assertThat(graph)
+        assertThat(graph).with(bus)
             .hasEventsIn(g -> g.edge("A", "B").removeProperty("name")).containsExactly(EdgePropertyRemoved.class);
     }
 
     @EventSimpleGraphs
-    void updateProperty(EventGraph<String, EventBus> graph) {
+    void updateProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edge("A", "B").id("edge").property("name", "value");
-        assertThat(graph)
+        assertThat(graph).with(bus)
             .hasEventsIn(g -> g.edge("A", "B").property("name", "value2")).containsExactly(EdgePropertyUpdated.class);
     }
 
     @EventSimpleGraphs
-    void edgeIdAdded(EventGraph<String, EventBus> graph) {
+    void edgeIdAdded(EventGraph<String> graph, EventBus bus) {
         graph.edge("A", "B");
-        assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id("edge")).containsExactly(EdgeIdAdded.class);
+        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("A", "B").id("edge")).containsExactly(EdgeIdAdded.class);
     }
 
     @EventSimpleGraphs
-    void edgeIdRemovedNoId(EventGraph<String, EventBus> graph) {
+    void edgeIdRemovedNoId(EventGraph<String> graph, EventBus bus) {
         graph.edge("A", "B");
-        assertThat(graph).hasNoEventsIn(g -> g.edge("A", "B").id(null));
+        assertThat(graph).with(bus).hasNoEventsIn(g -> g.edge("A", "B").id(null));
     }
 
     @EventSimpleGraphs
-    void edgeIdRemoved(EventGraph<String, EventBus> graph) {
+    void edgeIdRemoved(EventGraph<String> graph, EventBus bus) {
         graph.edge("A", "B").id("edge");
-        assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id(null)).containsExactly(EdgeIdRemoved.class);
+        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("A", "B").id(null)).containsExactly(EdgeIdRemoved.class);
     }
 
     @EventSimpleGraphs
-    void edgeIdUpdated(EventGraph<String, EventBus> graph) {
+    void edgeIdUpdated(EventGraph<String> graph, EventBus bus) {
         graph.edge("A", "B").id("id1");
-        assertThat(graph).hasEventsIn(g -> g.edge("A", "B").id("id2")).containsExactly(EdgeIdUpdated.class);
+        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("A", "B").id("id2")).containsExactly(EdgeIdUpdated.class);
     }
 }
