@@ -168,10 +168,11 @@ A subscriber to these events can create a view of the graph as it is modified.
 
 = Releases
 
-== next
+== 0.2.0-SNAPSHOT
 
 Javadoc for `Vertex.setId` has been updated to throw IllegalArgumentException of a vertex with id already exists.
 Removed EventBus.getBus and generic type.
+Fixed bug #22 where setting `from` or `to` on an edge does not result in an event
 
 == 0.1.1
 

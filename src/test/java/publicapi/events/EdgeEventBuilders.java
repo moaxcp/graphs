@@ -3,7 +3,7 @@ package publicapi.events;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.events.*;
-import com.google.common.truth.Truth8;
+import static com.google.common.truth.Truth8.assertThat;
 import org.junit.jupiter.api.Test;
 
 public class EdgeEventBuilders {
@@ -93,6 +93,18 @@ public class EdgeEventBuilders {
     }
 
     @Test
+    void edgeToUpdatedEventMissingOldEdgeTo() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeToUpdated.Builder<String>().from("from").to("to").edgeId("id1").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("oldTo must not be null.");
+    }
+
+    @Test
+    void edgeFromUpdatedEventMissingOldEdgeTo() {
+        Throwable thrown = assertThrows(NullPointerException.class, () -> new EdgeFromUpdated.Builder<String>().from("from").to("to").edgeId("id1").build());
+        assertThat(thrown).hasMessageThat().isEqualTo("oldFrom must not be null.");
+    }
+
+    @Test
     void testEdgeCreated() {
         var event = new EdgeCreated.Builder<String>()
             .graphId("graph")
@@ -100,8 +112,8 @@ public class EdgeEventBuilders {
             .from("A")
             .to("B")
             .build();
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
-        Truth8.assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
     }
@@ -114,8 +126,8 @@ public class EdgeEventBuilders {
             .from("A")
             .to("B")
             .build();
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
-        Truth8.assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
     }
@@ -128,7 +140,7 @@ public class EdgeEventBuilders {
             .from("A")
             .to("B")
             .build();
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getEdgeId()).isEqualTo("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
@@ -142,7 +154,7 @@ public class EdgeEventBuilders {
             .from("A")
             .to("B")
             .build();
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getEdgeId()).isEqualTo("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
@@ -157,11 +169,43 @@ public class EdgeEventBuilders {
             .from("A")
             .to("B")
             .build();
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getGraphId()).hasValue("graph");
         assertThat(event.getEdgeId()).isEqualTo("id1");
         assertThat(event.getOldEdgeId()).isEqualTo("id2");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
+    }
+
+    @Test
+    void testEdgeToUpdated() {
+        var event = new EdgeToUpdated.Builder<String>()
+                .graphId("graph")
+                .edgeId("id")
+                .from("A")
+                .to("B")
+                .oldTo("oldTo")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("id");
+        assertThat(event.getFrom()).isEqualTo("A");
+        assertThat(event.getTo()).isEqualTo("B");
+        assertThat(event.getOldTo()).isEqualTo("oldTo");
+    }
+
+    @Test
+    void testEdgeFromUpdated() {
+        var event = new EdgeFromUpdated.Builder<String>()
+                .graphId("graph")
+                .edgeId("id")
+                .from("A")
+                .to("B")
+                .oldFrom("oldFrom")
+                .build();
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("id");
+        assertThat(event.getFrom()).isEqualTo("A");
+        assertThat(event.getTo()).isEqualTo("B");
+        assertThat(event.getOldFrom()).isEqualTo("oldFrom");
     }
 
     @Test
@@ -175,8 +219,8 @@ public class EdgeEventBuilders {
             .value("value")
             .build();
 
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
-        Truth8.assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
         assertThat(event.getName()).isEqualTo("name");
@@ -194,8 +238,8 @@ public class EdgeEventBuilders {
             .value("value")
             .build();
 
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
-        Truth8.assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
         assertThat(event.getName()).isEqualTo("name");
@@ -214,8 +258,8 @@ public class EdgeEventBuilders {
             .oldValue("oldValue")
             .build();
 
-        Truth8.assertThat(event.getGraphId()).hasValue("graph");
-        Truth8.assertThat(event.getEdgeId()).hasValue("edge");
+        assertThat(event.getGraphId()).hasValue("graph");
+        assertThat(event.getEdgeId()).hasValue("edge");
         assertThat(event.getFrom()).isEqualTo("A");
         assertThat(event.getTo()).isEqualTo("B");
         assertThat(event.getName()).isEqualTo("name");

@@ -1,7 +1,9 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.greenrobot;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
+
+import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.events.*;
 import java.util.*;
 import java.util.stream.*;
@@ -133,6 +135,20 @@ public class GraphEventCheck {
     }
 
     @Subscribe
+    public void edgeToUpdated(EdgeToUpdated event) {
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo());
+        assertThat(actual).hasNoEdge(event.getFrom(), event.getOldTo());
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
+    public void edgeFromUpdated(EdgeFromUpdated event) {
+        assertThat(actual).hasEdge(event.getFrom(), event.getTo());
+        assertThat(actual).hasNoEdge(event.getOldFrom(), event.getTo());
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
     public void vertexCreated(VertexCreated event) {
         assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
         assertThat(actual).hasVertex(event.getVertexId());
@@ -197,7 +213,9 @@ public class GraphEventCheck {
             EdgeRemoved.class,
             EdgeIdAdded.class,
             EdgeIdRemoved.class,
-            EdgeIdUpdated.class)
+            EdgeIdUpdated.class,
+                EdgeFromUpdated.class,
+                EdgeToUpdated.class)
             .collect(Collectors.toList());
         assertThat(supported).contains(event.getClass());
     }

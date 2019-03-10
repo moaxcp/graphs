@@ -48,6 +48,32 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
         }
 
         @Override
+        public void setFrom(ID from) {
+            var oldFrom = this.getFrom();
+            super.setFrom(from);
+            bus.post(new EdgeFromUpdated.Builder<ID>()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .edgeId(getId().orElse(null))
+                    .from(getFrom())
+                    .oldFrom(oldFrom)
+                    .to(getTo())
+                    .build());
+        }
+
+        @Override
+        public void setTo(ID to) {
+            var oldTo = this.getTo();
+            super.setTo(to);
+            bus.post(new EdgeToUpdated.Builder<ID>()
+                    .graphId(AbstractEventGraph.this.getId().orElse(null))
+                    .edgeId(getId().orElse(null))
+                    .from(getFrom())
+                    .oldTo(oldTo)
+                    .to(getTo())
+                    .build());
+        }
+
+        @Override
         public void setProperty(String name, Object value) {
             var oldValue = getProperty(name);
             super.setProperty(name, value);

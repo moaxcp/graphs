@@ -3,7 +3,6 @@ package com.github.moaxcp.graphs.greenrobot;
 import static com.google.common.truth.Truth.assertAbout;
 
 import com.github.moaxcp.graphs.EventGraph;
-import com.github.moaxcp.graphs.GraphEventCheck;
 import com.google.common.truth.*;
 import java.util.function.Consumer;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;

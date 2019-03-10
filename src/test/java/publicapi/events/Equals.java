@@ -96,6 +96,15 @@ public class Equals {
     }
 
     @Test
+    void edgeToUpdated() {
+        EqualsVerifier.forClass(EdgeToUpdated.class).withRedefinedSuperclass().verify();
+    }
+
+    @Test
+    void edgeFromUpdated() {
+        EqualsVerifier.forClass(EdgeFromUpdated.class).withRedefinedSuperclass().verify();
+    }
+    @Test
     void graphPropertyAdded() {
         EqualsVerifier.forClass(GraphPropertyAdded.class).withRedefinedSuperclass().verify();
     }

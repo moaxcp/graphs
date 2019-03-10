@@ -82,4 +82,30 @@ public class Edge {
         graph.edge("A", "B").id("id1");
         assertThat(graph).with(bus).hasEventsIn(g -> g.edge("A", "B").id("id2")).containsExactly(EdgeIdUpdated.class);
     }
+
+    @EventSimpleGraphs
+    void edgeFromUpdatedCreatedVertex(EventGraph<String> graph, EventBus bus) {
+        graph.edge("id", "B");
+        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("id", "B").setFrom("A")).containsExactly(VertexCreated.class, EdgeFromUpdated.class);
+    }
+
+    @EventSimpleGraphs
+    void edgeToUpdatedCreatedVertex(EventGraph<String> graph, EventBus bus) {
+        graph.edge("A", "id");
+        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("A", "id").setTo("B")).containsExactly(VertexCreated.class, EdgeToUpdated.class);
+    }
+
+    @EventSimpleGraphs
+    void edgeFromUpdated(EventGraph<String> graph, EventBus bus) {
+        graph.vertex("A");
+        graph.edge("id", "B");
+        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("id", "B").setFrom("A")).containsExactly(EdgeFromUpdated.class);
+    }
+
+    @EventSimpleGraphs
+    void edgeToUpdated(EventGraph<String> graph, EventBus bus) {
+        graph.vertex("B");
+        graph.edge("A", "id");
+        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("A", "id").setTo("B")).containsExactly(EdgeToUpdated.class);
+    }
 }
