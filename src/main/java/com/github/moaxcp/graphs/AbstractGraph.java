@@ -209,9 +209,6 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             vertices.remove(this.getId());
             this.id = id;
             vertices.put(id, this);
-            if(adjacent == null) {
-                return;
-            }
             for (Edge<ID> edge : adjacent) {
                 if (edge.getFrom().equals(oldId)) {
                     edge.setFrom(id);
