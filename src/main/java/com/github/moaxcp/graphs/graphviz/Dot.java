@@ -2,10 +2,9 @@ package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.Graph;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 import static java.util.Objects.requireNonNull;
 
@@ -59,5 +58,29 @@ public class Dot<ID> {
             throw new IllegalArgumentException("not expected", e);
         }
         return writer.toString();
+    }
+
+    public BufferedImage toImage() throws IOException {
+        var command = "dot";
+        if(graph.isDirected()) {
+            command = "neato";
+        }
+        ProcessBuilder builder = new ProcessBuilder(command, "-Tpng");
+        Process process = builder.start();
+        try(PrintWriter writer = new PrintWriter(process.getOutputStream())) {
+            writer.append(toString());
+        }
+        String error = new String(process.getErrorStream().readAllBytes());
+        BufferedImage image = ImageIO.read(process.getInputStream());
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return image;
+    }
+
+    public void writeImage(OutputStream out, String format) throws IOException {
+        ImageIO.write(toImage(), format, out);
     }
 }
