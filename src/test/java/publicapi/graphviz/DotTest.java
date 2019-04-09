@@ -4,7 +4,9 @@ import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.graphviz.Dot;
 import org.junit.jupiter.api.Test;
+import testframework.DirectedSimpleGraphs;
 import testframework.SimpleGraphs;
+import testframework.UndirectedSimpleGraphs;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -40,5 +42,19 @@ public class DotTest {
     void endsWithBrace(Graph<String> graph) {
         var s = dot(graph).toString();
         assertThat(s).endsWith("}\n");
+    }
+
+    @DirectedSimpleGraphs
+    void toImageDirected(Graph<String> graph) throws IOException {
+        graph.edge("A", "B");
+        var image = dot(graph).toImage();
+        assertThat(image).isNotNull();
+    }
+
+    @UndirectedSimpleGraphs
+    void toImageUndirected(Graph<String> graph) throws IOException {
+        graph.edge("A", "B");
+        var image = dot(graph).toImage();
+        assertThat(image).isNotNull();
     }
 }
