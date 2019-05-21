@@ -1,8 +1,11 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.Graph.*;
-import java.util.Set;
+import com.github.moaxcp.graphs.Graph.Edge;
+import com.github.moaxcp.graphs.Graph.Vertex;
 import org.openjdk.jmh.annotations.*;
+
+import java.util.Optional;
+import java.util.Set;
 
 @State(Scope.Thread)
 public class EdgeMethods {
@@ -44,13 +47,13 @@ public class EdgeMethods {
     }
 
     @Benchmark
-    public Edge<Integer> findFirstEdge() {
-        return graph.edge(0, 0);
+    public Optional<Edge<Integer>> findFirstEdge() {
+        return graph.findEdge(0, 0);
     }
 
     @Benchmark
-    public Edge<Integer> findLastEdge() {
-        return graph.edge(lastFrom, lastTo);
+    public Optional<Edge<Integer>> findLastEdge() {
+        return graph.findEdge(lastFrom, lastTo);
     }
 
     @Benchmark
