@@ -20,7 +20,7 @@ public class GifBuilder {
     private int minWidth = Integer.MAX_VALUE;
     private int minHeight = Integer.MAX_VALUE;
     private int delay;
-    private boolean loop;
+    private int loop;
     private Path file;
 
     public GifBuilder image(BufferedImage image) {
@@ -45,7 +45,7 @@ public class GifBuilder {
         return this;
     }
 
-    public GifBuilder loop(boolean loop) {
+    public GifBuilder loop(int loop) {
         this.loop = loop;
         return this;
     }

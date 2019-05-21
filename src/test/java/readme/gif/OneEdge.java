@@ -14,8 +14,8 @@ public class OneEdge {
     public void gif(Graph<String> graph) throws IOException {
         GifBuilder gif = new GifBuilder()
                 .file(Paths.get("images/oneEdge-" + graph.getClass().getSimpleName() + ".gif"))
-                .delay(1000)
-                .loop(true);
+                .delay(100)
+                .loop(0);
         graph.vertex("A");
         gif.image(dot(graph).type("gif").toImage());
         graph.vertex("B");

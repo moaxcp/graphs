@@ -11,6 +11,7 @@ import static java.util.Objects.requireNonNull;
 public class Dot<ID> {
 
     private Graph<ID> graph;
+    private String type;
 
     public static <ID> Dot<ID> dot(Graph<ID> graph) {
         return new Dot<>(graph);
@@ -18,6 +19,20 @@ public class Dot<ID> {
 
     private Dot(Graph<ID> graph) {
         this.graph = requireNonNull(graph, "graph must not be null.");
+        type = "png";
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Dot type(String type) {
+        setType(type);
+        return this;
     }
 
     public void write(Writer writer) throws IOException {
@@ -65,7 +80,7 @@ public class Dot<ID> {
         if(graph.isDirected()) {
             command = "neato";
         }
-        ProcessBuilder builder = new ProcessBuilder(command, "-Tpng");
+        ProcessBuilder builder = new ProcessBuilder(command, "-T" + type);
         Process process = builder.start();
         try(PrintWriter writer = new PrintWriter(process.getOutputStream())) {
             writer.append(toString());

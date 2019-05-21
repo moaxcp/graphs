@@ -1,6 +1,9 @@
 package com.github.moaxcp.graphs.graphviz;
 
-import javax.imageio.*;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageTypeSpecifier;
+import javax.imageio.ImageWriter;
 import javax.imageio.metadata.IIOInvalidTreeException;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
@@ -11,28 +14,23 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class GifWriter implements AutoCloseable {
     private int screenWidth;
     private int screenHeight;
-    private boolean loop;
+    private int loop;
     private int defaultDelay;
     private String defaultDisposalMethod;
     private boolean defaultInterlace;
     private boolean first = true;
     private ImageWriter gifWriter;
 
-    private static final List<String> validDisposalMethods = List.of("none", "doNotDispose", "restoreToBackgroundColor", "restoreToPrevious", "");
+    private static final List<String> validDisposalMethods = List.of("none", "doNotDispose", "restoreToBackgroundColor", "restoreToPrevious");
 
     private GifWriter(Builder builder) {
         requireNonNull(builder.out, "out must not be null.");
-        if(builder.screenWidth < 1) {
-            throw new IllegalArgumentException("screenWidth must not be less than one.");
-        }
-        if(builder.screenHeight < 1) {
-            throw new IllegalArgumentException("screenHeight must not be less than one.");
-        }
         screenWidth = builder.screenWidth;
         screenHeight = builder.screenHeight;
         loop = builder.loop;
@@ -51,7 +49,7 @@ public class GifWriter implements AutoCloseable {
         return screenHeight;
     }
 
-    public boolean getLoop() {
+    public int getLoop() {
         return loop;
     }
 
@@ -66,16 +64,20 @@ public class GifWriter implements AutoCloseable {
         this.defaultDelay = defaultDelay;
     }
 
+    public String getDefaultDisposalMethod() {
+        return defaultDisposalMethod;
+    }
+
     public void setDefaultDisposalMethod(String defaultDisposalMethod) {
-        requireNonNull(defaultDisposalMethod, "defaultDisposalMethod must not be null.");
-        if(!validDisposalMethods.contains(defaultDisposalMethod)) {
-            throw new IllegalArgumentException("defaultDisposalMethod most be either non, background.");
-        }
+        checkDisposalMethod(defaultDisposalMethod);
         this.defaultDisposalMethod = defaultDisposalMethod;
     }
 
-    public String getDefaultDisposalMethod() {
-        return defaultDisposalMethod;
+    private static void checkDisposalMethod(String defaultDisposalMethod) {
+        requireNonNull(defaultDisposalMethod, "defaultDisposalMethod must not be null.");
+        if(!validDisposalMethods.contains(defaultDisposalMethod)) {
+            throw new IllegalArgumentException(format("defaultDisposalMethod must be one of %s.", validDisposalMethods));
+        }
     }
 
     public void writeToSequence(RenderedImage img) throws IOException {
@@ -98,8 +100,7 @@ public class GifWriter implements AutoCloseable {
             extension.setAttribute("applicationID", "NETSCAPE");
             extension.setAttribute("authenticationCode", "2.0");
 
-            int loopData = loop ? 0 : 1;
-            extension.setUserObject(new byte[]{0x1, (byte) (loopData & 0xFF), (byte) ((loopData >> 8) & 0xFF)});
+            extension.setUserObject(new byte[]{0x1, (byte) (loop & 0xFF), (byte) ((loop >> 8) & 0xFF)});
             extensions.appendChild(extension);
             first = false;
         }
@@ -113,12 +114,14 @@ public class GifWriter implements AutoCloseable {
 
         IIOMetadataNode root = (IIOMetadataNode) metadata.getAsTree(metadataName);
 
-//        IIOMetadataNode descriptor = getNode(root, "ImageDescriptor");
-//        descriptor.setAttribute("imageLeftPosition", "0");
-//        descriptor.setAttribute("imageTopPosition", "0");
-//        descriptor.setAttribute("imageWidth", Integer.toString(width));
-//        descriptor.setAttribute("imageHeight", Integer.toString(height));
-//        descriptor.setAttribute("interlaceFlag", Boolean.toString(interlace).toUpperCase());
+        IIOMetadataNode descriptor = getNode(root, "ImageDescriptor");
+        descriptor.setAttribute("imageLeftPosition", "0");
+        descriptor.setAttribute("imageTopPosition", "0");
+        descriptor.setAttribute("imageWidth", Integer.toString(width));
+        descriptor.setAttribute("imageHeight", Integer.toString(height));
+        if(interlace) {
+            descriptor.setAttribute("interlaceFlag", "TRUE");
+        }
 
         IIOMetadataNode gce = getNode(root, "GraphicControlExtension");
         gce.setAttribute("disposalMethod", disposalMethod);
@@ -158,40 +161,54 @@ public class GifWriter implements AutoCloseable {
     }
 
     public static class Builder {
-        private int screenWidth;
-        private int screenHeight;
-        private boolean loop = true;
+        private int screenWidth = 1;
+        private int screenHeight = 1;
+        private int loop = 0;
         private int defaultDelay = 100;
         private String defaultDisposalMethod = "none";
         private boolean defaultInterlace = false;
         private ImageOutputStream out;
 
         public Builder screenWidth(int screenWidth) {
+            if(screenWidth < 1) {
+                throw new IllegalArgumentException("screenWidth must not be less than one.");
+            }
             this.screenWidth = screenWidth;
             return this;
         }
 
         public Builder screenHeight(int screenHeight) {
+            if(screenHeight < 1) {
+                throw new IllegalArgumentException("screenHeight must not be less than one.");
+            }
             this.screenHeight = screenHeight;
             return this;
         }
 
-        public Builder loop(boolean loop) {
+        public Builder loop(int loop) {
+            if(loop < 0) {
+                throw new IllegalArgumentException("loop must not be less than zero.");
+            }
             this.loop = loop;
             return this;
         }
 
         public Builder defaultDelay(int defaultDelay) {
+            if(defaultDelay < 0) {
+                throw new IllegalArgumentException("defaultDelay must not be less than one.");
+            }
             this.defaultDelay = defaultDelay;
             return this;
         }
 
         public Builder out(ImageOutputStream out) {
+            requireNonNull(out, "out must not be null.");
             this.out = out;
             return this;
         }
 
         public Builder defaultDisposalMethod(String defaultDisposalMethod) {
+            checkDisposalMethod(defaultDisposalMethod);
             this.defaultDisposalMethod = defaultDisposalMethod;
             return this;
         }
