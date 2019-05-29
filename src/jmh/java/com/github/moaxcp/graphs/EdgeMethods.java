@@ -4,7 +4,6 @@ import com.github.moaxcp.graphs.Graph.Edge;
 import com.github.moaxcp.graphs.Graph.Vertex;
 import org.openjdk.jmh.annotations.*;
 
-import java.util.Optional;
 import java.util.Set;
 
 @State(Scope.Thread)
@@ -47,13 +46,13 @@ public class EdgeMethods {
     }
 
     @Benchmark
-    public Optional<Edge<Integer>> findFirstEdge() {
-        return graph.findEdge(0, 0);
+    public Edge<Integer> findFirstEdge() {
+        return graph.edge(0, 0);
     }
 
     @Benchmark
-    public Optional<Edge<Integer>> findLastEdge() {
-        return graph.findEdge(lastFrom, lastTo);
+    public Edge<Integer> findLastEdge() {
+        return graph.edge(lastFrom, lastTo);
     }
 
     @Benchmark
