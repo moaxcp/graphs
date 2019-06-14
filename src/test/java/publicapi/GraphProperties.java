@@ -1,10 +1,11 @@
 package publicapi;
 
+import com.github.moaxcp.graphs.Graph;
+import testframework.SimpleGraphs;
+
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.Graph;
-import testframework.SimpleGraphs;
 
 public class GraphProperties {
 
@@ -79,5 +80,11 @@ public class GraphProperties {
         graph.property("property", "value");
         graph.removeProperty("property");
         assertThat(graph).withProperty("property").isEmpty();
+    }
+
+    @SimpleGraphs
+    void getProperties(Graph graph) {
+        graph.property("property", "value");
+        assertThat(graph.getProperties()).containsExactly("property", "value");
     }
 }

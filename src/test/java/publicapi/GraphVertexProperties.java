@@ -1,10 +1,11 @@
 package publicapi;
 
+import com.github.moaxcp.graphs.Graph;
+import testframework.SimpleGraphs;
+
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.Graph;
-import testframework.SimpleGraphs;
 
 public class GraphVertexProperties {
 
@@ -62,5 +63,11 @@ public class GraphVertexProperties {
         graph.vertexProperty("property", "value");
         var vertex = graph.vertex("id");
         assertThat(vertex).withProperty("property").hasValue("value");
+    }
+
+    @SimpleGraphs
+    void getProperties(Graph graph) {
+        graph.vertexProperty("property", "value");
+        assertThat(graph.getVertexProperties()).containsExactly("property", "value");
     }
 }

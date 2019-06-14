@@ -532,6 +532,12 @@ public interface Graph<ID> {
     boolean isDirected();
 
     /**
+     * Returns an unmodifiable map of properties for this graph.
+     * @return an unmodifiable map of properties for this graph
+     */
+    Map<String, Object> getProperties();
+
+    /**
      * Returns {@link Optional} of a property. If the property does not exist the returned {@link Optional} is
      * empty.
      *
@@ -570,6 +576,12 @@ public interface Graph<ID> {
     Graph<ID> removeProperty(String name);
 
     /**
+     * Returns an unmodifiable map of edge properties.
+     * @return an unmodifiable map of edge properties
+     */
+    Map<String, Object> getEdgeProperties();
+
+    /**
      * Returns {@link Optional} of an edge property. If the property does not exist the returned {@link Optional} is
      * empty.
      *
@@ -606,6 +618,12 @@ public interface Graph<ID> {
      * @throws NullPointerException if name is null
      */
     Graph<ID> removeEdgeProperty(String name);
+
+    /**
+     * Retruns an unmodifiable map of vertex properties.
+     * @return an unmodifiable map of vertex properties
+     */
+    Map<String, Object> getVertexProperties();
 
     /**
      * Returns {@link Optional} of a vertex property. If the property does not exist the returned {@link Optional} is

@@ -1,10 +1,10 @@
 package com.github.moaxcp.graphs;
 
-import static java.util.Collections.emptySet;
-import static java.util.Collections.unmodifiableSet;
+import java.util.*;
+
+import static java.util.Collections.*;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
-import java.util.*;
 
 /**
  * This class provides a partial implementation of the {@link Graph} interface.
@@ -353,7 +353,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Map<ID, Vertex<ID>> getVertices() {
-        return Collections.unmodifiableMap(vertices);
+        return unmodifiableMap(vertices);
     }
 
     @Override
@@ -362,7 +362,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public Map<ID, Edge<ID>> getEdgeIds() { return Collections.unmodifiableMap(edgeIds); }
+    public Map<ID, Edge<ID>> getEdgeIds() { return unmodifiableMap(edgeIds); }
 
     @Override
     public Optional<Vertex<ID>> findVertex(ID id) {
@@ -509,6 +509,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
+    public Map<String, Object> getProperties() {
+        return unmodifiableMap(properties);
+    }
+
+    @Override
     public Optional<Object> getProperty(String name) {
         return Optional.ofNullable(properties.get(name));
     }
@@ -540,6 +545,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
+    public Map<String, Object> getEdgeProperties() {
+        return unmodifiableMap(edgeProperties);
+    }
+
+    @Override
     public Optional<Object> getEdgeProperty(String name) {
         return Optional.ofNullable(edgeProperties.get(name));
     }
@@ -568,6 +578,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         }
         edgeProperties.remove(name);
         return this;
+    }
+
+    @Override
+    public Map<String, Object> getVertexProperties() {
+        return unmodifiableMap(vertexProperties);
     }
 
     @Override

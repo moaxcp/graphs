@@ -1,10 +1,11 @@
 package publicapi;
 
+import com.github.moaxcp.graphs.Graph;
+import testframework.SimpleGraphs;
+
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.Graph;
-import testframework.SimpleGraphs;
 
 public class GraphEdgeProperties {
 
@@ -62,5 +63,11 @@ public class GraphEdgeProperties {
         graph.edgeProperty("property", "value");
         var edge = graph.edge("A", "B");
         assertThat(edge).withProperty("property").hasValue("value");
+    }
+
+    @SimpleGraphs
+    void getProperties(Graph graph) {
+        graph.edgeProperty("property", "value");
+        assertThat(graph.getEdgeProperties()).containsExactly("property", "value");
     }
 }
