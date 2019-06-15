@@ -2,7 +2,6 @@ package publicapi.graphviz;
 
 import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.graphviz.Dot;
 import org.junit.jupiter.api.Test;
 import testframework.DirectedSimpleGraphs;
 import testframework.SimpleGraphs;
@@ -42,6 +41,45 @@ public class DotTest {
     void endsWithBrace(Graph<String> graph) {
         var s = dot(graph).toString();
         assertThat(s).endsWith("}\n");
+    }
+
+    @SimpleGraphs
+    void graphAttributes(Graph<String> graph) {
+        graph.property("color", "blue");
+        graph.property("label", "graph");
+        graph.edge("A", "B");
+        var s = dot(graph).toString();
+        assertThat(s).contains("color=blue\n  label=graph");
+    }
+
+    @SimpleGraphs
+    void edgeAttributes(Graph<String> graph) {
+        graph.edge("A", "B").property("color", "blue").property("size", 10);
+        var s = dot(graph).toString();
+        assertThat(s).containsMatch("A -[->] B \\[color=blue, size=10\\]");
+    }
+
+    @SimpleGraphs
+    void vertexAttributes(Graph<String> graph) {
+        graph.vertex("A").property("color", "blue").property("size", 10);
+        var s = dot(graph).toString();
+        assertThat(s).contains("A [color=blue, size=10]");
+    }
+
+    @SimpleGraphs
+    void graphEdgeAttributes(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edgeProperty("color", "blue");
+        var s = dot(graph).toString();
+        assertThat(s).contains("edge [color=blue]");
+    }
+
+    @SimpleGraphs
+    void graphVertexAttributes(Graph<String> graph) {
+        graph.vertex("A");
+        graph.vertexProperty("color", "blue");
+        var s = dot(graph).toString();
+        assertThat(s).contains("node [color=blue]");
     }
 
     @DirectedSimpleGraphs

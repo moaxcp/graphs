@@ -5,8 +5,11 @@ import com.github.moaxcp.graphs.Graph;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Map;
 
+import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.joining;
 
 public class Dot<ID> {
 
@@ -43,6 +46,9 @@ public class Dot<ID> {
         } else {
             printWriter.println("strict graph {");
         }
+        writeGraphAttributes(writer);
+        writeVertexAttributes(writer);
+        writeEdgeAttributes(writer);
         for(Graph.Edge<ID> edge : graph.getEdges()) {
             writeEdge(edge, printWriter);
         }
@@ -53,16 +59,63 @@ public class Dot<ID> {
         printWriter.println("}");
     }
 
+    private void writeGraphAttributes(Writer writer) throws IOException {
+        if(!graph.getProperties().isEmpty()) {
+            var joined = graph.getProperties().entrySet().stream()
+                    .map(this::attributeString)
+                    .collect(joining("\n  ", "  ", "\n"));
+            writer.append(joined);
+        }
+    }
+
+    private void writeAttributes(Writer writer, Map<String, Object> attributes) throws IOException {
+        var joined = attributes.entrySet().stream()
+                .map(this::attributeString)
+                .collect(joining(", ", "[", "]"));
+        writer.append(joined);
+    }
+
+    private String attributeString(Map.Entry<String, Object> e) {
+        return format("%s=%s", e.getKey(), e.getValue());
+    }
+
+    private void writeVertexAttributes(Writer writer) throws IOException {
+        if(!graph.getVertexProperties().isEmpty()) {
+            writer.append("  node ");
+            writeAttributes(writer, graph.getVertexProperties());
+            writer.append("\n");
+        }
+    }
+
+    private void writeEdgeAttributes(Writer writer) throws IOException {
+        if(!graph.getEdgeProperties().isEmpty()) {
+            writer.append("  edge ");
+            writeAttributes(writer, graph.getEdgeProperties());
+            writer.append("\n");
+        }
+
+    }
+
     private void writeEdge(Graph.Edge<ID> edge, PrintWriter writer) throws IOException {
         var connector = graph.isDirected() ? "->" : "--";
-        writer.printf("  %s %s %s\n", edge.getFrom(), connector, edge.getTo());
+        writer.printf("  %s %s %s", edge.getFrom(), connector, edge.getTo());
+        if(!edge.local().isEmpty()) {
+            writer.append(" ");
+            writeAttributes(writer, edge.local());
+        }
+        writer.append("\n");
     }
 
     private void writeVertex(Graph.Vertex<ID> vertex, PrintWriter writer) throws IOException {
         if((vertex.inEdges().size() > 0 || vertex.outEdges().size() > 0) && vertex.local().size() == 0) {
             return;
         }
-        writer.append("  ").append(vertex.getId().toString()).append("\n");
+        writer.append("  ").append(vertex.getId().toString());
+        if(!vertex.local().isEmpty()) {
+            writer.append(" ");
+            writeAttributes(writer, vertex.local());
+        }
+        writer.append("\n");
     }
 
     public String toString() {
