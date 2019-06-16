@@ -253,30 +253,6 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         }
 
         @Override
-        public Edge<ID> edgeTo(ID to) {
-            check();
-            return edge(getId(), to);
-        }
-
-        @Override
-        public Edge<ID> edgeFrom(ID from) {
-            check();
-            return edge(from, getId());
-        }
-
-        @Override
-        public Vertex<ID> toVertex(ID id) {
-            check();
-            return edgeTo(id).toVertex();
-        }
-
-        @Override
-        public Vertex<ID> fromVertex(ID id) {
-            check();
-            return edgeFrom(id).fromVertex();
-        }
-
-        @Override
         public Set<Edge<ID>> adjacentEdges() {
             check();
             Set<Edge<ID>> edges = adjacentEdges.get(id);

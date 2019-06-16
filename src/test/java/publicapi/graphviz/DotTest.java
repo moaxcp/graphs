@@ -3,9 +3,7 @@ package publicapi.graphviz;
 import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
 import org.junit.jupiter.api.Test;
-import testframework.DirectedSimpleGraphs;
 import testframework.SimpleGraphs;
-import testframework.UndirectedSimpleGraphs;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -82,16 +80,12 @@ public class DotTest {
         assertThat(s).contains("node [color=blue]");
     }
 
-    @DirectedSimpleGraphs
+    @SimpleGraphs
     void toImageDirected(Graph<String> graph) throws IOException {
-        graph.edge("A", "B");
-        var image = dot(graph).toImage();
-        assertThat(image).isNotNull();
-    }
-
-    @UndirectedSimpleGraphs
-    void toImageUndirected(Graph<String> graph) throws IOException {
-        graph.edge("A", "B");
+        graph.property("rankdir", "LR");
+        graph.edge("A", "B").property("color", "red");
+        graph.vertex("A").property("color", "green");
+        graph.vertex("B").property("color", "blue");
         var image = dot(graph).toImage();
         assertThat(image).isNotNull();
     }

@@ -1,12 +1,14 @@
 package publicapi;
 
+import com.github.moaxcp.graphs.Graph;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import testframework.SimpleGraphs;
+
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.Graph;
-import nl.jqno.equalsverifier.*;
-import testframework.*;
 
 public class VertexTest {
 
@@ -191,40 +193,6 @@ public class VertexTest {
         assertThat(edge).hasFromThat().isEqualTo("B");
         assertThat(edge).hasToThat().isEqualTo("A");
         assertThat(vertex.getId()).isEqualTo("A");
-    }
-
-    @SimpleGraphs
-    void testEdgeTo(Graph<String> graph) {
-        var edge = graph.vertex("A")
-                .edgeTo("B");
-        assertThat(graph).hasVertex("B");
-        assertThat(graph).hasEdge("A", "B");
-        assertThat(edge).hasFromThat().isEqualTo("A");
-        assertThat(edge).hasToThat().isEqualTo("B");
-    }
-
-    @SimpleGraphs
-    void testEdgeFrom(Graph<String> graph) {
-        var edge = graph.vertex("A")
-                .edgeFrom("B");
-        assertThat(graph).hasVertex("B");
-        assertThat(graph).hasEdge("B", "A");
-        assertThat(edge).hasFromThat().isEqualTo("B");
-        assertThat(edge).hasToThat().isEqualTo("A");
-    }
-
-    @SimpleGraphs
-    void toVertex(Graph<String> graph) {
-        var vertex = graph.vertex("A").toVertex("B");
-        assertThat(vertex).hasId("B");
-        assertThat(graph).hasEdge("A", "B");
-    }
-
-    @SimpleGraphs
-    void fromVertex(Graph<String> graph) {
-        var vertex = graph.vertex("B").fromVertex("A");
-        assertThat(vertex).hasId("A");
-        assertThat(graph).hasEdge("A", "B");
     }
 
     @SimpleGraphs

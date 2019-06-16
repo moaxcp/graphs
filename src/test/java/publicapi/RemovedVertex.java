@@ -1,9 +1,10 @@
 package publicapi;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.Graph;
 import testframework.SimpleGraphs;
+
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemovedVertex {
     @SimpleGraphs
@@ -59,22 +60,6 @@ public class RemovedVertex {
         var vertex = graph.vertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsFrom("B"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
-    }
-
-    @SimpleGraphs
-    void edgeTo(Graph graph) {
-        var vertex = graph.vertex("A");
-        graph.removeVertex("A");
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.edgeTo("B"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
-    }
-
-    @SimpleGraphs
-    void edgeFrom(Graph graph) {
-        var vertex = graph.vertex("A");
-        graph.removeVertex("A");
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.edgeFrom("B"));
         assertThat(thrown).hasMessage("Vertex is not in graph.");
     }
 

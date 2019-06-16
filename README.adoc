@@ -86,23 +86,6 @@ graph.vertex("A").connectsTo("B");
 
 The Vertex and Edge classes have other convenience methods for building a graph.
 
-= Building a Graph
-
-----
-Graph graph = new DirectedGraph();
-graph.vertex("A")
-    .connectsTo("E")
-    .toVertex("B") //returns B
-    .toVertex("C") //returns C
-    .fromVertex("D") //returns D
-    .connectsTo("B")
-    .connectsTo("E")
-    .connectsTo("A")
-    .connectsFrom("A")
-    .fromVertex("G") //returns G
-    .connectsFrom("F")
-----
-
 == properties
 
 A property must have a name and value. The name and value cannot be null. Graph, Vertex, and Edge can have properties.
@@ -167,6 +150,11 @@ The above code will send 4 events to the bus in order: DirectedGraphCreated, Ver
 A subscriber to these events can create a view of the graph as it is modified.
 
 = Releases
+
+== 0.3.0
+
+Added initial support for graphviz. Added getProperties(), getEdgeProperties(), and getVertexProperties() to Graph api.
+Removing edgeTo(), edgeFrom(), vertexTo(), and vertexFrom() methods in Vertex to reduce complexity of api.
 
 == 0.2.0
 
