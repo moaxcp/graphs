@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'graphs'
+include 'graphs-core'
+
