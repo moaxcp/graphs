@@ -1,12 +1,17 @@
 package com.github.moaxcp.graphs;
 
-import static com.google.common.truth.OptionalSubject.*;
-import static com.google.common.truth.Truth.*;
-import com.github.moaxcp.graphs.Graph.*;
-import com.google.common.truth.*;
-import java.util.*;
-import org.checkerframework.checker.nullness.compatqual.*;
-import org.checkerframework.checker.nullness.qual.*;
+import com.github.moaxcp.graphs.Graph.Vertex;
+import com.google.common.truth.FailureMetadata;
+import com.google.common.truth.MapSubject;
+import com.google.common.truth.OptionalSubject;
+import com.google.common.truth.Subject;
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
+import org.checkerframework.checker.nullness.qual.Nullable;
+
+import java.util.Optional;
+
+import static com.google.common.truth.OptionalSubject.optionals;
+import static com.google.common.truth.Truth.assertAbout;
 
 public class VertexSubject extends Subject<VertexSubject, Vertex> {
     /**

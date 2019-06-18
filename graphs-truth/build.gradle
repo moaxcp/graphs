@@ -1,0 +1,33 @@
+plugins {
+    id 'java-library'
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+dependencies {
+    api project(':graphs-core')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
+    api 'com.google.truth:truth:0.42'
+    api 'com.google.truth.extensions:truth-java8-extension:0.42'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.0.3'
+    testImplementation 'org.jmockit:jmockit:1.46'
+    testImplementation 'org.assertj:assertj-core:3.12.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    reports {
+        html.enabled = true
+    }
+
+    systemProperty "com.google.common.truth.disable_stack_trace_cleaning", "true"
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+}
