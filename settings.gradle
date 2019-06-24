@@ -12,4 +12,5 @@ include 'graphs-core'
 include 'graphs-test'
 include 'graphs-truth'
 include 'graphs-greenrobot'
+include 'graphs-graphviz'
 

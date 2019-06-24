@@ -9,6 +9,7 @@ dependencies {
     testImplementation project(':graphs-core')
     testImplementation project(':graphs-greenrobot')
     testImplementation project(':graphs-truth')
+    testImplementation project(':graphs-graphviz')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
     testImplementation 'com.google.truth:truth:0.42'

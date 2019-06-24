@@ -4,7 +4,6 @@ import com.github.moaxcp.graphs.Graph;
 import testframework.DirectedSimpleGraphs;
 
 import java.io.IOException;
-import java.io.StringWriter;
 
 import static com.github.moaxcp.graphs.graphviz.Dot.dot;
 import static com.google.common.truth.Truth.assertThat;

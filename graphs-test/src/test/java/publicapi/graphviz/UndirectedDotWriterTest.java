@@ -1,7 +1,6 @@
 package publicapi.graphviz;
 
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.graphviz.Dot;
 import testframework.UndirectedSimpleGraphs;
 
 import java.io.IOException;
@@ -9,7 +8,6 @@ import java.io.StringWriter;
 
 import static com.github.moaxcp.graphs.graphviz.Dot.dot;
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UndirectedDotWriterTest {
 

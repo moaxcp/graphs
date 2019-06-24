@@ -5,7 +5,6 @@ import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.UndirectedGraph;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
