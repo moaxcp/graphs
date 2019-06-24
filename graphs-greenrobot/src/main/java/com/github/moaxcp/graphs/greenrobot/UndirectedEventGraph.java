@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs.greenrobot;
 
-import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.EdgeKey;
+import com.github.moaxcp.graphs.UndirectedEdgeKey;
 import com.github.moaxcp.graphs.events.UndirectedGraphCreated;
 import org.greenrobot.eventbus.EventBus;
 

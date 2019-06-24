@@ -1,13 +1,15 @@
 package publicapi.bus;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
-import static testframework.MethodSources.testEventBus;
 import com.github.moaxcp.graphs.EventGraph;
 import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.greenrobot.*;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 import testframework.EventSimpleGraphs;
+
+import static com.github.moaxcp.graphs.Truth.assertThat;
+import static testframework.MethodSources.testEventBus;
 
 public class Graph {
     @Test

@@ -2,9 +2,6 @@ plugins {
     id 'java-library'
 }
 
-sourceCompatibility = 11
-targetCompatibility = 11
-
 dependencies {
     api project(':graphs-core')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'

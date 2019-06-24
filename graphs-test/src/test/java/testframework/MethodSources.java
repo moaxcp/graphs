@@ -1,10 +1,14 @@
 package testframework;
 
-import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.greenrobot.*;
-import java.util.stream.Stream;
+import com.github.moaxcp.graphs.DirectedGraph;
+import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.UndirectedGraph;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.params.provider.Arguments;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 

@@ -1,10 +1,14 @@
 package com.github.moaxcp.graphs.greenrobot;
 
-import static java.util.Objects.requireNonNull;
-import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.AbstractGraph;
+import com.github.moaxcp.graphs.EventGraph;
+import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.events.*;
-import java.util.Map;
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Map;
+
+import static java.util.Objects.requireNonNull;
 
 public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implements EventGraph<ID> {
 
