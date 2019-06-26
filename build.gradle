@@ -20,12 +20,6 @@ nexusStaging {
 
 def allTestCoverageFile = "$buildDir/jacoco/allTestCoverage.exec"
 
-sonarqube {
-    properties {
-        property 'sonar.jacoco.reportPaths', allTestCoverageFile
-    }
-}
-
 task jacocoMergeTest(type: JacocoMerge) {
     destinationFile = file(allTestCoverageFile)
     executionData = fileTree(dir:'.', include:'**/build/jacoco/*.exec')
@@ -33,9 +27,25 @@ task jacocoMergeTest(type: JacocoMerge) {
 
 tasks.sonarqube.dependsOn jacocoMergeTest
 
+allprojects {
+    apply plugin:'jacoco'
+    repositories {
+        jcenter()
+    }
+
+    jacoco {
+        toolVersion = '0.8.4'
+    }
+
+    sonarqube {
+        properties {
+            property 'sonar.jacoco.reportPaths', allTestCoverageFile
+        }
+    }
+}
+
 subprojects {
     apply plugin:'java-library'
-    apply plugin:'jacoco'
 
     sourceCompatibility = 11
     targetCompatibility = 11
@@ -54,15 +64,5 @@ subprojects {
     task javadocJar(type: Jar) {
         from javadoc
         archiveClassifier = 'javadoc'
-    }
-
-    repositories {
-        jcenter()
-    }
-
-    sonarqube {
-        properties {
-            property 'sonar.jacoco.reportPaths', allTestCoverageFile
-        }
     }
 }
