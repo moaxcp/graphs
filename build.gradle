@@ -18,8 +18,24 @@ nexusStaging {
     password = System.getProperty('nexus.password')
 }
 
+def allTestCoverageFile = "$buildDir/jacoco/allTestCoverage.exec"
+
+sonarqube {
+    properties {
+        property 'sonar.jacoco.reportPaths', allTestCoverageFile
+    }
+}
+
+task jacocoMergeTest(type: JacocoMerge) {
+    destinationFile = file(allTestCoverageFile)
+    executionData = fileTree(dir:'.', include:'**/build/jacoco/*.exec')
+}
+
+tasks.sonarqube.dependsOn jacocoMergeTest
+
 subprojects {
     apply plugin:'java-library'
+    apply plugin:'jacoco'
 
     sourceCompatibility = 11
     targetCompatibility = 11
@@ -42,5 +58,11 @@ subprojects {
 
     repositories {
         jcenter()
+    }
+
+    sonarqube {
+        properties {
+            property 'sonar.jacoco.reportPaths', allTestCoverageFile
+        }
     }
 }
