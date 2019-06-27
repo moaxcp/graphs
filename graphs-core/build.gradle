@@ -19,7 +19,7 @@ dependencies {
 }
 
 gitPublish {
-    repoUri = "https://github.com/moaxcp/graphs.git"
+    repoUri = 'https://github.com/moaxcp/graphs.git'
     branch = 'gh-pages'
     contents {
         from 'build/docs'
