@@ -1,4 +1,4 @@
-package publicapi.bus;
+package publicapi;
 
 import com.github.moaxcp.graphs.EventGraph;
 import com.github.moaxcp.graphs.events.*;

@@ -1,6 +1,8 @@
 dependencies {
     api project(':graphs-core')
     api 'org.greenrobot:eventbus:3.1.1'
+    testImplementation project(':graphs-truth')
+    testImplementation project(':graphs-testframework')
 }
 
 task mergeJacoco(type: JacocoMerge, dependsOn:':graphs-test:test') {
