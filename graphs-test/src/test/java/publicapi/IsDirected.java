@@ -1,8 +1,10 @@
 package publicapi;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
 import com.github.moaxcp.graphs.Graph;
-import testframework.*;
+import com.github.moaxcp.graphs.testframework.DirectedSimpleGraphs;
+import com.github.moaxcp.graphs.testframework.UndirectedSimpleGraphs;
+
+import static com.github.moaxcp.graphs.Truth.assertThat;
 
 public class IsDirected {
     @DirectedSimpleGraphs

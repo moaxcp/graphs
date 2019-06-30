@@ -1,8 +1,9 @@
 package publicapi;
 
-import static com.google.common.truth.Truth.assertThat;
 import com.github.moaxcp.graphs.Graph;
-import testframework.SimpleGraphs;
+import com.github.moaxcp.graphs.testframework.SimpleGraphs;
+
+import static com.google.common.truth.Truth.assertThat;
 
 public class EdgeIds {
 

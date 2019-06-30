@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import static testframework.MethodSources.testEventBus;
+import static com.github.moaxcp.graphs.testframework.MethodSources.testEventBus;
 
 public class GraphConstructor {
 

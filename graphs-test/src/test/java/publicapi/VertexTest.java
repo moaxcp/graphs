@@ -1,9 +1,9 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.testframework.SimpleGraphs;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-import testframework.SimpleGraphs;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;

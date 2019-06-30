@@ -1,7 +1,7 @@
 package publicapi.graphviz;
 
 import com.github.moaxcp.graphs.Graph;
-import testframework.UndirectedSimpleGraphs;
+import com.github.moaxcp.graphs.testframework.UndirectedSimpleGraphs;
 
 import java.io.IOException;
 

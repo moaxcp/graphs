@@ -1,9 +1,10 @@
 package publicapi;
 
+import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.testframework.SimpleGraphs;
+
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.Graph;
-import testframework.SimpleGraphs;
 
 public class RemovedEdge {
     @SimpleGraphs

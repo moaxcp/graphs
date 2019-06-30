@@ -2,12 +2,12 @@ package com.github.moaxcp.graphs;
 
 import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
 import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
+import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
+import com.github.moaxcp.graphs.testframework.NonEventSimpleGraphs;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
-import testframework.EventSimpleGraphs;
-import testframework.NonEventSimpleGraphs;
 
 import static com.google.common.truth.Truth.assertThat;
 

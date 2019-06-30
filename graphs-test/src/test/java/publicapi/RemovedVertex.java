@@ -1,7 +1,7 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.Graph;
-import testframework.SimpleGraphs;
+import com.github.moaxcp.graphs.testframework.SimpleGraphs;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

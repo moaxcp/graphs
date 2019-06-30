@@ -1,10 +1,11 @@
 package publicapi.bus;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
 import com.github.moaxcp.graphs.EventGraph;
 import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
 import org.greenrobot.eventbus.EventBus;
-import testframework.EventSimpleGraphs;
+
+import static com.github.moaxcp.graphs.Truth.assertThat;
 
 public class Vertex {
     @EventSimpleGraphs

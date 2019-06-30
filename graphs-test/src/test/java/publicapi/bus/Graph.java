@@ -4,12 +4,12 @@ import com.github.moaxcp.graphs.EventGraph;
 import com.github.moaxcp.graphs.events.*;
 import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
 import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
+import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
-import testframework.EventSimpleGraphs;
 
 import static com.github.moaxcp.graphs.Truth.assertThat;
-import static testframework.MethodSources.testEventBus;
+import static com.github.moaxcp.graphs.testframework.MethodSources.testEventBus;
 
 public class Graph {
     @Test

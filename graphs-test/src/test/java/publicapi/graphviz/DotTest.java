@@ -2,8 +2,8 @@ package publicapi.graphviz;
 
 import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.testframework.SimpleGraphs;
 import org.junit.jupiter.api.Test;
-import testframework.SimpleGraphs;
 
 import java.io.IOException;
 import java.io.StringWriter;

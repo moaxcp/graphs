@@ -1,8 +1,9 @@
 package publicapi;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
 import com.github.moaxcp.graphs.Graph;
-import testframework.DirectedSimpleGraphs;
+import com.github.moaxcp.graphs.testframework.DirectedSimpleGraphs;
+
+import static com.github.moaxcp.graphs.Truth.assertThat;
 
 public class DirectedGraphEdgeMethods {
 
