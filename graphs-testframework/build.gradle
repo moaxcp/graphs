@@ -1,0 +1,5 @@
+dependencies {
+    api project(':graphs-core')
+    api project(':graphs-greenrobot')
+    api 'org.junit.jupiter:junit-jupiter-params:5.3.1'
+}
