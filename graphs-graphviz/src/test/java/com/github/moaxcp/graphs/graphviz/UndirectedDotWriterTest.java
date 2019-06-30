@@ -1,4 +1,4 @@
-package publicapi.graphviz;
+package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.testframework.UndirectedSimpleGraphs;
