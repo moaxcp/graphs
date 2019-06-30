@@ -1,8 +1,10 @@
 package com.github.moaxcp.graphs;
 
-import static com.google.common.truth.Truth.assertThat;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.Test;
+
+import static com.google.common.truth.Truth.assertThat;
 
 public class EdgeKeyTest {
     @Test
