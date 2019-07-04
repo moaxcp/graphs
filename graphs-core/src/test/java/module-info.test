@@ -1,0 +1,8 @@
+--add-reads
+  com.github.moaxcp.graphs.core=truth,nl.jqno.equalsverifier
+
+--add-opens
+    com.github.moaxcp.graphs.core/com.github.moaxcp.graphs=nl.jqno.equalsverifier
+
+--add-opens
+    com.github.moaxcp.graphs.core/com.github.moaxcp.graphs.events=nl.jqno.equalsverifier

@@ -1,16 +1,13 @@
 plugins {
     id 'maven-publish'
     id 'signing'
-    id 'jacoco'
-    id 'checkstyle'
     id 'org.ajoberstar.git-publish' version '2.0.0'
     id 'me.champeau.gradle.jmh' version '0.4.8'
-    id 'org.javamodularity.moduleplugin' version '1.4.0'
 }
 
-dependencies {
-    checkstyle 'com.puppycrawl.tools:checkstyle:8.12'
-}
+patchModules.config = [
+        "truth=truth-java8-extension-0.42.jar"
+]
 
 dependencies {
     jmh 'com.google.guava:guava:27.0.1-jre'
