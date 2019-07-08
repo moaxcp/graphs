@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.truth;
 
 import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.*;

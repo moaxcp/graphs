@@ -3,7 +3,7 @@ package publicapi;
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.testframework.DirectedSimpleGraphs;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
+import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 
 public class DirectedGraphEdgeMethods {
 

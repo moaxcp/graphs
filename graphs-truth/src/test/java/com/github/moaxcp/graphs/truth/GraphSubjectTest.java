@@ -1,10 +1,14 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.truth;
 
-import static com.github.moaxcp.graphs.GraphSubject.graphs;
-import static com.google.common.truth.ExpectFailure.*;
-import static com.github.moaxcp.graphs.Truth.*;
+import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.UndirectedGraph;
 import com.google.common.truth.ExpectFailure;
 import org.junit.jupiter.api.Test;
+
+import static com.github.moaxcp.graphs.truth.GraphSubject.graphs;
+import static com.github.moaxcp.graphs.truth.Truth.assertThat;
+import static com.google.common.truth.ExpectFailure.SimpleSubjectBuilderCallback;
+import static com.google.common.truth.ExpectFailure.assertThat;
 
 
 

@@ -1,9 +1,15 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.truth;
+
+import com.google.common.truth.FailureMetadata;
+import com.google.common.truth.IterableSubject;
+import com.google.common.truth.Subject;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.truth.Truth.assertAbout;
-import com.google.common.truth.*;
-import java.util.*;
-import org.greenrobot.eventbus.*;
 
 public class EventBusSubject extends Subject<EventBusSubject, EventBus> {
     private Runnable action;

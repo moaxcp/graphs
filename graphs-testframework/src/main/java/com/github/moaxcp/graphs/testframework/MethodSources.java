@@ -10,8 +10,6 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 public class MethodSources {
 
     public static EventBus testEventBus() {

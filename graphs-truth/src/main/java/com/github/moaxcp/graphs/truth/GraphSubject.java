@@ -1,10 +1,12 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.truth;
 
-import static com.github.moaxcp.graphs.EdgeSubject.edges;
-import static com.github.moaxcp.graphs.VertexSubject.vertices;
+import static com.github.moaxcp.graphs.truth.EdgeSubject.edges;
+import static com.github.moaxcp.graphs.truth.VertexSubject.vertices;
 import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
+
+import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.Graph.*;
 import com.google.common.truth.*;
 import java.util.*;

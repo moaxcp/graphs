@@ -3,3 +3,7 @@ dependencies {
     api project(':graphs-greenrobot')
     api 'org.junit.jupiter:junit-jupiter-params:5.3.1'
 }
+
+patchModules.config = [
+        "truth=truth-java8-extension-0.42.jar"
+]

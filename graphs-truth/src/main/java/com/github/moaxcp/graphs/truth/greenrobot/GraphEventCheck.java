@@ -1,6 +1,6 @@
-package com.github.moaxcp.graphs.greenrobot;
+package com.github.moaxcp.graphs.truth.greenrobot;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
+import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.github.moaxcp.graphs.Graph;

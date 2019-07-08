@@ -8,8 +8,9 @@ import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
 import static com.github.moaxcp.graphs.testframework.MethodSources.testEventBus;
+import static com.github.moaxcp.graphs.truth.EventBusSubject.assertThat;
+import static com.github.moaxcp.graphs.truth.greenrobot.EventGraphSubject.assertThat;
 
 public class Graph {
     @Test

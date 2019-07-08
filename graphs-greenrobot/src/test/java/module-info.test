@@ -1,0 +1,11 @@
+--add-modules
+  com.github.moaxcp.graphs.testframework,com.github.moaxcp.graphs.truth
+
+--add-opens
+    com.github.moaxcp.graphs.core/com.github.moaxcp.graphs=nl.jqno.equalsverifier
+
+--add-reads
+  com.github.moaxcp.graphs.greenrobot=com.github.moaxcp.graphs.testframework,com.github.moaxcp.graphs.truth
+
+--add-opens
+    com.github.moaxcp.graphs.greenrobot/com.github.moaxcp.graphs.greenrobot=nl.jqno.equalsverifier

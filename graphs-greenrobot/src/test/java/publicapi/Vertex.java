@@ -5,7 +5,7 @@ import com.github.moaxcp.graphs.events.*;
 import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
 import org.greenrobot.eventbus.EventBus;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
+import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 
 public class Vertex {
     @EventSimpleGraphs

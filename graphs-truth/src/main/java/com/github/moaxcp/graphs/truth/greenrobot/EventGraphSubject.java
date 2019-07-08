@@ -1,13 +1,17 @@
-package com.github.moaxcp.graphs.greenrobot;
-
-import static com.google.common.truth.Truth.assertAbout;
+package com.github.moaxcp.graphs.truth.greenrobot;
 
 import com.github.moaxcp.graphs.EventGraph;
-import com.google.common.truth.*;
-import java.util.function.Consumer;
+import com.google.common.truth.Fact;
+import com.google.common.truth.FailureMetadata;
+import com.google.common.truth.IterableSubject;
+import com.google.common.truth.Subject;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.function.Consumer;
+
+import static com.google.common.truth.Truth.assertAbout;
 
 public final class EventGraphSubject extends Subject<EventGraphSubject, EventGraph<String>> {
 

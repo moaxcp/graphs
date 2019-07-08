@@ -4,7 +4,7 @@ import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.testframework.DirectedSimpleGraphs;
 import com.github.moaxcp.graphs.testframework.UndirectedSimpleGraphs;
 
-import static com.github.moaxcp.graphs.Truth.assertThat;
+import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 
 public class IsDirected {
     @DirectedSimpleGraphs

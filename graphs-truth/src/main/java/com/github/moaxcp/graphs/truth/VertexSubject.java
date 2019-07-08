@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs;
+package com.github.moaxcp.graphs.truth;
 
 import com.github.moaxcp.graphs.Graph.Vertex;
 import com.google.common.truth.FailureMetadata;

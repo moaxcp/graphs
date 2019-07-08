@@ -1,12 +1,16 @@
 dependencies {
-    testImplementation project(':graphs-core')
-    testImplementation project(':graphs-greenrobot')
-    testImplementation project(':graphs-truth')
-    testImplementation project(':graphs-graphviz')
-    testImplementation project(':graphs-testframework')
+    api project(':graphs-core')
+    api project(':graphs-greenrobot')
+    api project(':graphs-truth')
+    api project(':graphs-graphviz')
+    api project(':graphs-testframework')
     testImplementation 'org.jmockit:jmockit:1.46'
 }
 
 test {
     jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
 }
+
+patchModules.config = [
+        "truth=truth-java8-extension-0.42.jar"
+]
