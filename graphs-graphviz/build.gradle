@@ -1,3 +1,8 @@
+plugins {
+    id 'maven-publish'
+    id 'signing'
+}
+
 dependencies {
     api project(':graphs-core')
     testImplementation project(':graphs-testframework')
@@ -15,3 +20,61 @@ test {
 patchModules.config = [
         "truth=truth-java8-extension-0.42.jar"
 ]
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.github.moaxcp.graphs'
+            artifactId = project.name
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = project.name
+                description = project.description
+                url = 'https://github.com/moaxcp/graphs'
+                licenses {
+                    license {
+                        name = 'The MIT License (MIT)'
+                        url = 'http://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'moaxcp'
+                        name = 'John Mercier'
+                        email = 'moaxcp@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/moaxcp/graphs.git'
+                    developerConnection = 'scm:git:git@github.com:moaxcp/graphs.git'
+                    url = 'https://github.com/moaxcp/graphs'
+                }
+            }
+            repositories {
+                maven {
+                    def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+                    def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+                    url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                    credentials {
+                        username System.getProperty('nexus.username')
+                        password System.getProperty('nexus.password')
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}

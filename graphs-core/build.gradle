@@ -1,7 +1,6 @@
 plugins {
     id 'maven-publish'
     id 'signing'
-    id 'org.ajoberstar.git-publish' version '2.0.0'
     id 'me.champeau.gradle.jmh' version '0.4.8'
 }
 
@@ -11,16 +10,6 @@ patchModules.config = [
 
 dependencies {
     jmh 'com.google.guava:guava:27.0.1-jre'
-}
-
-gitPublish {
-    repoUri = 'https://github.com/moaxcp/graphs.git'
-    branch = 'gh-pages'
-    contents {
-        from 'build/docs'
-        from 'build/reports'
-    }
-    commitMessage = 'Publishing from gradle.'
 }
 
 jmh {
@@ -40,7 +29,8 @@ jmh {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = 'graphs'
+            groupId = 'com.github.moaxcp.graphs'
+            artifactId = project.name
             from components.java
             artifact sourcesJar
             artifact javadocJar
