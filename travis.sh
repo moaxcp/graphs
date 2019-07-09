@@ -25,7 +25,7 @@ publish() {
         -Dnexus.username=moaxcp \
         -Dnexus.password=$NEXUS_PASSWORD \
         -Psigning.keyId=A9A4043B \
-        -Psigning.secretKeyRingFile=signingkey.gpg \
+        -Psigning.secretKeyRingFile=$PWD/signingkey.gpg \
         -Psigning.password=$SIGNING_PASSWORD
 }
 

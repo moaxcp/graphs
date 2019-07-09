@@ -151,6 +151,10 @@ A subscriber to these events can create a view of the graph as it is modified.
 
 = Releases
 
+== 0.4.0
+
+Splitting projects into core, greenrobot, graphviz, and truth. Added support for java modules.
+
 == 0.3.0
 
 Added initial support for graphviz. Added getProperties(), getEdgeProperties(), and getVertexProperties() to Graph api.
