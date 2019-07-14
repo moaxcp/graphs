@@ -3,6 +3,8 @@ plugins {
     id 'signing'
 }
 
+description = 'supports converting graphs to dot format and images'
+
 dependencies {
     api project(':graphs-core')
     testImplementation project(':graphs-testframework')

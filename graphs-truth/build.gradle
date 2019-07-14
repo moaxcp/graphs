@@ -3,6 +3,8 @@ plugins {
     id 'signing'
 }
 
+description = 'Truth extensions for test assertions.'
+
 dependencies {
     api project(':graphs-core')
     api project(':graphs-greenrobot')

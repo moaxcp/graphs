@@ -1,3 +1,5 @@
+description = 'Test framework for junit5 tests.'
+
 dependencies {
     api project(':graphs-core')
     api project(':graphs-greenrobot')

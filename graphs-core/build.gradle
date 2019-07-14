@@ -4,6 +4,8 @@ plugins {
     id 'me.champeau.gradle.jmh' version '0.5.0-rc-1'
 }
 
+description = 'Graph api and implementations.'
+
 patchModules.config = [
         "truth=truth-java8-extension-0.42.jar"
 ]
