@@ -405,7 +405,13 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public Edge<ID> edge(ID from, ID to) {
+    public Graph<ID> edge(ID from, ID to) {
+        getEdge(from, to);
+        return this;
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to) {
         return findEdge(from, to).orElseGet(() -> addEdge(from, to));
     }
 

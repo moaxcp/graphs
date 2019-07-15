@@ -12,25 +12,25 @@ public class GraphEdgeMethods {
 
     @SimpleGraphs
     void addNewEdge(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         assertThat(graph).hasEdge("A", "B").isSameAs(edge);
     }
 
     @SimpleGraphs
     void newEdgeHasNoId(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         assertThat(edge).hasIdThat().isEmpty();
     }
 
     @SimpleGraphs
     void newEdgeFromIsSet(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         assertThat(edge).hasFromThat().isEqualTo("A");
     }
 
     @SimpleGraphs
     void newEdgeToIsSet(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         assertThat(edge).hasToThat().isEqualTo("B");
     }
 
@@ -62,7 +62,7 @@ public class GraphEdgeMethods {
 
     @SimpleGraphs
     void findEdge(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         assertThat(graph.findEdge("A", "B")).hasValue(edge);
     }
 
@@ -74,7 +74,7 @@ public class GraphEdgeMethods {
 
     @SimpleGraphs
     void findEdgeById(Graph<String> graph) {
-        var edge = graph.edge("A", "B").id("id");
+        var edge = graph.getEdge("A", "B").id("id");
         assertThat(graph.findEdge("id")).hasValue(edge);
     }
 
@@ -94,7 +94,7 @@ public class GraphEdgeMethods {
 
     @SimpleGraphs
     void removeEdgeWithId(Graph<String> graph) {
-        graph.edge("A", "B").id("id");
+        graph.getEdge("A", "B").id("id");
         graph.removeEdge("id");
         assertThat(graph).hasNoEdge("id");
     }

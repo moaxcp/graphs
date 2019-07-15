@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class EdgeTest {
     @SimpleGraphs
     void setId(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         edge.setId("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
         assertThat(graph).hasEdge("id").isSameAs(edge);
@@ -20,7 +20,7 @@ public class EdgeTest {
 
     @SimpleGraphs
     void changeId(Graph<String> graph) {
-        var edge = graph.edge("A", "B").id("id");
+        var edge = graph.getEdge("A", "B").id("id");
         edge.setId("id2");
         assertThat(graph).hasEdge("id2").isSameAs(edge);
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id2");
@@ -30,14 +30,14 @@ public class EdgeTest {
 
     @SimpleGraphs
     void setIdNullNoId(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         edge.setId(null);
         assertThat(edge).hasNoId();
     }
 
     @SimpleGraphs
     void setIdNullRemovesId(Graph<String> graph) {
-        var edge = graph.edge("A", "to").id("id");
+        var edge = graph.getEdge("A", "to").id("id");
         edge.setId(null);
         assertThat(edge).hasNoId();
         assertThat(graph).hasNoEdge("id");
@@ -45,14 +45,14 @@ public class EdgeTest {
 
     @SimpleGraphs
     void id(Graph<String> graph) {
-        var edge = graph.edge("A", "B").id("id");
+        var edge = graph.getEdge("A", "B").id("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
         assertThat(graph).hasEdge("id").isSameAs(edge);
     }
 
     @SimpleGraphs
     void setFrom(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         edge.setFrom("C");
         assertThat(graph).hasVertex("C");
         assertThat(edge).hasFromThat().isEqualTo("C");
@@ -60,21 +60,21 @@ public class EdgeTest {
 
     @SimpleGraphs
     void setFromNull(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setFrom(null));
         assertThat(thrown).hasMessage("from must not be null.");
     }
 
     @SimpleGraphs
     void setFromCreatesNewVertex(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         edge.setFrom("C");
         assertThat(graph).hasVertex("C");
     }
 
     @SimpleGraphs
     void setFromChangesChangesAdjacentEdges(Graph<String> graph) {
-        var edge = graph.edge("id", "B");
+        var edge = graph.getEdge("id", "B");
         edge.setFrom("A");
         var inEdges = edge.fromVertex().adjacentEdges();
         assertThat(inEdges).containsExactly(edge);
@@ -82,7 +82,7 @@ public class EdgeTest {
 
     @SimpleGraphs
     void setFromChangesChangesInEdges(Graph<String> graph) {
-        var edge = graph.edge("id", "B");
+        var edge = graph.getEdge("id", "B");
         edge.setFrom("A");
         var inEdges = edge.toVertex().inEdges();
         assertThat(inEdges).containsExactly(edge);
@@ -90,7 +90,7 @@ public class EdgeTest {
 
     @SimpleGraphs
     void setFromChangesChangesOutEdges(Graph<String> graph) {
-        var edge = graph.edge("A", "id");
+        var edge = graph.getEdge("A", "id");
         edge.setTo("A");
         var outEdges = edge.fromVertex().outEdges();
         assertThat(outEdges).containsExactly(edge);
@@ -98,7 +98,7 @@ public class EdgeTest {
 
     @SimpleGraphs
     void from(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         var result = edge.from("C");
         assertThat(edge).hasFromThat().isEqualTo("C");
         assertThat(result).isSameAs(edge);
@@ -106,12 +106,12 @@ public class EdgeTest {
 
     @SimpleGraphs
     void fromGet(Graph<String> graph) {
-        assertThat(graph.edge("A", "B").from()).isEqualTo("A");
+        assertThat(graph.getEdge("A", "B").from()).isEqualTo("A");
     }
 
     @SimpleGraphs
     void setTo(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         edge.setTo("C");
         assertThat(graph).hasVertex("C");
         assertThat(edge).hasToThat().isEqualTo("C");
@@ -119,21 +119,21 @@ public class EdgeTest {
 
     @SimpleGraphs
     void setToNull(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setTo(null));
         assertThat(thrown).hasMessage("to must not be null.");
     }
 
     @SimpleGraphs
     void setToCreatesNewVertex(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         edge.setTo("C");
         assertThat(graph).hasVertex("C");
     }
 
     @SimpleGraphs
     void setToChangesChangesAdjacentEdges(Graph<String> graph) {
-        var edge = graph.edge("A", "id");
+        var edge = graph.getEdge("A", "id");
         edge.setTo("B");
         var adjacentEdges = edge.toVertex().adjacentEdges();
         assertThat(adjacentEdges).containsExactly(edge);
@@ -141,7 +141,7 @@ public class EdgeTest {
 
     @SimpleGraphs
     void setToChangesChangesInEdges(Graph<String> graph) {
-        var edge = graph.edge("A", "id");
+        var edge = graph.getEdge("A", "id");
         edge.setTo("B");
         var inEdges = edge.toVertex().inEdges();
         assertThat(inEdges).containsExactly(edge);
@@ -149,7 +149,7 @@ public class EdgeTest {
 
     @SimpleGraphs
     void setToChangesChangesOutEdges(Graph<String> graph) {
-        var edge = graph.edge("A", "id");
+        var edge = graph.getEdge("A", "id");
         edge.setTo("A");
         var outEdges = edge.toVertex().inEdges();
         assertThat(outEdges).containsExactly(edge);
@@ -157,7 +157,7 @@ public class EdgeTest {
 
     @SimpleGraphs
     void to(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         var result = edge.to("C");
         assertThat(edge).hasToThat().isEqualTo("C");
         assertThat(result).isSameAs(edge);
@@ -165,40 +165,40 @@ public class EdgeTest {
 
     @SimpleGraphs
     void toGet(Graph<String> graph) {
-        assertThat(graph.edge("A", "B").to()).isEqualTo("B");
+        assertThat(graph.getEdge("A", "B").to()).isEqualTo("B");
     }
 
     @SimpleGraphs
     void fromVertex(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         var vertex = graph.findVertex("A").get();
         assertThat(edge.fromVertex()).isEqualTo(vertex);
     }
 
     @SimpleGraphs
     void toVertex(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         var vertex = graph.findVertex("B").get();
         assertThat(edge.toVertex()).isEqualTo(vertex);
     }
 
     @SimpleGraphs
     void setProperty(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         edge.setProperty("key", "value");
         assertThat(edge).withProperty("key").hasValue("value");
     }
 
     @SimpleGraphs
     void removeProperty(Graph<String> graph) {
-        var edge = graph.edge("A", "B").property("name", "value");
+        var edge = graph.getEdge("A", "B").property("name", "value");
         edge.removeProperty("name");
         assertThat(edge).withProperty("name").isEmpty();
     }
 
     @SimpleGraphs
     void testEquals(Graph<String> graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         EqualsVerifier.forClass(edge.getClass()).suppress(Warning.NONFINAL_FIELDS, Warning.NULL_FIELDS).verify();
     }
 }

@@ -111,8 +111,8 @@ public class VertexTest {
     @SimpleGraphs
     void testSetId(Graph<String> graph) {
         var a = graph.getVertex("id");
-        var from = graph.edge("id", "b");
-        var to = graph.edge("c", "id");
+        var from = graph.getEdge("id", "b");
+        var to = graph.getEdge("c", "id");
         a.setId("a");
 
         assertThat(a.getId()).isEqualTo("a");
@@ -205,9 +205,9 @@ public class VertexTest {
 
     @SimpleGraphs
     void inEdges(Graph<String> graph) {
-        var edge1 = graph.edge("B", "A");
-        var edge2 = graph.edge("C", "A");
-        var edge3 = graph.edge("D", "A");
+        var edge1 = graph.getEdge("B", "A");
+        var edge2 = graph.getEdge("C", "A");
+        var edge3 = graph.getEdge("D", "A");
         var result = graph.getVertex("A").inEdges();
 
         assertThat(result).containsExactly(edge1, edge2, edge3);
@@ -236,9 +236,9 @@ public class VertexTest {
 
     @SimpleGraphs
     void outEdges(Graph<String> graph) {
-        var edge1 = graph.edge("A", "B");
-        var edge2 = graph.edge("A", "C");
-        var edge3 = graph.edge("A", "D");
+        var edge1 = graph.getEdge("A", "B");
+        var edge2 = graph.getEdge("A", "C");
+        var edge3 = graph.getEdge("A", "D");
         var result = graph.getVertex("A").outEdges();
 
         assertThat(result).containsExactly(edge1, edge2, edge3);
@@ -246,10 +246,10 @@ public class VertexTest {
 
     @SimpleGraphs
     void outEdgesAfterSetId(Graph<String> graph) {
-        graph.edge("id", "B");
-        graph.edge("id", "C");
-        graph.edge("id", "D");
-        graph.edge("Z", "Y");
+        graph.getEdge("id", "B");
+        graph.getEdge("id", "C");
+        graph.getEdge("id", "D");
+        graph.getEdge("Z", "Y");
 
         var vertex = graph.getVertex("id").id("A");
 

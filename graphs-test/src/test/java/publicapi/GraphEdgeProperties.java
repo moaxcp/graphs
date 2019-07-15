@@ -61,7 +61,7 @@ public class GraphEdgeProperties {
     @SimpleGraphs
     void propertyIsInherited(Graph graph) {
         graph.edgeProperty("property", "value");
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         assertThat(edge).withProperty("property").hasValue("value");
     }
 

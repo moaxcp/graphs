@@ -445,7 +445,9 @@ public interface Graph<ID> {
      * @param to   of edge
      * @return created or existing edge
      */
-    Edge<ID> edge(ID from, ID to);
+    Graph<ID> edge(ID from, ID to);
+
+    Edge<ID> getEdge(ID from, ID to);
 
     /**
      * Removes edge with given from and to.

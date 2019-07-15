@@ -52,7 +52,7 @@ public class DotTest {
 
     @SimpleGraphs
     void edgeAttributes(Graph<String> graph) {
-        graph.edge("A", "B").property("color", "blue").property("size", 10);
+        graph.getEdge("A", "B").property("color", "blue").property("size", 10);
         var s = dot(graph).toString();
         assertThat(s).containsMatch("A -[->] B \\[color=blue, size=10\\]");
     }
