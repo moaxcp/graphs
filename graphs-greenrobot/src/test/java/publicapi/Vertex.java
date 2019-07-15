@@ -41,27 +41,27 @@ public class Vertex {
     void updateId(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.vertex("A").id("B")).containsExactly(VertexIdUpdated.class);
+        assertThat(graph).with(bus).hasEventsIn(g -> g.getVertex("A").id("B")).containsExactly(VertexIdUpdated.class);
     }
 
     @EventSimpleGraphs
     void addProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        assertThat(graph).with(bus).hasEventsIn(g-> g.vertex("A").property("name", "value")).containsExactly(VertexPropertyAdded.class);
+        assertThat(graph).with(bus).hasEventsIn(g-> g.getVertex("A").property("name", "value")).containsExactly(VertexPropertyAdded.class);
     }
 
     @EventSimpleGraphs
     void removeProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        graph.vertex("A").property("name", "value");
-        assertThat(graph).with(bus).hasEventsIn(g-> g.vertex("A").removeProperty("name")).containsExactly(VertexPropertyRemoved.class);
+        graph.getVertex("A").property("name", "value");
+        assertThat(graph).with(bus).hasEventsIn(g-> g.getVertex("A").removeProperty("name")).containsExactly(VertexPropertyRemoved.class);
     }
 
     @EventSimpleGraphs
     void updateProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        graph.vertex("A").property("name", "value");
-        assertThat(graph).with(bus).hasEventsIn(g-> g.vertex("A").property("name", "value2")).containsExactly(VertexPropertyUpdated.class);
+        graph.getVertex("A").property("name", "value");
+        assertThat(graph).with(bus).hasEventsIn(g-> g.getVertex("A").property("name", "value2")).containsExactly(VertexPropertyUpdated.class);
     }
 }

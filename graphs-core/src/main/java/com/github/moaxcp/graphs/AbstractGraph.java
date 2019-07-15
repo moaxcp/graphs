@@ -139,13 +139,13 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         @Override
         public final Vertex<ID> fromVertex() {
             check();
-            return vertex(getFrom());
+            return getVertex(getFrom());
         }
 
         @Override
         public final Vertex<ID> toVertex() {
             check();
-            return vertex(getTo());
+            return getVertex(getTo());
         }
 
         @Override
@@ -346,8 +346,25 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public Vertex<ID> vertex(ID id) {
+    public Graph<ID> vertex(ID id) {
+        getVertex(id);
+        return this;
+    }
+
+    @Override
+    public Graph<ID> vertex(ID id, Map<String, Object> properties) {
+        getVertex(id, properties);
+        return this;
+    }
+
+    @Override
+    public Vertex<ID> getVertex(ID id) {
         return findVertex(id).orElseGet(() -> addVertex(id));
+    }
+
+    @Override
+    public Vertex<ID> getVertex(ID id, Map<String, Object> properties) {
+        return getVertex(id).property(properties);
     }
 
     protected Vertex<ID> addVertex(ID id) {

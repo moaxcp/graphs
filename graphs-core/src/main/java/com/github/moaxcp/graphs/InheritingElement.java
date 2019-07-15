@@ -1,9 +1,12 @@
 package com.github.moaxcp.graphs;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
+
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
-import java.util.*;
 
 /**
  * Implements local properties for an element along with inherited properties.
@@ -67,12 +70,16 @@ class InheritingElement<SELF> {
      * @param value of property
      */
     public void setProperty(String name, Object value) {
+        checkEntry(name, value);
+        local.put(name, value);
+    }
+
+    private void checkEntry(String name, Object value) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
         if(name.isEmpty()) {
             throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
         }
-        local.put(name, value);
     }
 
     /**
@@ -83,6 +90,14 @@ class InheritingElement<SELF> {
      */
     public final SELF property(String name, Object value) {
         setProperty(name, value);
+        return self();
+    }
+
+    public final SELF property(Map<String, Object> properties) {
+        for(var entry : properties.entrySet()) {
+            checkEntry(entry.getKey(), entry.getValue());
+        }
+        local.putAll(properties);
         return self();
     }
 

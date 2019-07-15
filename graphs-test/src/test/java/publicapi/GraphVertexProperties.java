@@ -61,7 +61,7 @@ public class GraphVertexProperties {
     @SimpleGraphs
     void propertyIsInherited(Graph graph) {
         graph.vertexProperty("property", "value");
-        var vertex = graph.vertex("id");
+        var vertex = graph.getVertex("id");
         assertThat(vertex).withProperty("property").hasValue("value");
     }
 

@@ -59,7 +59,7 @@ public class DotTest {
 
     @SimpleGraphs
     void vertexAttributes(Graph<String> graph) {
-        graph.vertex("A").property("color", "blue").property("size", 10);
+        graph.getVertex("A").property("color", "blue").property("size", 10);
         var s = dot(graph).toString();
         assertThat(s).contains("A [color=blue, size=10]");
     }

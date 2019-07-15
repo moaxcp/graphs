@@ -137,6 +137,26 @@ public interface Graph<ID> {
          */
         Vertex<ID> property(String name, Object value);
 
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2);
+
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3);
+
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
+
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
+
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
+
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
+
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
+
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
+
+        //Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
+
+        Vertex<ID> property(Map<String, Object> properties);
+
         /**
          * Removes property from local properties returning this vertex.
          *
@@ -313,6 +333,8 @@ public interface Graph<ID> {
          */
         Edge<ID> property(String name, Object value);
 
+        Edge<ID> property(Map<String, Object> properties);
+
         /**
          * Removes property from local properties returning this edge.
          *
@@ -375,7 +397,13 @@ public interface Graph<ID> {
      * @return created or existing vertex
      * @throws NullPointerException if id is null
      */
-    Vertex<ID> vertex(ID id);
+    Graph<ID> vertex(ID id);
+
+    Graph<ID> vertex(ID id, Map<String, Object> properties);
+
+    Vertex<ID> getVertex(ID id);
+
+    Vertex<ID> getVertex(ID id, Map<String, Object> properties);
 
     /**
      * Removes vertex with given id. If edges connect to the vertex they are removed first.
