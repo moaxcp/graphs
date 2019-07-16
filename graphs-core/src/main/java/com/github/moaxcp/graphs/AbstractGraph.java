@@ -24,8 +24,8 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         private ID from;
         private ID to;
 
-        protected SimpleEdge(ID from, ID to, Map<String, Object> inherited) {
-            super(inherited);
+        protected SimpleEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
+            super(local, inherited);
             this.from = from;
             this.to = to;
         }
@@ -181,9 +181,10 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     public class SimpleVertex extends InheritingElement<Vertex<ID>> implements Vertex<ID> {
         private ID id;
 
-        protected SimpleVertex(ID id, Map<String, Object> inherited) {
-            super(inherited);
+        protected SimpleVertex(ID id, Map<String, Object> local, Map<String, Object> inherited) {
+            super(local, inherited);
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
+            Objects.requireNonNull(local, "local must not be null.");
             this.id = id;
         }
 
@@ -359,7 +360,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Vertex<ID> getVertex(ID id) {
-        return findVertex(id).orElseGet(() -> addVertex(id));
+        return findVertex(id).orElseGet(() -> addVertex(id, Map.of()));
     }
 
     @Override
@@ -367,8 +368,8 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         return getVertex(id).property(properties);
     }
 
-    protected Vertex<ID> addVertex(ID id) {
-        var vertex = newVertex(id, vertexProperties);
+    protected Vertex<ID> addVertex(ID id, Map<String, Object> properties) {
+        var vertex = newVertex(id, properties, vertexProperties);
         vertices.put(id, vertex);
         return vertex;
     }
@@ -411,24 +412,35 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public Edge<ID> getEdge(ID from, ID to) {
-        return findEdge(from, to).orElseGet(() -> addEdge(from, to));
+    public Graph<ID> edge(ID from, ID to, Map<String, Object> properties) {
+        getEdge(from, to, properties);
+        return this;
     }
 
-    protected Edge<ID> newEdge(ID from, ID to, Map<String, Object> inherited) {
-        return new SimpleEdge(from, to, inherited);
+    @Override
+    public Edge<ID> getEdge(ID from, ID to) {
+        return findEdge(from, to).orElseGet(() -> addEdge(from, to, Map.of()));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties) {
+        return findEdge(from, to).orElseGet(() -> addEdge(from, to, properties));
+    }
+
+    protected Edge<ID> newEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
+        return new SimpleEdge(from, to, local, inherited);
     }
 
     protected abstract EdgeKey<ID> newEdgeKey(ID from, ID to);
 
-    protected Vertex<ID> newVertex(ID id, Map<String, Object> inherited) {
-        return new SimpleVertex(id, inherited);
+    protected Vertex<ID> newVertex(ID id, Map<String, Object> local, Map<String, Object> inherited) {
+        return new SimpleVertex(id, local, inherited);
     }
 
-    protected Edge<ID> addEdge(ID from, ID to) {
+    protected Edge<ID> addEdge(ID from, ID to, Map<String, Object> local) {
         vertex(from);
         vertex(to);
-        var edge = newEdge(from, to, edgeProperties);
+        var edge = newEdge(from, to, local, edgeProperties);
         var edgeKey = newEdgeKey(from, to);
         edges.put(edgeKey, edge);
         adjacentEdges.compute(edgeKey.getFrom(), (k, v) -> mergeSet(edge, v));

@@ -13,8 +13,8 @@ import static java.util.Objects.requireNonNull;
 public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implements EventGraph<ID> {
 
     public class EventEdge extends SimpleEdge {
-        protected EventEdge(ID from, ID to, Map<String, Object> inherited) {
-            super(from, to, inherited);
+        protected EventEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
+            super(from, to, local, inherited);
         }
 
         @Override
@@ -120,8 +120,8 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     }
 
     public class EventVertex extends SimpleVertex {
-        protected EventVertex(ID id, Map<String, Object> inherited) {
-            super(id, inherited);
+        protected EventVertex(ID id, Map<String, Object> local, Map<String, Object> inherited) {
+            super(id, local, inherited);
         }
 
         @Override
@@ -243,18 +243,18 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     }
 
     @Override
-    protected Vertex<ID> newVertex(ID id, Map<String, Object> inherited) {
-        return new EventVertex(id, inherited);
+    protected Vertex<ID> newVertex(ID id, Map<String, Object> local, Map<String, Object> inherited) {
+        return new EventVertex(id, local, inherited);
     }
 
     @Override
-    protected Edge<ID> newEdge(ID from, ID to, Map<String, Object> inherited) {
-        return new EventEdge(from, to, inherited);
+    protected Edge<ID> newEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
+        return new EventEdge(from, to, local, inherited);
     }
 
     @Override
-    protected Edge<ID> addEdge(ID from, ID to) {
-        var edge = super.addEdge(from, to);
+    protected Edge<ID> addEdge(ID from, ID to, Map<String, Object> local) {
+        var edge = super.addEdge(from, to, local);
         bus.post(new EdgeCreated.Builder<ID>()
             .graphId(getId().orElse(null))
             .from(from)
@@ -277,8 +277,8 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     }
 
     @Override
-    protected Vertex<ID> addVertex(ID id) {
-        var vertex = super.addVertex(id);
+    protected Vertex<ID> addVertex(ID id, Map<String, Object> local) {
+        var vertex = super.addVertex(id, local);
         bus.post(new VertexCreated.Builder<ID>()
             .graphId(getId().orElse(null))
             .vertexId(id)

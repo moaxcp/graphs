@@ -19,7 +19,8 @@ class InheritingElement<SELF> {
     private final Map<String, Object> inherited;
     private final Map<String, Object> local = new LinkedHashMap<>();
 
-    InheritingElement(Map<String, Object> inherited) {
+    InheritingElement(Map<String, Object> local, Map<String, Object> inherited) {
+        this.local.putAll(local);
         this.inherited = unmodifiableMap(requireNonNull(inherited, "inherited must not be null."));
     }
 

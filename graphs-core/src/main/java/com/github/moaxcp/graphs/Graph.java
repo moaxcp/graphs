@@ -447,7 +447,11 @@ public interface Graph<ID> {
      */
     Graph<ID> edge(ID from, ID to);
 
+    Graph<ID> edge(ID from, ID to, Map<String, Object> properties);
+
     Edge<ID> getEdge(ID from, ID to);
+
+    Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties);
 
     /**
      * Removes edge with given from and to.
