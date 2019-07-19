@@ -61,6 +61,34 @@ public class GraphEdgeMethods {
     }
 
     @SimpleGraphs
+    void getEdgeWithMapProperties(Graph<String> graph) {
+        var edge = graph.getEdge("A", "B", Map.of("name1", "value1", "name2", "value2"));
+
+        assertThat(edge).withProperty("name1").hasValue("value1");
+        assertThat(edge).withProperty("name2").hasValue("value2");
+        assertThat(graph).hasEdge("A", "B").withProperty("name1").hasValue("value1");
+        assertThat(graph).hasEdge("A", "B").withProperty("name2").hasValue("value2");
+    }
+
+    @SimpleGraphs
+    void edgeWithMapPropertiesExisting(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", Map.of("name1", "value1", "name2", "value2"));
+
+        assertThat(graph).hasEdge("A", "B").withProperty("name1").hasValue("value1");
+        assertThat(graph).hasEdge("A", "B").withProperty("name2").hasValue("value2");
+    }
+
+    @SimpleGraphs
+    void getEdgeWithMapPropertiesExisting(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.getEdge("A", "B", Map.of("name1", "value1", "name2", "value2"));
+
+        assertThat(graph).hasEdge("A", "B").withProperty("name1").hasValue("value1");
+        assertThat(graph).hasEdge("A", "B").withProperty("name2").hasValue("value2");
+    }
+
+    @SimpleGraphs
     void removeEdge(Graph<String> graph) {
         graph.edge("A", "B");
         graph.removeEdge("A", "B");

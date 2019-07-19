@@ -19,15 +19,16 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
     private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
 
-    public class SimpleEdge extends InheritingElement<Edge<ID>> implements Edge<ID> {
+    public class SimpleEdge implements Edge<ID> {
         private ID id;
         private ID from;
         private ID to;
+        private InheritedProperties properties;
 
         protected SimpleEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
-            super(local, inherited);
             this.from = from;
             this.to = to;
+            properties = new InheritedProperties(local, inherited);
         }
 
         private void check() {
@@ -35,6 +36,16 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
             if(!edges.keySet().contains(key)) {
                 throw new IllegalStateException("Edge is not in graph.");
             }
+        }
+
+        @Override
+        public Map<String, Object> inherited() {
+            return properties.inherited();
+        }
+
+        @Override
+        public Map<String, Object> local() {
+            return properties.local();
         }
 
         @Override
@@ -55,7 +66,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         @Override
         public final Edge<ID> id(ID id) {
             setId(id);
-            return self();
+            return this;
         }
 
         @Override
@@ -149,15 +160,98 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         }
 
         @Override
+        public Optional<Object> getProperty(String name) {
+            return properties.getProperty(name);
+        }
+
+        @Override
         public void setProperty(String name, Object value) {
             check();
-            super.setProperty(name, value);
+            properties.property(name, value);
+        }
+
+        @Override
+        public Edge<ID> property(String name, Object value) {
+            check();
+            properties.property(name, value);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2) {
+            check();
+            properties.property(name1, value1, name2, value2);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10);
+            return this;
+        }
+
+        @Override
+        public Edge<ID> property(Map<String, Object> properties) {
+            check();
+            this.properties.property(properties);
+            return this;
         }
 
         @Override
         public Edge<ID> removeProperty(String name) {
             check();
-            return super.removeProperty(name);
+            properties.removeProperty(name);
+            return this;
         }
 
         @Override
@@ -178,20 +272,31 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         }
     }
 
-    public class SimpleVertex extends InheritingElement<Vertex<ID>> implements Vertex<ID> {
+    public class SimpleVertex implements Vertex<ID> {
         private ID id;
+        InheritedProperties properties;
 
         protected SimpleVertex(ID id, Map<String, Object> local, Map<String, Object> inherited) {
-            super(local, inherited);
             Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
             Objects.requireNonNull(local, "local must not be null.");
             this.id = id;
+            properties = new InheritedProperties(local, inherited);
         }
 
         private void check() {
             if(!vertices.containsKey(getId())) {
                 throw new IllegalStateException("Vertex is not in graph.");
             }
+        }
+
+        @Override
+        public Map<String, Object> inherited() {
+            return properties.inherited();
+        }
+
+        @Override
+        public Map<String, Object> local() {
+            return properties.local();
         }
 
         public ID getId() {
@@ -223,20 +328,102 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         @Override
         public Vertex<ID> id(ID id) {
             setId(id);
-            return self();
+            return this;
+        }
+
+        @Override
+        public Optional<Object> getProperty(String name) {
+            return properties.getProperty(name);
         }
 
         @Override
         public void setProperty(String name, Object value) {
             check();
-            super.setProperty(name, value);
+            properties.property(name, value);
+        }
+
+        @Override
+        public Vertex<ID> property(String name, Object value) {
+            check();
+            properties.property(name, value);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2) {
+            check();
+            properties.property(name1, value1, name2, value2);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
+            check();
+            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10);
+            return this;
+        }
+
+        @Override
+        public Vertex<ID> property(Map<String, Object> properties) {
+            check();
+            this.properties.property(properties);
+            return this;
         }
 
         @Override
         public Vertex<ID> removeProperty(String name) {
             check();
-            super.removeProperty(name);
-            return self();
+            properties.removeProperty(name);
+            return this;
         }
 
         @Override
@@ -348,8 +535,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Graph<ID> vertex(ID id) {
-        getVertex(id);
-        return this;
+        return vertex(id, Map.of());
     }
 
     @Override
@@ -360,12 +546,14 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Vertex<ID> getVertex(ID id) {
-        return findVertex(id).orElseGet(() -> addVertex(id, Map.of()));
+        return getVertex(id, Map.of());
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, Map<String, Object> properties) {
-        return getVertex(id).property(properties);
+        var optional = findVertex(id);
+        optional.ifPresent(v -> v.property(properties));
+        return optional.orElseGet(() -> addVertex(id, properties));
     }
 
     protected Vertex<ID> addVertex(ID id, Map<String, Object> properties) {
@@ -424,7 +612,9 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties) {
-        return findEdge(from, to).orElseGet(() -> addEdge(from, to, properties));
+        var optional = findEdge(from, to);
+        optional.ifPresent(e -> e.property(properties));
+        return optional.orElseGet(() -> addEdge(from, to, properties));
     }
 
     protected Edge<ID> newEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {

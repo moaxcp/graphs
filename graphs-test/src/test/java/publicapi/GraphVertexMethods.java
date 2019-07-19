@@ -57,6 +57,24 @@ public class GraphVertexMethods {
     }
 
     @SimpleGraphs
+    void vertexWithMapPropertiesExisting(Graph<String> graph) {
+        graph.vertex("A");
+        graph.vertex("A", Map.of("name1", "value1", "name2", "value2"));
+
+        assertThat(graph).hasVertex("A").withProperty("name1").hasValue("value1");
+        assertThat(graph).hasVertex("A").withProperty("name2").hasValue("value2");
+    }
+
+    @SimpleGraphs
+    void getVertexWithMapPropertiesExisting(Graph<String> graph) {
+        graph.vertex("A");
+        graph.getVertex("A", Map.of("name1", "value1", "name2", "value2"));
+
+        assertThat(graph).hasVertex("A").withProperty("name1").hasValue("value1");
+        assertThat(graph).hasVertex("A").withProperty("name2").hasValue("value2");
+    }
+
+    @SimpleGraphs
     void removeVertex(Graph<String> graph) {
         graph.edge("A", "B");
         graph.edge("A", "C");

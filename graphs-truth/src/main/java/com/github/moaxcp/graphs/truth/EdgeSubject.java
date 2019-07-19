@@ -54,6 +54,14 @@ public class EdgeSubject extends Subject<EdgeSubject, Edge> {
         return check("getLocal(%s)", name).that(actual().local().get(name));
     }
 
+    public MapSubject withLocal() {
+        return check("local()").that(actual().local());
+    }
+
+    public MapSubject withInherited() {
+        return check("inherited()").that(actual().inherited());
+    }
+
     public void isDirected() {
         if(!actual().isDirected()) {
             failWithActual(simpleFact("Expected directed edge."));
