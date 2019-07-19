@@ -333,6 +333,15 @@ public interface Graph<ID> {
          */
         Edge<ID> property(String name, Object value);
 
+        /**
+         * Sets the value of 2 local properties returning this edge. Properties are added in order.
+         * @param name1 of first property
+         * @param value1 of first property
+         * @param name2 of second property
+         * @param value2 of second property
+         * @return this edge
+         * @throws NullPointerException if name or value is null for any of the properties
+         */
         Edge<ID> property(String name1, Object value1, String name2, Object value2);
 
         Edge<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3);
@@ -416,6 +425,10 @@ public interface Graph<ID> {
      * @throws NullPointerException if id is null
      */
     Graph<ID> vertex(ID id);
+
+    Graph<ID> vertex(ID id, String name, Object value);
+
+    Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2);
 
     Graph<ID> vertex(ID id, Map<String, Object> properties);
 

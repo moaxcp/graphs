@@ -39,6 +39,36 @@ public class GraphVertexMethods {
     }
 
     @SimpleGraphs
+    void vertexWithProperty1(Graph<String> graph) {
+        graph.vertex("A", "name1", "value1");
+
+        assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1");
+    }
+
+    @SimpleGraphs
+    void vertexWithProperty1Exists(Graph<String> graph) {
+        graph.vertex("A");
+        graph.vertex("A", "name1", "value1");
+
+        assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1");
+    }
+
+    @SimpleGraphs
+    void vertexWithProperty2(Graph<String> graph) {
+        graph.vertex("A", "name1", "value1", "name2", "value2");
+
+        assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2");
+    }
+
+    @SimpleGraphs
+    void vertexWithProperty2Exists(Graph<String> graph) {
+        graph.vertex("A");
+        graph.vertex("A", "name1", "value1", "name2", "value2");
+
+        assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2");
+    }
+
+    @SimpleGraphs
     void vertexWithMapProperties(Graph<String> graph) {
         graph.vertex("A", Map.of("name1", "value1", "name2", "value2"));
 

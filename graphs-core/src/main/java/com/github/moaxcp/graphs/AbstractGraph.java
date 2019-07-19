@@ -19,6 +19,19 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
     private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
 
+    private static LinkedHashMap<String, Object> linkedHashMap(String name, Object value) {
+        var map = new LinkedHashMap<String, Object>();
+        map.put(name, value);
+        return map;
+    }
+
+    private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2) {
+        var map = new LinkedHashMap<String, Object>();
+        map.put(name1, value1);
+        map.put(name2, value2);
+        return map;
+    }
+
     public class SimpleEdge implements Edge<ID> {
         private ID id;
         private ID from;
@@ -536,6 +549,20 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Graph<ID> vertex(ID id) {
         return vertex(id, Map.of());
+    }
+
+    @Override
+    public Graph<ID> vertex(ID id, String name, Object value) {
+        var optional = findVertex(id);
+        optional.ifPresentOrElse(v -> v.property(name, value), () -> addVertex(id, linkedHashMap(name, value)));
+        return this;
+    }
+
+    @Override
+    public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2) {
+        var optional = findVertex(id);
+        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2)));
+        return this;
     }
 
     @Override
