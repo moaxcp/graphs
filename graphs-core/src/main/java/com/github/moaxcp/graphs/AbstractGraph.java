@@ -124,6 +124,10 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         return map;
     }
 
+    private static LinkedHashMap<String, Object> linkedHashMap(Map<String, Object> map) {
+        return new LinkedHashMap<>(map);
+    }
+
     public class SimpleEdge implements Edge<ID> {
         private ID id;
         private ID from;
@@ -735,6 +739,10 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Vertex<ID> getVertex(ID id, Map<String, Object> properties) {
+        return getVertex(id, linkedHashMap(properties));
+    }
+
+    private Vertex<ID> getVertex(ID id, LinkedHashMap<String, Object> properties) {
         var optional = findVertex(id);
         optional.ifPresent(v -> v.property(properties));
         return optional.orElseGet(() -> addVertex(id, properties));
