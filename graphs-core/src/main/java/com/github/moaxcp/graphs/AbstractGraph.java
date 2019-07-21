@@ -447,72 +447,52 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
         @Override
         public Vertex<ID> property(String name, Object value) {
-            check();
-            properties.property(name, value);
-            return this;
+            return property(linkedHashMap(name, value));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2) {
-            check();
-            properties.property(name1, value1, name2, value2);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3) {
-            check();
-            properties.property(name1, value1, name2, value2, name3, value3);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2, name3, value3));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
-            check();
-            properties.property(name1, value1, name2, value2, name3, value3, name4, value4);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
-            check();
-            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
-            check();
-            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
-            check();
-            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
-            check();
-            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
-            check();
-            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
         }
 
         @Override
         public Vertex<ID> property(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
-            check();
-            properties.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10);
-            return this;
+            return property(linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
         }
 
         @Override
@@ -643,72 +623,52 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Graph<ID> vertex(ID id, String name, Object value) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name, value), () -> addVertex(id, linkedHashMap(name, value)));
-        return this;
+        return vertex(id, linkedHashMap(name, value));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2, name3, value3), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2, name3, value3, name4, value4), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
     }
 
     @Override
     public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
-        var optional = findVertex(id);
-        optional.ifPresentOrElse(v -> v.property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10), () -> addVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10)));
-        return this;
+        return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
     }
 
     @Override
@@ -725,92 +685,52 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Vertex<ID> getVertex(ID id, String name, Object value) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name, value);
-        }
-        return addVertex(id, Map.of(name, value));
+        return getVertex(id, linkedHashMap(name, value));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2, name3, value3);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2, name3, value3));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2, name3, value3, name4, value4);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2, name3, value3, name4, value4));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
     }
 
     @Override
     public Vertex<ID> getVertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
-        var optional = findVertex(id);
-        if(optional.isPresent()) {
-            return optional.get().property(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10);
-        }
-        return addVertex(id, Map.of(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
+        return getVertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
     }
 
     @Override
