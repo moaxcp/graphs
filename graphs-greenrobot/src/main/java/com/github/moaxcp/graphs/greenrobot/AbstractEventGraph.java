@@ -78,9 +78,9 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
         }
 
         @Override
-        public void setProperty(String name, Object value) {
+        public Edge<ID> property(String name, Object value) {
             var oldValue = getProperty(name);
-            super.setProperty(name, value);
+            super.property(name, value);
             if(oldValue.isPresent()) {
                 bus.post(new EdgePropertyUpdated.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
@@ -101,6 +101,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
                     .value(value)
                     .build());
             }
+            return this;
         }
 
         @Override
@@ -136,9 +137,9 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
         }
 
         @Override
-        public void setProperty(String name, Object value) {
+        public Vertex<ID> property(String name, Object value) {
             var oldValue = getProperty(name);
-            super.setProperty(name, value);
+            super.property(name, value);
             if(oldValue.isPresent()) {
                 bus.post(new VertexPropertyUpdated.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
@@ -155,6 +156,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
                     .value(value)
                     .build());
             }
+            return this;
         }
 
         @Override

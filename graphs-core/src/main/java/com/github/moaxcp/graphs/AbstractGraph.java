@@ -271,8 +271,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
         @Override
         public void setProperty(String name, Object value) {
-            check();
-            properties.property(name, value);
+            property(name, value);
         }
 
         @Override
@@ -443,8 +442,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
         @Override
         public void setProperty(String name, Object value) {
-            check();
-            properties.property(name, value);
+            property(name, value);
         }
 
         @Override
