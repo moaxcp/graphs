@@ -1,13 +1,17 @@
 package com.github.moaxcp.graphs.truth.greenrobot;
 
-import static com.github.moaxcp.graphs.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertThat;
-
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.events.*;
-import java.util.*;
-import java.util.stream.*;
+import com.github.moaxcp.graphs.events.VertexPropertiesEvent.UpdatedProperty;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.*;
+import java.util.stream.Stream;
+
+import static com.github.moaxcp.graphs.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertThat;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * Using this class depends on an eventbus that throws exceptions. Checking for updates is tricky. This still does
@@ -18,11 +22,11 @@ public class GraphEventCheck {
     private final List<Class> classes = new ArrayList<>();
     private final Graph actual;
 
-    public GraphEventCheck(Graph actual) {
+    GraphEventCheck(Graph actual) {
         this.actual = actual;
     }
 
-    public List<Class> getEventClasses() {
+    List<Class> getEventClasses() {
         return Collections.unmodifiableList(classes);
     }
 
@@ -80,8 +84,8 @@ public class GraphEventCheck {
         assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
         assertThat(actual).hasEdge(event.getFrom(), event.getTo()).hasIdThat().isEqualTo(event.getEdgeId());
         assertThat(actual).hasEdge(event.getFrom(), event.getTo())
-                .withLocalProperty(event.getName())
-                .isEqualTo(event.getValue());
+            .withLocalProperty(event.getName())
+            .isEqualTo(event.getValue());
         classes.add(event.getClass());
     }
 
@@ -192,6 +196,16 @@ public class GraphEventCheck {
     }
 
     @Subscribe
+    public void vertexPropertiesEvent(VertexPropertiesEvent event) {
+        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
+        assertThat(actual).hasVertex(event.getVertexId()).withLocal().containsAtLeastEntriesIn(event.getAddedProperties());
+        Collection<UpdatedProperty> values = event.getUpdatedProperties().values();
+        Map<String, Object> updated = values.stream().collect(toMap(v -> v.getName(), v -> v.getNewValue()));
+        assertThat(actual).hasVertex(event.getVertexId()).withLocal().containsAtLeastEntriesIn(updated);
+        classes.add(event.getClass());
+    }
+
+    @Subscribe
     public void otherEvent(Object event) {
         List<Class<?>> supported = Stream.of(
             GraphPropertyAdded.class,
@@ -214,9 +228,10 @@ public class GraphEventCheck {
             EdgeIdAdded.class,
             EdgeIdRemoved.class,
             EdgeIdUpdated.class,
-                EdgeFromUpdated.class,
-                EdgeToUpdated.class)
-            .collect(Collectors.toList());
+            EdgeFromUpdated.class,
+            EdgeToUpdated.class,
+            VertexPropertiesEvent.class)
+            .collect(toList());
         assertThat(supported).contains(event.getClass());
     }
 }

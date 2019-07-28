@@ -5,8 +5,6 @@ import com.google.common.truth.Fact;
 import com.google.common.truth.FailureMetadata;
 import com.google.common.truth.IterableSubject;
 import com.google.common.truth.Subject;
-import org.checkerframework.checker.nullness.compatqual.NullableDecl;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.function.Consumer;
@@ -21,7 +19,7 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, EventGra
         return EventGraphSubject::new;
     }
 
-    public static EventGraphSubject assertThat(@Nullable EventGraph<String> actual) {
+    public static EventGraphSubject assertThat(EventGraph<String> actual) {
         return assertAbout(eventGraphs()).that(actual);
     }
 
@@ -32,7 +30,7 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, EventGra
      * @param metadata
      * @param actual
      */
-    protected EventGraphSubject(FailureMetadata metadata, @NullableDecl EventGraph<String> actual) {
+    protected EventGraphSubject(FailureMetadata metadata, EventGraph<String> actual) {
         super(metadata, actual);
     }
 

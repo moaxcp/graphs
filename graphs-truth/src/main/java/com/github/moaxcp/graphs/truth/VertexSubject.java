@@ -5,8 +5,6 @@ import com.google.common.truth.FailureMetadata;
 import com.google.common.truth.MapSubject;
 import com.google.common.truth.OptionalSubject;
 import com.google.common.truth.Subject;
-import org.checkerframework.checker.nullness.compatqual.NullableDecl;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.Optional;
 
@@ -21,7 +19,7 @@ public class VertexSubject extends Subject<VertexSubject, Vertex> {
      * @param metadata
      * @param actual
      */
-    private VertexSubject(FailureMetadata metadata, @NullableDecl Vertex actual) {
+    private VertexSubject(FailureMetadata metadata, Vertex actual) {
         super(metadata, actual);
     }
 
@@ -29,7 +27,7 @@ public class VertexSubject extends Subject<VertexSubject, Vertex> {
         return VertexSubject::new;
     }
 
-    static VertexSubject assertThat(@Nullable Vertex actual) {
+    static VertexSubject assertThat(Vertex actual) {
         return assertAbout(vertices()).that(actual);
     }
 

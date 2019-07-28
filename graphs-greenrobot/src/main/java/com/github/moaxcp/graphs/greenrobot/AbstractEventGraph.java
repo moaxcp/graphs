@@ -137,25 +137,16 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
         }
 
         @Override
-        public Vertex<ID> property(String name, Object value) {
-            var oldValue = getProperty(name);
-            super.property(name, value);
-            if(oldValue.isPresent()) {
-                bus.post(new VertexPropertyUpdated.Builder<ID>()
+        public Vertex<ID> property(Map<String, Object> properties) {
+            var event = new VertexPropertiesEvent.Builder<ID>()
                     .graphId(AbstractEventGraph.this.getId().orElse(null))
-                    .vertexId(getId())
-                    .name(name)
-                    .value(value)
-                    .oldValue(oldValue.orElse(null))
-                    .build());
-            } else {
-                bus.post(new VertexPropertyAdded.Builder<ID>()
-                    .graphId(AbstractEventGraph.this.getId().orElse(null))
-                    .vertexId(getId())
-                    .name(name)
-                    .value(value)
-                    .build());
-            }
+                    .vertexId(this.getId())
+                    .originalProperties(this.local())
+                    .newProperties(properties)
+                    .build();
+            super.property(properties);
+
+            bus.post(event);
             return this;
         }
 

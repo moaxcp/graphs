@@ -145,6 +145,11 @@ public class Equals {
     }
 
     @Test
+    void vertexPropertiesEvent() {
+        EqualsVerifier.forClass(VertexPropertiesEvent.class).withRedefinedSuperclass().verify();
+    }
+
+    @Test
     void vertexRemoved() {
         EqualsVerifier.forClass(VertexRemoved.class).withRedefinedSuperclass().verify();
     }

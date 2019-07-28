@@ -20,7 +20,7 @@ test {
 }
 
 patchModules.config = [
-        "truth=truth-java8-extension-0.42.jar"
+        "truth=truth-java8-extension-0.43.jar"
 ]
 
 publishing {

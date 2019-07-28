@@ -6,8 +6,6 @@ import static com.google.common.truth.Truth.*;
 import com.github.moaxcp.graphs.Graph.*;
 import com.google.common.truth.*;
 import java.util.*;
-import org.checkerframework.checker.nullness.compatqual.*;
-import org.checkerframework.checker.nullness.qual.*;
 
 public class EdgeSubject extends Subject<EdgeSubject, Edge> {
     /**
@@ -17,7 +15,7 @@ public class EdgeSubject extends Subject<EdgeSubject, Edge> {
      * @param metadata
      * @param actual
      */
-    private EdgeSubject(FailureMetadata metadata, @NullableDecl Edge actual) {
+    private EdgeSubject(FailureMetadata metadata, Edge actual) {
         super(metadata, actual);
     }
 
@@ -25,7 +23,7 @@ public class EdgeSubject extends Subject<EdgeSubject, Edge> {
         return EdgeSubject::new;
     }
 
-    static EdgeSubject assertThat(@Nullable Edge actual) {
+    static EdgeSubject assertThat(Edge actual) {
         return assertAbout(edges()).that(actual);
     }
 

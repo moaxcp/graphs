@@ -10,7 +10,6 @@ import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.Graph.*;
 import com.google.common.truth.*;
 import java.util.*;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class GraphSubject extends Subject<GraphSubject, Graph> {
 
@@ -29,7 +28,7 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
         return GraphSubject::new;
     }
 
-    static GraphSubject assertThat(@Nullable Graph actual) {
+    static GraphSubject assertThat(Graph actual) {
         return assertAbout(graphs()).that(actual);
     }
 

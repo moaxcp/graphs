@@ -48,7 +48,7 @@ public class Vertex {
     void addProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        assertThat(graph).with(bus).hasEventsIn(g-> g.getVertex("A").property("name", "value")).containsExactly(VertexPropertyAdded.class);
+        assertThat(graph).with(bus).hasEventsIn(g-> g.getVertex("A").property("name", "value")).containsExactly(VertexPropertiesEvent.class);
     }
 
     @EventSimpleGraphs
@@ -62,6 +62,6 @@ public class Vertex {
     void updateProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getVertex("A").property("name", "value");
-        assertThat(graph).with(bus).hasEventsIn(g-> g.getVertex("A").property("name", "value2")).containsExactly(VertexPropertyUpdated.class);
+        assertThat(graph).with(bus).hasEventsIn(g-> g.getVertex("A").property("name", "value2")).containsExactly(VertexPropertiesEvent.class);
     }
 }
