@@ -11,8 +11,9 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertAbout;
 
-public class EventBusSubject extends Subject<EventBusSubject, EventBus> {
+public class EventBusSubject extends Subject {
     private Runnable action;
+    private EventBus actual;
 
     public class Subscriber {
         List<Object> events = new ArrayList<>();
@@ -30,6 +31,7 @@ public class EventBusSubject extends Subject<EventBusSubject, EventBus> {
     }
     private EventBusSubject(FailureMetadata metadata,  EventBus actual) {
         super(metadata, actual);
+        this.actual = actual;
     }
 
     static IterableSubject assertEvents(Runnable action) {
@@ -46,7 +48,7 @@ public class EventBusSubject extends Subject<EventBusSubject, EventBus> {
     }
 
     private IterableSubject runAction() {
-        actual().register(subscriber);
+        actual.register(subscriber);
         action.run();
         return check("events").that(subscriber.events);
     }

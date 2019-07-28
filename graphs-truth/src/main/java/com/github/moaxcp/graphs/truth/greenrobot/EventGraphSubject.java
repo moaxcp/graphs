@@ -11,9 +11,10 @@ import java.util.function.Consumer;
 
 import static com.google.common.truth.Truth.assertAbout;
 
-public final class EventGraphSubject extends Subject<EventGraphSubject, EventGraph<String>> {
+public final class EventGraphSubject extends Subject {
 
     private EventBus bus;
+    private EventGraph<String> actual;
 
     public static Subject.Factory<EventGraphSubject, EventGraph<String>> eventGraphs() {
         return EventGraphSubject::new;
@@ -23,15 +24,9 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, EventGra
         return assertAbout(eventGraphs()).that(actual);
     }
 
-    /**
-     * Constructor for use by subclasses. If you want to create an instance of this class itself, call
-     * {@link Subject#check}{@code .that(actual)}.
-     *
-     * @param metadata
-     * @param actual
-     */
     protected EventGraphSubject(FailureMetadata metadata, EventGraph<String> actual) {
         super(metadata, actual);
+        this.actual = actual;
     }
 
     public EventGraphSubject with(EventBus bus) {
@@ -40,9 +35,9 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, EventGra
     }
 
     public IterableSubject hasEventsIn(Consumer<EventGraph<String>> action) {
-        var check = new GraphEventCheck(actual());
+        var check = new GraphEventCheck(actual);
         bus.register(check);
-        action.accept(actual());
+        action.accept(actual);
         bus.unregister(check);
         if(check.getEventClasses().isEmpty()) {
             failWithActual(Fact.simpleFact("action did not result in events."));
@@ -51,9 +46,9 @@ public final class EventGraphSubject extends Subject<EventGraphSubject, EventGra
     }
 
     public void hasNoEventsIn(Consumer<EventGraph<String>> action) {
-        var check = new GraphEventCheck(actual());
+        var check = new GraphEventCheck(actual);
         bus.register(check);
-        action.accept(actual());
+        action.accept(actual);
         bus.unregister(check);
         if(!check.getEventClasses().isEmpty()) {
             failWithActual(Fact.simpleFact("action had events: " + check.getEventClasses()));

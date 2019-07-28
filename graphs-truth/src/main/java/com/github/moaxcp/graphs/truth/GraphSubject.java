@@ -11,17 +11,13 @@ import com.github.moaxcp.graphs.Graph.*;
 import com.google.common.truth.*;
 import java.util.*;
 
-public final class GraphSubject extends Subject<GraphSubject, Graph> {
+public final class GraphSubject extends Subject {
 
-    /**
-     * Constructor for use by subclasses. If you want to create an instance of this class itself, call
-     * {@link Subject#check}{@code .that(actual)}.
-     *
-     * @param metadata
-     * @param actual
-     */
+    private Graph actual;
+
     private GraphSubject(FailureMetadata metadata, Graph actual) {
         super(metadata, actual);
+        this.actual = actual;
     }
 
     public static Subject.Factory<GraphSubject, Graph> graphs() {
@@ -33,41 +29,41 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
     }
 
     public OptionalSubject hasIdThat() {
-        return check("getId()").about(optionals()).that(actual().getId());
+        return check("getId()").about(optionals()).that(actual.getId());
     }
 
     public EdgeSubject hasEdge(Object from, Object to) {
         hasVertex(from);
         hasVertex(to);
-        Optional<Edge> find = actual().findEdge(from, to);
+        Optional<Edge> find = actual.findEdge(from, to);
         check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isPresent();
         return assertAbout(edges()).that(find.orElse(null));
     }
 
     public EdgeSubject hasEdge(Object id) {
-        Optional<Edge> find = actual().findEdge(id);
+        Optional<Edge> find = actual.findEdge(id);
         check("edge(%s)", id).about(optionals()).that(find).isPresent();
         return assertAbout(edges()).that(find.orElse(null));
     }
 
     public void hasNoEdge(Object from, Object to) {
-        var find = actual().findEdge(from, to);
+        var find = actual.findEdge(from, to);
         check("findEdge(%s, %s)", from, to).about(optionals()).that(find).isEmpty();
     }
 
     public void hasNoEdge(Object id) {
-        var find =actual().findEdge(id);
+        var find =actual.findEdge(id);
         check("findEdge(%s)", id).about(optionals()).that(find).isEmpty();
     }
 
     public VertexSubject hasVertex(Object id) {
-        Optional<Vertex> find = actual().findVertex(id);
+        Optional<Vertex> find = actual.findVertex(id);
         check("findVertex(%s)", id).about(optionals()).that(find).isPresent();
         return assertAbout(vertices()).that(find.orElse(null));
     }
 
     public void hasNoVertex(Object id) {
-        var find = actual().findVertex(id);
+        var find = actual.findVertex(id);
         check("findVertex(%s)", id).about(optionals()).that(find).isEmpty();
     }
 
@@ -86,7 +82,7 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
                 failWithActual(simpleFact("duplicate hasIdThat in arguments."));
             }
         }
-        var keys = actual().getVertices().keySet();
+        var keys = actual.getVertices().keySet();
         if(set.size() != keys.size()) {
             failWithActual(simpleFact("Expected graph with size " + set.size() + " but found was size " + keys.size() ));
         }
@@ -106,26 +102,26 @@ public final class GraphSubject extends Subject<GraphSubject, Graph> {
     }
 
     public void isDirected() {
-        if(!actual().isDirected()) {
+        if(!actual.isDirected()) {
             failWithActual(simpleFact("Expected directed graph."));
         }
     }
 
     public void isNotDirected() {
-        if(actual().isDirected()) {
+        if(actual.isDirected()) {
             failWithActual(simpleFact("Expected undirected graph."));
         }
     }
 
     public OptionalSubject withProperty(String name) {
-        return check("getProperty(%s)", name).about(optionals()).that(actual().getProperty(name));
+        return check("getProperty(%s)", name).about(optionals()).that(actual.getProperty(name));
     }
 
     public OptionalSubject withEdgeProperty(String name) {
-        return check("getEdgeProperty(%s)", name).about(optionals()).that(actual().getEdgeProperty(name));
+        return check("getEdgeProperty(%s)", name).about(optionals()).that(actual.getEdgeProperty(name));
     }
 
     public OptionalSubject withVertexProperty(String name) {
-        return check("getVertexProperty(%s)", name).about(optionals()).that(actual().getVertexProperty(name));
+        return check("getVertexProperty(%s)", name).about(optionals()).that(actual.getVertexProperty(name));
     }
 }

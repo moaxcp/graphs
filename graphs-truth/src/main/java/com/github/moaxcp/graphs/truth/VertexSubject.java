@@ -10,8 +10,11 @@ import java.util.Optional;
 
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
-public class VertexSubject extends Subject<VertexSubject, Vertex> {
+public class VertexSubject extends Subject {
+
+    private Vertex actual;
     /**
      * Constructor for use by subclasses. If you want to create an instance of this class itself, call
      * {@link Subject#check}{@code .that(actual)}.
@@ -21,6 +24,7 @@ public class VertexSubject extends Subject<VertexSubject, Vertex> {
      */
     private VertexSubject(FailureMetadata metadata, Vertex actual) {
         super(metadata, actual);
+        this.actual = actual;
     }
 
     public static Subject.Factory<VertexSubject, Vertex> vertices() {
@@ -32,19 +36,19 @@ public class VertexSubject extends Subject<VertexSubject, Vertex> {
     }
 
     public void hasId(Object id) {
-        check("getId()").that(actual().getId()).isEqualTo(id);
+        check("getId()").that(actual.getId()).isEqualTo(id);
     }
 
     public OptionalSubject withProperty(String name) {
-        Optional<Object> optional = actual().getProperty(name);
+        Optional<Object> optional = actual.getProperty(name);
         return check("getProperty(%s)", name).about(optionals()).that(optional);
     }
 
     public MapSubject withLocal() {
-        return check("local()").that(actual().local());
+        return check("local()").that(actual.local());
     }
 
     public MapSubject withInherited() {
-        return check("inherited()").that(actual().inherited());
+        return check("inherited()").that(actual.inherited());
     }
 }
