@@ -12,7 +12,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.setId("B"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -20,7 +20,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.id("B"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -28,7 +28,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.setProperty("name", "value"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -36,7 +36,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.property("name", "value"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -44,7 +44,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A").property("name", "value");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.removeProperty("name"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -52,7 +52,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsTo("B"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -60,7 +60,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsFrom("B"));
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -68,7 +68,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.adjacentEdges());
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -76,7 +76,7 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.inEdges());
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
     @SimpleGraphs
@@ -84,6 +84,6 @@ public class RemovedVertex {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.outEdges());
-        assertThat(thrown).hasMessage("Vertex is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 }

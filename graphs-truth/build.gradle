@@ -8,8 +8,8 @@ description = 'Truth extensions for test assertions.'
 dependencies {
     api project(':graphs-core')
     api project(':graphs-greenrobot')
-    api 'com.google.truth:truth:0.43'
-    api 'com.google.truth.extensions:truth-java8-extension:0.43'
+    api 'com.google.truth:truth:0.44'
+    api 'com.google.truth.extensions:truth-java8-extension:0.44'
 }
 
 publishing {
@@ -71,5 +71,5 @@ signing {
 }
 
 patchModules.config = [
-        "truth=truth-java8-extension-0.43.jar"
+        "truth=truth-java8-extension-0.44.jar"
 ]

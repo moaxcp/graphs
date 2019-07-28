@@ -55,19 +55,19 @@ public class VertexTest {
     @SimpleGraphs
     void setPropertyNullName(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.getVertex("A").setProperty(null, null));
-        assertThat(thrown).hasMessage("name must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("name must not be null.");
     }
 
     @SimpleGraphs
     void setPropertyNullValue(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.getVertex("A").setProperty("", null));
-        assertThat(thrown).hasMessage("value must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
     }
 
     @SimpleGraphs
     void setPropertyEmptyName(Graph<String> graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.getVertex("A").setProperty("", ""));
-        assertThat(thrown).hasMessage("name must not be empty.");
+        assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
     }
 
     @SimpleGraphs

@@ -12,7 +12,7 @@ public class RemovedEdge {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setId("id"));
-        assertThat(thrown).hasMessage("Edge is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
     @SimpleGraphs
@@ -20,7 +20,7 @@ public class RemovedEdge {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.id("id"));
-        assertThat(thrown).hasMessage("Edge is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
     @SimpleGraphs
@@ -28,7 +28,7 @@ public class RemovedEdge {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setFrom("C"));
-        assertThat(thrown).hasMessage("Edge is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
     @SimpleGraphs
@@ -36,7 +36,7 @@ public class RemovedEdge {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.from("C"));
-        assertThat(thrown).hasMessage("Edge is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
     @SimpleGraphs
@@ -44,7 +44,7 @@ public class RemovedEdge {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setTo("C"));
-        assertThat(thrown).hasMessage("Edge is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
     @SimpleGraphs
@@ -52,7 +52,7 @@ public class RemovedEdge {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.to("C"));
-        assertThat(thrown).hasMessage("Edge is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
     @SimpleGraphs
@@ -60,7 +60,7 @@ public class RemovedEdge {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setProperty("name", "value"));
-        assertThat(thrown).hasMessage("Edge is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
     @SimpleGraphs
@@ -68,6 +68,6 @@ public class RemovedEdge {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.removeProperty("name"));
-        assertThat(thrown).hasMessage("Edge is not in graph.");
+        assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 }

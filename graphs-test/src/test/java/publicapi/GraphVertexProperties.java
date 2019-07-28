@@ -35,7 +35,7 @@ public class GraphVertexProperties {
     @SimpleGraphs
     void setPropertyEmptyName(Graph graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setVertexProperty("", ""));
-        assertThat(thrown).hasMessage("name must not be empty.");
+        assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
     }
 
     @SimpleGraphs
