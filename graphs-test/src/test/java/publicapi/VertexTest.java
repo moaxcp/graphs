@@ -159,7 +159,7 @@ public class VertexTest {
         graph.getVertex("A").property("name", "value");
         var result = graph.getVertex("A").removeProperty("name");
         assertThat(graph).hasVertex("A").withProperty("name").isEmpty();
-        assertThat(result).isSameAs(graph.getVertex("A"));
+        assertThat(result).isSameInstanceAs(graph.getVertex("A"));
     }
 
     @SimpleGraphs
@@ -196,7 +196,7 @@ public class VertexTest {
     void testId(Graph<String> graph) {
         var vertex = graph.getVertex("A").id("B");
         assertThat(vertex).hasId("B");
-        assertThat(vertex).isSameAs(graph.getVertex("B"));
+        assertThat(vertex).isSameInstanceAs(graph.getVertex("B"));
     }
 
     @SimpleGraphs

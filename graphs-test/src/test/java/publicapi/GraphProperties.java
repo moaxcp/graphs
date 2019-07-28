@@ -30,7 +30,7 @@ public class GraphProperties {
     void id(Graph graph) {
         Graph next = graph.id("id");
         assertThat(graph).hasIdThat().hasValue("id");
-        assertThat(graph).isSameAs(next);
+        assertThat(graph).isSameInstanceAs(next);
     }
 
     @SimpleGraphs
@@ -66,7 +66,7 @@ public class GraphProperties {
     void property(Graph graph) {
         Graph next = graph.property("property", "value");
         assertThat(graph).withProperty("property").hasValue("value");
-        assertThat(next).isSameAs(graph);
+        assertThat(next).isSameInstanceAs(graph);
     }
 
     @SimpleGraphs

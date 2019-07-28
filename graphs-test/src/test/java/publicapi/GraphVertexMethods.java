@@ -14,14 +14,14 @@ public class GraphVertexMethods {
     @SimpleGraphs
     void vertex(Graph<String> graph) {
         Graph<String> r = graph.vertex("A");
-        assertThat(r).isSameAs(graph);
+        assertThat(r).isSameInstanceAs(graph);
         assertThat(graph).hasVertex("A");
     }
 
     @SimpleGraphs
     void getVertex(Graph<String> graph) {
         var vertex = graph.getVertex("id");
-        assertThat(graph).hasVertex("id").isSameAs(vertex);
+        assertThat(graph).hasVertex("id").isSameInstanceAs(vertex);
         assertThat(vertex).hasId("id");
     }
 
@@ -29,7 +29,7 @@ public class GraphVertexMethods {
     void getVertexExisting(Graph<String> graph) {
         var vertexA = graph.getVertex("A");
         var vertexB = graph.getVertex("A");
-        assertThat(vertexA).isSameAs(vertexB);
+        assertThat(vertexA).isSameInstanceAs(vertexB);
     }
 
     @SimpleGraphs

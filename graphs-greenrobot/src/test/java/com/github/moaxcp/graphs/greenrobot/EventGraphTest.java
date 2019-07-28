@@ -10,26 +10,26 @@ public class EventGraphTest {
     void undirectedEventGraphBus() {
         var bus = EventBus.builder().build();
         var graph = new UndirectedEventGraph(bus);
-        assertThat(graph.getBus()).isSameAs(bus);
+        assertThat(graph.getBus()).isSameInstanceAs(bus);
     }
 
     @Test
     void undirectedEventGraphIdWithBus() {
         var bus = EventBus.builder().build();
         var graph = new UndirectedEventGraph<>("id", bus);
-        assertThat(graph.getBus()).isSameAs(bus);
+        assertThat(graph.getBus()).isSameInstanceAs(bus);
     }
     @Test
     void directedEventGraphBus() {
         var bus = EventBus.builder().build();
         var graph = new DirectedEventGraph(bus);
-        assertThat(graph.getBus()).isSameAs(bus);
+        assertThat(graph.getBus()).isSameInstanceAs(bus);
     }
 
     @Test
     void directedEventGraphIdWithBus() {
         var bus = EventBus.builder().build();
         var graph = new DirectedEventGraph<>("id", bus);
-        assertThat(graph.getBus()).isSameAs(bus);
+        assertThat(graph.getBus()).isSameInstanceAs(bus);
     }
 }

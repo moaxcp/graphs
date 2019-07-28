@@ -42,7 +42,7 @@ public class GraphEdgeProperties {
     void property(Graph graph) {
         Graph next = graph.edgeProperty("property", "value");
         assertThat(graph).withEdgeProperty("property").hasValue("value");
-        assertThat(next).isSameAs(graph);
+        assertThat(next).isSameInstanceAs(graph);
     }
 
     @SimpleGraphs

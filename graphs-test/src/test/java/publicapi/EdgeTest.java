@@ -15,14 +15,14 @@ public class EdgeTest {
         var edge = graph.getEdge("A", "B");
         edge.setId("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
-        assertThat(graph).hasEdge("id").isSameAs(edge);
+        assertThat(graph).hasEdge("id").isSameInstanceAs(edge);
     }
 
     @SimpleGraphs
     void changeId(Graph<String> graph) {
         var edge = graph.getEdge("A", "B").id("id");
         edge.setId("id2");
-        assertThat(graph).hasEdge("id2").isSameAs(edge);
+        assertThat(graph).hasEdge("id2").isSameInstanceAs(edge);
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id2");
         assertThat(graph).hasEdge("id2").hasIdThat().hasValue("id2");
         assertThat(graph).hasNoEdge("id");
@@ -47,7 +47,7 @@ public class EdgeTest {
     void id(Graph<String> graph) {
         var edge = graph.getEdge("A", "B").id("id");
         assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
-        assertThat(graph).hasEdge("id").isSameAs(edge);
+        assertThat(graph).hasEdge("id").isSameInstanceAs(edge);
     }
 
     @SimpleGraphs
@@ -101,7 +101,7 @@ public class EdgeTest {
         var edge = graph.getEdge("A", "B");
         var result = edge.from("C");
         assertThat(edge).hasFromThat().isEqualTo("C");
-        assertThat(result).isSameAs(edge);
+        assertThat(result).isSameInstanceAs(edge);
     }
 
     @SimpleGraphs
@@ -160,7 +160,7 @@ public class EdgeTest {
         var edge = graph.getEdge("A", "B");
         var result = edge.to("C");
         assertThat(edge).hasToThat().isEqualTo("C");
-        assertThat(result).isSameAs(edge);
+        assertThat(result).isSameInstanceAs(edge);
     }
 
     @SimpleGraphs

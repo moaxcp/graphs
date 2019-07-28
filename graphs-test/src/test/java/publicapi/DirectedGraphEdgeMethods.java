@@ -13,7 +13,7 @@ public class DirectedGraphEdgeMethods {
         var edge2 = graph.getEdge("B", "A");
 
         assertThat(edge1).isNotEqualTo(edge2);
-        assertThat(edge1).isNotSameAs(edge2);
+        assertThat(edge1).isNotSameInstanceAs(edge2);
         assertThat(graph).hasEdge("A", "B");
         assertThat(graph).hasEdge("B", "A");
     }

@@ -42,7 +42,7 @@ public class GraphVertexProperties {
     void property(Graph graph) {
         Graph next = graph.vertexProperty("property", "value");
         assertThat(graph).withVertexProperty("property").hasValue("value");
-        assertThat(next).isSameAs(graph);
+        assertThat(next).isSameInstanceAs(graph);
     }
 
     @SimpleGraphs

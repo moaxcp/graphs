@@ -15,14 +15,14 @@ public class GraphEdgeMethods {
     @SimpleGraphs
     void edge(Graph<String> graph) {
         Graph<String> r = graph.edge("A", "B");
-        assertThat(r).isSameAs(graph);
+        assertThat(r).isSameInstanceAs(graph);
         assertThat(graph).hasEdge("A", "B");
     }
 
     @SimpleGraphs
     void getEdge(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
-        assertThat(graph).hasEdge("A", "B").isSameAs(edge);
+        assertThat(graph).hasEdge("A", "B").isSameInstanceAs(edge);
         assertThat(edge).hasToThat().isEqualTo("B");
         assertThat(edge).hasFromThat().isEqualTo("A");
     }
@@ -31,7 +31,7 @@ public class GraphEdgeMethods {
     void getEdgeExisting(Graph<String> graph) {
         var edge1 = graph.getEdge("A", "B");
         var edge2 = graph.getEdge("A", "B");
-        assertThat(edge1).isSameAs(edge2);
+        assertThat(edge1).isSameInstanceAs(edge2);
     }
 
     @SimpleGraphs
