@@ -50,6 +50,7 @@ public class EventBusSubject extends Subject {
     private IterableSubject runAction() {
         actual.register(subscriber);
         action.run();
+        actual.unregister(subscriber);
         return check("events").that(subscriber.events);
     }
 }
