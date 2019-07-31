@@ -275,6 +275,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
         bus.post(new VertexCreated.Builder<ID>()
             .graphId(getId().orElse(null))
             .vertexId(id)
+            .properties(local)
             .build());
         return vertex;
     }
