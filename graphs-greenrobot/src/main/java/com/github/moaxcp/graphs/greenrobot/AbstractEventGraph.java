@@ -152,7 +152,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
 
         @Override
         public Vertex<ID> removeProperty(String name) {
-            var value = getProperty(name);
+            var value = getProperty(name).get();
             var vertex = super.removeProperty(name);
             bus.post(new VertexPropertyRemoved.Builder<ID>()
                 .graphId(AbstractEventGraph.this.getId().orElse(null))
