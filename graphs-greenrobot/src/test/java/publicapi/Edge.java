@@ -10,30 +10,41 @@ import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 public class Edge {
     @EventSimpleGraphs
     void created(EventGraph<String> graph, EventBus bus) {
-        graph.id("id");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.edge("A", "B"))
-            .containsExactly(VertexCreated.class, VertexCreated.class, EdgeCreated.class).inOrder();
+        graph.id("graph");
+
+        var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+        var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+        var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.edge("A", "B"))
+            .containsExactly(expected1, expected2, expected3).inOrder();
     }
 
     @EventSimpleGraphs
     void notCreated(EventGraph<String> graph, EventBus bus) {
-        graph.id("id");
-        graph.edge("A", "B").id("id");
-        assertThat(graph).with(bus).hasNoEventsIn(g -> g.edge("A", "B"));
+        graph.id("graph");
+        graph.getEdge("A", "B").id("edge");
+        assertThat(bus).withAction(() -> graph.edge("A", "B")).isEmpty();
     }
 
     @EventSimpleGraphs
     void removed(EventGraph<String> graph, EventBus bus) {
-        graph.id("id");
-        graph.edge("A", "B");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.removeEdge("A", "B")).containsExactly(EdgeRemoved.class);
+        graph.id("graph");
+        graph.getEdge("A", "B").id("edge");
+
+        var expected = new EdgeRemoved.Builder<String>().graphId("graph").edgeId("edge").from("A").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.removeEdge("A", "B")).containsExactly(expected);
     }
 
     @EventSimpleGraphs
     void removeWithId(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "B").id("edge");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.removeEdge("edge")).containsExactly(EdgeRemoved.class);
+
+        var expected = new EdgeRemoved.Builder<String>().graphId("graph").edgeId("edge").from("A").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.removeEdge("edge")).containsExactly(expected);
     }
 
     @EventSimpleGraphs
@@ -62,51 +73,81 @@ public class Edge {
 
     @EventSimpleGraphs
     void edgeIdAdded(EventGraph<String> graph, EventBus bus) {
+        graph.id("graph");
         graph.edge("A", "B");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.getEdge("A", "B").id("edge")).containsExactly(EdgeIdAdded.class);
+
+        var expected = new EdgeIdAdded.Builder<String>().graphId("graph").edgeId("edge").from("A").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.getEdge("A", "B").id("edge")).containsExactly(expected);
     }
 
     @EventSimpleGraphs
     void edgeIdRemovedNoId(EventGraph<String> graph, EventBus bus) {
         graph.edge("A", "B");
-        assertThat(graph).with(bus).hasNoEventsIn(g -> g.getEdge("A", "B").id(null));
+        assertThat(bus).withAction(() -> graph.getEdge("A", "B").id(null)).isEmpty();
     }
 
     @EventSimpleGraphs
     void edgeIdRemoved(EventGraph<String> graph, EventBus bus) {
+        graph.id("graph");
         graph.getEdge("A", "B").id("edge");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.getEdge("A", "B").id(null)).containsExactly(EdgeIdRemoved.class);
+
+        var expected = new EdgeIdRemoved.Builder<String>().graphId("graph").edgeId("edge").from("A").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.getEdge("A", "B").id(null)).containsExactly(expected);
     }
 
     @EventSimpleGraphs
     void edgeIdUpdated(EventGraph<String> graph, EventBus bus) {
-        graph.getEdge("A", "B").id("id1");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.getEdge("A", "B").id("id2")).containsExactly(EdgeIdUpdated.class);
+        graph.id("graph");
+        graph.getEdge("A", "B").id("oldEdge");
+
+        var expected = new EdgeIdUpdated.Builder<String>().graphId("graph").oldEdgeId("oldEdge").edgeId("edge").from("A").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.getEdge("A", "B").id("edge")).containsExactly(expected);
     }
 
     @EventSimpleGraphs
     void edgeFromUpdatedCreatedVertex(EventGraph<String> graph, EventBus bus) {
-        graph.edge("id", "B");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.getEdge("id", "B").setFrom("A")).containsExactly(VertexCreated.class, EdgeFromUpdated.class);
+        graph.id("graph");
+        graph.getEdge("oldFrom", "B").id("edge");
+
+        var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+        var expected2 = new EdgeFromUpdated.Builder<String>().graphId("graph").edgeId("edge").oldFrom("oldFrom").from("A").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.getEdge("oldFrom", "B").setFrom("A")).containsExactly(expected1, expected2).inOrder();
     }
 
     @EventSimpleGraphs
     void edgeToUpdatedCreatedVertex(EventGraph<String> graph, EventBus bus) {
-        graph.edge("A", "id");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.getEdge("A", "id").setTo("B")).containsExactly(VertexCreated.class, EdgeToUpdated.class);
+        graph.id("graph");
+        graph.getEdge("A", "oldTo").id("edge");
+
+        var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+        var expected2 = new EdgeToUpdated.Builder<String>().graphId("graph").edgeId("edge").from("A").oldTo("oldTo").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.getEdge("A", "oldTo").setTo("B")).containsExactly(expected1, expected2);
     }
 
     @EventSimpleGraphs
     void edgeFromUpdated(EventGraph<String> graph, EventBus bus) {
+        graph.id("graph");
         graph.vertex("A");
-        graph.edge("id", "B");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.getEdge("id", "B").setFrom("A")).containsExactly(EdgeFromUpdated.class);
+        graph.getEdge("oldFrom", "B").id("edge");
+
+        var expected = new EdgeFromUpdated.Builder<String>().graphId("graph").edgeId("edge").oldFrom("oldFrom").from("A").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.getEdge("oldFrom", "B").setFrom("A")).containsExactly(expected);
     }
 
     @EventSimpleGraphs
     void edgeToUpdated(EventGraph<String> graph, EventBus bus) {
+        graph.id("graph");
         graph.vertex("B");
-        graph.edge("A", "id");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.getEdge("A", "id").setTo("B")).containsExactly(EdgeToUpdated.class);
+        graph.getEdge("A", "oldTo").id("edge");
+
+        var expected = new EdgeToUpdated.Builder<String>().graphId("graph").edgeId("edge").from("A").oldTo("oldTo").to("B").build();
+
+        assertThat(bus).withAction(() -> graph.getEdge("A", "oldTo").setTo("B")).containsExactly(expected);
     }
 }
