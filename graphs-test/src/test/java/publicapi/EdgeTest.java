@@ -5,6 +5,8 @@ import com.github.moaxcp.graphs.testframework.SimpleGraphs;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
+import java.util.Map;
+
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -247,6 +249,12 @@ public class EdgeTest {
     void property10(Graph<String> graph) {
         graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
         assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    }
+
+    @SimpleGraphs
+    void propertyWithMap(Graph<String> graph) {
+        graph.getEdge("A", "B").property(Map.of("name", "value"));
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name", "value");
     }
 
     @SimpleGraphs

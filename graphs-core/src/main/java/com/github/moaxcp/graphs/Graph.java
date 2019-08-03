@@ -518,6 +518,8 @@ public interface Graph<ID> {
 
     Edge<ID> getEdge(ID from, ID to);
 
+    Edge<ID> getEdge(ID from, ID to, String name, Object value);
+
     Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties);
 
     /**

@@ -53,6 +53,18 @@ public class GraphEdgeMethods {
     }
 
     @SimpleGraphs
+    void getEdgeProperty1(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1");
+    }
+
+
+
+
+
+
+    @SimpleGraphs
     void edgeWithMapProperties(Graph<String> graph) {
         graph.edge("A", "B", Map.of("name1", "value1", "name2", "value2"));
 
@@ -117,13 +129,7 @@ public class GraphEdgeMethods {
     }
 
     @SimpleGraphs
-    void removeByFromTo(Graph<String> graph) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("A", "B"));
-        assertThat(thrown).hasMessageThat().isEqualTo("edge from 'A' to 'B' not found.");
-    }
-
-    @SimpleGraphs
-    void removeById(Graph<String> graph) {
+    void removeEdgeWithNoId(Graph<String> graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("id"));
         assertThat(thrown).hasMessageThat().isEqualTo("edge with id 'id' not found.");
     }
@@ -132,6 +138,12 @@ public class GraphEdgeMethods {
     void removeWithNullId(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdge(null));
         assertThat(thrown).hasMessageThat().isEqualTo("id must not be null.");
+    }
+
+    @SimpleGraphs
+    void removeByFromTo(Graph<String> graph) {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdge("A", "B"));
+        assertThat(thrown).hasMessageThat().isEqualTo("edge from 'A' to 'B' not found.");
     }
 
     @SimpleGraphs

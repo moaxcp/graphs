@@ -739,6 +739,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
+    public Edge<ID> getEdge(ID from, ID to, String name, Object value) {
+        return getEdge(from, to, Map.of(name, value));
+    }
+
+    @Override
     public Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties) {
         var optional = findEdge(from, to);
         optional.ifPresent(e -> e.property(properties));
