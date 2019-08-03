@@ -611,6 +611,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
     }
 
+    private Graph<ID> vertex(ID id, LinkedHashMap<String, Object> properties) {
+        getVertex(id, properties);
+        return this;
+    }
+
     @Override
     public Graph<ID> vertex(ID id, Map<String, Object> properties) {
         getVertex(id, properties);
@@ -728,6 +733,61 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
+    public Graph<ID> edge(ID from, ID to, String name, Object value) {
+        return edge(from, to, linkedHashMap(name, value));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
+    }
+
+    @Override
+    public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
+        return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
+    }
+
+    private Graph<ID> edge(ID from, ID to, LinkedHashMap<String, Object> properties) {
+        getEdge(from, to, properties);
+        return this;
+    }
+
+    @Override
     public Graph<ID> edge(ID from, ID to, Map<String, Object> properties) {
         getEdge(from, to, properties);
         return this;
@@ -740,11 +800,60 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Edge<ID> getEdge(ID from, ID to, String name, Object value) {
-        return getEdge(from, to, Map.of(name, value));
+        return getEdge(from, to, linkedHashMap(name, value));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
+    }
+
+    @Override
+    public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
+        return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
     }
 
     @Override
     public Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties) {
+        return getEdge(from, to, linkedHashMap(properties));
+    }
+
+    private Edge<ID> getEdge(ID from, ID to, LinkedHashMap<String, Object> properties) {
         var optional = findEdge(from, to);
         optional.ifPresent(e -> e.property(properties));
         return optional.orElseGet(() -> addEdge(from, to, properties));

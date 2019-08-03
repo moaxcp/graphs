@@ -59,17 +59,147 @@ public class GraphEdgeMethods {
         assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1");
     }
 
+    @SimpleGraphs
+    void getEdgeProperty1Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1");
 
-
-
-
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1");
+    }
 
     @SimpleGraphs
-    void edgeWithMapProperties(Graph<String> graph) {
-        graph.edge("A", "B", Map.of("name1", "value1", "name2", "value2"));
+    void getEdgeProperty2(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2");
 
-        assertThat(graph).hasEdge("A", "B").withProperty("name1").hasValue("value1");
-        assertThat(graph).hasEdge("A", "B").withProperty("name2").hasValue("value2");
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty2Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty3(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty3Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty4(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty4Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty5(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty5Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty6(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty6Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty7(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty7Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty8(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty8Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty9(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty9Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty10(Graph<String> graph) {
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    }
+
+    @SimpleGraphs
+    void getEdgeProperty10Exists(Graph<String> graph) {
+        graph.getEdge("A", "B");
+        graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
     }
 
     @SimpleGraphs
@@ -83,8 +213,166 @@ public class GraphEdgeMethods {
     }
 
     @SimpleGraphs
-    void edgeWithMapPropertiesExisting(Graph<String> graph) {
+    void getEdgeWithMapPropertiesExisting(Graph<String> graph) {
         graph.edge("A", "B");
+        graph.getEdge("A", "B", Map.of("name1", "value1", "name2", "value2"));
+
+        assertThat(graph).hasEdge("A", "B").withProperty("name1").hasValue("value1");
+        assertThat(graph).hasEdge("A", "B").withProperty("name2").hasValue("value2");
+    }
+
+    @SimpleGraphs
+    void edgeProperty1(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1");
+    }
+
+    @SimpleGraphs
+    void edgeProperty1Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1");
+    }
+
+    @SimpleGraphs
+    void edgeProperty2(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2");
+    }
+
+    @SimpleGraphs
+    void edgeProperty2Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2");
+    }
+
+    @SimpleGraphs
+    void edgeProperty3(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3");
+    }
+
+    @SimpleGraphs
+    void edgeProperty3Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3");
+    }
+
+    @SimpleGraphs
+    void edgeProperty4(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    }
+
+    @SimpleGraphs
+    void edgeProperty4Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    }
+
+    @SimpleGraphs
+    void edgeProperty5(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    }
+
+    @SimpleGraphs
+    void edgeProperty5Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    }
+
+    @SimpleGraphs
+    void edgeProperty6(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    }
+
+    @SimpleGraphs
+    void edgeProperty6Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    }
+
+    @SimpleGraphs
+    void edgeProperty7(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    }
+
+    @SimpleGraphs
+    void edgeProperty7Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    }
+
+    @SimpleGraphs
+    void edgeProperty8(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    }
+
+    @SimpleGraphs
+    void edgeProperty8Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    }
+
+    @SimpleGraphs
+    void edgeProperty9(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    }
+
+    @SimpleGraphs
+    void edgeProperty9Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    }
+
+    @SimpleGraphs
+    void edgeProperty10(Graph<String> graph) {
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    }
+
+    @SimpleGraphs
+    void edgeProperty10Exists(Graph<String> graph) {
+        graph.edge("A", "B");
+        graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+
+        assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    }
+
+    @SimpleGraphs
+    void edgeWithMapProperties(Graph<String> graph) {
         graph.edge("A", "B", Map.of("name1", "value1", "name2", "value2"));
 
         assertThat(graph).hasEdge("A", "B").withProperty("name1").hasValue("value1");
@@ -92,9 +380,9 @@ public class GraphEdgeMethods {
     }
 
     @SimpleGraphs
-    void getEdgeWithMapPropertiesExisting(Graph<String> graph) {
+    void edgeWithMapPropertiesExisting(Graph<String> graph) {
         graph.edge("A", "B");
-        graph.getEdge("A", "B", Map.of("name1", "value1", "name2", "value2"));
+        graph.edge("A", "B", Map.of("name1", "value1", "name2", "value2"));
 
         assertThat(graph).hasEdge("A", "B").withProperty("name1").hasValue("value1");
         assertThat(graph).hasEdge("A", "B").withProperty("name2").hasValue("value2");
