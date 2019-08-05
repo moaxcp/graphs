@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs.truth.greenrobot;
 
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.events.VertexPropertiesEvent.UpdatedProperty;
+import com.github.moaxcp.graphs.events.PropertiesEvent.UpdatedProperty;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.*;
@@ -174,24 +174,9 @@ public class GraphEventCheck {
     }
 
     @Subscribe
-    public void vertexPropertyAdded(VertexPropertyAdded event) {
-        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(actual).hasVertex(event.getVertexId()).withProperty(event.getName()).hasValue(event.getValue());
-        classes.add(event.getClass());
-    }
-
-    @Subscribe
     public void vertexPropertyRemoved(VertexPropertyRemoved event) {
         assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
         assertThat(actual).hasVertex(event.getVertexId()).withProperty(event.getName()).isEmpty();
-        classes.add(event.getClass());
-    }
-
-    @Subscribe
-    public void vertexPropertyUpdated(VertexPropertyUpdated event) {
-        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(actual).hasVertex(event.getVertexId()).withProperty(event.getName()).hasValue(event.getValue());
-        assertThat(event.getOldValue()).isNotNull();
         classes.add(event.getClass());
     }
 
@@ -217,9 +202,7 @@ public class GraphEventCheck {
             VertexCreated.class,
             VertexRemoved.class,
             VertexIdUpdated.class,
-            VertexPropertyAdded.class,
             VertexPropertyRemoved.class,
-            VertexPropertyUpdated.class,
             EdgeCreated.class,
             EdgePropertyAdded.class,
             EdgePropertyRemoved.class,

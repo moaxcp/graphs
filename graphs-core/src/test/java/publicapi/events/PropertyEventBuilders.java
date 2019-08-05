@@ -1,12 +1,14 @@
 package publicapi.events;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.moaxcp.graphs.events.*;
 import com.github.moaxcp.graphs.events.GraphEvent.Builder;
-import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PropertyEventBuilders {
 
@@ -24,9 +26,7 @@ public class PropertyEventBuilders {
             new GraphPropertyAdded.Builder<>(),
             new GraphPropertyRemoved.Builder<>(),
             new GraphPropertyUpdated.Builder<>(),
-            new VertexPropertyAdded.Builder<>(),
-            new VertexPropertyRemoved.Builder<>(),
-            new VertexPropertyUpdated.Builder<>()
+            new VertexPropertyRemoved.Builder<>()
         );
     }
 
@@ -44,9 +44,7 @@ public class PropertyEventBuilders {
             new GraphPropertyAdded.Builder<String>().name("name"),
             new GraphPropertyRemoved.Builder<String>().name("name"),
             new GraphPropertyUpdated.Builder<String>().name("name"),
-            new VertexPropertyAdded.Builder<String>().name("name"),
-            new VertexPropertyRemoved.Builder<String>().name("name"),
-            new VertexPropertyUpdated.Builder<String>().name("name")
+            new VertexPropertyRemoved.Builder<String>().name("name")
         );
     }
 
