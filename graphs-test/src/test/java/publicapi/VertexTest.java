@@ -1,6 +1,7 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.UndirectedGraph;
 import com.github.moaxcp.graphs.testframework.SimpleGraphs;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -323,5 +324,15 @@ public class VertexTest {
     void testEquals(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         EqualsVerifier.forClass(vertex.getClass()).suppress(Warning.NONFINAL_FIELDS, Warning.NULL_FIELDS).verify();
+    }
+
+    @SimpleGraphs
+    void testEqualsDifferentInherited(Graph<String> graph) {
+        var other = new UndirectedGraph<String>();
+        other.vertexProperty("name", "value");
+        var vertex1 = graph.getVertex("A");
+        var vertex2 = other.getVertex("A");
+
+        assertThat(vertex1.equals(vertex2)).isFalse();
     }
 }

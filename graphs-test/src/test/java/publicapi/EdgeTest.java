@@ -1,6 +1,7 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.UndirectedGraph;
 import com.github.moaxcp.graphs.testframework.SimpleGraphs;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -268,5 +269,15 @@ public class EdgeTest {
     void testEquals(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         EqualsVerifier.forClass(edge.getClass()).suppress(Warning.NONFINAL_FIELDS, Warning.NULL_FIELDS).verify();
+    }
+
+    @SimpleGraphs
+    void testEqualsDifferentInherited(Graph<String> graph) {
+        var other = new UndirectedGraph<String>();
+        other.edgeProperty("name", "value");
+        var edge1 = graph.getEdge("A", "B");
+        var edge2 = other.getEdge("A", "B");
+
+        assertThat(edge1.equals(edge2)).isFalse();
     }
 }

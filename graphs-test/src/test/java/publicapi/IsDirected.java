@@ -14,7 +14,7 @@ public class IsDirected {
 
     @DirectedSimpleGraphs
     void isEdgeDirected(Graph graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         assertThat(edge).isDirected();
     }
 
@@ -25,7 +25,7 @@ public class IsDirected {
 
     @UndirectedSimpleGraphs
     void isEdgeUndirected(Graph graph) {
-        var edge = graph.edge("A", "B");
+        var edge = graph.getEdge("A", "B");
         assertThat(edge).isNotDirected();
     }
 }
