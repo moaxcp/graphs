@@ -14,3 +14,10 @@ test {
 patchModules.config = [
         "truth=truth-java8-extension-1.0.jar"
 ]
+
+jacocoTestReport {
+    additionalSourceDirs files(project(':graphs-core').sourceSets.main.java.srcDirs)
+    additionalClassDirs files(project(':graphs-core').sourceSets.main.output)
+    additionalSourceDirs files(project(':graphs-greenrobot').sourceSets.main.java.srcDirs)
+    additionalClassDirs files(project(':graphs-greenrobot').sourceSets.main.output)
+}

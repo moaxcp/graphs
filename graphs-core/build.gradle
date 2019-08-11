@@ -86,11 +86,7 @@ signing {
     sign publishing.publications.mavenJava
 }
 
-task mergeJacoco(type: JacocoMerge, dependsOn:':graphs-test:test') {
-    destinationFile = file("$buildDir/jacoco/test.exec")
-    executionData file("$buildDir/jacoco/test.exec"), file("${project(':graphs-test').buildDir}/jacoco/test.exec")
-}
-
-test {
-    finalizedBy mergeJacoco
+jacocoTestReport {
+    dependsOn ':graphs-test:test'
+    executionData("${project(':graphs-test').buildDir}/jacoco/test.exec")
 }
