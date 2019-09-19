@@ -40,7 +40,7 @@ if [ -n "$TRAVIS_TAG" ]; then
 
 elif [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     echo "build for master branch"
-    //scan
+    scan
     build
 else
     echo "build for different branch not yet supported"
