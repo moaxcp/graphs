@@ -5,3 +5,4 @@ out/
 build/
 images/
 signingkey.gpg
+lombok.config
