@@ -1,9 +1,12 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
 import java.util.*;
 
 import static java.util.Objects.*;
 
+@ToString
 public abstract class VertexPropertyEvent<K> extends PropertyEvent<K> {
     private final K vertexId;
 

@@ -1,8 +1,12 @@
 package com.github.moaxcp.graphs.events;
 
-import static java.util.Objects.requireNonNull;
-import java.util.Objects;
+import lombok.*;
 
+import java.util.*;
+
+import static java.util.Objects.*;
+
+@ToString
 public final class VertexIdUpdated<K> extends VertexEvent<K> {
 
     private final K oldVertexId;

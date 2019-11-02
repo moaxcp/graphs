@@ -1,7 +1,10 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
 import static java.util.Objects.requireNonNull;
 
+@ToString
 public abstract class EdgeRequiredIdEvent<K> extends EdgeIdEvent<K> {
 
     protected EdgeRequiredIdEvent(Builder<K, ? extends Builder> builder) {

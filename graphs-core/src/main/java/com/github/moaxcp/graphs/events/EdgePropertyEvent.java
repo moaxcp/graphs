@@ -1,8 +1,12 @@
 package com.github.moaxcp.graphs.events;
 
-import static java.util.Objects.requireNonNull;
+import lombok.*;
+
 import java.util.*;
 
+import static java.util.Objects.*;
+
+@ToString
 public abstract class EdgePropertyEvent<K> extends PropertyEvent<K> {
     private final K edgeId;
     private final K from;

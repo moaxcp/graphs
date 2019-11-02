@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
+@ToString
 public final class EdgeIdAdded<K> extends EdgeRequiredIdEvent<K> {
 
     protected EdgeIdAdded(Builder<K> builder) {

@@ -1,7 +1,10 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
 import java.util.Objects;
 
+@ToString
 public final class UndirectedGraphCreated<K> extends GraphEvent<K> {
 
     private UndirectedGraphCreated(Builder<K> builder) {

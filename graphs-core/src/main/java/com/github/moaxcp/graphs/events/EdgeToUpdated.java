@@ -1,9 +1,12 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
 import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
+@ToString
 public final class EdgeToUpdated<K> extends EdgeOptionalIdEvent<K> {
 
     private final K oldTo;

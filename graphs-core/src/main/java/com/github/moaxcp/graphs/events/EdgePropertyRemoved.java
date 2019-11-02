@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
+@ToString
 public final class EdgePropertyRemoved<K> extends EdgePropertyEvent<K> {
 
     private EdgePropertyRemoved(Builder<K> builder) {

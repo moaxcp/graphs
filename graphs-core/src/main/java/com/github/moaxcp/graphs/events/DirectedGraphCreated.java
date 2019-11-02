@@ -1,7 +1,9 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
 import java.util.Objects;
 
+@ToString
 public final class DirectedGraphCreated<K> extends GraphEvent<K> {
 
     private DirectedGraphCreated(Builder<K> builder) {

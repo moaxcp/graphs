@@ -1,8 +1,12 @@
 package com.github.moaxcp.graphs.events;
 
-import static java.util.Objects.requireNonNull;
-import java.util.Objects;
+import lombok.*;
 
+import java.util.*;
+
+import static java.util.Objects.*;
+
+@ToString
 public abstract class PropertyUpdatedEvent<K> extends PropertyEvent<K> {
     private final Object oldValue;
 

@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
+@ToString
 public final class GraphIdAdded<K> extends GraphRequiredIdEvent<K> {
 
     private GraphIdAdded(Builder<K> builder) {

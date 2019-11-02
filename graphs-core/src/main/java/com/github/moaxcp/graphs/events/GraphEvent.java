@@ -1,7 +1,10 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
 import java.util.*;
 
+@ToString
 public abstract class GraphEvent<K> {
     private final K graphId;
 

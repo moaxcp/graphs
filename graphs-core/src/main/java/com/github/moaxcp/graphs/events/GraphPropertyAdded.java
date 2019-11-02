@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
+@ToString
 public final class GraphPropertyAdded<K> extends PropertyEvent<K> {
 
     private GraphPropertyAdded(Builder<K> builder) {

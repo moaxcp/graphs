@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
+@ToString
 public final class VertexRemoved<K> extends VertexEvent<K> {
 
     private VertexRemoved(Builder<K> builder) {

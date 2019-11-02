@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
+@ToString
 public final class EdgeRemoved<K> extends EdgeOptionalIdEvent<K> {
 
     private EdgeRemoved(Builder<K> builder) {

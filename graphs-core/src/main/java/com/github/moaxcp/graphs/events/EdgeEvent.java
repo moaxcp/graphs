@@ -1,7 +1,10 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
 import static java.util.Objects.requireNonNull;
 
+@ToString
 public abstract class EdgeEvent<K> extends GraphEvent<K> {
     private final K from;
     private final K to;

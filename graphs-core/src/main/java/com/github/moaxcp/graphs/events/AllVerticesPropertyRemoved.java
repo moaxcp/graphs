@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
+@ToString
 public final class AllVerticesPropertyRemoved<K> extends PropertyEvent<K> {
 
     private AllVerticesPropertyRemoved(Builder<K> builder) {

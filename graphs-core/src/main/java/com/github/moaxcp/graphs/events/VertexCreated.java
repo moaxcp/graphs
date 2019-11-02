@@ -1,11 +1,14 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
 import static java.util.Collections.unmodifiableMap;
 
+@ToString
 public final class VertexCreated<K> extends VertexEvent<K> {
 
     private final Map<String, Object> properties;

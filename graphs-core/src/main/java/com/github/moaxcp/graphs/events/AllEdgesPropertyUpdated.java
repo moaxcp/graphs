@@ -1,5 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
+import lombok.*;
+
+@ToString
 public final class AllEdgesPropertyUpdated<K> extends PropertyUpdatedEvent<K> {
 
     private AllEdgesPropertyUpdated(Builder<K> builder) {
