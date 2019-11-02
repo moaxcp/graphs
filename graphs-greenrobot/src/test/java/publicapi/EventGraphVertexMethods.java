@@ -461,6 +461,15 @@ public class EventGraphVertexMethods {
   }
 
   @EventSimpleGraphs
+  void removeWithProperties(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.vertex("A", "name1", "value1");
+
+    var expected = new VertexRemoved.Builder<String>().graphId("graph").vertexId("A").properties(Map.of("name1", "value1")).build();
+    assertThat(bus).withAction(() -> graph.removeVertex("A")).containsExactly(expected);
+  }
+
+  @EventSimpleGraphs
   void removeWithEdges(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.edge("A", "B");
