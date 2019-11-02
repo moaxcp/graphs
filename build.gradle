@@ -1,11 +1,12 @@
 buildscript {
     repositories {
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url 'https://plugins.gradle.org/m2/'
         }
     }
     dependencies {
-        classpath "org.javamodularity:moduleplugin:1.5.0"
+        classpath 'org.javamodularity:moduleplugin:1.5.0'
+        classpath 'io.freefair.gradle:lombok-plugin:4.1.2'
     }
 }
 
@@ -51,6 +52,7 @@ subprojects {
     apply plugin: 'jacoco'
     //apply plugin: 'checkstyle'
     apply plugin: 'org.javamodularity.moduleplugin'
+    apply plugin: 'io.freefair.lombok'
 
     sourceCompatibility = 11
     targetCompatibility = 11
@@ -82,8 +84,8 @@ subprojects {
     }
 
     dependencies {
-        compileOnly 'org.projectlombok:lombok:1.18.8'
-        annotationProcessor 'org.projectlombok:lombok:1.18.8'
+        compileOnly 'org.projectlombok:lombok:1.18.10'
+        annotationProcessor 'org.projectlombok:lombok:1.18.10'
         //checkstyle 'com.puppycrawl.tools:checkstyle:8.12'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
         testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'

@@ -1,7 +1,8 @@
 package com.github.moaxcp.graphs.events;
 
-import static java.util.Objects.requireNonNull;
-import java.util.Objects;
+import java.util.*;
+
+import static java.util.Objects.*;
 
 public abstract class VertexPropertyEvent<K> extends PropertyEvent<K> {
     private final K vertexId;
@@ -19,8 +20,8 @@ public abstract class VertexPropertyEvent<K> extends PropertyEvent<K> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        VertexPropertyEvent vertexPropertyAdded = (VertexPropertyEvent) o;
-        return Objects.equals(getGraphId(), vertexPropertyAdded.getGraphId()) && Objects.equals(getVertexId(), vertexPropertyAdded.getVertexId()) && Objects.equals(getName(), vertexPropertyAdded.getName()) && Objects.equals(getValue(), vertexPropertyAdded.getValue());
+        VertexPropertyEvent vertexPropertyEvent = (VertexPropertyEvent) o;
+        return Objects.equals(getGraphId(), vertexPropertyEvent.getGraphId()) && Objects.equals(getVertexId(), vertexPropertyEvent.getVertexId()) && Objects.equals(getName(), vertexPropertyEvent.getName()) && Objects.equals(getValue(), vertexPropertyEvent.getValue());
     }
 
     @Override

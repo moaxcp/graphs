@@ -1053,7 +1053,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     public Graph<ID> removeVertexProperty(String name) {
         requireNonNull(name, NAME_MUST_NOT_BE_NULL);
         if(!vertexProperties.containsKey(name)) {
-            throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
+            throw new IllegalArgumentException("graph does not contain vertex property named '" + name + "'.");
         }
         vertexProperties.remove(name);
         return this;

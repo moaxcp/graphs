@@ -3,29 +3,21 @@ package com.github.moaxcp.graphs.truth;
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.Graph.Edge;
 import com.github.moaxcp.graphs.Graph.Vertex;
-import com.github.moaxcp.graphs.events.VertexPropertiesEvent;
 import com.google.common.truth.FailureMetadata;
 import com.google.common.truth.OptionalSubject;
 import com.google.common.truth.Subject;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 import static com.github.moaxcp.graphs.truth.EdgeSubject.edges;
-import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 import static com.github.moaxcp.graphs.truth.VertexSubject.vertices;
 import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 public final class GraphSubject extends Subject {
 
     private Graph actual;
-    private static List<Class<?>> supportedEvents = Stream.of(
-        VertexPropertiesEvent.class
-    ).collect(toList());
 
     private GraphSubject(FailureMetadata metadata, Graph actual) {
         super(metadata, actual);
@@ -135,15 +127,5 @@ public final class GraphSubject extends Subject {
 
     public OptionalSubject withVertexProperty(String name) {
         return check("getVertexProperty(%s)", name).about(optionals()).that(actual.getVertexProperty(name));
-    }
-
-    public void matches(VertexPropertiesEvent event) {
-        check("supported graph event").that(supportedEvents).contains(event.getClass());
-        check("event graphId").about(graphs()).that(actual).hasIdThat().isEqualTo(event.getGraphId());
-        check("event vertexId").about(graphs()).that(actual).hasVertex(event.getVertexId())
-            .withLocal().containsAtLeastEntriesIn(event.getAddedProperties());
-        Collection<VertexPropertiesEvent.UpdatedProperty> values = event.getUpdatedProperties().values();
-        Map<String, Object> updated = values.stream().collect(toMap(v -> v.getName(), v -> v.getNewValue()));
-        assertThat(actual).hasVertex(event.getVertexId()).withLocal().containsAtLeastEntriesIn(updated);
     }
 }

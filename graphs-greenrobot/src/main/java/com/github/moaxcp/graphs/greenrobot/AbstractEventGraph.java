@@ -1,14 +1,13 @@
 package com.github.moaxcp.graphs.greenrobot;
 
-import com.github.moaxcp.graphs.AbstractGraph;
-import com.github.moaxcp.graphs.EventGraph;
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
-import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.*;
 
-import java.util.Map;
+import java.util.*;
+import java.util.Map.*;
 
-import static java.util.Objects.requireNonNull;
+import static java.util.Objects.*;
 
 public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implements EventGraph<ID> {
 
@@ -114,7 +113,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
                 .from(getFrom())
                 .to(getTo())
                 .name(name)
-                .value(value)
+                .value(value.get())
                 .build());
             return edge;
         }
@@ -138,16 +137,31 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
 
         @Override
         public Vertex<ID> property(Map<String, Object> properties) {
-            var event = new VertexPropertiesEvent.Builder<ID>()
-                    .graphId(AbstractEventGraph.this.getId().orElse(null))
-                    .vertexId(this.getId())
-                    .originalProperties(this.local())
-                    .newProperties(properties)
-                    .build();
+            Map<String, Object> oldValues = new LinkedHashMap<>(local());
             super.property(properties);
-
-            bus.post(event);
+            for(Entry<String, Object> entry : properties.entrySet()) {
+                sendVertexPropertyEvents(entry.getKey(), entry.getValue(), Optional.ofNullable(oldValues.get(entry.getKey())));
+            }
             return this;
+        }
+
+        private void sendVertexPropertyEvents(String name, Object value, Optional<Object> oldValue) {
+            if(oldValue.isPresent()) {
+                bus.post(new VertexPropertyUpdated.Builder<ID>()
+                  .graphId(AbstractEventGraph.this.getId().orElse(null))
+                  .vertexId(getId())
+                  .name(name)
+                  .value(value)
+                  .oldValue(oldValue.orElse(null))
+                  .build());
+            } else {
+                bus.post(new VertexPropertyAdded.Builder<ID>()
+                  .graphId(AbstractEventGraph.this.getId().orElse(null))
+                  .vertexId(getId())
+                  .name(name)
+                  .value(value)
+                  .build());
+            }
         }
 
         @Override
@@ -230,7 +244,69 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
         bus.post(new GraphPropertyRemoved.Builder<ID>()
             .graphId(getId().orElse(null))
             .name(name)
-            .value(value)
+            .value(value.orElse(null))
+            .build());
+        return this;
+    }
+
+    @Override
+    public void setEdgeProperty(String name, Object value) {
+        var oldValue = getEdgeProperty(name);
+        super.setEdgeProperty(name, value);
+        if(oldValue.isPresent()) {
+            bus.post(new AllEdgesPropertyUpdated.Builder<ID>()
+                .graphId(getId().orElse(null))
+                .name(name).value(value)
+                .oldValue(oldValue.orElse(null))
+                .build());
+        } else {
+            bus.post(new AllEdgesPropertyAdded.Builder<ID>()
+                .graphId(getId().orElse(null))
+                .name(name)
+                .value(value)
+                .build());
+        }
+    }
+
+    @Override
+    public Graph<ID> removeEdgeProperty(String name) {
+        var value = getEdgeProperty(name);
+        super.removeEdgeProperty(name);
+        bus.post(new AllEdgesPropertyRemoved.Builder<ID>()
+            .graphId(getId().orElse(null))
+            .name(name)
+            .value(value.orElse(null))
+            .build());
+        return this;
+    }
+
+    @Override
+    public void setVertexProperty(String name, Object value) {
+        var oldValue = getVertexProperty(name);
+        super.setVertexProperty(name, value);
+        if(oldValue.isPresent()) {
+            bus.post(new AllVerticesPropertyUpdated.Builder<ID>()
+                .graphId(getId().orElse(null))
+                .name(name).value(value)
+                .oldValue(oldValue.orElse(null))
+                .build());
+        } else {
+            bus.post(new AllVerticesPropertyAdded.Builder<ID>()
+                .graphId(getId().orElse(null))
+                .name(name)
+                .value(value)
+                .build());
+        }
+    }
+
+    @Override
+    public Graph<ID> removeVertexProperty(String name) {
+        var value = getVertexProperty(name);
+        super.removeVertexProperty(name);
+        bus.post(new AllVerticesPropertyRemoved.Builder<ID>()
+            .graphId(getId().orElse(null))
+            .name(name)
+            .value(value.orElse(null))
             .build());
         return this;
     }

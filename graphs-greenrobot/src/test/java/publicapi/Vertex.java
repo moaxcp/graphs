@@ -1,15 +1,15 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.EventGraph;
-import com.github.moaxcp.graphs.events.VertexIdUpdated;
-import com.github.moaxcp.graphs.events.VertexPropertiesEvent;
-import com.github.moaxcp.graphs.events.VertexPropertyRemoved;
-import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
-import org.greenrobot.eventbus.EventBus;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.testframework.*;
+import org.greenrobot.eventbus.*;
 
-import java.util.Map;
+import java.util.*;
+import java.util.stream.*;
 
-import static com.github.moaxcp.graphs.truth.Truth.assertThat;
+import static com.github.moaxcp.graphs.truth.Truth.*;
+import static java.util.stream.Collectors.*;
 
 public class Vertex {
 
@@ -27,9 +27,21 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name", "value")).build();
+        var expected = propertyAddedEvents(1);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name", "value")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A").property("name1", "value1"))
+          .containsExactlyElementsIn(expected);
+    }
+
+    List<VertexPropertyAdded<String>> propertyAddedEvents(int count) {
+        return IntStream.rangeClosed(1, count)
+          .mapToObj(i -> propertyAddedEvent("graph", "A", "name" + i, "value" + i))
+          .collect(toList());
+    }
+
+    VertexPropertyAdded<String> propertyAddedEvent(String graph, String id, String name, String value) {
+        return new VertexPropertyAdded.Builder<String>().graphId(graph).vertexId(id).name(name).value(value).build();
     }
 
     @EventSimpleGraphs
@@ -37,9 +49,11 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2")).build();
+        var expected = propertyAddedEvents(2);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2"))
+          .containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -47,9 +61,11 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3")).build();
+        var expected = propertyAddedEvents(3);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3"))
+          .containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -57,9 +73,15 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4")).build();
+        var expected = propertyAddedEvents(4);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A")
+            .property("name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4"))
+          .containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -67,9 +89,16 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5")).build();
+        var expected = propertyAddedEvents(5);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A")
+            .property("name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5"))
+          .containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -77,9 +106,16 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6")).build();
+        var expected = propertyAddedEvents(6);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A")
+            .property("name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5",
+              "name6", "value6")).containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -87,9 +123,17 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7")).build();
+        var expected = propertyAddedEvents(7);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A")
+            .property("name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5",
+              "name6", "value6",
+              "name7", "value7")).containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -97,9 +141,18 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8")).build();
+        var expected = propertyAddedEvents(8);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A")
+            .property("name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5",
+              "name6", "value6",
+              "name7", "value7",
+              "name8", "value8")).containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -107,9 +160,19 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9")).build();
+        var expected = propertyAddedEvents(9);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A")
+            .property("name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5",
+              "name6", "value6",
+              "name7", "value7",
+              "name8", "value8",
+              "name9", "value9")).containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -117,9 +180,20 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10")).build();
+        var expected = propertyAddedEvents(10);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A")
+            .property("name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5",
+              "name6", "value6",
+              "name7", "value7",
+              "name8", "value8",
+              "name9", "value9",
+              "name10", "value10")).containsExactlyElementsIn(expected);
     }
 
     @EventSimpleGraphs
@@ -127,7 +201,7 @@ public class Vertex {
         graph.id("graph");
         graph.vertex("A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1")).build();
+        var expected = new VertexPropertyAdded.Builder<String>().graphId("graph").vertexId("A").name("name1").value("value1").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property(Map.of("name1", "value1"))).containsExactly(expected);
     }
@@ -135,11 +209,23 @@ public class Vertex {
     @EventSimpleGraphs
     void updateProperty1(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        graph.getVertex("A").property("name", "A");
+        graph.getVertex("A").property("name1", "A");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name", "A")).newProperties(Map.of("name", "value")).build();
+        var expected = propertyUpdatedEvents(1);
 
-        assertThat(bus).withAction(()-> graph.getVertex("A").property("name", "value")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(()-> graph.getVertex("A")
+            .property("name1", "value1")).containsExactlyElementsIn(expected);
+    }
+
+    List<VertexPropertyUpdated<String>> propertyUpdatedEvents(int count) {
+        return IntStream.rangeClosed(1, count)
+          .mapToObj(i -> propertyUpdatedEvent("graph", "A", "name", "value" + i, String.valueOf('A' + i)))
+          .collect(toList());
+    }
+
+    VertexPropertyUpdated<String> propertyUpdatedEvent(String graph, String id, String name, String value, String oldValue) {
+        return new VertexPropertyUpdated.Builder<String>().graphId(graph).vertexId(id).name(name).value(value).oldValue(oldValue).build();
     }
 
     @EventSimpleGraphs
@@ -147,7 +233,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B")).newProperties(Map.of("name1", "value1", "name2", "value2")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2")).containsExactly(expected);
     }
@@ -157,7 +243,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B", "name3", "C")).newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3")).containsExactly(expected);
     }
@@ -167,7 +253,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B", "name3", "C", "name4", "D")).newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4")).containsExactly(expected);
     }
@@ -177,7 +263,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E")).newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5")).containsExactly(expected);
     }
@@ -187,7 +273,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F")).newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6")).containsExactly(expected);
     }
@@ -197,7 +283,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G")).newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7")).containsExactly(expected);
     }
@@ -207,7 +293,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H")).newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8")).containsExactly(expected);
     }
@@ -217,7 +303,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I")).newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9")).containsExactly(expected);
     }
@@ -227,7 +313,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I", "name10", "J");
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I", "name10", "J")).newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10")).containsExactly(expected);
     }
@@ -237,7 +323,7 @@ public class Vertex {
         graph.id("graph");
         graph.getVertex("A").property(Map.of("name1", "A", "name2", "B"));
 
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").originalProperties(Map.of("name1", "A")).newProperties(Map.of("name1", "value1")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name").oldValue("A").value("value").build();
 
         assertThat(bus).withAction(()-> graph.getVertex("A").property(Map.of("name1", "value1"))).containsExactly(expected);
     }

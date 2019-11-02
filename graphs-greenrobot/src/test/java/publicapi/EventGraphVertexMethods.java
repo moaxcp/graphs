@@ -1,16 +1,13 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.EventGraph;
-import com.github.moaxcp.graphs.events.EdgeRemoved;
-import com.github.moaxcp.graphs.events.VertexCreated;
-import com.github.moaxcp.graphs.events.VertexPropertiesEvent;
-import com.github.moaxcp.graphs.events.VertexRemoved;
-import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
-import org.greenrobot.eventbus.EventBus;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.testframework.*;
+import org.greenrobot.eventbus.*;
 
-import java.util.Map;
+import java.util.*;
 
-import static com.github.moaxcp.graphs.truth.Truth.assertThat;
+import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EventGraphVertexMethods {
     @EventSimpleGraphs
@@ -123,7 +120,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex1(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1"))
             .containsExactly(expected);
@@ -133,7 +130,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex2(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2"))
             .containsExactly(expected);
@@ -143,7 +140,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex3(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3"))
             .containsExactly(expected);
@@ -153,7 +150,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex4(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4"))
             .containsExactly(expected);
@@ -163,7 +160,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex5(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5"))
             .containsExactly(expected);
@@ -173,7 +170,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex6(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6"))
             .containsExactly(expected);
@@ -183,7 +180,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex7(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7"))
             .containsExactly(expected);
@@ -193,7 +190,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex8(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8"))
             .containsExactly(expected);
@@ -203,7 +200,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex9(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9"))
             .containsExactly(expected);
@@ -213,7 +210,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertex10(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10"))
             .containsExactly(expected);
@@ -223,7 +220,7 @@ public class EventGraphVertexMethods {
     void updatedWithVertexMap(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
-        var expected = new VertexPropertiesEvent.Builder<String>().graphId("graph").vertexId("A").newProperties(Map.of("name1", "value1")).build();
+        var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").oldValue("A").value("value1").build();
 
         assertThat(bus).withAction(() -> graph.vertex("A", Map.of("name1", "value1")))
             .containsExactly(expected);

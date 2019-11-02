@@ -130,13 +130,18 @@ public class Equals {
     }
 
     @Test
-    void vertexPropertyRemoved() {
-        EqualsVerifier.forClass(VertexPropertyRemoved.class).withRedefinedSuperclass().verify();
+    void vertexPropertyAdded() {
+        EqualsVerifier.forClass(VertexPropertyAdded.class).withRedefinedSuperclass().verify();
     }
 
     @Test
-    void vertexPropertiesEvent() {
-        EqualsVerifier.forClass(VertexPropertiesEvent.class).withRedefinedSuperclass().verify();
+    void vertexPropertyUpdated() {
+        EqualsVerifier.forClass(VertexPropertyUpdated.class).withRedefinedSuperclass().verify();
+    }
+
+    @Test
+    void vertexPropertyRemoved() {
+        EqualsVerifier.forClass(VertexPropertyRemoved.class).withRedefinedSuperclass().verify();
     }
 
     @Test
