@@ -22,6 +22,18 @@ public class Vertex {
   }
 
   @EventSimpleGraphs
+  void updatePropertyAlreadyExists(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getVertex("A").property("name1", "value1");
+
+    var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").value("value1").oldValue("value1").build();
+
+    assertThat(bus)
+      .withAction(() -> graph.getVertex("A").property("name1", "value1"))
+      .containsExactly(expected);
+  }
+
+  @EventSimpleGraphs
   void addProperty1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");

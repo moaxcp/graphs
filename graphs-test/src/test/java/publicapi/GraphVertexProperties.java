@@ -48,7 +48,7 @@ public class GraphVertexProperties {
     @SimpleGraphs
     void removePropertyMissing(Graph graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeVertexProperty("property"));
-        assertThat(thrown).hasMessageThat().isEqualTo("graph does not contain edge property named 'property'.");
+        assertThat(thrown).hasMessageThat().isEqualTo("graph does not contain vertex property named 'property'.");
     }
 
     @SimpleGraphs

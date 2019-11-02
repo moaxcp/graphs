@@ -1,45 +1,21 @@
 package com.github.moaxcp.graphs.truth.greenrobot;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.UndirectedGraph;
-import com.github.moaxcp.graphs.events.VertexPropertiesEvent;
-import org.junit.jupiter.api.Test;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.events.*;
+import org.junit.jupiter.api.*;
 
-import java.util.Map;
-
-import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.*;
 
 public class GraphEventCheckTest {
     @Test
-    void vertexPropertiesEventAdded() {
+    void graphPropertyAdded() {
         Graph<String> graph = new UndirectedGraph<>("undirected");
-        graph.vertex("A", "name1", "value1", "name2", "value2");
+        graph.property("name1", "value1");
 
-        VertexPropertiesEvent<String> event = new VertexPropertiesEvent.Builder<String>()
-            .graphId("undirected")
-            .vertexId("A")
-            .newProperties(Map.of("name1", "value1", "name2", "value2"))
-            .build();
+        GraphPropertyAdded<String> event = new GraphPropertyAdded.Builder<String>().graphId("undirected").name("name1").value("value1").build();
 
         GraphEventCheck check = new GraphEventCheck(graph);
-        check.vertexPropertiesEvent(event);
-        assertThat(check.getEventClasses()).containsExactly(VertexPropertiesEvent.class);
-    }
-
-    @Test
-    void vertexPropertiesEventUpdated() {
-        Graph<String> graph = new UndirectedGraph<>("undirected");
-        graph.vertex("A", "name1", "value1", "name2", "value2");
-
-        VertexPropertiesEvent<String> event = new VertexPropertiesEvent.Builder<String>()
-            .graphId("undirected")
-            .vertexId("A")
-            .originalProperties(Map.of("name1", "A", "name2", "B"))
-            .newProperties(Map.of("name1", "value1", "name2", "value2"))
-            .build();
-
-        GraphEventCheck check = new GraphEventCheck(graph);
-        check.vertexPropertiesEvent(event);
-        assertThat(check.getEventClasses()).containsExactly(VertexPropertiesEvent.class);
+        check.graphPropertyAdded(event);
+        assertThat(check.getEventClasses()).containsExactly(GraphPropertyAdded.class);
     }
 }
