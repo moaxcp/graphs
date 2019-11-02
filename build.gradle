@@ -84,8 +84,8 @@ subprojects {
     }
 
     dependencies {
-        compileOnly 'org.projectlombok:lombok:1.18.10'
-        annotationProcessor 'org.projectlombok:lombok:1.18.10'
+        //compileOnly 'org.projectlombok:lombok:1.18.10'
+        //annotationProcessor 'org.projectlombok:lombok:1.18.10'
         //checkstyle 'com.puppycrawl.tools:checkstyle:8.12'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
         testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
@@ -104,5 +104,9 @@ subprojects {
         }
 
         systemProperty "com.google.common.truth.disable_stack_trace_cleaning", "true"
+    }
+
+    lombok {
+        config['lombok.toString.callSuper'] = "call"
     }
 }
