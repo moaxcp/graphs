@@ -151,6 +151,15 @@ A subscriber to these events can create a view of the graph as it is modified.
 
 = Releases
 
+== 0.5.0
+
+Adding convenience methods for creating and updating elements with multiple properties. For example:
+
+~~~~
+graph.vertex("A", "name1", "value1", "name2", "value2");
+graph.getVertex("B").property("name1", "value1", "name2", "value2");
+~~~~
+
 == 0.4.0
 
 Splitting projects into core, greenrobot, graphviz, and truth. Added support for java modules.
