@@ -41,3 +41,13 @@ test {
         ]
     }
 }
+
+delombok {
+    //delombok does not appear to support split package in truth and truth-extensions
+    enabled = false
+    modulePath.from(configurations.runtimeClasspath)
+}
+
+javadoc {
+    source = sourceSets.main.allSource
+}
