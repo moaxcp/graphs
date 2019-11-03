@@ -4,7 +4,7 @@ dependencies {
     api project(':graphs-truth')
     api project(':graphs-graphviz')
     api project(':graphs-testframework')
-    testImplementation 'org.jmockit:jmockit:1.46'
+    testImplementation 'org.jmockit:jmockit:1.48'
 }
 
 test {
@@ -20,4 +20,24 @@ jacocoTestReport {
     additionalClassDirs files(project(':graphs-core').sourceSets.main.output)
     additionalSourceDirs files(project(':graphs-greenrobot').sourceSets.main.java.srcDirs)
     additionalClassDirs files(project(':graphs-greenrobot').sourceSets.main.output)
+}
+
+compileTestJava {
+    moduleOptions {
+        addReads = [
+            'com.github.moaxcp.graphs.test' : 'truth,org.junit.jupiter.params'
+        ]
+    }
+}
+
+test {
+    moduleOptions {
+        addReads = [
+            'com.github.moaxcp.graphs.test': 'nl.jqno.equalsverifier,truth,org.junit.jupiter.params'
+        ]
+        addOpens = [
+            'com.github.moaxcp.graphs.core/com.github.moaxcp.graphs' : 'nl.jqno.equalsverifier',
+            'com.github.moaxcp.graphs.greenrobot/com.github.moaxcp.graphs.greenrobot' : 'nl.jqno.equalsverifier'
+        ]
+    }
 }

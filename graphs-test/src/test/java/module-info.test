@@ -1,8 +1,0 @@
---add-reads
-  com.github.moaxcp.graphs.test=truth,nl.jqno.equalsverifier
-
---add-opens
-    com.github.moaxcp.graphs.core/com.github.moaxcp.graphs=nl.jqno.equalsverifier
-
---add-opens
-    com.github.moaxcp.graphs.greenrobot/com.github.moaxcp.graphs.greenrobot=nl.jqno.equalsverifier

@@ -1,5 +1,0 @@
---add-modules
-  com.github.moaxcp.graphs.testframework,truth
-
---add-reads
-  com.github.moaxcp.graphs.graphviz=com.github.moaxcp.graphs.testframework,truth

@@ -10,17 +10,8 @@ dependencies {
     testImplementation project(':graphs-testframework')
 }
 
-task mergeJacoco(type: JacocoMerge, dependsOn:':graphs-test:test') {
-    destinationFile = file("$buildDir/jacoco/test.exec")
-    executionData file("$buildDir/jacoco/test.exec"), file("${project(':graphs-test').buildDir}/jacoco/test.exec")
-}
-
-test {
-    finalizedBy mergeJacoco
-}
-
 patchModules.config = [
-        "truth=truth-java8-extension-1.0.jar"
+    "truth=truth-java8-extension-1.0.jar"
 ]
 
 publishing {
@@ -79,4 +70,22 @@ publishing {
 
 signing {
     sign publishing.publications.mavenJava
+}
+
+compileTestJava {
+    moduleOptions {
+        addReads = [
+            'com.github.moaxcp.graphs.graphviz' : 'com.github.moaxcp.graphs.testframework,truth'
+        ]
+
+        addModules = ['com.github.moaxcp.graphs.testframework']
+    }
+}
+
+test {
+    moduleOptions {
+        addReads = [
+            'com.github.moaxcp.graphs.graphviz' : 'com.github.moaxcp.graphs.testframework,truth,org.junit.jupiter.params'
+        ]
+    }
 }

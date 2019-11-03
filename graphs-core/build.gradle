@@ -1,7 +1,7 @@
 plugins {
     id 'maven-publish'
     id 'signing'
-    id 'me.champeau.gradle.jmh' version '0.5.0-rc-1'
+    id 'me.champeau.gradle.jmh' version '0.5.0'
 }
 
 description = 'Graph api and implementations.'
@@ -11,7 +11,7 @@ patchModules.config = [
 ]
 
 dependencies {
-    jmh 'com.google.guava:guava:27.0.1-jre'
+    jmh 'com.google.guava:guava:28.1-jre'
 }
 
 jmh {
@@ -89,4 +89,22 @@ signing {
 jacocoTestReport {
     dependsOn ':graphs-test:test'
     executionData("${project(':graphs-test').buildDir}/jacoco/test.exec")
+}
+
+compileTestJava {
+    moduleOptions {
+        addReads = [
+            'com.github.moaxcp.graphs.core' : 'truth,nl.jqno.equalsverifier,org.junit.jupiter.params',
+        ]
+
+        addModules = ['truth', 'org.junit.jupiter.params']
+    }
+}
+
+test {
+    moduleOptions {
+        addReads = [
+            'com.github.moaxcp.graphs.core' : 'truth,nl.jqno.equalsverifier,org.junit.jupiter.params',
+        ]
+    }
 }
