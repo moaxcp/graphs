@@ -1,51 +1,329 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.EventGraph;
-import com.github.moaxcp.graphs.events.EdgeCreated;
-import com.github.moaxcp.graphs.events.EdgeRemoved;
-import com.github.moaxcp.graphs.events.VertexCreated;
-import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
-import org.greenrobot.eventbus.EventBus;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.testframework.*;
+import org.greenrobot.eventbus.*;
 
-import static com.github.moaxcp.graphs.truth.Truth.assertThat;
+import java.util.*;
+
+import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EventGraphEdgeMethods {
+  @EventSimpleGraphs
+  void createdWithEdge(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+
+    var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+    var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B").build();
+
+    assertThat(bus).withAction(() -> graph.edge("A", "B"))
+      .containsExactly(expected1, expected2, expected3).inOrder();
+  }
+
+  @EventSimpleGraphs
+  void createdWithEdge1(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+
+    var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+    var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+      .properties(Map.of("name1", "value1")).build();
+
+    assertThat(bus)
+      .withAction(() -> graph
+        .edge("A", "B",
+          "name1", "value1"))
+      .containsExactly(expected1, expected2, expected3).inOrder();
+  }
+
+  @EventSimpleGraphs
+  void createdWithEdge2(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+
+    var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+    var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+      .properties(Map.of(
+        "name1", "value1",
+        "name2", "value2")).build();
+
+    assertThat(bus)
+      .withAction(() -> graph
+        .edge("A", "B",
+          "name1", "value1",
+          "name2", "value2"))
+      .containsExactly(expected1, expected2, expected3).inOrder();
+  }
+
+  @EventSimpleGraphs
+  void createdWithEdge3(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+
+    var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+    var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+      .properties(Map.of(
+        "name1", "value1",
+        "name2", "value2",
+        "name3", "value3")).build();
+
+    assertThat(bus)
+      .withAction(() -> graph
+        .edge("A", "B",
+          "name1", "value1",
+          "name2", "value2",
+          "name3", "value3"))
+      .containsExactly(expected1, expected2, expected3).inOrder();
+  }
+
+  @EventSimpleGraphs
+  void createdWithEdge4(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+
+    var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+    var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+      .properties(Map.of(
+        "name1", "value1",
+        "name2", "value2",
+        "name3", "value3",
+        "name4", "value4")).build();
+
+    assertThat(bus)
+      .withAction(() -> graph
+        .edge("A", "B",
+          "name1", "value1",
+          "name2", "value2",
+          "name3", "value3",
+          "name4", "value4"))
+      .containsExactly(expected1, expected2, expected3).inOrder();
+  }
+
+  @EventSimpleGraphs
+  void createdWithEdge5(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+
+    var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+    var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+      .properties(Map.of(
+        "name1", "value1",
+        "name2", "value2",
+        "name3", "value3",
+        "name4", "value4",
+        "name5", "value5")).build();
+
+    assertThat(bus)
+      .withAction(() -> graph
+        .edge("A", "B",
+          "name1", "value1",
+          "name2", "value2",
+          "name3", "value3",
+          "name4", "value4",
+          "name5", "value5"))
+      .containsExactly(expected1, expected2, expected3).inOrder();
+  }
+
+  @EventSimpleGraphs
+  void createdWithEdge6(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+
+    var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+    var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+      .properties(Map.of(
+        "name1", "value1",
+        "name2", "value2",
+        "name3", "value3",
+        "name4", "value4",
+        "name5", "value5",
+        "name6", "value6")).build();
+
+    assertThat(bus)
+      .withAction(() -> graph
+        .edge("A", "B",
+          "name1", "value1",
+          "name2", "value2",
+          "name3", "value3",
+          "name4", "value4",
+          "name5", "value5",
+          "name6", "value6"))
+      .containsExactly(expected1, expected2, expected3).inOrder();
+  }
+
+  @EventSimpleGraphs
+  void createdWithEdge7(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+
+    var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+    var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+      .properties(Map.of(
+        "name1", "value1",
+        "name2", "value2",
+        "name3", "value3",
+        "name4", "value4",
+        "name5", "value5",
+        "name6", "value6",
+        "name7", "value7")).build();
+
+    assertThat(bus)
+      .withAction(() -> graph
+        .edge("A", "B",
+          "name1", "value1",
+          "name2", "value2",
+          "name3", "value3",
+          "name4", "value4",
+          "name5", "value5",
+          "name6", "value6",
+          "name7", "value7"))
+      .containsExactly(expected1, expected2, expected3).inOrder();
+  }
+
     @EventSimpleGraphs
-    void created(EventGraph<String> graph, EventBus bus) {
+    void createdWithEdge8(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
 
         var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
         var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
-        var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B").build();
+        var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+          .properties(Map.of(
+            "name1", "value1",
+            "name2", "value2",
+            "name3", "value3",
+            "name4", "value4",
+            "name5", "value5",
+            "name6", "value6",
+            "name7", "value7",
+            "name8", "value8")).build();
 
-        assertThat(bus).withAction(() -> graph.edge("A", "B"))
-            .containsExactly(expected1, expected2, expected3).inOrder();
+        assertThat(bus)
+          .withAction(() -> graph
+            .edge("A", "B",
+              "name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5",
+              "name6", "value6",
+              "name7", "value7",
+              "name8", "value8"))
+          .containsExactly(expected1, expected2, expected3).inOrder();
     }
 
     @EventSimpleGraphs
-    void notCreated(EventGraph<String> graph, EventBus bus) {
+    void createdWithEdge9(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        graph.getEdge("A", "B").id("edge");
-        assertThat(bus).withAction(() -> graph.edge("A", "B")).isEmpty();
+
+        var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+        var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+        var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+          .properties(Map.of(
+            "name1", "value1",
+            "name2", "value2",
+            "name3", "value3",
+            "name4", "value4",
+            "name5", "value5",
+            "name6", "value6",
+            "name7", "value7",
+            "name8", "value8",
+            "name9", "value9")).build();
+
+        assertThat(bus)
+          .withAction(() -> graph
+            .edge("A", "B",
+              "name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5",
+              "name6", "value6",
+              "name7", "value7",
+              "name8", "value8",
+              "name9", "value9"))
+          .containsExactly(expected1, expected2, expected3).inOrder();
     }
 
     @EventSimpleGraphs
-    void removed(EventGraph<String> graph, EventBus bus) {
+    void createdWithEdge10(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        graph.getEdge("A", "B").id("edge");
 
-        var expected = new EdgeRemoved.Builder<String>().graphId("graph").edgeId("edge").from("A").to("B").build();
+        var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+        var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+        var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+          .properties(Map.of(
+            "name1", "value1",
+            "name2", "value2",
+            "name3", "value3",
+            "name4", "value4",
+            "name5", "value5",
+            "name6", "value6",
+            "name7", "value7",
+            "name8", "value8",
+            "name9", "value9",
+            "name10", "value10")).build();
 
-        assertThat(bus).withAction(() -> graph.removeEdge("A", "B")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(() -> graph
+            .edge("A", "B",
+              "name1", "value1",
+              "name2", "value2",
+              "name3", "value3",
+              "name4", "value4",
+              "name5", "value5",
+              "name6", "value6",
+              "name7", "value7",
+              "name8", "value8",
+              "name9", "value9",
+              "name10", "value10"))
+          .containsExactly(expected1, expected2, expected3).inOrder();
     }
 
     @EventSimpleGraphs
-    void removeWithId(EventGraph<String> graph, EventBus bus) {
+    void createdWithEdgeMap(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        graph.getEdge("A", "B").id("edge");
 
-        var expected = new EdgeRemoved.Builder<String>().graphId("graph").edgeId("edge").from("A").to("B").build();
+        var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
+        var expected2 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+        var expected3 = new EdgeCreated.Builder<String>().graphId("graph").from("A").to("B")
+          .properties(Map.of(
+            "name1", "value1",
+            "name2", "value2")).build();
 
-        assertThat(bus).withAction(() -> graph.removeEdge("edge")).containsExactly(expected);
+        assertThat(bus)
+          .withAction(() -> graph
+            .edge("A", "B",
+              Map.of("name1", "value1",
+              "name2", "value2")))
+          .containsExactly(expected1, expected2, expected3).inOrder();
     }
+
+  @EventSimpleGraphs
+  void notCreated(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getEdge("A", "B").id("edge");
+    assertThat(bus).withAction(() -> graph.edge("A", "B")).isEmpty();
+  }
+
+  @EventSimpleGraphs
+  void removed(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getEdge("A", "B").id("edge").property("name1", "value1", "name2", "value2");
+
+    var expected = new EdgeRemoved.Builder<String>().graphId("graph").edgeId("edge").from("A").to("B").properties(Map.of("name1", "value1", "name2", "value2")).build();
+
+    assertThat(bus).withAction(() -> graph.removeEdge("A", "B")).containsExactly(expected);
+  }
+
+  @EventSimpleGraphs
+  void removeWithId(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getEdge("A", "B").id("edge");
+
+    var expected = new EdgeRemoved.Builder<String>().graphId("graph").edgeId("edge").from("A").to("B").build();
+
+    assertThat(bus).withAction(() -> graph.removeEdge("edge")).containsExactly(expected);
+  }
 }

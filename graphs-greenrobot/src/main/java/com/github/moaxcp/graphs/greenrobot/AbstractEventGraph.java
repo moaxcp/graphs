@@ -334,6 +334,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
       .graphId(getId().orElse(null))
       .from(from)
       .to(to)
+      .properties(local)
       .build());
     return edge;
   }
@@ -348,6 +349,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
         .edgeId(edge.getId().orElse(null))
         .from(edge.getFrom())
         .to(edge.getTo())
+        .properties(edge.local())
         .build()));
   }
 
