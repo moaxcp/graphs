@@ -121,7 +121,7 @@ public class EventGraphVertexMethods {
   void updatedWithVertex1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A");
-    var expected = propertyUpdatedEvents(1);
+    var expected = vertexPropertyUpdatedEvents(1);
 
     assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1"))
       .containsExactlyElementsIn(expected);
@@ -131,7 +131,7 @@ public class EventGraphVertexMethods {
   void updatedWithVertex2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
-    var expected = propertyUpdatedEvents(2);
+    var expected = vertexPropertyUpdatedEvents(2);
 
     assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2"))
       .containsExactlyElementsIn(expected);
@@ -141,7 +141,7 @@ public class EventGraphVertexMethods {
   void updatedWithVertex3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
-    var expected = propertyUpdatedEvents(3);
+    var expected = vertexPropertyUpdatedEvents(3);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -159,7 +159,7 @@ public class EventGraphVertexMethods {
         "name2", "B",
         "name3", "C",
         "name4", "D");
-    var expected = propertyUpdatedEvents(4);
+    var expected = vertexPropertyUpdatedEvents(4);
 
     assertThat(bus).withAction(() -> graph.vertex("A",
       "name1", "value1",
@@ -178,7 +178,7 @@ public class EventGraphVertexMethods {
         "name3", "C",
         "name4", "D",
       "name5", "E");
-    var expected = propertyUpdatedEvents(5);
+    var expected = vertexPropertyUpdatedEvents(5);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -200,7 +200,7 @@ public class EventGraphVertexMethods {
         "name4", "D",
         "name5", "E",
         "name6", "F");
-    var expected = propertyUpdatedEvents(6);
+    var expected = vertexPropertyUpdatedEvents(6);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -224,7 +224,7 @@ public class EventGraphVertexMethods {
         "name5", "E",
         "name6", "F",
       "name7", "G");
-    var expected = propertyUpdatedEvents(7);
+    var expected = vertexPropertyUpdatedEvents(7);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -250,7 +250,7 @@ public class EventGraphVertexMethods {
         "name6", "F",
         "name7", "G",
         "name8", "H");
-    var expected = propertyUpdatedEvents(8);
+    var expected = vertexPropertyUpdatedEvents(8);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -278,7 +278,7 @@ public class EventGraphVertexMethods {
         "name7", "G",
         "name8", "H",
         "name9", "I");
-    var expected = propertyUpdatedEvents(9);
+    var expected = vertexPropertyUpdatedEvents(9);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -308,7 +308,7 @@ public class EventGraphVertexMethods {
         "name8", "H",
         "name9", "I",
         "name10", "J");
-    var expected = propertyUpdatedEvents(10);
+    var expected = vertexPropertyUpdatedEvents(10);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -331,7 +331,7 @@ public class EventGraphVertexMethods {
     graph.getVertex("A")
       .property("name1", "A",
         "name2", "B");
-    var expected = propertyUpdatedEvents(2);
+    var expected = vertexPropertyUpdatedEvents(2);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",

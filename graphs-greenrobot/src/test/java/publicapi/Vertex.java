@@ -22,23 +22,11 @@ public class Vertex {
   }
 
   @EventSimpleGraphs
-  void updatePropertyAlreadyExists(EventGraph<String> graph, EventBus bus) {
-    graph.id("graph");
-    graph.getVertex("A").property("name1", "value1");
-
-    var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").value("value1").oldValue("value1").build();
-
-    assertThat(bus)
-      .withAction(() -> graph.getVertex("A").property("name1", "value1"))
-      .containsExactly(expected);
-  }
-
-  @EventSimpleGraphs
   void addProperty1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(1);
+    var expected = vertexPropertyAddedEvents(1);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A").property("name1", "value1"))
@@ -50,7 +38,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(2);
+    var expected = vertexPropertyAddedEvents(2);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A").property("name1", "value1", "name2", "value2"))
@@ -62,7 +50,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(3);
+    var expected = vertexPropertyAddedEvents(3);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3"))
@@ -74,7 +62,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(4);
+    var expected = vertexPropertyAddedEvents(4);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -90,7 +78,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(5);
+    var expected = vertexPropertyAddedEvents(5);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -107,7 +95,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(6);
+    var expected = vertexPropertyAddedEvents(6);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -124,7 +112,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(7);
+    var expected = vertexPropertyAddedEvents(7);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -142,7 +130,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(8);
+    var expected = vertexPropertyAddedEvents(8);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -161,7 +149,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(9);
+    var expected = vertexPropertyAddedEvents(9);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -181,7 +169,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = propertyAddedEvents(10);
+    var expected = vertexPropertyAddedEvents(10);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -212,7 +200,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A");
 
-    var expected = propertyUpdatedEvents(1);
+    var expected = vertexPropertyUpdatedEvents(1);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -224,7 +212,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
 
-    var expected = propertyUpdatedEvents(2);
+    var expected = vertexPropertyUpdatedEvents(2);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -237,7 +225,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
 
-    var expected = propertyUpdatedEvents(3);
+    var expected = vertexPropertyUpdatedEvents(3);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -253,7 +241,7 @@ public class Vertex {
       "name2", "B", "name3",
       "C", "name4", "D");
 
-    var expected = propertyUpdatedEvents(4);
+    var expected = vertexPropertyUpdatedEvents(4);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -268,7 +256,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E");
 
-    var expected = propertyUpdatedEvents(5);
+    var expected = vertexPropertyUpdatedEvents(5);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -284,7 +272,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F");
 
-    var expected = propertyUpdatedEvents(6);
+    var expected = vertexPropertyUpdatedEvents(6);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -301,7 +289,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G");
 
-    var expected = propertyUpdatedEvents(7);
+    var expected = vertexPropertyUpdatedEvents(7);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -319,7 +307,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H");
 
-    var expected = propertyUpdatedEvents(8);
+    var expected = vertexPropertyUpdatedEvents(8);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -338,7 +326,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I");
 
-    var expected = propertyUpdatedEvents(9);
+    var expected = vertexPropertyUpdatedEvents(9);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -358,7 +346,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I", "name10", "J");
 
-    var expected = propertyUpdatedEvents(10);
+    var expected = vertexPropertyUpdatedEvents(10);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -379,11 +367,23 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property(Map.of("name1", "A", "name2", "B"));
 
-    var expected = propertyUpdatedEvents(2);
+    var expected = vertexPropertyUpdatedEvents(2);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
         .property(Map.of("name1", "value1", "name2", "value2"))).containsExactlyElementsIn(expected);
+  }
+
+  @EventSimpleGraphs
+  void updatePropertyAlreadyExists(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getVertex("A").property("name1", "value1");
+
+    var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").value("value1").oldValue("value1").build();
+
+    assertThat(bus)
+      .withAction(() -> graph.getVertex("A").property("name1", "value1"))
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs

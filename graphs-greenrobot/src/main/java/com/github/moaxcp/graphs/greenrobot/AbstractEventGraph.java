@@ -77,9 +77,16 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     }
 
     @Override
-    public Edge<ID> property(String name, Object value) {
-      var oldValue = getProperty(name);
-      super.property(name, value);
+    public Edge<ID> property(Map<String, Object> properties) {
+      Map<String, Object> oldValues = new LinkedHashMap<>(local());
+      super.property(properties);
+      for (Entry<String, Object> entry : properties.entrySet()) {
+        sendEdgePropertyEvents(entry.getKey(), entry.getValue(), Optional.ofNullable(oldValues.get(entry.getKey())));
+      }
+      return this;
+    }
+
+    private void sendEdgePropertyEvents(String name, Object value, Optional<Object> oldValue) {
       if (oldValue.isPresent()) {
         bus.post(new EdgePropertyUpdated.Builder<ID>()
           .graphId(AbstractEventGraph.this.getId().orElse(null))
@@ -100,7 +107,6 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
           .value(value)
           .build());
       }
-      return this;
     }
 
     @Override
