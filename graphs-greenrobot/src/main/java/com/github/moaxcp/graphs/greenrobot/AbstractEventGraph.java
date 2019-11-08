@@ -152,7 +152,15 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     }
 
     private void sendVertexPropertyEvents(String name, Object value, Optional<Object> oldValue) {
-      if (oldValue.isPresent()) {
+      if(value == null) {
+        bus.post(new VertexPropertyRemoved.Builder<ID>()
+          .graphId(AbstractEventGraph.this.getId().orElse(null))
+          .vertexId(getId())
+          .name(name)
+          .value(oldValue.orElse(null))
+          .build()
+        );
+      } else if (oldValue.isPresent()) {
         bus.post(new VertexPropertyUpdated.Builder<ID>()
           .graphId(AbstractEventGraph.this.getId().orElse(null))
           .vertexId(getId())

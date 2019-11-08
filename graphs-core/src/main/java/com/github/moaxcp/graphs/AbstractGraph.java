@@ -3,8 +3,8 @@ package com.github.moaxcp.graphs;
 import java.util.*;
 
 import static java.util.Collections.*;
-import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.toSet;
+import static java.util.Objects.*;
+import static java.util.stream.Collectors.*;
 
 /**
  * This class provides a partial implementation of the {@link Graph} interface.
@@ -49,7 +49,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name, Object value) {
     var map = new LinkedHashMap<String, Object>();
-    map.put(requireNonNull(name, NAME_MUST_NOT_BE_NULL), requireNonNull(value, VALUE_MUST_NOT_BE_NULL));
+    map.put(name, value);
     return map;
   }
 
