@@ -17,6 +17,7 @@ scan() {
 build() {
     # run build
     ./gradlew build
+    ./gradlew javadoc
 }
 
 publish() {
