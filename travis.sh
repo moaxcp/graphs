@@ -8,9 +8,12 @@ fi
 
 scan() {
     # update sonar (including failing tests)
+    echo "building skipping tests"
     ./gradlew -x test build
-    ./gradlew test || true
+    echo " running tests"
+    ./gradlew test --info || true
     git fetch --unshallow #get all commit history for exact blame info
+    echo "running sonar skipping tests"
     ./gradlew -x test -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=moaxcp -Dsonar.login=$SONAR_TOKEN sonarqube
 }
 
