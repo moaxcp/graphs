@@ -15,6 +15,7 @@ cache:
 install: true
 before_install:
   - nix-channel --add https://nixos.org/channels/nixos-19.09 nixos
+  - nix-channel --remove nixpkgs
   - nix-channel --update
   - nix-channel --list
   - . /home/travis/.nix-profile/etc/profile.d/nix.sh

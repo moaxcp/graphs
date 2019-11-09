@@ -49,6 +49,7 @@ fi
 
 if [ -n "$TRAVIS_TAG" ]; then
     echo "release for $TRAVIS_TAG"
+    scan
     build
     publish
 
