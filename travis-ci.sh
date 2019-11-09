@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --show-trace --pure --keep encrypted_de4911fc7d4a_key --keep encrypted_de4911fc7d4a_iv --keep TRAVIS_PULL_REQUEST --keep TRAVIS_TAG --keep TRAVIS_BRANCH -i bash -p graphviz adoptopenjdk-bin openssl
+#! nix-shell --show-trace --pure --keep encrypted_de4911fc7d4a_key --keep encrypted_de4911fc7d4a_iv --keep TRAVIS_PULL_REQUEST --keep TRAVIS_TAG --keep TRAVIS_BRANCH -i bash -p git graphviz adoptopenjdk-bin openssl
 
 set -euo pipefail
 
