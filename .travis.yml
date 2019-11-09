@@ -13,8 +13,9 @@ cache:
   - "$HOME/.gradle/wrapper/"
 install: true
 before_install:
-  - nix-env -i graphviz
-  - nix-env -i adoptopenjdk-bin
+  - nix-channel --list
+  - nix-env -iA nixos.graphviz
+  - nix-env -iA nixos.adoptopenjdk-bin
   - openssl aes-256-cbc -K $encrypted_de4911fc7d4a_key -iv $encrypted_de4911fc7d4a_iv -in signingkey.gpg.enc -out signingkey.gpg -d
 script:
 - "./travis.sh"
