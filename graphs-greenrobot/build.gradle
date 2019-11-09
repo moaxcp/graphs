@@ -97,6 +97,11 @@ test {
     }
 }
 
+jacocoTestReport {
+    dependsOn ':graphs-test:test'
+    executionData("${project(':graphs-test').buildDir}/jacoco/test.exec")
+}
+
 delombok {
     modulePath.from(configurations.runtimeClasspath)
 }
