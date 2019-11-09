@@ -9,6 +9,7 @@ scan() {
     ./gradlew -x test build
     echo " running tests"
     ./gradlew test || true
+    ./gradlew jacocoTestReport
     git fetch --unshallow #get all commit history for exact blame info
     echo "running sonar skipping tests"
     ./gradlew -x test -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=moaxcp -Dsonar.login=$SONAR_TOKEN sonarqube
