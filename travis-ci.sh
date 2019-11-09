@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --pure -i bash -p graphviz adoptopenjdk-bin openssl
+#! nix-shell --pure --keep encrypted_de4911fc7d4a_key TRAVIS_PULL_REQUEST TRAVIS_TAG TRAVIS_BRANCH -i bash -p graphviz adoptopenjdk-bin openssl
 
 set -euo pipefail
 
@@ -8,7 +8,7 @@ scan() {
     echo "building skipping tests"
     ./gradlew -x test build
     echo " running tests"
-    ./gradlew test --info || true
+    ./gradlew test || true
     git fetch --unshallow #get all commit history for exact blame info
     echo "running sonar skipping tests"
     ./gradlew -x test -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=moaxcp -Dsonar.login=$SONAR_TOKEN sonarqube
