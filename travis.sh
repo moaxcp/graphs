@@ -33,6 +33,10 @@ publish() {
         -Psigning.password="$SIGNING_PASSWORD"
 }
 
+./gradlew -version
+dot -V
+neato -V
+
 if [ -n "$TRAVIS_TAG" ]; then
     echo "release for $TRAVIS_TAG"
     build
