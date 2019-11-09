@@ -13,6 +13,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 install: true
 before_install:
+  - nix-channel --add https://nixos.org/channels/nixos-19.09
   - nix-channel --list
   - nix-env -iA nixos.graphviz
   - nix-env -iA nixos.adoptopenjdk-bin
