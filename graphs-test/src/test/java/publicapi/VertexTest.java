@@ -91,13 +91,6 @@ public class VertexTest {
   }
 
   @SimpleGraphs
-  void propertyUpdateToNull(Graph<String> graph) {
-    graph.getVertex("A").property("name", "value");
-    graph.getVertex("A").property("name", null);
-    assertThat(graph).hasVertex("A").withProperty("name").isEmpty();
-  }
-
-  @SimpleGraphs
   void property2(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2");
     assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2");
@@ -155,6 +148,13 @@ public class VertexTest {
   void propertyWithMap(Graph<String> graph) {
     graph.getVertex("A").property(Map.of("name", "value"));
     assertThat(graph).hasVertex("A").withProperty("name").hasValue("value");
+  }
+
+  @SimpleGraphs
+  void propertyUpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name", "value");
+    graph.getVertex("A").property("name", null);
+    assertThat(graph).hasVertex("A").withProperty("name").isEmpty();
   }
 
   @SimpleGraphs

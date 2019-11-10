@@ -193,6 +193,13 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
+    void setPropertyUpdateToNull(Graph<String> graph) {
+        graph.getEdge("A", "B").setProperty("name", "value");
+        graph.getEdge("A", "B").setProperty("name", null);
+        assertThat(graph).hasEdge("A", "B").withProperty("name").isEmpty();
+    }
+
+    @SimpleGraphs
     void property(Graph<String> graph) {
         graph.getEdge("A", "B").property("name1", "value1");
         assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name1", "value1");
@@ -256,6 +263,13 @@ public class EdgeTest {
     void propertyWithMap(Graph<String> graph) {
         graph.getEdge("A", "B").property(Map.of("name", "value"));
         assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("name", "value");
+    }
+
+    @SimpleGraphs
+    void propertyUpdateToNull(Graph<String> graph) {
+        graph.getEdge("A", "B").property("name", "value");
+        graph.getEdge("A", "B").property("name", null);
+        assertThat(graph).hasEdge("A", "B").withProperty("name").isEmpty();
     }
 
     @SimpleGraphs

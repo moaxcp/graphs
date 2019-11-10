@@ -445,6 +445,23 @@ public class EdgeProperties {
   }
 
   @EventSimpleGraphs
+  void updateProperty1Remove(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getEdge("A", "B").id("edge").property("name1", "value1");
+
+    assertThat(bus)
+      .withAction(() -> graph.getEdge("A", "B").property("name1", null))
+      .containsExactly(new EdgePropertyRemoved.Builder<String>()
+        .graphId("graph")
+        .edgeId("edge")
+        .from("A")
+        .to("B")
+        .name("name1")
+        .value("value1")
+        .build());
+  }
+
+  @EventSimpleGraphs
   void removeProperty(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name", "value");

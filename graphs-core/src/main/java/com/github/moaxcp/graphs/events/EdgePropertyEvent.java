@@ -15,8 +15,8 @@ public abstract class EdgePropertyEvent<K> extends PropertyEvent<K> {
     protected EdgePropertyEvent(Builder<K, ? extends Builder> builder) {
         super(builder);
         edgeId = builder.edgeId;
-        from = requireNonNull(builder.from);
-        to = requireNonNull(builder.to);
+        from = requireNonNull(builder.from, "from must not be null.");
+        to = requireNonNull(builder.to, "to must not be null.");
     }
 
     public final Optional<K> getEdgeId() {

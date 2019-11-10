@@ -128,6 +128,21 @@ public class EventGraphVertexMethods {
   }
 
   @EventSimpleGraphs
+  void updatedWithVertex1Remove(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getVertex("A", "name1", "value1");
+
+    assertThat(bus)
+      .withAction(() -> graph.vertex("A", "name1", null))
+      .containsExactly(new VertexPropertyRemoved.Builder<String>()
+        .graphId("graph")
+        .vertexId("A")
+        .name("name1")
+        .value("value1")
+        .build());
+  }
+
+  @EventSimpleGraphs
   void updatedWithVertex2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
@@ -443,6 +458,21 @@ public class EventGraphVertexMethods {
 
     assertThat(bus).withAction(() -> graph.getVertex("A", Map.of("name1", "value1")))
       .containsExactly(expected);
+  }
+
+  @EventSimpleGraphs
+  void updatedWithGetVertex1Remove(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getVertex("A", "name1", "value1");
+
+    assertThat(bus)
+      .withAction(() -> graph.getVertex("A", "name1", null))
+      .containsExactly(new VertexPropertyRemoved.Builder<String>()
+        .graphId("graph")
+        .vertexId("A")
+        .name("name1")
+        .value("value1")
+        .build());
   }
 
   @EventSimpleGraphs

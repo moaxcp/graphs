@@ -208,22 +208,6 @@ public class Vertex {
   }
 
   @EventSimpleGraphs
-  void updateProperty1Remove(EventGraph<String> graph, EventBus bus) {
-    graph.id("graph");
-    graph.getVertex("A", "name1", "value1");
-
-    assertThat(bus)
-      .withAction(() -> graph.getVertex("A")
-      .property("name1", null))
-      .containsExactly(new VertexPropertyRemoved.Builder<String>()
-        .graphId("graph")
-        .vertexId("A")
-        .name("name1")
-        .value("value1")
-        .build());
-  }
-
-  @EventSimpleGraphs
   void updateProperty2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
@@ -388,6 +372,22 @@ public class Vertex {
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
         .property(Map.of("name1", "value1", "name2", "value2"))).containsExactlyElementsIn(expected);
+  }
+
+  @EventSimpleGraphs
+  void updateProperty1Remove(EventGraph<String> graph, EventBus bus) {
+    graph.id("graph");
+    graph.getVertex("A", "name1", "value1");
+
+    assertThat(bus)
+      .withAction(() -> graph.getVertex("A")
+        .property("name1", null))
+      .containsExactly(new VertexPropertyRemoved.Builder<String>()
+        .graphId("graph")
+        .vertexId("A")
+        .name("name1")
+        .value("value1")
+        .build());
   }
 
   @EventSimpleGraphs

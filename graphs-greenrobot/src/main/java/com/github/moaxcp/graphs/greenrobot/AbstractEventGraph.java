@@ -87,7 +87,16 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     }
 
     private void sendEdgePropertyEvents(String name, Object value, Optional<Object> oldValue) {
-      if (oldValue.isPresent()) {
+      if(value == null) {
+        bus.post(new EdgePropertyRemoved.Builder<ID>()
+          .graphId(AbstractEventGraph.this.getId().orElse(null))
+          .edgeId(getId().orElse(null))
+          .from(getFrom())
+          .to(getTo())
+          .name(name)
+          .value(oldValue.orElse(null))
+          .build());
+      } else if (oldValue.isPresent()) {
         bus.post(new EdgePropertyUpdated.Builder<ID>()
           .graphId(AbstractEventGraph.this.getId().orElse(null))
           .edgeId(getId().orElse(null))
