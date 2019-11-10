@@ -151,10 +151,73 @@ public class VertexTest {
   }
 
   @SimpleGraphs
-  void propertyUpdateToNull(Graph<String> graph) {
+  void property1UpdateToNull(Graph<String> graph) {
     graph.getVertex("A").property("name", "value");
     graph.getVertex("A").property("name", null);
     assertThat(graph).hasVertex("A").withProperty("name").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property2UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name2", "value2");
+    graph.getVertex("A").property("name1", "value1", "name2", null);
+    assertThat(graph).hasVertex("A").withProperty("name2").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property3UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name3", "value3");
+    graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", null);
+    assertThat(graph).hasVertex("A").withProperty("name3").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property4UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name4", "value4");
+    graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", null);
+    assertThat(graph).hasVertex("A").withProperty("name4").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property5UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name5", "value5");
+    graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", null);
+    assertThat(graph).hasVertex("A").withProperty("name5").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property6UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name6", "value6");
+    graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", null);
+    assertThat(graph).hasVertex("A").withProperty("name6").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property7UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name7", "value7");
+    graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", null);
+    assertThat(graph).hasVertex("A").withProperty("name7").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property8UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name8", "value8");
+    graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", null);
+    assertThat(graph).hasVertex("A").withProperty("name8").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property9UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name9", "value9");
+    graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", null);
+    assertThat(graph).hasVertex("A").withProperty("name9").isEmpty();
+  }
+
+  @SimpleGraphs
+  void property10UpdateToNull(Graph<String> graph) {
+    graph.getVertex("A").property("name10", "value10");
+    graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", null);
+    assertThat(graph).hasVertex("A").withProperty("name10").isEmpty();
   }
 
   @SimpleGraphs

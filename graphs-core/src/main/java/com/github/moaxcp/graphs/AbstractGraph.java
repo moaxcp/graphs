@@ -55,55 +55,55 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2) {
     var map = linkedHashMap(name1, value1);
-    map.put(requireNonNull(name2, "name2 must not be null."), requireNonNull(value2, "value2 must not be null."));
+    map.put(name2, value2);
     return map;
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2, String name3, Object value3) {
     var map = linkedHashMap(name1, value1, name2, value2);
-    map.put(requireNonNull(name3, "name3 must not be null."), requireNonNull(value3, "value 3 must not be null."));
+    map.put(name3, value3);
     return map;
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
     var map = linkedHashMap(name1, value1, name2, value2, name3, value3);
-    map.put(requireNonNull(name4, "name4 must not be null."), requireNonNull(value4, "value4 must not be null."));
+    map.put(name4, value4);
     return map;
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
     var map = linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4);
-    map.put(requireNonNull(name5, "name5 must not be null."), requireNonNull(value5, "value5 must not be null."));
+    map.put(name5, value5);
     return map;
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
     var map = linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5);
-    map.put(requireNonNull(name6, "name6 must not be null."), requireNonNull(value6, "value6 must not be null."));
+    map.put(name6, value6);
     return map;
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
     var map = linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6);
-    map.put(requireNonNull(name7, "name7 must not be null."), requireNonNull(value7, "value7 must not be null."));
+    map.put(name7, value7);
     return map;
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
     var map = linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7);
-    map.put(requireNonNull(name8, "name8 must not be null."), requireNonNull(value8, "value8 must not be null."));
+    map.put(name8, value8);
     return map;
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
     var map = linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8);
-    map.put(requireNonNull(name9, "name9 must not be null."), requireNonNull(value9, "value9 must not be null."));
+    map.put(name9, value9);
     return map;
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
     var map = linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9);
-    map.put(requireNonNull(name10, "name10 must not be null."), requireNonNull(value10, "value10 must not be null."));
+    map.put(name10, value10);
     return map;
   }
 
@@ -256,10 +256,6 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Vertex<ID> getVertex(ID id, Map<String, Object> properties) {
-    return getVertex(id, linkedHashMap(properties));
-  }
-
-  private Vertex<ID> getVertex(ID id, LinkedHashMap<String, Object> properties) {
     var optional = findVertex(id);
     optional.ifPresent(v -> v.property(properties));
     return optional.orElseGet(() -> addVertex(id, properties));
@@ -426,10 +422,6 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties) {
-    return getEdge(from, to, linkedHashMap(properties));
-  }
-
-  private Edge<ID> getEdge(ID from, ID to, LinkedHashMap<String, Object> properties) {
     var optional = findEdge(from, to);
     optional.ifPresent(e -> e.property(properties));
     return optional.orElseGet(() -> addEdge(from, to, properties));
