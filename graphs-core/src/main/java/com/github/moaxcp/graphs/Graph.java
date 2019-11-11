@@ -703,6 +703,8 @@ public interface Graph<ID> {
    */
   Graph<ID> edgeProperty(String name, Object value);
 
+  Graph<ID> edgeProperty(Map<String, Object> properties);
+
   /**
    * Removes edge property returning this graph
    *

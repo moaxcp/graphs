@@ -22,7 +22,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   private ID id;
   private LocalProperties properties;
   private LocalProperties vertexProperties;
-  private Map<String, Object> edgeProperties;
+  private LocalProperties edgeProperties;
   private Map<ID, Vertex<ID>> vertices;
   private Map<EdgeKey<ID>, Edge<ID>> edges;
   private Map<ID, Edge<ID>> edgeIds;
@@ -38,7 +38,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     inEdges = new LinkedHashMap<>();
     outEdges = new LinkedHashMap<>();
     vertexProperties = new LocalProperties(new LinkedHashMap<>());
-    edgeProperties = new LinkedHashMap<>();
+    edgeProperties = new LocalProperties(new LinkedHashMap<>());
     properties = new LocalProperties(new LinkedHashMap<>());
   }
 
@@ -440,7 +440,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   protected Edge<ID> addEdge(ID from, ID to, Map<String, Object> local) {
     vertex(from);
     vertex(to);
-    var edge = newEdge(from, to, local, edgeProperties);
+    var edge = newEdge(from, to, local, edgeProperties.local());
     var edgeKey = newEdgeKey(from, to);
     edges.put(edgeKey, edge);
     adjacentEdges.compute(edgeKey.getFrom(), (k, v) -> mergeSet(edge, v));
@@ -553,37 +553,34 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Map<String, Object> getEdgeProperties() {
-    return unmodifiableMap(edgeProperties);
+    return edgeProperties.local();
   }
 
   @Override
   public Optional<Object> getEdgeProperty(String name) {
-    return Optional.ofNullable(edgeProperties.get(name));
+    return edgeProperties.getProperty(name);
   }
 
   @Override
   public void setEdgeProperty(String name, Object value) {
-    requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-    requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
-    if (name.isEmpty()) {
-      throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
-    }
-    edgeProperties.put(name, value);
+    edgeProperty(name, value);
   }
 
   @Override
   public Graph<ID> edgeProperty(String name, Object value) {
-    setEdgeProperty(name, value);
+    edgeProperty(linkedHashMap(name, value));
+    return this;
+  }
+
+  @Override
+  public Graph<ID> edgeProperty(Map<String, Object> properties) {
+    edgeProperties.putProperties(properties);
     return this;
   }
 
   @Override
   public Graph<ID> removeEdgeProperty(String name) {
-    requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-    if (!edgeProperties.containsKey(name)) {
-      throw new IllegalArgumentException("graph does not contain edge property named '" + name + "'.");
-    }
-    edgeProperties.remove(name);
+    edgeProperties.removeProperty(name);
     return this;
   }
 
