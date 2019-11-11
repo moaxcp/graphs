@@ -748,6 +748,8 @@ public interface Graph<ID> {
    */
   Graph<ID> vertexProperty(String name, Object value);
 
+  Graph<ID> vertexProperty(Map<String, Object> properties);
+
   /**
    * Removes vertex property returning this graph
    *

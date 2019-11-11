@@ -4,7 +4,6 @@ import lombok.*;
 
 import java.util.*;
 
-import static java.util.Collections.*;
 import static java.util.Optional.*;
 
 /**
@@ -15,7 +14,7 @@ class InheritedProperties extends LocalProperties {
 
   InheritedProperties(@NonNull Map<String, Object> local, @NonNull Map<String, Object> inherited) {
     super(local);
-    this.inherited = unmodifiableMap(inherited);
+    this.inherited = inherited;
   }
 
   /**
@@ -24,7 +23,7 @@ class InheritedProperties extends LocalProperties {
    * @return inherited properties
    */
   public final Map<String, Object> inherited() {
-    return inherited;
+    return Collections.unmodifiableMap(inherited);
   }
 
   /**

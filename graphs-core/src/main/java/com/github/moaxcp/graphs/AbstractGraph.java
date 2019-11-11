@@ -21,7 +21,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
   private ID id;
   private LocalProperties properties;
-  private Map<String, Object> vertexProperties;
+  private LocalProperties vertexProperties;
   private Map<String, Object> edgeProperties;
   private Map<ID, Vertex<ID>> vertices;
   private Map<EdgeKey<ID>, Edge<ID>> edges;
@@ -37,7 +37,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     adjacentEdges = new LinkedHashMap<>();
     inEdges = new LinkedHashMap<>();
     outEdges = new LinkedHashMap<>();
-    vertexProperties = new LinkedHashMap<>();
+    vertexProperties = new LocalProperties(new LinkedHashMap<>());
     edgeProperties = new LinkedHashMap<>();
     properties = new LocalProperties(new LinkedHashMap<>());
   }
@@ -262,7 +262,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   protected Vertex<ID> addVertex(ID id, Map<String, Object> properties) {
-    var vertex = newVertex(id, properties, vertexProperties);
+    var vertex = newVertex(id, properties, vertexProperties.local());
     vertices.put(id, vertex);
     return vertex;
   }
@@ -589,37 +589,34 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Map<String, Object> getVertexProperties() {
-    return unmodifiableMap(vertexProperties);
+    return vertexProperties.local();
   }
 
   @Override
   public Optional<Object> getVertexProperty(String name) {
-    return Optional.ofNullable(vertexProperties.get(name));
+    return vertexProperties.getProperty(name);
   }
 
   @Override
   public void setVertexProperty(String name, Object value) {
-    requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-    requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
-    if (name.isEmpty()) {
-      throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
-    }
-    vertexProperties.put(name, value);
+    vertexProperty(name, value);
   }
 
   @Override
   public Graph<ID> vertexProperty(String name, Object value) {
-    setVertexProperty(name, value);
+    vertexProperty(linkedHashMap(name, value));
+    return this;
+  }
+
+  @Override
+  public Graph<ID> vertexProperty(Map<String, Object> properties) {
+    vertexProperties.putProperties(properties);
     return this;
   }
 
   @Override
   public Graph<ID> removeVertexProperty(String name) {
-    requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-    if (!vertexProperties.containsKey(name)) {
-      throw new IllegalArgumentException("graph does not contain vertex property named '" + name + "'.");
-    }
-    vertexProperties.remove(name);
+    vertexProperties.removeProperty(name);
     return this;
   }
 
