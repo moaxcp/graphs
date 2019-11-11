@@ -29,6 +29,7 @@ reckon {
 nexusStaging {
     username = System.getProperty('nexus.username')
     password = System.getProperty('nexus.password')
+    packageGroup = 'com.github.moaxcp'
 }
 
 gitPublish {
