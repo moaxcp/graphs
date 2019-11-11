@@ -63,6 +63,13 @@ public class GraphProperties {
     }
 
     @SimpleGraphs
+    void setPropertyUpdateToNull(Graph<String> graph) {
+        graph.setProperty("name", "value");
+        graph.setProperty("name", null);
+        assertThat(graph).withProperty("name").isEmpty();
+    }
+
+    @SimpleGraphs
     void property(Graph graph) {
         Graph next = graph.property("property", "value");
         assertThat(graph).withProperty("property").hasValue("value");

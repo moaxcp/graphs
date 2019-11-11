@@ -56,7 +56,7 @@ public class VertexTest {
   @SimpleGraphs
   void setPropertyNullName(Graph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.getVertex("A").setProperty(null, null));
-    assertThat(thrown).hasMessageThat().isEqualTo("name must not be null.");
+    assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");
   }
 
   @SimpleGraphs
@@ -223,13 +223,13 @@ public class VertexTest {
   @SimpleGraphs
   void removePropertyNullName(Graph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.getVertex("A").removeProperty(null));
-    assertThat(thrown).hasMessageThat().isEqualTo("name must not be null.");
+    assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");
   }
 
   @SimpleGraphs
   void removePropertyNameMissing(Graph<String> graph) {
     Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.getVertex("A").removeProperty("name"));
-    assertThat(thrown).hasMessageThat().isEqualTo("element does not contain property named 'name'.");
+    assertThat(thrown).hasMessageThat().isEqualTo("local properties do not contain name 'name'.");
   }
 
   @SimpleGraphs

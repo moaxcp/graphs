@@ -531,11 +531,17 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   @Override
   public void setProperty(String name, Object value) {
     requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-    requireNonNull(value, VALUE_MUST_NOT_BE_NULL);
     if (name.isEmpty()) {
       throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
     }
-    properties.put(name, value);
+    if(!properties.containsKey(name) && value == null) {
+      throw new NullPointerException(VALUE_MUST_NOT_BE_NULL);
+    }
+    if(value == null) {
+      properties.remove(name);
+    } else {
+      properties.put(name, value);
+    }
   }
 
   @Override
@@ -842,7 +848,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Edge<ID> property(Map<String, Object> properties) {
       check();
-      this.properties.property(properties);
+      this.properties.putProperties(properties);
       return this;
     }
 
@@ -993,7 +999,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Vertex<ID> property(Map<String, Object> properties) {
       check();
-      this.properties.property(properties);
+      this.properties.putProperties(properties);
       return this;
     }
 
