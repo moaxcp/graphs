@@ -656,6 +656,8 @@ public interface Graph<ID> {
    */
   Graph<ID> property(String name, Object value);
 
+  Graph<ID> property(Map<String, Object> properties);
+
   /**
    * Removes property on this graph returning this graph
    *

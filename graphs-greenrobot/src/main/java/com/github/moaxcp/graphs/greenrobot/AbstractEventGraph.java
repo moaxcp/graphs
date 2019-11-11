@@ -242,10 +242,23 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
   }
 
   @Override
-  public void setProperty(String name, Object value) {
-    var oldValue = getProperty(name);
-    super.setProperty(name, value);
-    if (oldValue.isPresent()) {
+  public Graph<ID> property(Map<String, Object> properties) {
+    Map<String, Object> oldValues = new LinkedHashMap<>(getProperties());
+    super.property(properties);
+    for(Entry<String, Object> entry : properties.entrySet()) {
+      sendGraphPropertyEvents(entry.getKey(), entry.getValue(), Optional.ofNullable(oldValues.get(entry.getKey())));
+    }
+    return this;
+  }
+
+  private void sendGraphPropertyEvents(String name, Object value, Optional<Object> oldValue) {
+    if(value == null) {
+      bus.post(new GraphPropertyRemoved.Builder<ID>()
+        .graphId(getId().orElse(null))
+        .name(name)
+        .value(oldValue.orElse(null))
+        .build());
+    } else if (oldValue.isPresent()) {
       bus.post(new GraphPropertyUpdated.Builder<ID>()
         .graphId(getId().orElse(null))
         .name(name).value(value)

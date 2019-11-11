@@ -20,7 +20,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
   private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
   private ID id;
-  private Map<String, Object> properties;
+  private LocalProperties properties;
   private Map<String, Object> vertexProperties;
   private Map<String, Object> edgeProperties;
   private Map<ID, Vertex<ID>> vertices;
@@ -39,7 +39,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     outEdges = new LinkedHashMap<>();
     vertexProperties = new LinkedHashMap<>();
     edgeProperties = new LinkedHashMap<>();
-    properties = new LinkedHashMap<>();
+    properties = new LocalProperties(new LinkedHashMap<>());
   }
 
   protected AbstractGraph(ID id) {
@@ -520,43 +520,34 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Map<String, Object> getProperties() {
-    return unmodifiableMap(properties);
+    return properties.local();
   }
 
   @Override
   public Optional<Object> getProperty(String name) {
-    return Optional.ofNullable(properties.get(name));
+    return properties.getProperty(name);
   }
 
   @Override
   public void setProperty(String name, Object value) {
-    requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-    if (name.isEmpty()) {
-      throw new IllegalArgumentException(NAME_MUST_NOT_BE_EMPTY);
-    }
-    if(!properties.containsKey(name) && value == null) {
-      throw new NullPointerException(VALUE_MUST_NOT_BE_NULL);
-    }
-    if(value == null) {
-      properties.remove(name);
-    } else {
-      properties.put(name, value);
-    }
+    property(name, value);
   }
 
   @Override
   public Graph<ID> property(String name, Object value) {
-    setProperty(name, value);
+    property(linkedHashMap(name, value));
+    return this;
+  }
+
+  @Override
+  public Graph<ID> property(Map<String, Object> properties) {
+    this.properties.putProperties(properties);
     return this;
   }
 
   @Override
   public Graph<ID> removeProperty(String name) {
-    requireNonNull(name, NAME_MUST_NOT_BE_NULL);
-    if (!properties.containsKey(name)) {
-      throw new IllegalArgumentException("graph does not contain property named '" + name + "'.");
-    }
-    properties.remove(name);
+    properties.removeProperty(name);
     return this;
   }
 
