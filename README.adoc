@@ -151,14 +151,22 @@ A subscriber to these events can create a view of the graph as it is modified.
 
 = Releases
 
+== 0.6.0
+
+* Setting an existing property to null now removes it.
+* Fixed sonar test coverage reporting.
+* switch travis-ci to use a nix environment to build and publish the projects.
+
 == 0.5.0
 
 Adding convenience methods for creating and updating elements with multiple properties. For example:
 
-~~~~
+----
 graph.vertex("A", "name1", "value1", "name2", "value2");
 graph.getVertex("B").property("name1", "value1", "name2", "value2");
-~~~~
+----
+
+`vertex` and `edge` methods now return the `Graph` `getVertex` and `getEdge` return the corresponding element.
 
 == 0.4.0
 
