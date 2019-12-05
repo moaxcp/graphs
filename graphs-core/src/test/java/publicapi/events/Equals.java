@@ -5,20 +5,6 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 public class Equals {
-    @Test
-    void allEdgesPropertyAdded() {
-        EqualsVerifier.forClass(AllEdgesPropertyAdded.class).withRedefinedSuperclass().verify();
-    }
-
-    @Test
-    void allEdgesPropertyRemoved() {
-        EqualsVerifier.forClass(AllEdgesPropertyRemoved.class).withRedefinedSuperclass().verify();
-    }
-
-    @Test
-    void allEdgesPropertyUpdated() {
-        EqualsVerifier.forClass(AllEdgesPropertyUpdated.class).withRedefinedSuperclass().verify();
-    }
 
     @Test
     void allVerticesPropertyAdded() {

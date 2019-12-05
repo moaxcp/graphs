@@ -1,14 +1,16 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.EventGraph;
+import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
-import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
-import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
-import org.greenrobot.eventbus.EventBus;
-import org.junit.jupiter.api.Test;
+import com.github.moaxcp.graphs.greenrobot.*;
+import com.github.moaxcp.graphs.newevents.*;
+import com.github.moaxcp.graphs.testframework.*;
+import org.greenrobot.eventbus.*;
+import org.junit.jupiter.api.*;
 
-import static com.github.moaxcp.graphs.testframework.MethodSources.testEventBus;
+import java.util.*;
+
+import static com.github.moaxcp.graphs.testframework.MethodSources.*;
 import static com.github.moaxcp.graphs.truth.EventBusSubject.assertThat;
 import static com.github.moaxcp.graphs.truth.greenrobot.EventGraphSubject.assertThat;
 
@@ -77,7 +79,10 @@ public class Graph {
     @EventSimpleGraphs
     void addAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        var event = new AllEdgesPropertyAdded.Builder<String>().graphId("graph").name("name").value("value").build();
+        var event = EdgeInheritedPropertyEvent.<String>builder()
+          .graphId("graph")
+          .properties(Map.of("name", "value"))
+          .build();
         assertThat(bus).withAction(() -> graph.edgeProperty("name", "value")).containsExactly(event);
     }
 
@@ -85,7 +90,10 @@ public class Graph {
     void removeAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edgeProperty("name", "value");
-        var event = new AllEdgesPropertyRemoved.Builder<String>().graphId("graph").name("name").value("value").build();
+        var event = EdgeInheritedPropertyEvent.<String>builder()
+          .graphId("graph")
+          .property("name", null)
+          .build();
         assertThat(bus).withAction(() -> graph.removeEdgeProperty("name")).containsExactly(event);
     }
 
@@ -93,7 +101,10 @@ public class Graph {
     void updateAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edgeProperty("name", "A");
-        var event = new AllEdgesPropertyUpdated.Builder<String>().graphId("graph").name("name").oldValue("A").value("value").build();
+        var event = EdgeInheritedPropertyEvent.<String>builder()
+          .graphId("graph")
+          .properties(Map.of("name", "value"))
+          .build();
         assertThat(bus).withAction(() -> graph.edgeProperty("name", "value")).containsExactly(event);
     }
 

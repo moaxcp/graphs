@@ -1,50 +1,13 @@
 package publicapi.events;
 
+import com.github.moaxcp.graphs.events.*;
+import org.junit.jupiter.api.*;
+
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.github.moaxcp.graphs.events.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphEventBuilders {
-
-    @Test
-    void testAllEdgesPropertyAdded() {
-        var event = new AllEdgesPropertyAdded.Builder<String>()
-            .graphId("graph")
-            .name("name")
-            .value("value")
-            .build();
-        assertThat(event.getGraphId()).hasValue("graph");
-        assertThat(event.getName()).isEqualTo("name");
-        assertThat(event.getValue()).isEqualTo("value");
-    }
-
-    @Test
-    void testAllEdgesPropertyRemoved() {
-        var event = new AllEdgesPropertyRemoved.Builder<String>()
-                .graphId("graph")
-                .name("name")
-                .value("value")
-                .build();
-        assertThat(event.getGraphId()).hasValue("graph");
-        assertThat(event.getName()).isEqualTo("name");
-        assertThat(event.getValue()).isEqualTo("value");
-    }
-
-    @Test
-    void testAllEdgesPropertyUpdated() {
-        var event = new AllEdgesPropertyUpdated.Builder<String>()
-                .graphId("graph")
-                .name("name")
-                .value("value")
-                .oldValue("oldValue")
-                .build();
-        assertThat(event.getGraphId()).hasValue("graph");
-        assertThat(event.getName()).isEqualTo("name");
-        assertThat(event.getValue()).isEqualTo("value");
-        assertThat(event.getOldValue()).isEqualTo("oldValue");
-    }
 
     @Test
     void testAllVerticesPropertyAdded() {

@@ -2,6 +2,7 @@ package com.github.moaxcp.graphs.greenrobot;
 
 import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.newevents.*;
 import org.greenrobot.eventbus.*;
 
 import java.util.*;
@@ -287,44 +288,10 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
 
   @Override
   public Graph<ID> edgeProperty(Map<String, Object> properties) {
-    Map<String, Object> oldValues = new LinkedHashMap<>(getEdgeProperties());
     super.edgeProperty(properties);
-    for(Entry<String, Object> entry : properties.entrySet()) {
-      sendEdgePropertyEvents(entry.getKey(), entry.getValue(), Optional.ofNullable(oldValues.get(entry.getKey())));
-    }
-    return this;
-  }
-
-  private void sendEdgePropertyEvents(String name, Object value, Optional<Object> oldValue) {
-    if(value == null) {
-      bus.post(new AllEdgesPropertyRemoved.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name)
-        .value(oldValue.orElse(null))
-        .build());
-    } else if (oldValue.isPresent()) {
-      bus.post(new AllEdgesPropertyUpdated.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name).value(value)
-        .oldValue(oldValue.orElse(null))
-        .build());
-    } else {
-      bus.post(new AllEdgesPropertyAdded.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name)
-        .value(value)
-        .build());
-    }
-  }
-
-  @Override
-  public Graph<ID> removeEdgeProperty(String name) {
-    var value = getEdgeProperty(name);
-    super.removeEdgeProperty(name);
-    bus.post(new AllEdgesPropertyRemoved.Builder<ID>()
+    bus.post(EdgeInheritedPropertyEvent.<ID>builder()
       .graphId(getId().orElse(null))
-      .name(name)
-      .value(value.orElse(null))
+      .properties(new LinkedHashMap<>(properties))
       .build());
     return this;
   }

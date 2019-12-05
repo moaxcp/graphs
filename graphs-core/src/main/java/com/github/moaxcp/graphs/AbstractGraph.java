@@ -580,7 +580,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Graph<ID> removeEdgeProperty(String name) {
-    edgeProperties.removeProperty(name);
+    edgeProperty(linkedHashMap(name, null));
     return this;
   }
 

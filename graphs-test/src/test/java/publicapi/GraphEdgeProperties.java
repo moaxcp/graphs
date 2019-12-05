@@ -9,65 +9,65 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GraphEdgeProperties {
 
-    @SimpleGraphs
-    void defaultProperty(Graph graph) {
-        assertThat(graph).withEdgeProperty("property").isEmpty();
-    }
+  @SimpleGraphs
+  void defaultProperty(Graph graph) {
+    assertThat(graph).withEdgeProperty("property").isEmpty();
+  }
 
-    @SimpleGraphs
-    void setPropertyNullKey(Graph graph) {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setEdgeProperty(null, null));
-        assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");
-    }
+  @SimpleGraphs
+  void setPropertyNullKey(Graph graph) {
+    Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setEdgeProperty(null, null));
+    assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");
+  }
 
-    @SimpleGraphs
-    void setPropertyNullValue(Graph graph) {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setEdgeProperty("property", null));
-        assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
-    }
+  @SimpleGraphs
+  void setPropertyNullValue(Graph graph) {
+    Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setEdgeProperty("property", null));
+    assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
+  }
 
-    @SimpleGraphs
-    void setPropertyEmptyName(Graph graph) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setEdgeProperty("", ""));
-        assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
-    }
+  @SimpleGraphs
+  void setPropertyEmptyName(Graph graph) {
+    Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setEdgeProperty("", ""));
+    assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
+  }
 
-    @SimpleGraphs
-    void setProperty(Graph graph) {
-        graph.setEdgeProperty("property", "value");
-        assertThat(graph).withEdgeProperty("property").hasValue("value");
-    }
+  @SimpleGraphs
+  void setProperty(Graph graph) {
+    graph.setEdgeProperty("property", "value");
+    assertThat(graph).withEdgeProperty("property").hasValue("value");
+  }
 
-    @SimpleGraphs
-    void property(Graph graph) {
-        Graph next = graph.edgeProperty("property", "value");
-        assertThat(graph).withEdgeProperty("property").hasValue("value");
-        assertThat(next).isSameInstanceAs(graph);
-    }
+  @SimpleGraphs
+  void property(Graph graph) {
+    Graph next = graph.edgeProperty("property", "value");
+    assertThat(graph).withEdgeProperty("property").hasValue("value");
+    assertThat(next).isSameInstanceAs(graph);
+  }
 
-    @SimpleGraphs
-    void removePropertyMissing(Graph graph) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeEdgeProperty("property"));
-        assertThat(thrown).hasMessageThat().isEqualTo("local properties do not contain name 'property'.");
-    }
+  @SimpleGraphs
+  void removePropertyMissing(Graph graph) {
+    Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdgeProperty("property"));
+    assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
+  }
 
-    @SimpleGraphs
-    void removeProperty(Graph graph) {
-        graph.edgeProperty("property", "value");
-        graph.removeEdgeProperty("property");
-        assertThat(graph).withEdgeProperty("property").isEmpty();
-    }
+  @SimpleGraphs
+  void removeProperty(Graph graph) {
+    graph.edgeProperty("property", "value");
+    graph.removeEdgeProperty("property");
+    assertThat(graph).withEdgeProperty("property").isEmpty();
+  }
 
-    @SimpleGraphs
-    void propertyIsInherited(Graph graph) {
-        graph.edgeProperty("property", "value");
-        var edge = graph.getEdge("A", "B");
-        assertThat(edge).withProperty("property").hasValue("value");
-    }
+  @SimpleGraphs
+  void propertyIsInherited(Graph graph) {
+    graph.edgeProperty("property", "value");
+    var edge = graph.getEdge("A", "B");
+    assertThat(edge).withProperty("property").hasValue("value");
+  }
 
-    @SimpleGraphs
-    void getProperties(Graph graph) {
-        graph.edgeProperty("property", "value");
-        assertThat(graph.getEdgeProperties()).containsExactly("property", "value");
-    }
+  @SimpleGraphs
+  void getProperties(Graph graph) {
+    graph.edgeProperty("property", "value");
+    assertThat(graph.getEdgeProperties()).containsExactly("property", "value");
+  }
 }
