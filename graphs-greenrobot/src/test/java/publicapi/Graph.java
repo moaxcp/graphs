@@ -111,7 +111,10 @@ public class Graph {
     @EventSimpleGraphs
     void addAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        var event = new AllVerticesPropertyAdded.Builder<String>().graphId("graph").name("name").value("value").build();
+        var event = VertexInheritedPropertyEvent.<String>builder()
+          .graphId("graph")
+          .property("name", "value")
+          .build();
         assertThat(bus).withAction(() -> graph.vertexProperty("name", "value")).containsExactly(event);
     }
 
@@ -119,7 +122,10 @@ public class Graph {
     void removeAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertexProperty("name", "value");
-        var event = new AllVerticesPropertyRemoved.Builder<String>().graphId("graph").name("name").value("value").build();
+        var event = VertexInheritedPropertyEvent.<String>builder()
+          .graphId("graph")
+          .property("name", null)
+          .build();
         assertThat(bus).withAction(() -> graph.removeVertexProperty("name")).containsExactly(event);
     }
 
@@ -127,7 +133,10 @@ public class Graph {
     void updateAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertexProperty("name", "A");
-        var event = new AllVerticesPropertyUpdated.Builder<String>().graphId("graph").name("name").oldValue("A").value("value").build();
+        var event = VertexInheritedPropertyEvent.<String>builder()
+          .graphId("graph")
+          .property("name", "value")
+          .build();
         assertThat(bus).withAction(() -> graph.vertexProperty("name", "value")).containsExactly(event);
     }
 }

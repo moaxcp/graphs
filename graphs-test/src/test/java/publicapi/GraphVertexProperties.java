@@ -47,8 +47,8 @@ public class GraphVertexProperties {
 
     @SimpleGraphs
     void removePropertyMissing(Graph graph) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeVertexProperty("property"));
-        assertThat(thrown).hasMessageThat().isEqualTo("local properties do not contain name 'property'.");
+        Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeVertexProperty("property"));
+        assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
     }
 
     @SimpleGraphs

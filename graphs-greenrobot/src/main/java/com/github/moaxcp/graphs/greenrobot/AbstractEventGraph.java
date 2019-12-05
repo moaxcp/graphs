@@ -300,42 +300,9 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
   public Graph<ID> vertexProperty(Map<String, Object> properties) {
     Map<String, Object> oldValues = new LinkedHashMap<>(getVertexProperties());
     super.vertexProperty(properties);
-    for(Entry<String, Object> entry : properties.entrySet()) {
-      sendVertexPropertyEvents(entry.getKey(), entry.getValue(), Optional.ofNullable(oldValues.get(entry.getKey())));
-    }
-    return this;
-  }
-
-  private void sendVertexPropertyEvents(String name, Object value, Optional<Object> oldValue) {
-    if(value == null) {
-      bus.post(new AllVerticesPropertyRemoved.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name)
-        .value(oldValue.orElse(null))
-        .build());
-    } else if (oldValue.isPresent()) {
-      bus.post(new AllVerticesPropertyUpdated.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name).value(value)
-        .oldValue(oldValue.orElse(null))
-        .build());
-    } else {
-      bus.post(new AllVerticesPropertyAdded.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name)
-        .value(value)
-        .build());
-    }
-  }
-
-  @Override
-  public Graph<ID> removeVertexProperty(String name) {
-    var value = getVertexProperty(name);
-    super.removeVertexProperty(name);
-    bus.post(new AllVerticesPropertyRemoved.Builder<ID>()
+    bus.post(VertexInheritedPropertyEvent.<ID>builder()
       .graphId(getId().orElse(null))
-      .name(name)
-      .value(value.orElse(null))
+      .properties(new LinkedHashMap<>(properties))
       .build());
     return this;
   }

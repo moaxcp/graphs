@@ -613,7 +613,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Graph<ID> removeVertexProperty(String name) {
-    vertexProperties.removeProperty(name);
+    vertexProperty(linkedHashMap(name, null));
     return this;
   }
 
