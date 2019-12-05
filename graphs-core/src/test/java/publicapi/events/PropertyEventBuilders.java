@@ -14,9 +14,6 @@ public class PropertyEventBuilders {
 
     static Stream<Builder<String, ? extends Builder>> propertyEventsMissingName() {
         return Stream.of(
-            new AllVerticesPropertyAdded.Builder<>(),
-            new AllVerticesPropertyRemoved.Builder<>(),
-            new AllVerticesPropertyUpdated.Builder<>(),
             new EdgePropertyAdded.Builder<>(),
             new EdgePropertyRemoved.Builder<>(),
             new EdgePropertyUpdated.Builder<>(),
@@ -29,9 +26,6 @@ public class PropertyEventBuilders {
 
     static Stream<Builder<String, ? extends Builder>> propertyEventsMissingValue() {
         return Stream.of(
-            new AllVerticesPropertyAdded.Builder<String>().name("name"),
-            new AllVerticesPropertyRemoved.Builder<String>().name("name"),
-            new AllVerticesPropertyUpdated.Builder<String>().name("name"),
             new EdgePropertyAdded.Builder<String>().name("name"),
             new EdgePropertyRemoved.Builder<String>().name("name"),
             new EdgePropertyUpdated.Builder<String>().name("name"),
@@ -44,7 +38,6 @@ public class PropertyEventBuilders {
 
     static Stream propertyUpdatedEventsMissingOldValue() {
         return Stream.of(
-            new AllVerticesPropertyUpdated.Builder<String>().name("name").value("value"),
             new GraphPropertyUpdated.Builder<String>().name("name").value("value")
         );
     }

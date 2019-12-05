@@ -10,44 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GraphEventBuilders {
 
     @Test
-    void testAllVerticesPropertyAdded() {
-        var event = new AllVerticesPropertyAdded.Builder<String>()
-                .graphId("graph")
-                .name("name")
-                .value("value")
-                .build();
-        assertThat(event.getGraphId()).hasValue("graph");
-        assertThat(event.getName()).isEqualTo("name");
-        assertThat(event.getValue()).isEqualTo("value");
-    }
-
-    @Test
-    void testAllVerticesPropertyRemoved() {
-        var event = new AllVerticesPropertyRemoved.Builder<String>()
-                .graphId("graph")
-                .name("name")
-                .value("value")
-                .build();
-        assertThat(event.getGraphId()).hasValue("graph");
-        assertThat(event.getName()).isEqualTo("name");
-        assertThat(event.getValue()).isEqualTo("value");
-    }
-
-    @Test
-    void testAllVerticesPropertyUpdated() {
-        var event = new AllVerticesPropertyUpdated.Builder<String>()
-                .graphId("graph")
-                .name("name")
-                .value("value")
-                .oldValue("oldValue")
-                .build();
-        assertThat(event.getGraphId()).hasValue("graph");
-        assertThat(event.getName()).isEqualTo("name");
-        assertThat(event.getValue()).isEqualTo("value");
-        assertThat(event.getOldValue()).isEqualTo("oldValue");
-    }
-
-    @Test
     void testDirectedGraphCreated() {
         var event = new DirectedGraphCreated.Builder<String>()
                 .graphId("graph")
