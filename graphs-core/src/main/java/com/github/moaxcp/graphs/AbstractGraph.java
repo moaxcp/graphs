@@ -14,12 +14,7 @@ import static java.util.stream.Collectors.*;
  * @param <ID> type of all identifiers in graph
  */
 public abstract class AbstractGraph<ID> implements Graph<ID> {
-
-  private static final String NAME_MUST_NOT_BE_NULL = "name must not be null.";
-  private static final String VALUE_MUST_NOT_BE_NULL = "value must not be null.";
-  private static final String NAME_MUST_NOT_BE_EMPTY = "name must not be empty.";
   private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
-  private ID id;
   private LocalProperties properties;
   private LocalProperties vertexProperties;
   private LocalProperties edgeProperties;
@@ -44,7 +39,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   protected AbstractGraph(ID id) {
     this();
-    this.id = id;
+    properties.putProperties(linkedHashMap("id", id));
   }
 
   private static LinkedHashMap<String, Object> linkedHashMap(String name, Object value) {
@@ -504,12 +499,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Optional<ID> getId() {
-    return Optional.ofNullable(id);
+    return Optional.ofNullable((ID) properties.getProperty("id").orElse(null));
   }
 
   @Override
   public void setId(ID id) {
-    this.id = id;
+    property("id", id);
   }
 
   @Override
@@ -547,7 +542,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Graph<ID> removeProperty(String name) {
-    properties.removeProperty(name);
+    property(name, null);
     return this;
   }
 
@@ -622,12 +617,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     if (this == o) return true;
     if (!(o instanceof AbstractGraph)) return false;
     AbstractGraph<?> that = (AbstractGraph<?>) o;
-    return Objects.equals(id, that.id) && Objects.equals(properties, that.properties) && Objects.equals(vertexProperties, that.vertexProperties) && Objects.equals(edgeProperties, that.edgeProperties) && Objects.equals(vertices, that.vertices) && Objects.equals(edges, that.edges);
+    return Objects.equals(properties, that.properties) && Objects.equals(vertexProperties, that.vertexProperties) && Objects.equals(edgeProperties, that.edgeProperties) && Objects.equals(vertices, that.vertices) && Objects.equals(edges, that.edges);
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hash(id, properties, vertexProperties, edgeProperties, vertices, edges);
+    return Objects.hash(properties, vertexProperties, edgeProperties, vertices, edges);
   }
 
   public class SimpleEdge implements Edge<ID> {

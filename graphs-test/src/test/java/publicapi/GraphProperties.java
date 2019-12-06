@@ -9,89 +9,89 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GraphProperties {
 
-    @SimpleGraphs
-    void defaultId(Graph graph) {
-        assertThat(graph).hasIdThat().isEmpty();
-    }
+  @SimpleGraphs
+  void defaultId(Graph graph) {
+    assertThat(graph).hasIdThat().isEmpty();
+  }
 
-    @SimpleGraphs
-    void setId(Graph graph) {
-        graph.setId("id");
-        assertThat(graph).hasIdThat().hasValue("id");
-    }
+  @SimpleGraphs
+  void setId(Graph graph) {
+    graph.setId("id");
+    assertThat(graph).hasIdThat().hasValue("id");
+  }
 
-    @SimpleGraphs
-    void setIdNull(Graph graph) {
-        graph.setId(null);
-        assertThat(graph).hasIdThat().isEmpty();
-    }
+  @SimpleGraphs
+  void setIdNull(Graph graph) {
+    Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setId(null));
+    assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
+  }
 
-    @SimpleGraphs
-    void id(Graph graph) {
-        Graph next = graph.id("id");
-        assertThat(graph).hasIdThat().hasValue("id");
-        assertThat(graph).isSameInstanceAs(next);
-    }
+  @SimpleGraphs
+  void id(Graph graph) {
+    Graph next = graph.id("id");
+    assertThat(graph).hasIdThat().hasValue("id");
+    assertThat(graph).isSameInstanceAs(next);
+  }
 
-    @SimpleGraphs
-    void defaultProperty(Graph graph) {
-        assertThat(graph).withProperty("property").isEmpty();
-    }
+  @SimpleGraphs
+  void defaultProperty(Graph graph) {
+    assertThat(graph).withProperty("property").isEmpty();
+  }
 
-    @SimpleGraphs
-    void setPropertyNullKey(Graph graph) {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setProperty(null, null));
-        assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");
-    }
+  @SimpleGraphs
+  void setPropertyNullKey(Graph graph) {
+    Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setProperty(null, null));
+    assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");
+  }
 
-    @SimpleGraphs
-    void setPropertyNullValue(Graph graph) {
-        Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setProperty("property", null));
-        assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
-    }
+  @SimpleGraphs
+  void setPropertyNullValue(Graph graph) {
+    Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setProperty("property", null));
+    assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
+  }
 
-    @SimpleGraphs
-    void setPorpertyEmptyName(Graph graph) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setProperty("", "value"));
-        assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
-    }
+  @SimpleGraphs
+  void setPorpertyEmptyName(Graph graph) {
+    Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setProperty("", "value"));
+    assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
+  }
 
-    @SimpleGraphs
-    void setProperty(Graph graph) {
-        graph.setProperty("property", "value");
-        assertThat(graph).withProperty("property").hasValue("value");
-    }
+  @SimpleGraphs
+  void setProperty(Graph graph) {
+    graph.setProperty("property", "value");
+    assertThat(graph).withProperty("property").hasValue("value");
+  }
 
-    @SimpleGraphs
-    void setPropertyUpdateToNull(Graph<String> graph) {
-        graph.setProperty("name", "value");
-        graph.setProperty("name", null);
-        assertThat(graph).withProperty("name").isEmpty();
-    }
+  @SimpleGraphs
+  void setPropertyUpdateToNull(Graph<String> graph) {
+    graph.setProperty("name", "value");
+    graph.setProperty("name", null);
+    assertThat(graph).withProperty("name").isEmpty();
+  }
 
-    @SimpleGraphs
-    void property(Graph graph) {
-        Graph next = graph.property("property", "value");
-        assertThat(graph).withProperty("property").hasValue("value");
-        assertThat(next).isSameInstanceAs(graph);
-    }
+  @SimpleGraphs
+  void property(Graph graph) {
+    Graph next = graph.property("property", "value");
+    assertThat(graph).withProperty("property").hasValue("value");
+    assertThat(next).isSameInstanceAs(graph);
+  }
 
-    @SimpleGraphs
-    void removePropertyMissing(Graph graph) {
-        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeProperty("property"));
-        assertThat(thrown).hasMessageThat().isEqualTo("local properties do not contain name 'property'.");
-    }
+  @SimpleGraphs
+  void removePropertyMissing(Graph graph) {
+    Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeProperty("property"));
+    assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
+  }
 
-    @SimpleGraphs
-    void removeProperty(Graph graph) {
-        graph.property("property", "value");
-        graph.removeProperty("property");
-        assertThat(graph).withProperty("property").isEmpty();
-    }
+  @SimpleGraphs
+  void removeProperty(Graph graph) {
+    graph.property("property", "value");
+    graph.removeProperty("property");
+    assertThat(graph).withProperty("property").isEmpty();
+  }
 
-    @SimpleGraphs
-    void getProperties(Graph graph) {
-        graph.property("property", "value");
-        assertThat(graph.getProperties()).containsExactly("property", "value");
-    }
+  @SimpleGraphs
+  void getProperties(Graph graph) {
+    graph.property("property", "value");
+    assertThat(graph.getProperties()).containsExactly("property", "value");
+  }
 }

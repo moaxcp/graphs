@@ -218,70 +218,12 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
   }
 
   @Override
-  public void setId(ID id) {
-    var oldId = getId();
-    super.setId(id);
-    if (id == null && !oldId.isPresent()) {
-      return;
-    }
-    if (id == null) {
-      bus.post(new GraphIdRemoved.Builder<ID>()
-        .graphId(oldId.orElse(null))
-        .build());
-      return;
-    }
-    if (oldId.isPresent()) {
-      bus.post(new GraphIdUpdated.Builder<ID>()
-        .graphId(id)
-        .oldGraphId(oldId.orElse(null))
-        .build());
-    } else {
-      bus.post(new GraphIdAdded.Builder<ID>()
-        .graphId(id)
-        .build());
-    }
-  }
-
-  @Override
   public Graph<ID> property(Map<String, Object> properties) {
-    Map<String, Object> oldValues = new LinkedHashMap<>(getProperties());
+    var id = getId().orElse(null);
     super.property(properties);
-    for(Entry<String, Object> entry : properties.entrySet()) {
-      sendGraphPropertyEvents(entry.getKey(), entry.getValue(), Optional.ofNullable(oldValues.get(entry.getKey())));
-    }
-    return this;
-  }
-
-  private void sendGraphPropertyEvents(String name, Object value, Optional<Object> oldValue) {
-    if(value == null) {
-      bus.post(new GraphPropertyRemoved.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name)
-        .value(oldValue.orElse(null))
-        .build());
-    } else if (oldValue.isPresent()) {
-      bus.post(new GraphPropertyUpdated.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name).value(value)
-        .oldValue(oldValue.orElse(null))
-        .build());
-    } else {
-      bus.post(new GraphPropertyAdded.Builder<ID>()
-        .graphId(getId().orElse(null))
-        .name(name)
-        .value(value)
-        .build());
-    }
-  }
-
-  @Override
-  public Graph<ID> removeProperty(String name) {
-    var value = getProperty(name);
-    super.removeProperty(name);
-    bus.post(new GraphPropertyRemoved.Builder<ID>()
-      .graphId(getId().orElse(null))
-      .name(name)
-      .value(value.orElse(null))
+    bus.post(GraphPropertyEvent.<ID>builder()
+      .graphId(id)
+      .properties(new LinkedHashMap<>(properties))
       .build());
     return this;
   }

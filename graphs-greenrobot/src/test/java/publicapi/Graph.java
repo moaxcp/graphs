@@ -41,39 +41,62 @@ public class Graph {
 
     @EventSimpleGraphs
     void addId(EventGraph<String> graph, EventBus bus) {
-        assertThat(graph).with(bus).hasEventsIn(g-> g.id("graph")).containsExactly(GraphIdAdded.class);
+        var event = GraphPropertyEvent.<String>builder()
+          .property("id", "graph")
+          .build();
+        assertThat(bus).withAction(()-> graph.id("graph")).containsExactly(event);
     }
 
     @EventSimpleGraphs
     void removeId(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        assertThat(graph).with(bus).hasEventsIn(g-> g.id(null)).containsExactly(GraphIdRemoved.class);
+        var event = GraphPropertyEvent.<String>builder()
+          .graphId("graph")
+          .property("id", null)
+          .build();
+        assertThat(bus).withAction(()-> graph.id(null)).containsExactly(event);
     }
 
     @EventSimpleGraphs
     void updateId(EventGraph<String> graph, EventBus bus) {
         graph.id("id1");
-        assertThat(graph).with(bus).hasEventsIn(g-> g.id("id2")).containsExactly(GraphIdUpdated.class);
+        var event = GraphPropertyEvent.<String>builder()
+          .graphId("id1")
+          .property("id", "id2")
+          .build();
+        assertThat(bus).withAction(()-> graph.id("id2")).containsExactly(event);
     }
 
     @EventSimpleGraphs
     void addProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.property("name", "value")).containsExactly(GraphPropertyAdded.class);
+        var event = GraphPropertyEvent.<String>builder()
+          .graphId("graph")
+          .property("name", "value")
+          .build();
+        assertThat(bus).withAction(() -> graph.property("name", "value")).containsExactly(event);
     }
 
     @EventSimpleGraphs
     void removeProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.removeProperty("name")).containsExactly(GraphPropertyRemoved.class);
+        var event = GraphPropertyEvent.<String>builder()
+          .graphId("graph")
+          .property("name", null)
+          .build();
+        assertThat(bus).withAction(() -> graph.removeProperty("name")).containsExactly(event);
     }
 
     @EventSimpleGraphs
     void updateProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
-        assertThat(graph).with(bus).hasEventsIn(g -> g.property("name", "value2")).containsExactly(GraphPropertyUpdated.class);
+        var event = GraphPropertyEvent.<String>builder()
+          .graphId("graph")
+          .property("name", "value2")
+          .build();
+        assertThat(bus).withAction(() -> graph.property("name", "value2")).containsExactly(event);
     }
 
     @EventSimpleGraphs
