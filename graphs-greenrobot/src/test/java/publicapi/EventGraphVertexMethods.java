@@ -2,6 +2,7 @@ package publicapi;
 
 import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.newevents.*;
 import com.github.moaxcp.graphs.testframework.*;
 import org.greenrobot.eventbus.*;
 
@@ -486,7 +487,11 @@ public class EventGraphVertexMethods {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = new VertexRemoved.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected = VertexRemovedEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A")
+      .build();
+
     assertThat(bus).withAction(() -> graph.removeVertex("A")).containsExactly(expected);
   }
 
@@ -495,7 +500,11 @@ public class EventGraphVertexMethods {
     graph.id("graph");
     graph.vertex("A", "name1", "value1");
 
-    var expected = new VertexRemoved.Builder<String>().graphId("graph").vertexId("A").properties(Map.of("name1", "value1")).build();
+    var expected = VertexRemovedEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A")
+      .build();
+
     assertThat(bus).withAction(() -> graph.removeVertex("A")).containsExactly(expected);
   }
 
@@ -509,7 +518,10 @@ public class EventGraphVertexMethods {
     var expected1 = new EdgeRemoved.Builder<String>().graphId("graph").from("A").to("B").build();
     var expected2 = new EdgeRemoved.Builder<String>().graphId("graph").from("A").to("C").build();
     var expected3 = new EdgeRemoved.Builder<String>().graphId("graph").from("A").to("D").build();
-    var expected4 = new VertexRemoved.Builder<String>().graphId("graph").vertexId("A").build();
+    var expected4 = VertexRemovedEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A")
+      .build();
 
     assertThat(bus).withAction(() -> graph.removeVertex("A"))
       .containsExactly(expected1, expected2, expected3, expected4).inOrder();

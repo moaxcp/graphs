@@ -859,13 +859,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   public class SimpleVertex implements Vertex<ID> {
     InheritedProperties properties;
-    private ID id;
 
     protected SimpleVertex(ID id, Map<String, Object> local, Map<String, Object> inherited) {
       Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
       Objects.requireNonNull(local, "local must not be null.");
-      this.id = id;
       properties = new InheritedProperties(local, inherited);
+      properties.putProperties(linkedHashMap("id", id));
     }
 
     private void check() {
@@ -885,7 +884,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     public ID getId() {
-      return id;
+      return (ID) properties.getProperty("id").get();
     }
 
     @Override
@@ -898,7 +897,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
       Set<? extends Edge<ID>> adjacent = new LinkedHashSet<>(adjacentEdges());
       Object oldId = getId();
       vertices.remove(this.getId());
-      this.id = id;
+      properties.putProperties(linkedHashMap("id", id));
       vertices.put(id, this);
       for (Edge<ID> edge : adjacent) {
         if (edge.getFrom().equals(oldId)) {
@@ -1007,7 +1006,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Set<Edge<ID>> adjacentEdges() {
       check();
-      Set<Edge<ID>> edges = adjacentEdges.get(id);
+      Set<Edge<ID>> edges = adjacentEdges.get(getId());
       if (edges == null) {
         return emptySet();
       }
@@ -1017,7 +1016,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Set<Edge<ID>> inEdges() {
       check();
-      Set<Edge<ID>> edges = inEdges.get(id);
+      Set<Edge<ID>> edges = inEdges.get(getId());
       if (edges == null) {
         return emptySet();
       }
@@ -1027,7 +1026,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Set<Edge<ID>> outEdges() {
       check();
-      Set<Edge<ID>> edges = outEdges.get(id);
+      Set<Edge<ID>> edges = outEdges.get(getId());
       if (edges == null) {
         return emptySet();
       }
@@ -1039,14 +1038,13 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
       if (this == o) return true;
       if (!(o instanceof AbstractGraph<?>.SimpleVertex)) return false;
       SimpleVertex that = (SimpleVertex) o;
-      return Objects.equals(id, that.id) &&
-        Objects.equals(local(), that.local()) &&
+      return Objects.equals(local(), that.local()) &&
         Objects.equals(inherited(), that.inherited());
     }
 
     @Override
     public final int hashCode() {
-      return Objects.hash(id, local(), inherited());
+      return Objects.hash(local(), inherited());
     }
   }
 }

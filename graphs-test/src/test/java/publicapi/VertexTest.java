@@ -31,7 +31,7 @@ public class VertexTest {
   @SimpleGraphs
   void localWithProperty(Graph<String> graph) {
     graph.getVertex("A").property("color", "blue");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("color", "blue");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "color", "blue");
   }
 
   @SimpleGraphs
@@ -93,55 +93,55 @@ public class VertexTest {
   @SimpleGraphs
   void property2(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2");
   }
 
   @SimpleGraphs
   void property3(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
   @SimpleGraphs
   void property4(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
   @SimpleGraphs
   void property5(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
   @SimpleGraphs
   void property6(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
   @SimpleGraphs
   void property7(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
   @SimpleGraphs
   void property8(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
   @SimpleGraphs
   void property9(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
   @SimpleGraphs
   void property10(Graph<String> graph) {
     graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
-    assertThat(graph).hasVertex("A").withLocal().containsExactly("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
   @SimpleGraphs

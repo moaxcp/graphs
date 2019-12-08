@@ -1,15 +1,16 @@
 package com.github.moaxcp.graphs.graphviz;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import javax.imageio.*;
+import java.awt.image.*;
 import java.io.*;
-import java.util.Map;
+import java.util.*;
+import java.util.Map.*;
 
-import static java.lang.String.format;
-import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.joining;
+import static java.lang.String.*;
+import static java.util.Objects.*;
+import static java.util.stream.Collectors.*;
 
 public class Dot<ID> {
 
@@ -62,6 +63,7 @@ public class Dot<ID> {
     private void writeGraphAttributes(Writer writer) throws IOException {
         if(!graph.getProperties().isEmpty()) {
             var joined = graph.getProperties().entrySet().stream()
+                    .filter(e -> !e.getKey().equals("id"))
                     .map(this::attributeString)
                     .collect(joining("\n  ", "  ", "\n"));
             writer.append(joined);
@@ -69,6 +71,9 @@ public class Dot<ID> {
     }
 
     private void writeAttributes(Writer writer, Map<String, Object> attributes) throws IOException {
+        if(attributes.isEmpty()) {
+            return;
+        }
         var joined = attributes.entrySet().stream()
                 .map(this::attributeString)
                 .collect(joining(", ", "[", "]"));
@@ -99,21 +104,34 @@ public class Dot<ID> {
     private void writeEdge(Graph.Edge<ID> edge, PrintWriter writer) throws IOException {
         var connector = graph.isDirected() ? "->" : "--";
         writer.printf("  %s %s %s", edge.getFrom(), connector, edge.getTo());
-        if(!edge.local().isEmpty()) {
+
+        var attributes = edge.local().entrySet().stream()
+          .filter(e -> !e.getKey().equals("id"))
+          .filter(e -> !e.getKey().equals("to"))
+          .filter(e -> !e.getKey().equals("from"))
+          .collect(toMap(Entry::getKey, Entry::getValue));
+
+        if(!attributes.isEmpty()) {
             writer.append(" ");
-            writeAttributes(writer, edge.local());
+            writeAttributes(writer, attributes);
         }
         writer.append("\n");
     }
 
     private void writeVertex(Graph.Vertex<ID> vertex, PrintWriter writer) throws IOException {
-        if((vertex.inEdges().size() > 0 || vertex.outEdges().size() > 0) && vertex.local().size() == 0) {
+
+        var attributes = vertex.local().entrySet().stream()
+          .filter(e -> !e.getKey().equals("id"))
+          .collect(toMap(Entry::getKey, Entry::getValue));
+
+        if((vertex.inEdges().size() > 0 || vertex.outEdges().size() > 0) && attributes.isEmpty()) {
             return;
         }
         writer.append("  ").append(vertex.getId().toString());
-        if(!vertex.local().isEmpty()) {
+
+        if(!attributes.isEmpty()) {
             writer.append(" ");
-            writeAttributes(writer, vertex.local());
+            writeAttributes(writer, attributes);
         }
         writer.append("\n");
     }

@@ -300,10 +300,9 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
   public void removeVertex(ID id) {
     var optional = findVertex(id);
     super.removeVertex(id);
-    optional.ifPresent(vertex -> bus.post(new VertexRemoved.Builder<ID>()
+    optional.ifPresent(vertex -> bus.post(VertexRemovedEvent.<ID>builder()
       .graphId(getId().orElse(null))
       .vertexId(id)
-      .properties(vertex.local())
       .build()));
   }
 }
