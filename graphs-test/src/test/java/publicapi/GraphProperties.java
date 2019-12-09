@@ -70,6 +70,12 @@ public class GraphProperties {
   }
 
   @SimpleGraphs
+  void setPropertyIdFails(Graph<String> graph) {
+    var exception = assertThrows(IllegalArgumentException.class, () -> graph.setProperty("id", "graph"));
+    assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
+  }
+
+  @SimpleGraphs
   void property(Graph graph) {
     Graph next = graph.property("property", "value");
     assertThat(graph).withProperty("property").hasValue("value");
