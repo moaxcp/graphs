@@ -258,7 +258,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   protected Vertex<ID> addVertex(ID id, Map<String, Object> properties) {
     var vertex = newVertex(id, properties, vertexProperties.local());
-    vertices.put(id, vertex);
+    vertices.put(vertex.getId(), vertex);
     return vertex;
   }
 
@@ -863,6 +863,9 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     protected SimpleVertex(ID id, Map<String, Object> local, Map<String, Object> inherited) {
       Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
       Objects.requireNonNull(local, "local must not be null.");
+      if(local.containsKey("id")) {
+        throw new IllegalArgumentException("id cannot be set as a property.");
+      }
       properties = new InheritedProperties(local, inherited);
       properties.putProperties(linkedHashMap("id", id));
     }
@@ -978,6 +981,9 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Vertex<ID> property(Map<String, Object> properties) {
       check();
+      if(properties.containsKey("id")) {
+        throw new IllegalArgumentException("id cannot be set as a property.");
+      }
       this.properties.putProperties(properties);
       return this;
     }
