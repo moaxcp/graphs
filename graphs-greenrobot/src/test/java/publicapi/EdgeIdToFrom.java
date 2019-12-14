@@ -1,11 +1,12 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.EventGraph;
+import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.testframework.EventSimpleGraphs;
-import org.greenrobot.eventbus.EventBus;
+import com.github.moaxcp.graphs.newevents.*;
+import com.github.moaxcp.graphs.testframework.*;
+import org.greenrobot.eventbus.*;
 
-import static com.github.moaxcp.graphs.truth.Truth.assertThat;
+import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EdgeIdToFrom {
 
@@ -50,10 +51,22 @@ public class EdgeIdToFrom {
         graph.id("graph");
         graph.getEdge("oldFrom", "B").id("edge");
 
-        var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("A").build();
-        var expected2 = new EdgeFromUpdated.Builder<String>().graphId("graph").edgeId("edge").oldFrom("oldFrom").from("A").to("B").build();
+        var expected1 = VertexCreatedEvent.<String>builder()
+          .graphId("graph")
+          .vertexId("A")
+          .build();
 
-        assertThat(bus).withAction(() -> graph.getEdge("oldFrom", "B").setFrom("A")).containsExactly(expected1, expected2).inOrder();
+        var expected2 = new EdgeFromUpdated.Builder<String>()
+          .graphId("graph")
+          .edgeId("edge")
+          .oldFrom("oldFrom")
+          .from("A")
+          .to("B")
+          .build();
+
+        assertThat(bus)
+          .withAction(() -> graph.getEdge("oldFrom", "B").setFrom("A"))
+          .containsExactly(expected1, expected2).inOrder();
     }
 
     @EventSimpleGraphs
@@ -61,10 +74,16 @@ public class EdgeIdToFrom {
         graph.id("graph");
         graph.getEdge("A", "oldTo").id("edge");
 
-        var expected1 = new VertexCreated.Builder<String>().graphId("graph").vertexId("B").build();
+        var expected1 = VertexCreatedEvent.<String>builder()
+          .graphId("graph")
+          .vertexId("B")
+          .build();
+
         var expected2 = new EdgeToUpdated.Builder<String>().graphId("graph").edgeId("edge").from("A").oldTo("oldTo").to("B").build();
 
-        assertThat(bus).withAction(() -> graph.getEdge("A", "oldTo").setTo("B")).containsExactly(expected1, expected2);
+        assertThat(bus)
+          .withAction(() -> graph.getEdge("A", "oldTo").setTo("B"))
+          .containsExactly(expected1, expected2);
     }
 
     @EventSimpleGraphs

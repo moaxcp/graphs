@@ -2,6 +2,7 @@ package publicapi;
 
 import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.newevents.VertexPropertyEvent;
 import com.github.moaxcp.graphs.testframework.*;
 import org.greenrobot.eventbus.*;
 
@@ -17,8 +18,14 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = new VertexIdUpdated.Builder<String>().graphId("graph").oldVertexId("A").vertexId("B").build();
-    assertThat(bus).withAction(() -> graph.getVertex("A").id("B")).containsExactly(expected);
+    var expected = VertexPropertyEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A")
+      .newId("B")
+      .build();
+
+    assertThat(bus).withAction(() -> graph.getVertex("A").id("B"))
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -26,11 +33,12 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(1);
+    var expected = vertexPropertyEvents(1);
 
     assertThat(bus)
-      .withAction(() -> graph.getVertex("A").property("name1", "value1"))
-      .containsExactlyElementsIn(expected);
+      .withAction(() -> graph.getVertex("A")
+        .property("name1", "value1"))
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -38,11 +46,13 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(2);
+    var expected = vertexPropertyEvents(2);
 
     assertThat(bus)
-      .withAction(() -> graph.getVertex("A").property("name1", "value1", "name2", "value2"))
-      .containsExactlyElementsIn(expected);
+      .withAction(() -> graph.getVertex("A")
+        .property("name1", "value1",
+          "name2", "value2"))
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -50,11 +60,11 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(3);
+    var expected = vertexPropertyEvents(3);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A").property("name1", "value1", "name2", "value2", "name3", "value3"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -62,7 +72,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(4);
+    var expected = vertexPropertyEvents(4);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -70,7 +80,7 @@ public class Vertex {
           "name2", "value2",
           "name3", "value3",
           "name4", "value4"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -78,7 +88,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(5);
+    var expected = vertexPropertyEvents(5);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -87,7 +97,7 @@ public class Vertex {
           "name3", "value3",
           "name4", "value4",
           "name5", "value5"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -95,7 +105,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(6);
+    var expected = vertexPropertyEvents(6);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -104,7 +114,7 @@ public class Vertex {
           "name3", "value3",
           "name4", "value4",
           "name5", "value5",
-          "name6", "value6")).containsExactlyElementsIn(expected);
+          "name6", "value6")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -112,7 +122,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(7);
+    var expected = vertexPropertyEvents(7);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -122,7 +132,7 @@ public class Vertex {
           "name4", "value4",
           "name5", "value5",
           "name6", "value6",
-          "name7", "value7")).containsExactlyElementsIn(expected);
+          "name7", "value7")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -130,7 +140,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(8);
+    var expected = vertexPropertyEvents(8);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -141,7 +151,7 @@ public class Vertex {
           "name5", "value5",
           "name6", "value6",
           "name7", "value7",
-          "name8", "value8")).containsExactlyElementsIn(expected);
+          "name8", "value8")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -149,7 +159,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(9);
+    var expected = vertexPropertyEvents(9);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -161,7 +171,7 @@ public class Vertex {
           "name6", "value6",
           "name7", "value7",
           "name8", "value8",
-          "name9", "value9")).containsExactlyElementsIn(expected);
+          "name9", "value9")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -169,7 +179,7 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = vertexPropertyAddedEvents(10);
+    var expected = vertexPropertyEvents(10);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -182,7 +192,7 @@ public class Vertex {
           "name7", "value7",
           "name8", "value8",
           "name9", "value9",
-          "name10", "value10")).containsExactlyElementsIn(expected);
+          "name10", "value10")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -190,9 +200,15 @@ public class Vertex {
     graph.id("graph");
     graph.vertex("A");
 
-    var expected = new VertexPropertyAdded.Builder<String>().graphId("graph").vertexId("A").name("name1").value("value1").build();
+    var expected = VertexPropertyEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A")
+      .property("name1", "value1")
+      .build();
 
-    assertThat(bus).withAction(() -> graph.getVertex("A").property(Map.of("name1", "value1"))).containsExactly(expected);
+    assertThat(bus)
+      .withAction(() -> graph.getVertex("A").property(Map.of("name1", "value1")))
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -200,11 +216,11 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A");
 
-    var expected = vertexPropertyUpdatedEvents(1);
+    var expected = vertexPropertyEvents(1);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
-        .property("name1", "value1")).containsExactlyElementsIn(expected);
+        .property("name1", "value1")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -212,12 +228,12 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
 
-    var expected = vertexPropertyUpdatedEvents(2);
+    var expected = vertexPropertyEvents(2);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
         .property("name1", "value1",
-          "name2", "value2")).containsExactlyElementsIn(expected);
+          "name2", "value2")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -225,13 +241,13 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
 
-    var expected = vertexPropertyUpdatedEvents(3);
+    var expected = vertexPropertyEvents(3);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
         .property("name1", "value1",
           "name2", "value2",
-          "name3", "value3")).containsExactlyElementsIn(expected);
+          "name3", "value3")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -241,14 +257,14 @@ public class Vertex {
       "name2", "B", "name3",
       "C", "name4", "D");
 
-    var expected = vertexPropertyUpdatedEvents(4);
+    var expected = vertexPropertyEvents(4);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
         .property("name1", "value1",
           "name2", "value2",
           "name3", "value3",
-          "name4", "value4")).containsExactlyElementsIn(expected);
+          "name4", "value4")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -256,7 +272,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E");
 
-    var expected = vertexPropertyUpdatedEvents(5);
+    var expected = vertexPropertyEvents(5);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -264,7 +280,7 @@ public class Vertex {
           "name2", "value2",
           "name3", "value3",
           "name4", "value4",
-          "name5", "value5")).containsExactlyElementsIn(expected);
+          "name5", "value5")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -272,7 +288,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F");
 
-    var expected = vertexPropertyUpdatedEvents(6);
+    var expected = vertexPropertyEvents(6);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -281,7 +297,7 @@ public class Vertex {
           "name3", "value3",
           "name4", "value4",
           "name5", "value5",
-          "name6", "value6")).containsExactlyElementsIn(expected);
+          "name6", "value6")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -289,7 +305,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G");
 
-    var expected = vertexPropertyUpdatedEvents(7);
+    var expected = vertexPropertyEvents(7);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -299,7 +315,7 @@ public class Vertex {
           "name4", "value4",
           "name5", "value5",
           "name6", "value6",
-          "name7", "value7")).containsExactlyElementsIn(expected);
+          "name7", "value7")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -307,7 +323,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H");
 
-    var expected = vertexPropertyUpdatedEvents(8);
+    var expected = vertexPropertyEvents(8);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -318,7 +334,7 @@ public class Vertex {
           "name5", "value5",
           "name6", "value6",
           "name7", "value7",
-          "name8", "value8")).containsExactlyElementsIn(expected);
+          "name8", "value8")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -326,7 +342,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I");
 
-    var expected = vertexPropertyUpdatedEvents(9);
+    var expected = vertexPropertyEvents(9);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -338,7 +354,7 @@ public class Vertex {
           "name6", "value6",
           "name7", "value7",
           "name8", "value8",
-          "name9", "value9")).containsExactlyElementsIn(expected);
+          "name9", "value9")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -346,7 +362,7 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I", "name10", "J");
 
-    var expected = vertexPropertyUpdatedEvents(10);
+    var expected = vertexPropertyEvents(10);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
@@ -359,7 +375,7 @@ public class Vertex {
           "name7", "value7",
           "name8", "value8",
           "name9", "value9",
-          "name10", "value10")).containsExactlyElementsIn(expected);
+          "name10", "value10")).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -367,11 +383,11 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property(Map.of("name1", "A", "name2", "B"));
 
-    var expected = vertexPropertyUpdatedEvents(2);
+    var expected = vertexPropertyEvents(2);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A")
-        .property(Map.of("name1", "value1", "name2", "value2"))).containsExactlyElementsIn(expected);
+        .property(Map.of("name1", "value1", "name2", "value2"))).containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -395,7 +411,11 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name1", "value1");
 
-    var expected = new VertexPropertyUpdated.Builder<String>().graphId("graph").vertexId("A").name("name1").value("value1").oldValue("value1").build();
+    var expected = VertexPropertyEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A")
+      .property("name1", "value1")
+      .build();
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A").property("name1", "value1"))
@@ -407,8 +427,14 @@ public class Vertex {
     graph.id("graph");
     graph.getVertex("A").property("name", "value");
 
-    var expected = new VertexPropertyRemoved.Builder<String>().graphId("graph").vertexId("A").name("name").value("value").build();
+    var expected = VertexPropertyEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A")
+      .property("name", "value")
+      .build();
 
-    assertThat(bus).withAction(() -> graph.getVertex("A").removeProperty("name")).containsExactly(expected);
+    assertThat(bus)
+      .withAction(() -> graph.getVertex("A").removeProperty("name"))
+      .containsExactly(expected);
   }
 }

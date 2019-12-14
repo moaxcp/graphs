@@ -8,6 +8,8 @@ import java.util.*;
 @Builder
 public class VertexCreatedEvent<K> {
   private final K graphId;
+  @NonNull
+  private final K vertexId;
   @Singular
   private final Map<String, Object> properties;
 }

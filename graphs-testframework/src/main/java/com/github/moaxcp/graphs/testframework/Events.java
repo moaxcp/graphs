@@ -1,6 +1,8 @@
 package com.github.moaxcp.graphs.testframework;
 
 import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.newevents.VertexPropertyEvent;
+import com.github.moaxcp.graphs.newevents.*;
 import lombok.experimental.*;
 
 import java.util.*;
@@ -11,10 +13,28 @@ import static java.util.stream.Collectors.*;
 @UtilityClass
 public class Events {
 
-  public static List<VertexPropertyAdded<String>> vertexPropertyAddedEvents(int count) {
-    return IntStream.rangeClosed(1, count)
-      .mapToObj(i -> vertexPropertyAddedEvent("graph", "A", "name" + i, "value" + i))
-      .collect(toList());
+  public static VertexPropertyEvent<String> vertexPropertyEvents(int count) {
+    var builder = VertexPropertyEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A");
+
+    for(int i = 0; i < count; i++) {
+      builder.property("name" + (i + 1), "value" + (i + 1));
+    }
+
+    return builder.build();
+  }
+
+  public static VertexCreatedEvent<String> vertexCreatedEvents(int count) {
+    var builder = VertexCreatedEvent.<String>builder()
+      .graphId("graph")
+      .vertexId("A");
+
+    for(int i = 0; i < count; i++) {
+      builder.property("name" + (i + 1), "value" + (i + 1));
+    }
+
+    return builder.build();
   }
 
   public static VertexPropertyAdded<String> vertexPropertyAddedEvent(String graph, String id, String name, String value) {

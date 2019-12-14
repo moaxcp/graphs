@@ -504,7 +504,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public void setId(ID id) {
-    property("id", id);
+    properties.putProperties(linkedHashMap("id", id));
   }
 
   @Override
@@ -902,7 +902,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
       }
       Set<? extends Edge<ID>> adjacent = new LinkedHashSet<>(adjacentEdges());
       Object oldId = getId();
-      vertices.remove(this.getId());
+      vertices.remove(oldId);
       properties.putProperties(linkedHashMap("id", id));
       vertices.put(id, this);
       for (Edge<ID> edge : adjacent) {

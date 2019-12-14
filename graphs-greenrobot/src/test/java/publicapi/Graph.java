@@ -42,29 +42,40 @@ public class Graph {
     @EventSimpleGraphs
     void addId(EventGraph<String> graph, EventBus bus) {
         var event = GraphPropertyEvent.<String>builder()
-          .property("id", "graph")
+          .graphId(null)
+          .newId("graph")
           .build();
-        assertThat(bus).withAction(()-> graph.id("graph")).containsExactly(event);
+        assertThat(bus)
+          .withAction(()-> graph.id("graph"))
+          .containsExactly(event);
     }
 
     @EventSimpleGraphs
     void removeId(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
+
         var event = GraphPropertyEvent.<String>builder()
           .graphId("graph")
-          .property("id", null)
+          .newId(null)
           .build();
-        assertThat(bus).withAction(()-> graph.id(null)).containsExactly(event);
+
+        assertThat(bus)
+          .withAction(()-> graph.id(null))
+          .containsExactly(event);
     }
 
     @EventSimpleGraphs
     void updateId(EventGraph<String> graph, EventBus bus) {
         graph.id("id1");
+
         var event = GraphPropertyEvent.<String>builder()
           .graphId("id1")
-          .property("id", "id2")
+          .newId("id2")
           .build();
-        assertThat(bus).withAction(()-> graph.id("id2")).containsExactly(event);
+
+        assertThat(bus)
+          .withAction(()-> graph.id("id2"))
+          .containsExactly(event);
     }
 
     @EventSimpleGraphs
