@@ -37,20 +37,6 @@ public class Events {
     return builder.build();
   }
 
-  public static VertexPropertyAdded<String> vertexPropertyAddedEvent(String graph, String id, String name, String value) {
-    return new VertexPropertyAdded.Builder<String>().graphId(graph).vertexId(id).name(name).value(value).build();
-  }
-
-  public static List<VertexPropertyUpdated<String>> vertexPropertyUpdatedEvents(int count) {
-    return IntStream.rangeClosed(1, count)
-      .mapToObj(i -> vertexPropertyUpdatedEvent("graph", "A", "name" + i, "value" + i, String.valueOf((char)('A' + i - 1))))
-      .collect(toList());
-  }
-
-  public static VertexPropertyUpdated<String> vertexPropertyUpdatedEvent(String graph, String id, String name, String value, String oldValue) {
-    return new VertexPropertyUpdated.Builder<String>().graphId(graph).vertexId(id).name(name).value(value).oldValue(oldValue).build();
-  }
-
   public static List<EdgePropertyAdded<String>> edgePropertyAddedEvents(int count) {
     return IntStream.rangeClosed(1, count)
       .mapToObj(i -> edgePropertyAddedEvent("graph", "edge", "A", "B", "name" + i, "value" + i))

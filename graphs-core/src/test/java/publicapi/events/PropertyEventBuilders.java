@@ -16,8 +16,7 @@ public class PropertyEventBuilders {
         return Stream.of(
             new EdgePropertyAdded.Builder<>(),
             new EdgePropertyRemoved.Builder<>(),
-            new EdgePropertyUpdated.Builder<>(),
-            new VertexPropertyRemoved.Builder<>()
+            new EdgePropertyUpdated.Builder<>()
         );
     }
 
@@ -25,8 +24,7 @@ public class PropertyEventBuilders {
         return Stream.of(
             new EdgePropertyAdded.Builder<String>().name("name"),
             new EdgePropertyRemoved.Builder<String>().name("name"),
-            new EdgePropertyUpdated.Builder<String>().name("name"),
-            new VertexPropertyRemoved.Builder<String>().name("name")
+            new EdgePropertyUpdated.Builder<String>().name("name")
         );
     }
 

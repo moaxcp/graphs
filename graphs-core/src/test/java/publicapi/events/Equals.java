@@ -65,34 +65,4 @@ public class Equals {
     void undirectedGraphCreated() {
         EqualsVerifier.forClass(UndirectedGraphCreated.class).verify();
     }
-
-    @Test
-    void vertexCreated() {
-        EqualsVerifier.forClass(VertexCreated.class).withRedefinedSuperclass().verify();
-    }
-
-    @Test
-    void vertexPropertyAdded() {
-        EqualsVerifier.forClass(VertexPropertyAdded.class).withRedefinedSuperclass().verify();
-    }
-
-    @Test
-    void vertexPropertyUpdated() {
-        EqualsVerifier.forClass(VertexPropertyUpdated.class).withRedefinedSuperclass().verify();
-    }
-
-    @Test
-    void vertexPropertyRemoved() {
-        EqualsVerifier.forClass(VertexPropertyRemoved.class).withRedefinedSuperclass().verify();
-    }
-
-    @Test
-    void vertexRemoved() {
-        EqualsVerifier.forClass(VertexRemoved.class).withRedefinedSuperclass().verify();
-    }
-
-    @Test
-    void vertexIdUpdated() {
-        EqualsVerifier.forClass(VertexIdUpdated.class).withRedefinedSuperclass().verify();
-    }
 }

@@ -109,40 +109,8 @@ public class GraphEventCheck {
     }
 
     @Subscribe
-    public void vertexCreated(VertexCreated event) {
-        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(actual).hasVertex(event.getVertexId());
-        classes.add(event.getClass());
-    }
-
-    @Subscribe
-    public void vertexRemoved(VertexRemoved event) {
-        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(actual).hasNoVertex(event.getVertexId());
-        classes.add(event.getClass());
-    }
-
-    @Subscribe
-    public void vertexIdUpdated(VertexIdUpdated event) {
-        assertThat(actual).hasNoVertex(event.getOldVertexId());
-        assertThat(actual).hasVertex(event.getVertexId()).hasId(event.getVertexId());
-        classes.add(event.getClass());
-    }
-
-    @Subscribe
-    public void vertexPropertyRemoved(VertexPropertyRemoved event) {
-        assertThat(actual).hasIdThat().isEqualTo(event.getGraphId());
-        assertThat(actual).hasVertex(event.getVertexId()).withProperty(event.getName()).isEmpty();
-        classes.add(event.getClass());
-    }
-
-    @Subscribe
     public void otherEvent(Object event) {
         List<Class<?>> supported = Stream.of(
-            VertexCreated.class,
-            VertexRemoved.class,
-            VertexIdUpdated.class,
-            VertexPropertyRemoved.class,
             EdgeCreated.class,
             EdgePropertyAdded.class,
             EdgePropertyRemoved.class,
