@@ -30,13 +30,13 @@ public class Graph {
     @Test
     void directedEventGraphDefaultConstructor() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new DirectedEventGraph(bus)).containsExactly(new DirectedGraphCreated.Builder<String>().build());
+        assertThat(bus).withAction(() -> new DirectedEventGraph(bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().build());
     }
 
     @Test
     void directedEventGraphId() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new DirectedEventGraph<>("id", bus)).containsExactly(new DirectedGraphCreated.Builder<String>().graphId("id").build());
+        assertThat(bus).withAction(() -> new DirectedEventGraph<>("id", bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
     @EventSimpleGraphs

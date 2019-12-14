@@ -1,20 +1,19 @@
 package com.github.moaxcp.graphs.greenrobot;
 
-import com.github.moaxcp.graphs.DirectedEdgeKey;
-import com.github.moaxcp.graphs.EdgeKey;
-import com.github.moaxcp.graphs.events.DirectedGraphCreated;
-import org.greenrobot.eventbus.EventBus;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.newevents.*;
+import org.greenrobot.eventbus.*;
 
 public class DirectedEventGraph<ID> extends AbstractEventGraph<ID> {
 
     public DirectedEventGraph(EventBus bus) {
         super(bus);
-        getBus().post(new DirectedGraphCreated.Builder<ID>().build());
+        getBus().post(DirectedGraphCreatedEvent.<ID>builder().build());
     }
 
     public DirectedEventGraph(ID id, EventBus bus) {
         super(id, bus);
-        getBus().post(new DirectedGraphCreated.Builder<ID>().graphId(id).build());
+        getBus().post(DirectedGraphCreatedEvent.<ID>builder().graphId(id).build());
     }
 
     @Override
