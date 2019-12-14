@@ -7,11 +7,6 @@ import org.junit.jupiter.api.Test;
 public class Equals {
 
     @Test
-    void directedGraphCreated() {
-        EqualsVerifier.forClass(DirectedGraphCreated.class).verify();
-    }
-
-    @Test
     void edgeCreated() {
         EqualsVerifier.forClass(EdgeCreated.class).withRedefinedSuperclass().verify();
     }
@@ -59,10 +54,5 @@ public class Equals {
     @Test
     void edgeFromUpdated() {
         EqualsVerifier.forClass(EdgeFromUpdated.class).withRedefinedSuperclass().verify();
-    }
-
-    @Test
-    void undirectedGraphCreated() {
-        EqualsVerifier.forClass(UndirectedGraphCreated.class).verify();
     }
 }

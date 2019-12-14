@@ -18,13 +18,13 @@ public class Graph {
     @Test
     void undirectedEventGraphDefaultConstructor() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new UndirectedEventGraph(bus)).containsExactly(new UndirectedGraphCreated.Builder<String>().build());
+        assertThat(bus).withAction(() -> new UndirectedEventGraph(bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().build());
     }
 
     @Test
     void undirectedEventGraphId() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new UndirectedEventGraph<>("id", bus)).containsExactly(new UndirectedGraphCreated.Builder<String>().graphId("id").build());
+        assertThat(bus).withAction(() -> new UndirectedEventGraph<>("id", bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
     @Test
