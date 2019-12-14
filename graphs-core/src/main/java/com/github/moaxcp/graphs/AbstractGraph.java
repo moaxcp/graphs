@@ -993,8 +993,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Vertex<ID> removeProperty(String name) {
-      check();
-      properties.removeProperty(name);
+      property(name, null);
       return this;
     }
 

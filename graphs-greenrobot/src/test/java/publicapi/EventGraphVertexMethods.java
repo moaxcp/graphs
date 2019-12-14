@@ -2,6 +2,7 @@ package publicapi;
 
 import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.newevents.VertexPropertyEvent;
 import com.github.moaxcp.graphs.newevents.*;
 import com.github.moaxcp.graphs.testframework.*;
 import org.greenrobot.eventbus.*;
@@ -202,11 +203,10 @@ public class EventGraphVertexMethods {
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A", "name1", null))
-      .containsExactly(new VertexPropertyRemoved.Builder<String>()
+      .containsExactly(VertexPropertyEvent.<String>builder()
         .graphId("graph")
         .vertexId("A")
-        .name("name1")
-        .value("value1")
+        .property("name1", null)
         .build());
   }
 
@@ -602,11 +602,10 @@ public class EventGraphVertexMethods {
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A", "name1", null))
-      .containsExactly(new VertexPropertyRemoved.Builder<String>()
+      .containsExactly(VertexPropertyEvent.<String>builder()
         .graphId("graph")
         .vertexId("A")
-        .name("name1")
-        .value("value1")
+        .property("name1", null)
         .build());
   }
 
