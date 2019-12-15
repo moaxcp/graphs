@@ -12,5 +12,6 @@ public class VertexPropertyEvent<K> {
   private final K vertexId;
   private final K newId;
   @Singular
+  @NonNull
   private final Map<String, Object> properties;
 }

@@ -9,5 +9,6 @@ import java.util.*;
 public class VertexInheritedPropertyEvent<K> {
   private final K graphId;
   @Singular
+  @NonNull
   private final Map<String, Object> properties;
 }
