@@ -629,19 +629,16 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   public class SimpleEdge implements Edge<ID> {
-    private ID id;
-    private ID from;
-    private ID to;
     private InheritedProperties properties;
 
     protected SimpleEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
-      this.from = from;
-      this.to = to;
       properties = new InheritedProperties(local, inherited);
+      properties.putProperty("from", from);
+      properties.putProperty("to", to);
     }
 
     private void check() {
-      EdgeKey<ID> key = newEdgeKey(from, to);
+      EdgeKey<ID> key = newEdgeKey(getFrom(), getTo());
       if (!edges.containsKey(key)) {
         throw new IllegalStateException("Edge is not in graph.");
       }
@@ -659,17 +656,19 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final Optional<ID> getId() {
-      return Optional.ofNullable(id);
+      return (Optional<ID>) properties.getProperty("id");
     }
 
     @Override
     public void setId(ID id) {
       check();
-      edgeIds.remove(this.id);
+      getId().ifPresent(a -> edgeIds.remove(a));
       if (id != null) {
         edgeIds.put(id, this);
       }
-      this.id = id;
+      if(id != null) {
+        properties.putProperty("id", id);
+      }
     }
 
     @Override
@@ -680,24 +679,24 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final ID getFrom() {
-      return from;
+      return (ID) properties.getProperty("from").get();
     }
 
     @Override
     public void setFrom(ID from) {
       check();
       requireNonNull(from, "from must not be null.");
-      EdgeKey<ID> oldKey = newEdgeKey(this.from, this.to);
+      EdgeKey<ID> oldKey = newEdgeKey(getFrom(), getTo());
       edges.remove(oldKey);
-      adjacentEdges.get(this.from).remove(this);
-      inEdges.get(to).remove(this);
-      outEdges.get(this.from).remove(this);
+      adjacentEdges.get(getFrom()).remove(this);
+      inEdges.get(getTo()).remove(this);
+      outEdges.get(getFrom()).remove(this);
       vertex(from);
       adjacentEdges.compute(from, (k, v) -> mergeSet(this, v));
-      inEdges.compute(to, (k, v) -> mergeSet(this, v));
+      inEdges.compute(getTo(), (k, v) -> mergeSet(this, v));
       outEdges.compute(from, (k, v) -> mergeSet(this, v));
-      this.from = from;
-      EdgeKey<ID> key = newEdgeKey(this.from, this.to);
+      properties.putProperty("from", from);
+      EdgeKey<ID> key = newEdgeKey(getFrom(), getTo());
       edges.put(key, this);
     }
 
@@ -714,24 +713,24 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final ID getTo() {
-      return to;
+      return (ID) properties.getProperty("to").get();
     }
 
     @Override
     public void setTo(ID to) {
       check();
       Objects.requireNonNull(to, "to must not be null.");
-      EdgeKey<ID> oldKey = newEdgeKey(this.from, this.to);
+      EdgeKey<ID> oldKey = newEdgeKey(getFrom(), getTo());
       edges.remove(oldKey);
-      adjacentEdges.get(this.to).remove(this);
-      inEdges.get(this.to).remove(this);
-      outEdges.get(this.from).remove(this);
+      adjacentEdges.get(getTo()).remove(this);
+      inEdges.get(getTo()).remove(this);
+      outEdges.get(getFrom()).remove(this);
       vertex(to);
       adjacentEdges.compute(to, (k, v) -> mergeSet(this, v));
       inEdges.compute(to, (k, v) -> mergeSet(this, v));
-      outEdges.compute(from, (k, v) -> mergeSet(this, v));
-      this.to = to;
-      EdgeKey<ID> key = newEdgeKey(this.from, this.to);
+      outEdges.compute(getFrom(), (k, v) -> mergeSet(this, v));
+      properties.putProperty("to", to);
+      EdgeKey<ID> key = newEdgeKey(getFrom(), getTo());
       edges.put(key, this);
     }
 
@@ -753,7 +752,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final List<ID> endpoints() {
-      return List.of(from, to);
+      return List.of(getFrom(), getTo());
     }
 
     @Override
@@ -847,16 +846,16 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
       if (this == o) return true;
       if (!(o instanceof AbstractGraph<?>.SimpleEdge)) return false;
       SimpleEdge that = (SimpleEdge) o;
-      return Objects.equals(id, that.id) &&
-        Objects.equals(from, that.from) &&
-        Objects.equals(to, that.to) &&
+      return Objects.equals(getId(), that.getId()) &&
+        Objects.equals(getFrom(), that.getFrom()) &&
+        Objects.equals(getTo(), that.getTo()) &&
         Objects.equals(local(), that.local()) &&
         Objects.equals(inherited(), that.inherited());
     }
 
     @Override
     public final int hashCode() {
-      return Objects.hash(id, from, to, local(), inherited());
+      return Objects.hash(getId(), getFrom(), getTo(), local(), inherited());
     }
   }
 

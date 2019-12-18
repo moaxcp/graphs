@@ -52,6 +52,15 @@ class LocalProperties {
     }
   }
 
+  final void putProperty(@NonNull String name, Object value) {
+    checkEntry(name, value);
+    if(value == null) {
+      local.remove(name);
+    } else {
+      local.put(name, value);
+    }
+  }
+
   /**
    * Puts all properties in this LocalProperties.
    * @param properties
