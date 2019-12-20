@@ -1,9 +1,8 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.events.*;
 import com.github.moaxcp.graphs.greenrobot.*;
-import com.github.moaxcp.graphs.newevents.*;
+import com.github.moaxcp.graphs.events.*;
 import com.github.moaxcp.graphs.testframework.*;
 import org.greenrobot.eventbus.*;
 import org.junit.jupiter.api.*;
@@ -11,8 +10,7 @@ import org.junit.jupiter.api.*;
 import java.util.*;
 
 import static com.github.moaxcp.graphs.testframework.MethodSources.*;
-import static com.github.moaxcp.graphs.truth.EventBusSubject.assertThat;
-import static com.github.moaxcp.graphs.truth.greenrobot.EventGraphSubject.assertThat;
+import static com.github.moaxcp.graphs.truth.EventBusSubject.*;
 
 public class Graph {
     @Test

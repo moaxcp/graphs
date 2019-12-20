@@ -1,15 +1,10 @@
 package com.github.moaxcp.graphs.truth.greenrobot;
 
-import com.github.moaxcp.graphs.EventGraph;
-import com.google.common.truth.Fact;
-import com.google.common.truth.FailureMetadata;
-import com.google.common.truth.IterableSubject;
-import com.google.common.truth.Subject;
-import org.greenrobot.eventbus.EventBus;
+import com.github.moaxcp.graphs.*;
+import com.google.common.truth.*;
+import org.greenrobot.eventbus.*;
 
-import java.util.function.Consumer;
-
-import static com.google.common.truth.Truth.assertAbout;
+import static com.google.common.truth.Truth.*;
 
 public final class EventGraphSubject extends Subject {
 
@@ -32,26 +27,5 @@ public final class EventGraphSubject extends Subject {
     public EventGraphSubject with(EventBus bus) {
         this.bus = bus;
         return this;
-    }
-
-    public IterableSubject hasEventsIn(Consumer<EventGraph<String>> action) {
-        var check = new GraphEventCheck(actual);
-        bus.register(check);
-        action.accept(actual);
-        bus.unregister(check);
-        if(check.getEventClasses().isEmpty()) {
-            failWithActual(Fact.simpleFact("action did not result in events."));
-        }
-        return check("events").that(check.getEventClasses());
-    }
-
-    public void hasNoEventsIn(Consumer<EventGraph<String>> action) {
-        var check = new GraphEventCheck(actual);
-        bus.register(check);
-        action.accept(actual);
-        bus.unregister(check);
-        if(!check.getEventClasses().isEmpty()) {
-            failWithActual(Fact.simpleFact("action had events: " + check.getEventClasses()));
-        }
     }
 }

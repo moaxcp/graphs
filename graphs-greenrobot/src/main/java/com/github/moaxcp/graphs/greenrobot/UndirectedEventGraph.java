@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.greenrobot;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.newevents.*;
+import com.github.moaxcp.graphs.events.*;
 import org.greenrobot.eventbus.*;
 
 public class UndirectedEventGraph<ID> extends AbstractEventGraph<ID> {

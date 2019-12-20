@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs.newevents;
+package com.github.moaxcp.graphs.events;
 
 import lombok.*;
 

@@ -1,7 +1,7 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.newevents.*;
+import com.github.moaxcp.graphs.events.*;
 import com.github.moaxcp.graphs.testframework.*;
 import org.greenrobot.eventbus.*;
 

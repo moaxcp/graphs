@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs.newevents;
+package com.github.moaxcp.graphs.events;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import java.util.*;
 
 @Value
 @Builder
-public class EdgeInheritedPropertyEvent<K> {
+public class VertexInheritedPropertyEvent<K> {
   private final K graphId;
   @Singular
   @NonNull

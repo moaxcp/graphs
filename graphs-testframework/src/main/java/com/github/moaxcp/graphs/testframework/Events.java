@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs.testframework;
 
-import com.github.moaxcp.graphs.newevents.*;
+import com.github.moaxcp.graphs.events.*;
 import lombok.experimental.*;
 
 @UtilityClass
