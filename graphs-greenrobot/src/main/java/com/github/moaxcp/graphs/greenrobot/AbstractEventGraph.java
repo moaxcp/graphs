@@ -1,13 +1,10 @@
 package com.github.moaxcp.graphs.greenrobot;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.events.*;
 import com.github.moaxcp.graphs.newevents.*;
-import com.github.moaxcp.graphs.newevents.VertexPropertyEvent;
 import org.greenrobot.eventbus.*;
 
 import java.util.*;
-import java.util.Map.*;
 
 import static java.util.Objects.*;
 
@@ -20,48 +17,30 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
 
     @Override
     public void setId(ID id) {
-      var oldId = getId();
-      if (id == null && !oldId.isPresent()) {
+      var oldId = getId().orElse(null);
+      if (id == null && oldId == null) {
         return;
       }
       super.setId(id);
-      if (id == null) {
-        bus.post(new EdgeIdRemoved.Builder<ID>()
-          .graphId(AbstractEventGraph.this.getId().orElse(null))
-          .edgeId(oldId.orElse(null))
-          .from(getFrom())
-          .to(getTo())
-          .build());
-        return;
-      }
-      if (oldId.isPresent()) {
-        bus.post(new EdgeIdUpdated.Builder<ID>()
-          .graphId(AbstractEventGraph.this.getId().orElse(null))
-          .edgeId(id)
-          .oldEdgeId(oldId.orElse(null))
-          .from(getFrom())
-          .to(getTo())
-          .build());
-      } else {
-        bus.post(new EdgeIdAdded.Builder<ID>()
-          .graphId(AbstractEventGraph.this.getId().orElse(null))
-          .edgeId(id)
-          .from(getFrom())
-          .to(getTo())
-          .build());
-      }
+      bus.post(EdgePropertyEvent.<ID>builder()
+        .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .fromId(getFrom())
+        .toId(getTo())
+        .edgeId(oldId)
+        .newEdgeId(id)
+        .build());
     }
 
     @Override
     public void setFrom(ID from) {
       var oldFrom = this.getFrom();
       super.setFrom(from);
-      bus.post(new EdgeFromUpdated.Builder<ID>()
+      bus.post(EdgePropertyEvent.<ID>builder()
         .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .fromId(oldFrom)
+        .newFromId(from)
+        .toId(getTo())
         .edgeId(getId().orElse(null))
-        .from(getFrom())
-        .oldFrom(oldFrom)
-        .to(getTo())
         .build());
     }
 
@@ -69,70 +48,26 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     public void setTo(ID to) {
       var oldTo = this.getTo();
       super.setTo(to);
-      bus.post(new EdgeToUpdated.Builder<ID>()
+      bus.post(EdgePropertyEvent.<ID>builder()
         .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .fromId(getFrom())
+        .toId(oldTo)
+        .newToId(to)
         .edgeId(getId().orElse(null))
-        .from(getFrom())
-        .oldTo(oldTo)
-        .to(getTo())
         .build());
     }
 
     @Override
     public Edge<ID> property(Map<String, Object> properties) {
-      Map<String, Object> oldValues = new LinkedHashMap<>(local());
       super.property(properties);
-      for (Entry<String, Object> entry : properties.entrySet()) {
-        sendEdgePropertyEvents(entry.getKey(), entry.getValue(), Optional.ofNullable(oldValues.get(entry.getKey())));
-      }
-      return this;
-    }
-
-    private void sendEdgePropertyEvents(String name, Object value, Optional<Object> oldValue) {
-      if(value == null) {
-        bus.post(new EdgePropertyRemoved.Builder<ID>()
-          .graphId(AbstractEventGraph.this.getId().orElse(null))
-          .edgeId(getId().orElse(null))
-          .from(getFrom())
-          .to(getTo())
-          .name(name)
-          .value(oldValue.orElse(null))
-          .build());
-      } else if (oldValue.isPresent()) {
-        bus.post(new EdgePropertyUpdated.Builder<ID>()
-          .graphId(AbstractEventGraph.this.getId().orElse(null))
-          .edgeId(getId().orElse(null))
-          .from(getFrom())
-          .to(getTo())
-          .name(name)
-          .value(value)
-          .oldValue(oldValue.orElse(null))
-          .build());
-      } else {
-        bus.post(new EdgePropertyAdded.Builder<ID>()
-          .graphId(AbstractEventGraph.this.getId().orElse(null))
-          .edgeId(getId().orElse(null))
-          .from(getFrom())
-          .to(getTo())
-          .name(name)
-          .value(value)
-          .build());
-      }
-    }
-
-    @Override
-    public Edge<ID> removeProperty(String name) {
-      var value = getProperty(name);
-      var edge = super.removeProperty(name);
-      bus.post(new EdgePropertyRemoved.Builder<ID>()
+      bus.post(EdgePropertyEvent.<ID>builder()
         .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .fromId(getFrom())
+        .toId(getTo())
         .edgeId(getId().orElse(null))
-        .from(getFrom())
-        .to(getTo())
-        .name(name)
-        .value(value.orElse(null))
+        .properties(properties)
         .build());
-      return edge;
+      return this;
     }
   }
 
@@ -235,10 +170,10 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
   @Override
   protected Edge<ID> addEdge(ID from, ID to, Map<String, Object> local) {
     var edge = super.addEdge(from, to, local);
-    bus.post(new EdgeCreated.Builder<ID>()
+    bus.post(EdgeCreatedEvent.<ID>builder()
       .graphId(getId().orElse(null))
-      .from(from)
-      .to(to)
+      .fromId(from)
+      .toId(to)
       .properties(local)
       .build());
     return edge;
@@ -249,12 +184,11 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     var optional = findEdge(from, to);
     super.removeEdge(from, to);
     optional.ifPresent(edge -> bus.post(
-      new EdgeRemoved.Builder<ID>()
+      EdgeRemovedEvent.<ID>builder()
         .graphId(getId().orElse(null))
         .edgeId(edge.getId().orElse(null))
-        .from(edge.getFrom())
-        .to(edge.getTo())
-        .properties(edge.local())
+        .fromId(edge.getFrom())
+        .toId(edge.getTo())
         .build()));
   }
 

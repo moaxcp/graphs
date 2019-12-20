@@ -1,19 +1,12 @@
 package com.github.moaxcp.graphs.testframework;
 
-import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.newevents.VertexPropertyEvent;
 import com.github.moaxcp.graphs.newevents.*;
 import lombok.experimental.*;
-
-import java.util.*;
-import java.util.stream.*;
-
-import static java.util.stream.Collectors.*;
 
 @UtilityClass
 public class Events {
 
-  public static VertexPropertyEvent<String> vertexPropertyEvents(int count) {
+  public static VertexPropertyEvent<String> vertexPropertyEvent(int count) {
     var builder = VertexPropertyEvent.<String>builder()
       .graphId("graph")
       .vertexId("A");
@@ -25,7 +18,7 @@ public class Events {
     return builder.build();
   }
 
-  public static VertexCreatedEvent<String> vertexCreatedEvents(int count) {
+  public static VertexCreatedEvent<String> vertexCreatedEvent(int count) {
     var builder = VertexCreatedEvent.<String>builder()
       .graphId("graph")
       .vertexId("A");
@@ -37,23 +30,30 @@ public class Events {
     return builder.build();
   }
 
-  public static List<EdgePropertyAdded<String>> edgePropertyAddedEvents(int count) {
-    return IntStream.rangeClosed(1, count)
-      .mapToObj(i -> edgePropertyAddedEvent("graph", "edge", "A", "B", "name" + i, "value" + i))
-      .collect(toList());
+  public static EdgePropertyEvent<String> edgePropertyEvent(int count) {
+    var builder = EdgePropertyEvent.<String>builder()
+      .graphId("graph")
+      .edgeId("edge")
+      .fromId("A")
+      .toId("B");
+
+    for(int i = 0; i < count; i++) {
+      builder.property("name" + (i + 1), "value" + (i + 1));
+    }
+
+    return builder.build();
   }
 
-  public static EdgePropertyAdded<String> edgePropertyAddedEvent(String graphId, String edgeId, String from, String to, String name, String value) {
-    return new EdgePropertyAdded.Builder<String>().graphId(graphId).edgeId(edgeId).from(from).to(to).name(name).value(value).build();
-  }
+  public static EdgeCreatedEvent<String> edgeCreatedEvent(int count) {
+    var builder = EdgeCreatedEvent.<String>builder()
+      .graphId("graph")
+      .fromId("A")
+      .toId("B");
 
-  public static List<EdgePropertyUpdated<String>> edgePropertyUpdatedEvents(int count) {
-    return IntStream.rangeClosed(1, count)
-      .mapToObj(i -> edgePropertyUpdatedEvent("graph", "edge", "A", "B", "name" + i, "value" + i, String.valueOf((char)('A' + i - 1))))
-      .collect(toList());
-  }
+    for(int i = 0; i < count; i++) {
+      builder.property("name" + (i + 1), "value" + (i + 1));
+    }
 
-  public static EdgePropertyUpdated<String> edgePropertyUpdatedEvent(String graphId, String edgeId, String from, String to, String name, String value, String oldValue) {
-    return new EdgePropertyUpdated.Builder<String>().graphId(graphId).edgeId(edgeId).from(from).to(to).name(name).value(value).oldValue(oldValue).build();
+    return builder.build();
   }
 }

@@ -1,8 +1,6 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.newevents.VertexPropertyEvent;
 import com.github.moaxcp.graphs.newevents.*;
 import com.github.moaxcp.graphs.testframework.*;
 import org.greenrobot.eventbus.*;
@@ -16,7 +14,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(0);
+    var expected = vertexCreatedEvent(0);
     assertThat(bus)
       .withAction(() -> graph.vertex("A"))
       .containsExactly(expected);
@@ -25,7 +23,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(1);
+    var expected = vertexCreatedEvent(1);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -36,7 +34,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(2);
+    var expected = vertexCreatedEvent(2);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -48,7 +46,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(3);
+    var expected = vertexCreatedEvent(3);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -61,7 +59,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(4);
+    var expected = vertexCreatedEvent(4);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -75,7 +73,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(5);
+    var expected = vertexCreatedEvent(5);
 
     assertThat(bus).withAction(() -> graph.vertex("A",
       "name1", "value1",
@@ -89,7 +87,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(6);
+    var expected = vertexCreatedEvent(6);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -105,7 +103,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(7);
+    var expected = vertexCreatedEvent(7);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -122,7 +120,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(8);
+    var expected = vertexCreatedEvent(8);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -140,7 +138,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(9);
+    var expected = vertexCreatedEvent(9);
 
     assertThat(bus).withAction(() -> graph.vertex("A",
       "name1", "value1",
@@ -158,7 +156,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertex10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(10);
+    var expected = vertexCreatedEvent(10);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -178,7 +176,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithVertexMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(1);
+    var expected = vertexCreatedEvent(1);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -190,7 +188,7 @@ public class EventGraphVertexMethods {
   void updatedWithVertex1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A");
-    var expected = vertexPropertyEvents(1);
+    var expected = vertexPropertyEvent(1);
 
     assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1"))
       .containsExactly(expected);
@@ -214,7 +212,7 @@ public class EventGraphVertexMethods {
   void updatedWithVertex2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
-    var expected = vertexPropertyEvents(2);
+    var expected = vertexPropertyEvent(2);
 
     assertThat(bus).withAction(() -> graph.vertex("A", "name1", "value1", "name2", "value2"))
       .containsExactly(expected);
@@ -224,7 +222,7 @@ public class EventGraphVertexMethods {
   void updatedWithVertex3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
-    var expected = vertexPropertyEvents(3);
+    var expected = vertexPropertyEvent(3);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -242,7 +240,7 @@ public class EventGraphVertexMethods {
         "name2", "B",
         "name3", "C",
         "name4", "D");
-    var expected = vertexPropertyEvents(4);
+    var expected = vertexPropertyEvent(4);
 
     assertThat(bus).withAction(() -> graph.vertex("A",
       "name1", "value1",
@@ -261,7 +259,7 @@ public class EventGraphVertexMethods {
         "name3", "C",
         "name4", "D",
       "name5", "E");
-    var expected = vertexPropertyEvents(5);
+    var expected = vertexPropertyEvent(5);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -283,7 +281,7 @@ public class EventGraphVertexMethods {
         "name4", "D",
         "name5", "E",
         "name6", "F");
-    var expected = vertexPropertyEvents(6);
+    var expected = vertexPropertyEvent(6);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -307,7 +305,7 @@ public class EventGraphVertexMethods {
         "name5", "E",
         "name6", "F",
       "name7", "G");
-    var expected = vertexPropertyEvents(7);
+    var expected = vertexPropertyEvent(7);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -333,7 +331,7 @@ public class EventGraphVertexMethods {
         "name6", "F",
         "name7", "G",
         "name8", "H");
-    var expected = vertexPropertyEvents(8);
+    var expected = vertexPropertyEvent(8);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -361,7 +359,7 @@ public class EventGraphVertexMethods {
         "name7", "G",
         "name8", "H",
         "name9", "I");
-    var expected = vertexPropertyEvents(9);
+    var expected = vertexPropertyEvent(9);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -391,7 +389,7 @@ public class EventGraphVertexMethods {
         "name8", "H",
         "name9", "I",
         "name10", "J");
-    var expected = vertexPropertyEvents(10);
+    var expected = vertexPropertyEvent(10);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -414,7 +412,7 @@ public class EventGraphVertexMethods {
     graph.getVertex("A")
       .property("name1", "A",
         "name2", "B");
-    var expected = vertexPropertyEvents(2);
+    var expected = vertexPropertyEvent(2);
 
     assertThat(bus)
       .withAction(() -> graph.vertex("A",
@@ -425,7 +423,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(0);
+    var expected = vertexCreatedEvent(0);
     assertThat(bus)
       .withAction(() -> graph.getVertex("A"))
       .containsExactly(expected);
@@ -434,7 +432,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(1);
+    var expected = vertexCreatedEvent(1);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A", "name1", "value1"))
@@ -444,7 +442,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(2);
+    var expected = vertexCreatedEvent(2);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex(
@@ -456,7 +454,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(3);
+    var expected = vertexCreatedEvent(3);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A",
@@ -469,7 +467,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(4);
+    var expected = vertexCreatedEvent(4);
 
     assertThat(bus).withAction(() -> graph.getVertex("A",
       "name1", "value1",
@@ -482,7 +480,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(5);
+    var expected = vertexCreatedEvent(5);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A",
@@ -497,7 +495,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(6);
+    var expected = vertexCreatedEvent(6);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A",
@@ -513,7 +511,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(7);
+    var expected = vertexCreatedEvent(7);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A",
@@ -530,7 +528,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(8);
+    var expected = vertexCreatedEvent(8);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A",
@@ -548,7 +546,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(9);
+    var expected = vertexCreatedEvent(9);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A",
@@ -567,7 +565,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertex10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(10);
+    var expected = vertexCreatedEvent(10);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A",
@@ -587,7 +585,7 @@ public class EventGraphVertexMethods {
   @EventSimpleGraphs
   void createdWithGetVertexMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
-    var expected = vertexCreatedEvents(1);
+    var expected = vertexCreatedEvent(1);
 
     assertThat(bus)
       .withAction(() -> graph.getVertex("A",
@@ -648,9 +646,9 @@ public class EventGraphVertexMethods {
     graph.edge("A", "C");
     graph.edge("A", "D");
 
-    var expected1 = new EdgeRemoved.Builder<String>().graphId("graph").from("A").to("B").build();
-    var expected2 = new EdgeRemoved.Builder<String>().graphId("graph").from("A").to("C").build();
-    var expected3 = new EdgeRemoved.Builder<String>().graphId("graph").from("A").to("D").build();
+    var expected1 = EdgeRemovedEvent.<String>builder().graphId("graph").fromId("A").toId("B").build();
+    var expected2 = EdgeRemovedEvent.<String>builder().graphId("graph").fromId("A").toId("C").build();
+    var expected3 = EdgeRemovedEvent.<String>builder().graphId("graph").fromId("A").toId("D").build();
     var expected4 = VertexRemovedEvent.<String>builder()
       .graphId("graph")
       .vertexId("A")

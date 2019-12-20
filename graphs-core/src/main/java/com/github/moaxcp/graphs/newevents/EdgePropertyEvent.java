@@ -13,11 +13,9 @@ public class EdgePropertyEvent<K> {
 
   @NonNull
   private final K fromId;
-  @NonNull
   private final K newFromId;
   @NonNull
   private final K toId;
-  @NonNull
   private final K newToId;
 
   @NonNull

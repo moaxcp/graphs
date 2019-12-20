@@ -1,7 +1,7 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.events.*;
+import com.github.moaxcp.graphs.newevents.*;
 import com.github.moaxcp.graphs.testframework.*;
 import org.greenrobot.eventbus.*;
 
@@ -17,11 +17,11 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(1);
+    var expected = edgePropertyEvent(1);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B").property("name1", "value1"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -29,13 +29,13 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(2);
+    var expected = edgePropertyEvent(2);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
         .property("name1", "value1",
           "name2", "value2"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -43,14 +43,14 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(3);
+    var expected = edgePropertyEvent(3);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
         .property("name1", "value1",
           "name2", "value2",
           "name3", "value3"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -58,7 +58,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(4);
+    var expected = edgePropertyEvent(4);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -66,7 +66,7 @@ public class EdgeProperties {
           "name2", "value2",
           "name3", "value3",
           "name4", "value4"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -74,7 +74,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(5);
+    var expected = edgePropertyEvent(5);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -83,7 +83,7 @@ public class EdgeProperties {
           "name3", "value3",
           "name4", "value4",
           "name5", "value5"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -91,7 +91,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(6);
+    var expected = edgePropertyEvent(6);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -101,7 +101,7 @@ public class EdgeProperties {
           "name4", "value4",
           "name5", "value5",
           "name6", "value6"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -109,7 +109,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(7);
+    var expected = edgePropertyEvent(7);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -120,7 +120,7 @@ public class EdgeProperties {
           "name5", "value5",
           "name6", "value6",
           "name7", "value7"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -128,7 +128,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(8);
+    var expected = edgePropertyEvent(8);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -140,7 +140,7 @@ public class EdgeProperties {
           "name6", "value6",
           "name7", "value7",
           "name8", "value8"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -148,7 +148,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(9);
+    var expected = edgePropertyEvent(9);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -161,7 +161,7 @@ public class EdgeProperties {
           "name7", "value7",
           "name8", "value8",
           "name9", "value9"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -169,7 +169,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(10);
+    var expected = edgePropertyEvent(10);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -183,7 +183,7 @@ public class EdgeProperties {
           "name8", "value8",
           "name9", "value9",
           "name10", "value10"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -191,13 +191,13 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = edgePropertyAddedEvents(2);
+    var expected = edgePropertyEvent(2);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
         .property(Map.of("name1", "value1",
           "name2", "value2")))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -205,11 +205,11 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "A");
 
-    var expected = edgePropertyUpdatedEvents(1);
+    var expected = edgePropertyEvent(1);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B").property("name1", "value1"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -219,13 +219,13 @@ public class EdgeProperties {
       .property("name1", "A",
     "name2", "B");
 
-    var expected = edgePropertyUpdatedEvents(2);
+    var expected = edgePropertyEvent(2);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
         .property("name1", "value1",
           "name2", "value2"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -236,14 +236,14 @@ public class EdgeProperties {
         "name2", "B",
         "name3", "C");
 
-    var expected = edgePropertyUpdatedEvents(3);
+    var expected = edgePropertyEvent(3);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
         .property("name1", "value1",
           "name2", "value2",
           "name3", "value3"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -255,7 +255,7 @@ public class EdgeProperties {
         "name3", "C",
         "name4", "D");
 
-    var expected = edgePropertyUpdatedEvents(4);
+    var expected = edgePropertyEvent(4);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -263,7 +263,7 @@ public class EdgeProperties {
           "name2", "value2",
           "name3", "value3",
           "name4", "value4"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -276,7 +276,7 @@ public class EdgeProperties {
         "name4", "D",
         "name5", "E");
 
-    var expected = edgePropertyUpdatedEvents(5);
+    var expected = edgePropertyEvent(5);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -285,7 +285,7 @@ public class EdgeProperties {
           "name3", "value3",
           "name4", "value4",
           "name5", "value5"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -299,7 +299,7 @@ public class EdgeProperties {
         "name5", "E",
         "name6", "F");
 
-    var expected = edgePropertyUpdatedEvents(6);
+    var expected = edgePropertyEvent(6);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -309,7 +309,7 @@ public class EdgeProperties {
           "name4", "value4",
           "name5", "value5",
           "name6", "value6"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -324,7 +324,7 @@ public class EdgeProperties {
         "name6", "F",
         "name7", "G");
 
-    var expected = edgePropertyUpdatedEvents(7);
+    var expected = edgePropertyEvent(7);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -335,7 +335,7 @@ public class EdgeProperties {
           "name5", "value5",
           "name6", "value6",
           "name7", "value7"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -351,7 +351,7 @@ public class EdgeProperties {
         "name7", "G",
         "name8", "H");
 
-    var expected = edgePropertyUpdatedEvents(8);
+    var expected = edgePropertyEvent(8);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -363,7 +363,7 @@ public class EdgeProperties {
           "name6", "value6",
           "name7", "value7",
           "name8", "value8"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -380,7 +380,7 @@ public class EdgeProperties {
         "name8", "H",
         "name9", "I");
 
-    var expected = edgePropertyUpdatedEvents(9);
+    var expected = edgePropertyEvent(9);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -393,7 +393,7 @@ public class EdgeProperties {
           "name7", "value7",
           "name8", "value8",
           "name9", "value9"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -411,7 +411,7 @@ public class EdgeProperties {
         "name9", "I",
         "name10", "J");
 
-    var expected = edgePropertyUpdatedEvents(10);
+    var expected = edgePropertyEvent(10);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
@@ -425,7 +425,7 @@ public class EdgeProperties {
           "name8", "value8",
           "name9", "value9",
           "name10", "value10"))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -435,13 +435,13 @@ public class EdgeProperties {
       .property("name1", "A",
         "name2", "B");
 
-    var expected = edgePropertyUpdatedEvents(2);
+    var expected = edgePropertyEvent(2);
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B")
         .property(Map.of("name1", "value1",
           "name2", "value2")))
-      .containsExactlyElementsIn(expected);
+      .containsExactly(expected);
   }
 
   @EventSimpleGraphs
@@ -451,13 +451,12 @@ public class EdgeProperties {
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B").property("name1", null))
-      .containsExactly(new EdgePropertyRemoved.Builder<String>()
+      .containsExactly(EdgePropertyEvent.<String>builder()
         .graphId("graph")
         .edgeId("edge")
-        .from("A")
-        .to("B")
-        .name("name1")
-        .value("value1")
+        .fromId("A")
+        .toId("B")
+        .property("name1", null)
         .build());
   }
 
@@ -466,7 +465,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name", "value");
 
-    var expected = new EdgePropertyRemoved.Builder<String>().graphId("graph").from("A").to("B").edgeId("edge").name("name").value("value").build();
+    var expected = EdgePropertyEvent.<String>builder().graphId("graph").fromId("A").toId("B").edgeId("edge").property("name", null).build();
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B").removeProperty("name"))

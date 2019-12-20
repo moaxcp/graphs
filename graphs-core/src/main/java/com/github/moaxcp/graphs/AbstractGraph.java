@@ -668,6 +668,8 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
       }
       if(id != null) {
         properties.putProperty("id", id);
+      } else if(getId().isPresent()) {
+        properties.removeProperty("id");
       }
     }
 
@@ -837,7 +839,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Edge<ID> removeProperty(String name) {
       check();
-      properties.removeProperty(name);
+      property(name, null);
       return this;
     }
 
@@ -846,16 +848,13 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
       if (this == o) return true;
       if (!(o instanceof AbstractGraph<?>.SimpleEdge)) return false;
       SimpleEdge that = (SimpleEdge) o;
-      return Objects.equals(getId(), that.getId()) &&
-        Objects.equals(getFrom(), that.getFrom()) &&
-        Objects.equals(getTo(), that.getTo()) &&
-        Objects.equals(local(), that.local()) &&
+      return Objects.equals(local(), that.local()) &&
         Objects.equals(inherited(), that.inherited());
     }
 
     @Override
     public final int hashCode() {
-      return Objects.hash(getId(), getFrom(), getTo(), local(), inherited());
+      return Objects.hash(local(), inherited());
     }
   }
 
