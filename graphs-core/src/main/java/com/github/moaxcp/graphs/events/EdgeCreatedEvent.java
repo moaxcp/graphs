@@ -6,13 +6,13 @@ import java.util.*;
 
 @Value
 @Builder
-public class EdgeCreatedEvent<K> {
-  private final K graphId;
-  private final K edgeId;
+public class EdgeCreatedEvent<ID> {
+  private final ID graphId;
+  private final ID edgeId;
   @NonNull
-  private final K fromId;
+  private final ID fromId;
   @NonNull
-  private final K toId;
+  private final ID toId;
   @Singular
   @NonNull
   private final Map<String, Object> properties;

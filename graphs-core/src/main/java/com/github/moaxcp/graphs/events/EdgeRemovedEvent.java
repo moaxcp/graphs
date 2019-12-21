@@ -4,11 +4,11 @@ import lombok.*;
 
 @Value
 @Builder
-public class EdgeRemovedEvent<K> {
-  private final K graphId;
-  private final K edgeId;
+public class EdgeRemovedEvent<ID> {
+  private final ID graphId;
+  private final ID edgeId;
   @NonNull
-  private final K fromId;
+  private final ID fromId;
   @NonNull
-  private final K toId;
+  private final ID toId;
 }

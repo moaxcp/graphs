@@ -4,8 +4,8 @@ import lombok.*;
 
 @Value
 @Builder
-public class VertexRemovedEvent<K> {
-  private final K graphId;
+public class VertexRemovedEvent<ID> {
+  private final ID graphId;
   @NonNull
-  private final K vertexId;
+  private final ID vertexId;
 }

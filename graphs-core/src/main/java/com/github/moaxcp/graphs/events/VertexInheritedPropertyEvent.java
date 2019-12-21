@@ -6,8 +6,8 @@ import java.util.*;
 
 @Value
 @Builder
-public class VertexInheritedPropertyEvent<K> {
-  private final K graphId;
+public class VertexInheritedPropertyEvent<ID> {
+  private final ID graphId;
   @Singular
   @NonNull
   private final Map<String, Object> properties;

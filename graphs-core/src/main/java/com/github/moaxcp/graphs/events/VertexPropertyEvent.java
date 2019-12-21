@@ -6,11 +6,11 @@ import java.util.*;
 
 @Value
 @Builder
-public class VertexPropertyEvent<K> {
-  private final K graphId;
+public class VertexPropertyEvent<ID> {
+  private final ID graphId;
   @NonNull
-  private final K vertexId;
-  private final K newId;
+  private final ID vertexId;
+  private final ID newId;
   @Singular
   @NonNull
   private final Map<String, Object> properties;

@@ -6,9 +6,9 @@ import java.util.*;
 
 @Value
 @Builder
-public class GraphPropertyEvent<K> {
-  private final K graphId;
-  private final K newId;
+public class GraphPropertyEvent<ID> {
+  private final ID graphId;
+  private final ID newId;
   @Singular
   @NonNull
   private final Map<String, Object> properties;

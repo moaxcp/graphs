@@ -6,17 +6,17 @@ import java.util.*;
 
 @Value
 @Builder
-public class EdgePropertyEvent<K> {
-  private final K graphId;
-  private final K edgeId;
-  private final K newEdgeId;
+public class EdgePropertyEvent<ID> {
+  private final ID graphId;
+  private final ID edgeId;
+  private final ID newEdgeId;
 
   @NonNull
-  private final K fromId;
-  private final K newFromId;
+  private final ID fromId;
+  private final ID newFromId;
   @NonNull
-  private final K toId;
-  private final K newToId;
+  private final ID toId;
+  private final ID newToId;
 
   @NonNull
   @Singular

@@ -6,10 +6,10 @@ import java.util.*;
 
 @Value
 @Builder
-public class VertexCreatedEvent<K> {
-  private final K graphId;
+public class VertexCreatedEvent<ID> {
+  private final ID graphId;
   @NonNull
-  private final K vertexId;
+  private final ID vertexId;
   @Singular
   @NonNull
   private final Map<String, Object> properties;

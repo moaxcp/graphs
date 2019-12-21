@@ -4,6 +4,6 @@ import lombok.*;
 
 @Value
 @Builder
-public class UndirectedGraphCreatedEvent<K> {
-  private final K graphId;
+public class UndirectedGraphCreatedEvent<ID> {
+  private final ID graphId;
 }
