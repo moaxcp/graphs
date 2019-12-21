@@ -221,6 +221,18 @@ public class VertexTest {
   }
 
   @SimpleGraphs
+  void propertySetIdFails(Graph<String> graph) {
+    var exception = assertThrows(IllegalArgumentException.class, () -> graph.getVertex("A").property("id", "B"));
+    assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
+  }
+
+  @SimpleGraphs
+  void removePropertyIdFails(Graph<String> graph) {
+    var exception = assertThrows(IllegalArgumentException.class, () -> graph.getVertex("A").removeProperty("id"));
+    assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
+  }
+
+  @SimpleGraphs
   void removePropertyNullName(Graph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.getVertex("A").removeProperty(null));
     assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");

@@ -832,6 +832,13 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public Edge<ID> property(Map<String, Object> properties) {
       check();
+      if(properties.containsKey("id")) {
+        throw new IllegalArgumentException("id cannot be set as a property.");
+      } else if(properties.containsKey("from")) {
+        throw new IllegalArgumentException("from cannot be set as a property.");
+      } else if(properties.containsKey("to")) {
+        throw new IllegalArgumentException("to cannot be set as a property.");
+      }
       this.properties.putProperties(properties);
       return this;
     }

@@ -273,6 +273,42 @@ public class EdgeTest {
     }
 
     @SimpleGraphs
+    void propertySetIdFails(Graph<String> graph) {
+        var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").property("id", "edge"));
+        assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
+    }
+
+    @SimpleGraphs
+    void removePropertyIdFails(Graph<String> graph) {
+        var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").id("edge").removeProperty("id"));
+        assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
+    }
+
+    @SimpleGraphs
+    void propertySetFromFails(Graph<String> graph) {
+        var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").property("from", "C"));
+        assertThat(exception).hasMessageThat().isEqualTo("from cannot be set as a property.");
+    }
+
+    @SimpleGraphs
+    void removePropertyFromFails(Graph<String> graph) {
+        var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").removeProperty("from"));
+        assertThat(exception).hasMessageThat().isEqualTo("from cannot be set as a property.");
+    }
+
+    @SimpleGraphs
+    void propertySetToFails(Graph<String> graph) {
+        var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").property("to", "C"));
+        assertThat(exception).hasMessageThat().isEqualTo("to cannot be set as a property.");
+    }
+
+    @SimpleGraphs
+    void removePropertyToFails(Graph<String> graph) {
+        var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").removeProperty("to"));
+        assertThat(exception).hasMessageThat().isEqualTo("to cannot be set as a property.");
+    }
+
+    @SimpleGraphs
     void removeProperty(Graph<String> graph) {
         var edge = graph.getEdge("A", "B").property("name", "value");
         edge.removeProperty("name");
