@@ -681,7 +681,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final ID getFrom() {
-      return (ID) properties.getProperty("from").get();
+      return (ID) properties.getProperty("from").orElseThrow(() -> new IllegalStateException("from was not set as a property."));
     }
 
     @Override
@@ -715,7 +715,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final ID getTo() {
-      return (ID) properties.getProperty("to").get();
+      return (ID) properties.getProperty("to").orElseThrow(() -> new IllegalStateException("to was not set as a property."));
     }
 
     @Override
@@ -895,7 +895,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     public ID getId() {
-      return (ID) properties.getProperty("id").get();
+      return (ID) properties.getProperty("id").orElseThrow(() -> new IllegalStateException("id was not set as a property."));
     }
 
     @Override
