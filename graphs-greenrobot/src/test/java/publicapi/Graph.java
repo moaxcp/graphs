@@ -10,7 +10,7 @@ import org.junit.jupiter.api.*;
 import java.util.*;
 
 import static com.github.moaxcp.graphs.testframework.MethodSources.*;
-import static com.github.moaxcp.graphs.truth.EventBusSubject.*;
+import static com.github.moaxcp.graphs.truth.GreenRobotEventBusSubject.*;
 
 public class Graph {
     @Test

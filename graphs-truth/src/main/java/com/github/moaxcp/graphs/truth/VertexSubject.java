@@ -10,7 +10,6 @@ import java.util.Optional;
 
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
-import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
 public class VertexSubject extends Subject {
 

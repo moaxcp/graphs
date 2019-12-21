@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertAbout;
 
-public class EventBusSubject extends Subject {
+public class GreenRobotEventBusSubject extends Subject {
     private Runnable action;
     private EventBus actual;
 
@@ -26,10 +26,10 @@ public class EventBusSubject extends Subject {
 
     private Subscriber subscriber = new Subscriber();
 
-    public static Subject.Factory<EventBusSubject, EventBus> busses() {
-        return EventBusSubject::new;
+    public static Subject.Factory<GreenRobotEventBusSubject, EventBus> busses() {
+        return GreenRobotEventBusSubject::new;
     }
-    private EventBusSubject(FailureMetadata metadata,  EventBus actual) {
+    private GreenRobotEventBusSubject(FailureMetadata metadata, EventBus actual) {
         super(metadata, actual);
         this.actual = actual;
     }
@@ -38,7 +38,7 @@ public class EventBusSubject extends Subject {
         return assertAbout(busses()).that(EventBus.getDefault()).withAction(action);
     }
 
-    public static EventBusSubject assertThat(EventBus actual) {
+    public static GreenRobotEventBusSubject assertThat(EventBus actual) {
         return assertAbout(busses()).that(actual);
     }
 
