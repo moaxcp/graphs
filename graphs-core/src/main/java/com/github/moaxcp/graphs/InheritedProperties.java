@@ -34,6 +34,7 @@ class InheritedProperties extends LocalProperties {
    * @return value mapped to name
    * @throws NullPointerException if name is null
    */
+  @Override
   public final Optional<Object> getProperty(@NonNull String name) {
     Optional<Object> optional = super.getProperty(name);
     if (optional.isPresent()) {
