@@ -1,9 +1,10 @@
 package com.github.moaxcp.graphs;
 
+import lombok.*;
+
 import java.util.*;
 
 import static java.util.Collections.*;
-import static java.util.Objects.*;
 import static java.util.stream.Collectors.*;
 
 /**
@@ -14,7 +15,6 @@ import static java.util.stream.Collectors.*;
  * @param <ID> type of all identifiers in graph
  */
 public abstract class AbstractGraph<ID> implements Graph<ID> {
-  private static final String ID_MUST_NOT_BE_NULL = "id must not be null.";
   private LocalProperties properties;
   private LocalProperties vertexProperties;
   private LocalProperties edgeProperties;
@@ -122,7 +122,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Optional<Vertex<ID>> findVertex(ID id) {
+  public Optional<Vertex<ID>> findVertex(@NonNull ID id) {
     return Optional.ofNullable(vertices.get(id));
   }
 
@@ -263,8 +263,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public void removeVertex(ID id) {
-    Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
+  public void removeVertex(@NonNull ID id) {
     var optional = findVertex(id);
     if (optional.isEmpty()) {
       throw new IllegalArgumentException("vertex '" + id + "' not found.");
@@ -279,17 +278,14 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Optional<Edge<ID>> findEdge(ID from, ID to) {
-    requireNonNull(from, "from must not be null.");
-    requireNonNull(to, "to must not be null.");
+  public Optional<Edge<ID>> findEdge(@NonNull ID from, @NonNull ID to) {
     var key = newEdgeKey(from, to);
     var edge = edges.get(key);
     return Optional.ofNullable(edge);
   }
 
   @Override
-  public Optional<Edge<ID>> findEdge(ID id) {
-    requireNonNull(id, "id must not be null.");
+  public Optional<Edge<ID>> findEdge(@NonNull ID id) {
     return Optional.ofNullable(edgeIds.get(id));
   }
 
@@ -456,9 +452,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public void removeEdge(ID from, ID to) {
-    requireNonNull(from, "from must not be null.");
-    requireNonNull(to, "to must not be null.");
+  public void removeEdge(@NonNull ID from, @NonNull ID to) {
     EdgeKey<ID> key = newEdgeKey(from, to);
     var edge = edges.remove(key);
     if (edge == null) {
@@ -488,8 +482,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public void removeEdge(ID id) {
-    requireNonNull(id, ID_MUST_NOT_BE_NULL);
+  public void removeEdge(@NonNull ID id) {
     var optional = findEdge(id);
     optional.ifPresent(edge -> removeEdge(edge.getFrom(), edge.getTo()));
     if (optional.isEmpty()) {
@@ -685,9 +678,8 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public void setFrom(ID from) {
+    public void setFrom(@NonNull ID from) {
       check();
-      requireNonNull(from, "from must not be null.");
       EdgeKey<ID> oldKey = newEdgeKey(getFrom(), getTo());
       edges.remove(oldKey);
       adjacentEdges.get(getFrom()).remove(this);
@@ -719,9 +711,8 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public void setTo(ID to) {
+    public void setTo(@NonNull ID to) {
       check();
-      Objects.requireNonNull(to, "to must not be null.");
       EdgeKey<ID> oldKey = newEdgeKey(getFrom(), getTo());
       edges.remove(oldKey);
       adjacentEdges.get(getTo()).remove(this);
@@ -868,9 +859,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   public class SimpleVertex implements Vertex<ID> {
     InheritedProperties properties;
 
-    protected SimpleVertex(ID id, Map<String, Object> local, Map<String, Object> inherited) {
-      Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
-      Objects.requireNonNull(local, "local must not be null.");
+    protected SimpleVertex(@NonNull ID id, Map<String, Object> local, Map<String, Object> inherited) {
       if(local.containsKey("id")) {
         throw new IllegalArgumentException("id cannot be set as a property.");
       }
@@ -899,9 +888,8 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public void setId(ID id) {
+    public void setId(@NonNull ID id) {
       check();
-      Objects.requireNonNull(id, ID_MUST_NOT_BE_NULL);
       if (findVertex(id).isPresent()) {
         throw new IllegalArgumentException("vertex with id a already exists.");
       }

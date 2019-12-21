@@ -65,7 +65,7 @@ public class EdgeTest {
     void setFromNull(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setFrom(null));
-        assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("from is marked non-null but is null");
     }
 
     @SimpleGraphs
@@ -124,7 +124,7 @@ public class EdgeTest {
     void setToNull(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setTo(null));
-        assertThat(thrown).hasMessageThat().isEqualTo("to must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("to is marked non-null but is null");
     }
 
     @SimpleGraphs

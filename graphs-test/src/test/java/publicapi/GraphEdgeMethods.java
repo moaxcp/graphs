@@ -406,7 +406,7 @@ public class GraphEdgeMethods {
     @SimpleGraphs
     void removeEdgeWithIdNullId(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdge(null));
-        assertThat(thrown).hasMessageThat().isEqualTo("id must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("id is marked non-null but is null");
     }
 
     @SimpleGraphs
@@ -425,7 +425,7 @@ public class GraphEdgeMethods {
     @SimpleGraphs
     void removeWithNullId(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdge(null));
-        assertThat(thrown).hasMessageThat().isEqualTo("id must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("id is marked non-null but is null");
     }
 
     @SimpleGraphs
@@ -437,25 +437,25 @@ public class GraphEdgeMethods {
     @SimpleGraphs
     void removeWithNullFrom(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdge(null, "B"));
-        assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("from is marked non-null but is null");
     }
 
     @SimpleGraphs
     void removeWithNullTo(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdge("A", null));
-        assertThat(thrown).hasMessageThat().isEqualTo("to must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("to is marked non-null but is null");
     }
 
     @SimpleGraphs
     void findEdgeMissingFrom(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () ->graph.findEdge(null, null));
-        assertThat(thrown).hasMessageThat().isEqualTo("from must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("from is marked non-null but is null");
     }
 
     @SimpleGraphs
     void findEdgeMissingTo(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () ->graph.findEdge("A", null));
-        assertThat(thrown).hasMessageThat().isEqualTo("to must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("to is marked non-null but is null");
     }
 
     @SimpleGraphs
@@ -467,7 +467,7 @@ public class GraphEdgeMethods {
     @SimpleGraphs
     void findEdgeMissingId(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () ->graph.findEdge(null));
-        assertThat(thrown).hasMessageThat().isEqualTo("id must not be null.");
+        assertThat(thrown).hasMessageThat().isEqualTo("id is marked non-null but is null");
     }
 
     @SimpleGraphs

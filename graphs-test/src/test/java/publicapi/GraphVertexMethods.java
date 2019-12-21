@@ -412,6 +412,6 @@ public class GraphVertexMethods {
   @SimpleGraphs
   void removeVertexWithNullId(Graph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeVertex(null));
-    assertThat(thrown).hasMessageThat().isEqualTo("id must not be null.");
+    assertThat(thrown).hasMessageThat().isEqualTo("id is marked non-null but is null");
   }
 }
