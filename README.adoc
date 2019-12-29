@@ -63,8 +63,8 @@ There are three main interfaces: Graph, Edge, and Vertex. Edge and Vertex are in
 
 == Vertices and Edges
 
-vertex() and edge() methods provide an api for creating or finding elements of the graph. If an element already exists
-it is returned.
+vertex() and edge() methods provide an api for creating, finding, or modifying elements of the graph. If an element
+already exists it is returned.
 
 ----
 graph.vertex("A");
@@ -95,6 +95,9 @@ graph.property("name", "graph");
 graph.vertex("A").property("name", "A");
 graph.edge("A", "B").property("distance", 10);
 ----
+
+`vertex()` and `edge()` methods may create an element with properties, update the properties of an element, or remove
+properties.
 
 === inherited properties
 
@@ -146,10 +149,17 @@ Graph graph = new DirectedEventGraph(EventBus.getDefault());
 graph.edge("A", "B");
 ----
 
-The above code will send 4 events to the bus in order: DirectedGraphCreated, VertexCreated, VertexCreated, EdgeCreated.
+The above code will send 4 events to the bus in order: DirectedGraphCreatedEvent, VertexCreatedEvent,
+VertexCreatedEvent, EdgeCreatedEvent.
+
 A subscriber to these events can create a view of the graph as it is modified.
 
 = Releases
+
+== 0.7.0
+
+* `id`, `to`, and `from` are now properties of elements and will be present in calls to `local()`
+* Rewrote events to support multiple property changes in a single event
 
 == 0.6.0
 
