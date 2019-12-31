@@ -280,6 +280,17 @@ public interface Graph<ID> {
      */
     List<ID> endpoints();
 
+    default ID getOppositeEndpoint(ID id) {
+      ID from = getFrom();
+      ID to = getTo();
+      if(from.equals(id)) {
+        return to;
+      } else if(to.equals(id)) {
+        return from;
+      }
+      throw new IllegalArgumentException("id \"" + id + "\" is not an endpoint of this edge.");
+    }
+
     /**
      * Returns 'from' vertex
      *
@@ -760,4 +771,12 @@ public interface Graph<ID> {
    * @throws NullPointerException if name is null
    */
   Graph<ID> removeVertexProperty(String name);
+
+  default Iterator<Vertex<ID>> postOrderIterator(ID... start) {
+    return new PostOrderDepthFirstIterator<>(this, start);
+  }
+
+  default boolean isEmpty() {
+    return getVertices().isEmpty();
+  }
 }

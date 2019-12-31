@@ -111,6 +111,12 @@ public final class GraphSubject extends Subject {
         }
     }
 
+    public void isEmpty() {
+        if(!actual.isEmpty()) {
+            failWithActual(simpleFact("Expected empty graph."));
+        }
+    }
+
     public void isNotDirected() {
         if(actual.isDirected()) {
             failWithActual(simpleFact("Expected undirected graph."));

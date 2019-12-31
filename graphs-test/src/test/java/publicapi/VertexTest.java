@@ -291,17 +291,14 @@ public class VertexTest {
 
   @SimpleGraphs
   void testAdjacentEdges(Graph<String> graph) {
-    graph.edge("A", "B");
-    graph.edge("A", "C");
-    graph.edge("Z", "Y");
+    var edge1 = graph.getEdge("A", "B");
+    var edge2 = graph.getEdge("A", "C");
+    graph.getEdge("Z", "Y");
 
     var vertex = graph.getVertex("A");
 
-    var edges = vertex.adjacentEdges();
-    assertThat(edges).hasSize(2);
-    for (var edge : edges) {
-      assertThat(edge.endpoints()).contains("A");
-    }
+    var result = vertex.adjacentEdges();
+    assertThat(result).containsExactly(edge1, edge2).inOrder();
   }
 
   @SimpleGraphs
@@ -311,18 +308,15 @@ public class VertexTest {
 
   @SimpleGraphs
   void adjacentEdgesAfterSetId(Graph<String> graph) {
-    graph.edge("id", "B");
-    graph.edge("id", "C");
-    graph.edge("D", "id");
-    graph.edge("Z", "Y");
+    var edge1 = graph.getEdge("id", "B");
+    var edge2 = graph.getEdge("id", "C");
+    var edge3 = graph.getEdge("D", "id");
+    graph.getEdge("Z", "Y");
 
     var vertex = graph.getVertex("id").id("A");
 
-    var edges = vertex.adjacentEdges();
-    assertThat(edges).hasSize(3);
-    for (var edge : edges) {
-      assertThat(edge.endpoints()).contains("A");
-    }
+    var result = vertex.adjacentEdges();
+    assertThat(result).containsExactly(edge1, edge2, edge3).inOrder();
   }
 
   @SimpleGraphs
@@ -354,23 +348,20 @@ public class VertexTest {
     var edge3 = graph.getEdge("D", "A");
     var result = graph.getVertex("A").inEdges();
 
-    assertThat(result).containsExactly(edge1, edge2, edge3);
+    assertThat(result).containsExactly(edge1, edge2, edge3).inOrder();
   }
 
   @SimpleGraphs
   void inEdgesAfterSetId(Graph<String> graph) {
-    graph.edge("B", "id");
-    graph.edge("C", "id");
-    graph.edge("D", "id");
+    var edge1 = graph.getEdge("B", "id");
+    var edge2 = graph.getEdge("C", "id");
+    var edge3 = graph.getEdge("D", "id");
     graph.edge("Z", "Y");
 
     var vertex = graph.getVertex("id").id("A");
 
-    var edges = vertex.adjacentEdges();
-    assertThat(edges).hasSize(3);
-    for (var edge : edges) {
-      assertThat(edge.to()).isEqualTo("A");
-    }
+    var result = vertex.inEdges();
+    assertThat(result).containsExactly(edge1, edge2, edge3).inOrder();
   }
 
   @SimpleGraphs
@@ -385,23 +376,20 @@ public class VertexTest {
     var edge3 = graph.getEdge("A", "D");
     var result = graph.getVertex("A").outEdges();
 
-    assertThat(result).containsExactly(edge1, edge2, edge3);
+    assertThat(result).containsExactly(edge1, edge2, edge3).inOrder();
   }
 
   @SimpleGraphs
   void outEdgesAfterSetId(Graph<String> graph) {
-    graph.getEdge("id", "B");
-    graph.getEdge("id", "C");
-    graph.getEdge("id", "D");
+    var edge1 = graph.getEdge("id", "B");
+    var edge2 = graph.getEdge("id", "C");
+    var edge3 = graph.getEdge("id", "D");
     graph.getEdge("Z", "Y");
 
     var vertex = graph.getVertex("id").id("A");
 
-    var edges = vertex.adjacentEdges();
-    assertThat(edges).hasSize(3);
-    for (var edge : edges) {
-      assertThat(edge.from()).isEqualTo("A");
-    }
+    var result = vertex.outEdges();
+    assertThat(result).containsExactly(edge1, edge2, edge3).inOrder();
   }
 
   @SimpleGraphs
