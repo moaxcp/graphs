@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs;
 
 import java.util.*;
+import java.util.stream.*;
 
 /**
  * A graph is composed of vertices and edges. A vertex is able to connect to other vertices through edges. Edges
@@ -774,6 +775,11 @@ public interface Graph<ID> {
 
   default Iterator<Vertex<ID>> postOrderIterator(ID... start) {
     return new PostOrderDepthFirstIterator<>(this, start);
+  }
+
+  default Stream<Vertex<ID>> postOrderStream(ID... start) {
+    var iterator = postOrderIterator(start);
+    return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
   }
 
   default boolean isEmpty() {

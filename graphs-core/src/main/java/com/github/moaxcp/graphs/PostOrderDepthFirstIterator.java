@@ -54,6 +54,7 @@ class PostOrderDepthFirstIterator<ID> implements Iterator<Vertex<ID>> {
     stackToNextBlack();
     Context<ID> context = stack.pop();
     current = context.getId();
+    colors.put(current, BLACK);
   }
 
   private void pushContext(ID id) {
@@ -67,7 +68,6 @@ class PostOrderDepthFirstIterator<ID> implements Iterator<Vertex<ID>> {
     ID id = context.getId();
     Iterator<ID> traverse = context.getTraverse();
     if(!traverse.hasNext()) {
-      colors.put(id, BLACK);
       return;
     } else {
       ID next = traverse.next();
