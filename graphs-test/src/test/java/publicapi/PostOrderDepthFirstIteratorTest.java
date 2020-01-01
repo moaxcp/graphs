@@ -8,15 +8,11 @@ import org.junit.jupiter.params.*;
 import org.junit.jupiter.params.provider.*;
 
 import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
 
 import static com.github.moaxcp.graphs.testframework.MethodSources.*;
 import static com.google.common.truth.Truth.*;
-import static java.util.function.Function.*;
 import static java.util.stream.Collectors.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.params.provider.Arguments.*;
 
 public class PostOrderDepthFirstIteratorTest {
 
@@ -59,9 +55,9 @@ public class PostOrderDepthFirstIteratorTest {
     assertThat(iterator.hasNext()).isTrue();
   }
 
-  @MethodSource("graphsPostOrder")
+  @MethodSource("com.github.moaxcp.graphs.testframework.MethodSources#graphsPostOrder")
   @DisplayName("dfs matches expected order")
-  @ParameterizedTest(name = "{index} - {0} post order {2}")
+  @ParameterizedTest(name = "{index} - {0} {2}")
   void postOrderIterator(String name, Graph<String> graph, List<String> expectedOrder) {
     var iterator = graph.postOrderIterator();
     for(String expected : expectedOrder) {
@@ -70,7 +66,19 @@ public class PostOrderDepthFirstIteratorTest {
     }
   }
 
-  @MethodSource("graphsPostOrder")
+  @DirectedSimpleGraphs
+  void postOrderIteratorStart(Graph<String> graph) {
+    complexTwoComponents(graph);
+    var result = new ArrayList<String>();
+    var iterator = graph.postOrderIterator("D", "G", "W");
+    while(iterator.hasNext()) {
+      result.add(iterator.next().getId());
+    }
+
+    assertThat(result).isEqualTo(List.of("E", "C", "B", "A", "D", "G", "W", "F", "Y", "Z", "X"));
+  }
+
+  @MethodSource("com.github.moaxcp.graphs.testframework.MethodSources#graphsPostOrder")
   @DisplayName("dfs matches expected order")
   @ParameterizedTest(name = "{index} - {0} post order {2}")
   void postOrderStream(String name, Graph<String> graph, List<String> expectedOrder) {
@@ -89,125 +97,5 @@ public class PostOrderDepthFirstIteratorTest {
       .collect(toList());
 
     assertThat(result).isEqualTo(List.of("E", "C", "B", "A", "D", "G", "W", "F", "Y", "Z", "X"));
-  }
-
-  private static Stream<Arguments> graphsPostOrder() {
-    return Stream.of(
-      simpleGraphArguments(PostOrderDepthFirstIteratorTest::one),
-      simpleGraphArguments(PostOrderDepthFirstIteratorTest::two),
-      simpleGraphArguments(PostOrderDepthFirstIteratorTest::twoLinked),
-      simpleGraphArguments(PostOrderDepthFirstIteratorTest::three),
-      simpleGraphArguments(PostOrderDepthFirstIteratorTest::threeLinked),
-      simpleGraphArguments(PostOrderDepthFirstIteratorTest::threeSplit),
-      simpleGraphArguments(PostOrderDepthFirstIteratorTest::splitJoin),
-      directedGraphArguments(PostOrderDepthFirstIteratorTest::complexOneTraversal),
-      directedGraphArguments(PostOrderDepthFirstIteratorTest::complexTwoTraversal),
-      directedGraphArguments(PostOrderDepthFirstIteratorTest::complexTwoComponents)
-    ).flatMap(identity());
-  }
-
-  private static Stream<Arguments> simpleGraphArguments(Function<Graph<String>, Arguments> convert) {
-    return simpleGraphs()
-      .map(convert);
-  }
-
-  private static Stream<Arguments> directedGraphArguments(Function<Graph<String>, Arguments> convert) {
-    return directedSimpleGraphs()
-      .map(convert);
-  }
-
-  private static Arguments complexTwoComponents(Graph<String> graph) {
-    graph.edge("A", "B")
-      .edge("B", "C")
-      .edge("B", "D")
-      .edge("D", "E")
-      .edge("D", "C")
-      .edge("A", "D")
-      .edge("D", "A")
-      .edge("A", "E")
-      .edge("F", "G")
-      .edge("G", "D");
-
-    graph.edge("X", "Y")
-      .edge("X", "Z")
-      .edge("X", "W");
-
-    return arguments("complex", graph, List.of("C", "E", "D", "B", "A", "G", "F", "Y", "Z","W", "X"));
-  }
-
-  private static Arguments complexTwoTraversal(Graph<String> graph) {
-    graph.edge("A", "B")
-      .edge("B", "C")
-      .edge("B", "D")
-      .edge("D", "E")
-      .edge("D", "C")
-      .edge("A", "D")
-      .edge("D", "A")
-      .edge("A", "E")
-      .edge("F", "G")
-      .edge("G", "D");
-
-    return arguments("complex", graph, List.of("C", "E", "D", "B", "A", "G", "F"));
-  }
-
-  private static Arguments complexOneTraversal(Graph<String> graph) {
-    graph.edge("A", "B")
-      .edge("B", "C")
-      .edge("B", "D")
-      .edge("D", "E")
-      .edge("D", "C")
-      .edge("A", "D")
-      .edge("D", "A")
-      .edge("A", "E");
-
-    return arguments("complex", graph, List.of("C", "E", "D", "B", "A"));
-  }
-
-  private static Arguments splitJoin(Graph<String> graph) {
-    graph.edge("A", "B")
-      .edge("A", "C")
-      .edge("B", "D")
-      .edge("C", "D");
-
-    if(graph.isDirected()) {
-      return arguments("split join", graph, List.of("D", "B", "C", "A"));
-    } else {
-      return arguments("split join", graph, List.of("C", "D", "B", "A"));
-    }
-  }
-
-  private static Arguments threeSplit(Graph<String> graph) {
-    graph.edge("A", "B")
-      .edge("A", "C");
-    return arguments("three split", graph, List.of("B", "C", "A"));
-  }
-
-  private static Arguments threeLinked(Graph<String> graph) {
-    graph.edge("A", "B")
-      .edge("B", "C");
-    return arguments("three linked", graph, List.of("C", "B", "A"));
-  }
-
-  private static Arguments twoLinked(Graph<String> graph) {
-    graph.edge("A", "B");
-    return arguments("two linked", graph, List.of("B", "A"));
-  }
-
-  private static Arguments three(Graph<String> graph) {
-    graph.vertex("A")
-      .vertex("B")
-      .vertex("C");
-    return arguments("two", graph, List.of("A", "B", "C"));
-  }
-
-  private static Arguments two(Graph<String> graph) {
-    graph.vertex("A")
-      .vertex("B");
-    return arguments("two", graph, List.of("A", "B"));
-  }
-
-  private static Arguments one(Graph<String> graph) {
-    graph.vertex("A");
-    return arguments("one", graph, List.of("A"));
   }
 }
