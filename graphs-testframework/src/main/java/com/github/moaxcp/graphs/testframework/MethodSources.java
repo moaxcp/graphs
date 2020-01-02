@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
+import static com.github.moaxcp.graphs.testframework.PathOrder.*;
 import static java.util.function.Function.*;
 import static org.junit.jupiter.params.provider.Arguments.*;
 
@@ -55,19 +56,19 @@ public class MethodSources {
                 Arguments.arguments(new DirectedEventGraph<>(directed), directed));
     }
 
-    private static Stream<Arguments> graphsPostOrder() {
+    public static Stream<Arguments> graphsPostOrder() {
         return Stream.of(
-          simpleGraphArguments(MethodSources::one),
-          simpleGraphArguments(MethodSources::oneLinked),
-          simpleGraphArguments(MethodSources::two),
-          simpleGraphArguments(MethodSources::twoLinked),
-          simpleGraphArguments(MethodSources::three),
-          simpleGraphArguments(MethodSources::threeLinked),
-          simpleGraphArguments(MethodSources::threeSplit),
-          simpleGraphArguments(MethodSources::splitJoin),
-          directedGraphArguments(MethodSources::complexOneTraversal),
-          directedGraphArguments(MethodSources::complexTwoTraversal),
-          directedGraphArguments(MethodSources::complexTwoComponents)
+          simpleGraphArguments(g-> one(g, POST_ORDER)),
+          simpleGraphArguments(g-> oneLinked(g, POST_ORDER)),
+          simpleGraphArguments(g-> two(g, POST_ORDER)),
+          simpleGraphArguments(g-> twoLinked(g, POST_ORDER)),
+          simpleGraphArguments(g-> three(g, POST_ORDER)),
+          simpleGraphArguments(g-> threeLinked(g, POST_ORDER)),
+          simpleGraphArguments(g-> threeSplit(g, POST_ORDER)),
+          simpleGraphArguments(g-> splitJoin(g, POST_ORDER)),
+          directedGraphArguments(g-> complexOneTraversal(g, POST_ORDER)),
+          directedGraphArguments(g-> complexTwoTraversal(g, POST_ORDER)),
+          directedGraphArguments(g -> complexTwoComponents(g, POST_ORDER))
         ).flatMap(identity());
     }
 
@@ -81,7 +82,7 @@ public class MethodSources {
           .map(convert);
     }
 
-    public static Arguments complexTwoComponents(Graph<String> graph) {
+    public static Arguments complexTwoComponents(Graph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C")
           .edge("B", "D")
@@ -97,10 +98,15 @@ public class MethodSources {
           .edge("X", "Z")
           .edge("X", "W");
 
-        return arguments("complex two components post order", graph, List.of("C", "E", "D", "B", "A", "G", "F", "Y", "Z","W", "X"));
+        switch(order) {
+            case POST_ORDER:
+                return arguments("complex two components post order", graph, List.of("C", "E", "D", "B", "A", "G", "F", "Y", "Z","W", "X"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 
-    private static Arguments complexTwoTraversal(Graph<String> graph) {
+    private static Arguments complexTwoTraversal(Graph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C")
           .edge("B", "D")
@@ -112,10 +118,15 @@ public class MethodSources {
           .edge("F", "G")
           .edge("G", "D");
 
-        return arguments("complex two traversal post order", graph, List.of("C", "E", "D", "B", "A", "G", "F"));
+        switch(order) {
+            case POST_ORDER:
+                return arguments("complex two traversal post order", graph, List.of("C", "E", "D", "B", "A", "G", "F"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 
-    private static Arguments complexOneTraversal(Graph<String> graph) {
+    private static Arguments complexOneTraversal(Graph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C")
           .edge("B", "D")
@@ -125,59 +136,110 @@ public class MethodSources {
           .edge("D", "A")
           .edge("A", "E");
 
-        return arguments("complex one traversal post order", graph, List.of("C", "E", "D", "B", "A"));
+        switch(order) {
+            case POST_ORDER:
+                return arguments("complex one traversal post order", graph, List.of("C", "E", "D", "B", "A"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 
-    private static Arguments splitJoin(Graph<String> graph) {
+    private static Arguments splitJoin(Graph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("A", "C")
           .edge("B", "D")
           .edge("C", "D");
 
-        if(graph.isDirected()) {
-            return arguments("split join directed post order", graph, List.of("D", "B", "C", "A"));
-        } else {
-            return arguments("split join undirected post order", graph, List.of("C", "D", "B", "A"));
+        switch(order) {
+            case POST_ORDER:
+                if (graph.isDirected()) {
+                    return arguments("split join directed post order", graph, List.of("D", "B", "C", "A"));
+                } else {
+                    return arguments("split join undirected post order", graph, List.of("C", "D", "B", "A"));
+                }
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
         }
     }
 
-    private static Arguments threeSplit(Graph<String> graph) {
+    private static Arguments threeSplit(Graph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("A", "C");
-        return arguments("three split post order", graph, List.of("B", "C", "A"));
+        switch(order) {
+            case POST_ORDER:
+                return arguments("three split post order", graph, List.of("B", "C", "A"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 
-    private static Arguments threeLinked(Graph<String> graph) {
+    private static Arguments threeLinked(Graph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C");
-        return arguments("three linked post order", graph, List.of("C", "B", "A"));
+
+        switch(order) {
+            case POST_ORDER:
+                return arguments("three linked post order", graph, List.of("C", "B", "A"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 
-    private static Arguments twoLinked(Graph<String> graph) {
-        graph.edge("A", "B");
-        return arguments("two linked post order", graph, List.of("B", "A"));
-    }
-
-    private static Arguments three(Graph<String> graph) {
+    private static Arguments three(Graph<String> graph, PathOrder order) {
         graph.vertex("A")
           .vertex("B")
           .vertex("C");
-        return arguments("two post order", graph, List.of("A", "B", "C"));
+
+        switch(order) {
+            case POST_ORDER:
+                return arguments("two post order", graph, List.of("A", "B", "C"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 
-    private static Arguments two(Graph<String> graph) {
+    private static Arguments twoLinked(Graph<String> graph, PathOrder order) {
+        graph.edge("A", "B");
+
+        switch(order) {
+            case POST_ORDER:
+                return arguments("two linked post order", graph, List.of("B", "A"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
+    }
+
+    private static Arguments two(Graph<String> graph, PathOrder order) {
         graph.vertex("A")
           .vertex("B");
-        return arguments("two post order", graph, List.of("A", "B"));
+
+        switch(order) {
+            case POST_ORDER:
+                return arguments("two post order", graph, List.of("A", "B"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 
-    private static Arguments oneLinked(Graph<String> graph) {
+    private static Arguments oneLinked(Graph<String> graph, PathOrder order) {
         graph.edge("A", "A");
-        return arguments("one linked post order", graph, List.of("A"));
+
+        switch(order) {
+            case POST_ORDER:
+                return arguments("one linked post order", graph, List.of("A"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 
-    private static Arguments one(Graph<String> graph) {
+    private static Arguments one(Graph<String> graph, PathOrder order) {
         graph.vertex("A");
-        return arguments("one post order", graph, List.of("A"));
+
+        switch(order) {
+            case POST_ORDER:
+                return arguments("one post order", graph, List.of("A"));
+            default:
+                throw new IllegalArgumentException("not supported: " + order);
+        }
     }
 }

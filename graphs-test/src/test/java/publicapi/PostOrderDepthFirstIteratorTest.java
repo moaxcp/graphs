@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.*;
 import java.util.*;
 
 import static com.github.moaxcp.graphs.testframework.MethodSources.*;
+import static com.github.moaxcp.graphs.testframework.PathOrder.*;
 import static com.google.common.truth.Truth.*;
 import static java.util.stream.Collectors.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,7 +69,7 @@ public class PostOrderDepthFirstIteratorTest {
 
   @DirectedSimpleGraphs
   void postOrderIteratorStart(Graph<String> graph) {
-    complexTwoComponents(graph);
+    complexTwoComponents(graph, POST_ORDER);
     var result = new ArrayList<String>();
     var iterator = graph.postOrderIterator("D", "G", "W");
     while(iterator.hasNext()) {
@@ -80,7 +81,7 @@ public class PostOrderDepthFirstIteratorTest {
 
   @MethodSource("com.github.moaxcp.graphs.testframework.MethodSources#graphsPostOrder")
   @DisplayName("dfs matches expected order")
-  @ParameterizedTest(name = "{index} - {0} post order {2}")
+  @ParameterizedTest(name = "{index} - {0} {2}")
   void postOrderStream(String name, Graph<String> graph, List<String> expectedOrder) {
     var result = graph.postOrderStream()
     .map(Vertex::getId)
@@ -91,7 +92,7 @@ public class PostOrderDepthFirstIteratorTest {
 
   @DirectedSimpleGraphs
   void postOrderStreamStart(Graph<String> graph) {
-    complexTwoComponents(graph);
+    complexTwoComponents(graph, POST_ORDER);
     var result = graph.postOrderStream("D", "G", "W")
       .map(Vertex::getId)
       .collect(toList());
