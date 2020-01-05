@@ -220,11 +220,7 @@ public class MethodSources {
                     return arguments(name, graph, startOrder(), List.of("C", "D", "B", "A"));
                 }
             case PRE_ORDER:
-                if (graph.isDirected()) {
-                    return arguments(name, graph, startOrder(), List.of("A", "B", "D", "C"));
-                } else {
-                    return arguments(name, graph, startOrder(), List.of("A", "B", "D", "C"));
-                }
+                return arguments(name, graph, startOrder(), List.of("A", "B", "D", "C"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
         }

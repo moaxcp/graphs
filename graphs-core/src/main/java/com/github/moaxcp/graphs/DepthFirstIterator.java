@@ -70,11 +70,7 @@ abstract class DepthFirstIterator<ID> implements Iterator<Vertex<ID>> {
   public boolean hasNext() {
     if(currentId == null) {
       goToNextVertex();
-      if(currentId == null) {
-        return false;
-      } else {
-        return true;
-      }
+      return currentId != null;
     } else {
       return true;
     }

@@ -1,14 +1,12 @@
 package com.github.moaxcp.graphs;
 
-import lombok.*;
-
 import java.util.*;
 
 class PostOrderDepthFirstIterator<ID> extends DepthFirstIterator<ID> {
 
   private final Set<ID> complete;
 
-  PostOrderDepthFirstIterator(@NonNull Graph<ID> graph, @NonNull ID... start) {
+  PostOrderDepthFirstIterator(Graph<ID> graph, ID... start) {
     super(graph, start);
     complete = new HashSet<>();
   }

@@ -1,12 +1,10 @@
 package com.github.moaxcp.graphs;
 
-import lombok.*;
-
 import java.util.*;
 
 class PreOrderDepthFirstIterator<ID> extends DepthFirstIterator<ID> {
 
-  PreOrderDepthFirstIterator(@NonNull Graph<ID> graph, @NonNull ID... start) {
+  PreOrderDepthFirstIterator(Graph<ID> graph, ID... start) {
     super(graph, start);
   }
 
