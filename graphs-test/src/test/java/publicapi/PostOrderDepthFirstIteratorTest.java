@@ -56,6 +56,37 @@ public class PostOrderDepthFirstIteratorTest {
     assertThat(iterator.hasNext()).isTrue();
   }
 
+  @SimpleGraphs
+  void hasNext_MultipleBeforeIteration(Graph<String> graph) {
+    graph.vertex("A");
+    var iterator = graph.postOrderIterator();
+    assertThat(iterator.hasNext()).isTrue();
+    assertThat(iterator.hasNext()).isTrue();
+    assertThat(iterator.hasNext()).isTrue();
+    assertThat(iterator.next().getId()).isEqualTo("A");
+  }
+
+  @SimpleGraphs
+  void hasNext_MultipleBetweenComponents(Graph<String> graph) {
+    graph.vertex("A");
+    graph.vertex("B");
+    var iterator = graph.postOrderIterator();
+    assertThat(iterator.hasNext()).isTrue();
+    assertThat(iterator.next().getId()).isEqualTo("A");
+    assertThat(iterator.hasNext()).isTrue();
+    assertThat(iterator.hasNext()).isTrue();
+    assertThat(iterator.hasNext()).isTrue();
+    assertThat(iterator.next().getId()).isEqualTo("B");
+  }
+
+  @SimpleGraphs
+  void next_withoutCallingHasNext(Graph<String> graph) {
+    graph.vertex("A");
+    var iterator = graph.postOrderIterator();
+    assertThat(iterator.next().getId()).isEqualTo("A");
+    assertThat(iterator.hasNext()).isFalse();
+  }
+
   @MethodSource("com.github.moaxcp.graphs.testframework.MethodSources#graphsPostOrder")
   @DisplayName("postOrderIterator matches expected order")
   @ParameterizedTest(name = "{index} - {0} {2}")
