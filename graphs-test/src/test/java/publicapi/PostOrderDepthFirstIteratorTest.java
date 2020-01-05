@@ -19,7 +19,7 @@ public class PostOrderDepthFirstIteratorTest {
 
   @SimpleGraphs
   void nullStart(Graph<String> graph) {
-    var exception = assertThrows(NullPointerException.class, () -> graph.postOrderIterator(null));
+    var exception = assertThrows(NullPointerException.class, () -> graph.postOrderIterator((String[]) null));
     assertThat(exception).hasMessageThat().isEqualTo("start is marked non-null but is null");
   }
 
