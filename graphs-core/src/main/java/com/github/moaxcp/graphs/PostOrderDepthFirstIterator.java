@@ -64,20 +64,19 @@ class PostOrderDepthFirstIterator<ID> implements Iterator<Vertex<ID>> {
   }
 
   private void stackToNextBlack() {
-    Context<ID> context = stack.peek();
+    Context<ID> context = stack.getFirst();
     ID id = context.getId();
     Iterator<ID> traverse = context.getTraverse();
     if(!traverse.hasNext()) {
       return;
-    } else {
-      ID next = traverse.next();
-      while(traverse.hasNext() && (colors.get(next) == GRAY || colors.get(next) == BLACK)) {
-        next = traverse.next();
-      }
-      if(!colors.containsKey(next) || colors.get(next) == WHITE) {
-        pushContext(next);
-        stackToNextBlack();
-      }
+    }
+    ID next = traverse.next();
+    while(traverse.hasNext() && (colors.get(next) == GRAY || colors.get(next) == BLACK)) {
+      next = traverse.next();
+    }
+    if(!colors.containsKey(next) || colors.get(next) == WHITE) {
+      pushContext(next);
+      stackToNextBlack();
     }
   }
 
@@ -103,7 +102,11 @@ class PostOrderDepthFirstIterator<ID> implements Iterator<Vertex<ID>> {
         .filter(id -> !colors.containsKey(id) || colors.get(id) == WHITE)
         .findFirst();
     }
-    return Optional.of(startNodes.remove(0));
+    ID start = startNodes.remove(0);
+    if(!colors.containsKey(start) || colors.get(start) == WHITE) {
+      return Optional.of(start);
+    }
+    return Optional.empty();
   }
 
   @Override

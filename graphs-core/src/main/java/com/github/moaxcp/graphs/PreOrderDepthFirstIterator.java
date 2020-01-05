@@ -5,116 +5,77 @@ import lombok.*;
 
 import java.util.*;
 
-import static com.github.moaxcp.graphs.TraversalColor.*;
 import static java.util.Objects.*;
 import static java.util.stream.Collectors.*;
 
 class PreOrderDepthFirstIterator<ID> implements Iterator<Vertex<ID>> {
 
-  @Value
-  @Builder
-  private static class Context<ID> {
-    @NonNull
-    private final ID id;
-    @NonNull
-    private final Iterator<ID> traverse;
-  }
-
   private final Graph<ID> graph;
-  private final List<ID> startNodes;
-  private final Map<ID, TraversalColor> colors;
-  private ID current;
-  private final Deque<Context<ID>> stack;
+  private final Set<ID> visited;
+  private final Deque<ID> stack;
+  private ID currentId;
 
   PreOrderDepthFirstIterator(@NonNull Graph<ID> graph, @NonNull ID... start) {
     this.graph = graph;
-    startNodes = new ArrayList<>();
+    visited = new HashSet<>();
+    stack = new LinkedList<>();
     for(ID id : start) {
       requireNonNull(id, "'id' in 'start' must not be null.");
       if(graph.findVertex(id).isEmpty()) {
         throw new IllegalArgumentException("vertex '" + id + "' not found in graph.");
       }
-      startNodes.add(id);
+      stack.addLast(id);
     }
-    colors = new HashMap<>();
-    stack = new LinkedList<>();
   }
 
   private void goToNextVertex() {
-    current = null;
+    if(currentId != null) {
+      List<ID> traverse = getTraverseEdges();
+      //add to stack in reverse to maintain insertion order for Linked sets
+      for(int i = traverse.size() - 1; i >= 0; i--) {
+        stack.push(traverse.get(i));
+      }
+    }
+
     if(stack.isEmpty()) {
-      Optional<ID> optional = getStart();
-      if(optional.isEmpty()) {
+      getStart().ifPresent(stack::push);
+    }
+
+    while(!stack.isEmpty()) {
+      currentId = stack.pop();
+      if(!visited.contains(currentId)) {
+        visited.add(currentId);
         return;
       }
-      ID id = optional.get();
-      pushContext(id);
-    } else {
-      stackToNextWhite();
     }
-    if(stack.isEmpty()) {
-      return;
-    }
-    Context<ID> context = stack.getFirst();
-    current = context.getId();
+    currentId = null;
   }
 
-  private void pushContext(ID id) {
-    colors.put(id, GRAY);
-    Context<ID> context = Context.<ID>builder().id(id).traverse(getTraverse(id)).build();
-    stack.push(context);
-  }
-
-  private void stackToNextWhite() {
-    Context<ID> context = stack.getFirst();
-    ID id = context.getId();
-    Iterator<ID> traverse = context.getTraverse();
-    if(!traverse.hasNext()) {
-      colors.put(id, BLACK);
-      stack.pop();
-      stackToNextWhite();
-      return;
-    } else {
-      ID next = traverse.next();
-      while(traverse.hasNext() && (colors.get(next) == GRAY || colors.get(next) == BLACK)) {
-        next = traverse.next();
-      }
-      if(!colors.containsKey(next) || colors.get(next) == WHITE) {
-        pushContext(next);
-      }
-    }
-  }
-
-  private Set<Edge<ID>> getTraverseEdges(Vertex<ID> vertex) {
+  private List<ID> getTraverseEdges() {
+    Vertex<ID> vertex = graph.findVertex(currentId).orElseThrow();
+    Set<Edge<ID>> edges;
     if(graph.isDirected()) {
-      return vertex.outEdges();
+      edges = vertex.outEdges();
     } else {
-      return vertex.adjacentEdges();
+      edges = vertex.adjacentEdges();
     }
-  }
-
-  private Iterator<ID> getTraverse(ID from) {
-    Vertex<ID> vertex = graph.findVertex(from).orElseThrow();
-    return getTraverseEdges(vertex).stream()
-      .map(edge -> edge.getOppositeEndpoint(from))
-      .collect(toList()).iterator();
-
+    return edges.stream()
+      .map(e -> e.getOppositeEndpoint(currentId))
+      .filter(id -> !visited.contains(id))
+      .collect(toList());
   }
 
   private Optional<ID> getStart() {
-    if(startNodes.isEmpty()) {
-      return graph.getVertices().keySet().stream()
-        .filter(id -> !colors.containsKey(id) || colors.get(id) == WHITE)
-        .findFirst();
-    }
-    return Optional.of(startNodes.remove(0));
+    return graph.getVertices().keySet().stream()
+      .filter(id -> !visited.contains(id))
+      .findFirst();
   }
 
   @Override
   public boolean hasNext() {
-    if(current == null) {
+    if(currentId == null) {
       goToNextVertex();
-      if(current == null) {
+      if(currentId == null) {
         return false;
       } else {
         return true;
@@ -126,14 +87,14 @@ class PreOrderDepthFirstIterator<ID> implements Iterator<Vertex<ID>> {
 
   @Override
   public Vertex<ID> next() {
-    if(current == null) {
+    if(currentId == null) {
       goToNextVertex();
-      if(current == null) {
+      if(currentId == null) {
         throw new NoSuchElementException("Could not find next element.");
       }
     }
-    var previous = current;
+    var previous = currentId;
     goToNextVertex();
-    return graph.findVertex(previous).orElseThrow(() -> new NoSuchElementException("Could not find next element: \"" + current + "\"."));
+    return graph.findVertex(previous).orElseThrow(() -> new NoSuchElementException("Could not find next element: \"" + currentId + "\"."));
   }
 }
