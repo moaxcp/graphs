@@ -23,7 +23,7 @@ public class EdgeMethods {
     @Setup(Level.Trial)
     public void setup() {
         if(directed) {
-            graph = new DirectedGraph<>();
+            graph = new DirectedLinkedGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
                     graph.edge(i, j);
@@ -33,7 +33,7 @@ public class EdgeMethods {
                 }
             }
         } else {
-            graph = new UndirectedGraph<>();
+            graph = new UndirectedLinkedGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
                     vertex = graph.edge(i, j).toVertex();

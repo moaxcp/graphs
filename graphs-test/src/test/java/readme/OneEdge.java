@@ -1,8 +1,8 @@
 package readme;
 
-import com.github.moaxcp.graphs.DirectedGraph;
+import com.github.moaxcp.graphs.DirectedLinkedGraph;
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.UndirectedGraph;
+import com.github.moaxcp.graphs.UndirectedLinkedGraph;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileOutputStream;
@@ -19,7 +19,7 @@ public class OneEdge {
         Path dir = Paths.get("images");
         Files.createDirectories(dir);
         FileOutputStream out = new FileOutputStream("images/oneEdgeDirected.png");
-        Graph<String> graph = new DirectedGraph<>();
+        Graph<String> graph = new DirectedLinkedGraph<>();
         graph.edge("A", "B");
         dot(graph).writeImage(out, "png");
     }
@@ -29,7 +29,7 @@ public class OneEdge {
         Path dir = Paths.get("images");
         Files.createDirectories(dir);
         FileOutputStream out = new FileOutputStream("images/oneEdgeUndirected.png");
-        Graph<String> graph = new UndirectedGraph<>();
+        Graph<String> graph = new UndirectedLinkedGraph<>();
         graph.edge("A", "B");
         dot(graph).writeImage(out, "png");
     }

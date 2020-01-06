@@ -24,36 +24,36 @@ public class MethodSources {
 
     public static Stream<Graph<String>> simpleGraphs() {
         return Stream.of(
-                new UndirectedGraph<>(),
-                new DirectedGraph<>(),
-                new UndirectedEventGraph<>(testEventBus()),
-                new DirectedEventGraph<>(testEventBus()));
+                new UndirectedLinkedGraph<>(),
+                new DirectedLinkedGraph<>(),
+                new UndirectedEventLinkedGraph<>(testEventBus()),
+                new DirectedEventLinkedGraph<>(testEventBus()));
     }
 
     public static Stream<Graph<String>> undirectedSimpleGraphs() {
         return Stream.of(
-                new UndirectedGraph<>(),
-                new UndirectedEventGraph<>(testEventBus()));
+                new UndirectedLinkedGraph<>(),
+                new UndirectedEventLinkedGraph<>(testEventBus()));
     }
 
     public static Stream<Graph<String>> directedSimpleGraphs() {
         return Stream.of(
-                new DirectedGraph<>(),
-                new DirectedEventGraph<>(testEventBus()));
+                new DirectedLinkedGraph<>(),
+                new DirectedEventLinkedGraph<>(testEventBus()));
     }
 
     public static Stream<Graph<String>> nonEventSimpleGraphs() {
         return Stream.of(
-            new UndirectedGraph<>(),
-            new DirectedGraph<>());
+            new UndirectedLinkedGraph<>(),
+            new DirectedLinkedGraph<>());
     }
 
     public static Stream<Arguments> eventSimpleGraphs() {
         EventBus undirected = testEventBus();
         EventBus directed = testEventBus();
         return Stream.of(
-                Arguments.arguments(new UndirectedEventGraph<>(undirected), undirected),
-                Arguments.arguments(new DirectedEventGraph<>(directed), directed));
+                Arguments.arguments(new UndirectedEventLinkedGraph<>(undirected), undirected),
+                Arguments.arguments(new DirectedEventLinkedGraph<>(directed), directed));
     }
 
     public static Stream<Arguments> graphsPostOrder() {

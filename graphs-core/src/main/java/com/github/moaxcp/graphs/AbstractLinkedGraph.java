@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.*;
  *
  * @param <ID> type of all identifiers in graph
  */
-public abstract class AbstractGraph<ID> implements Graph<ID> {
+public abstract class AbstractLinkedGraph<ID> implements Graph<ID> {
   private LocalProperties properties;
   private LocalProperties vertexProperties;
   private LocalProperties edgeProperties;
@@ -25,7 +25,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   private Map<ID, Set<Edge<ID>>> inEdges;
   private Map<ID, Set<Edge<ID>>> outEdges;
 
-  protected AbstractGraph() {
+  protected AbstractLinkedGraph() {
     vertices = new LinkedHashMap<>();
     edges = new LinkedHashMap<>();
     edgeIds = new LinkedHashMap<>();
@@ -37,7 +37,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     properties = new LocalProperties(new LinkedHashMap<>());
   }
 
-  protected AbstractGraph(ID id) {
+  protected AbstractLinkedGraph(ID id) {
     this();
     properties.putProperties(linkedHashMap("id", id));
   }
@@ -611,8 +611,8 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   @Override
   public final boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof AbstractGraph)) return false;
-    AbstractGraph<?> that = (AbstractGraph<?>) o;
+    if (!(o instanceof AbstractLinkedGraph)) return false;
+    AbstractLinkedGraph<?> that = (AbstractLinkedGraph<?>) o;
     return Objects.equals(properties, that.properties) && Objects.equals(vertexProperties, that.vertexProperties) && Objects.equals(edgeProperties, that.edgeProperties) && Objects.equals(vertices, that.vertices) && Objects.equals(edges, that.edges);
   }
 
@@ -740,7 +740,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final boolean isDirected() {
-      return AbstractGraph.this.isDirected();
+      return AbstractLinkedGraph.this.isDirected();
     }
 
     @Override
@@ -844,7 +844,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public final boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof AbstractGraph<?>.SimpleEdge)) return false;
+      if (!(o instanceof AbstractLinkedGraph<?>.SimpleEdge)) return false;
       SimpleEdge that = (SimpleEdge) o;
       return Objects.equals(local(), that.local()) &&
         Objects.equals(inherited(), that.inherited());
@@ -1037,7 +1037,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     @Override
     public final boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof AbstractGraph<?>.SimpleVertex)) return false;
+      if (!(o instanceof AbstractLinkedGraph<?>.SimpleVertex)) return false;
       SimpleVertex that = (SimpleVertex) o;
       return Objects.equals(local(), that.local()) &&
         Objects.equals(inherited(), that.inherited());

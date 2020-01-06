@@ -16,25 +16,25 @@ public class Graph {
     @Test
     void undirectedEventGraphDefaultConstructor() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new UndirectedEventGraph(bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().build());
+        assertThat(bus).withAction(() -> new UndirectedEventLinkedGraph(bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().build());
     }
 
     @Test
     void undirectedEventGraphId() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new UndirectedEventGraph<>("id", bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().graphId("id").build());
+        assertThat(bus).withAction(() -> new UndirectedEventLinkedGraph<>("id", bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
     @Test
     void directedEventGraphDefaultConstructor() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new DirectedEventGraph(bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().build());
+        assertThat(bus).withAction(() -> new DirectedEventLinkedGraph(bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().build());
     }
 
     @Test
     void directedEventGraphId() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new DirectedEventGraph<>("id", bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().graphId("id").build());
+        assertThat(bus).withAction(() -> new DirectedEventLinkedGraph<>("id", bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
     @EventSimpleGraphs

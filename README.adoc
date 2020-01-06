@@ -53,10 +53,10 @@ Graph can be undirected or directed. An undirected graph can have only one edge 
 directed graph can have two edges between any two vertices but they must be in opposite directions.
 
 ----
-Graph undirected = new UnidrectedGraph();
-Graph directed = new DirectedGraph();
-Graph undirectedEvent = new UnidrectedEventGraph(EventBus.getDefault());
-Graph directedEvent = new DirectedEventGraph(EventBus.getDefault());
+Graph undirected = new UnidrectedLinkedGraph();
+Graph directed = new DirectedLinkedGraph();
+Graph undirectedEvent = new UnidrectedEventLinkedGraph(EventBus.getDefault());
+Graph directedEvent = new DirectedEventLinkedGraph(EventBus.getDefault());
 ----
 
 There are three main interfaces: Graph, Edge, and Vertex. Edge and Vertex are inner-classes of Graph.
@@ -145,7 +145,7 @@ must always exist but they can be changed to connect different vertices.
 Event graphs post to an EventBus after a change has been made to the graph.
 
 ----
-Graph graph = new DirectedEventGraph(EventBus.getDefault());
+Graph graph = new DirectedEventLinkedGraph(EventBus.getDefault());
 graph.edge("A", "B");
 ----
 
@@ -203,6 +203,13 @@ assertThat(result).containsExactly("A", "B", "C", "D", "E", "F", "G").inOrder();
 ----
 
 = Releases
+
+== 0.9.0
+
+Renamed AbstractGraph to AbstractLinkedGraph and renamed implementors accordingly. This naming convention is to allow a
+new type of graph to be created which uses HashMaps instead of LinkedHashMaps. LinkedHashMaps are used to maintain
+order of edges and vertices. Using a LinkedHashMap makes the graph deterministic which is needed when for some
+algorithms but in some cases it is not needed.
 
 == 0.8.0
 

@@ -1,12 +1,12 @@
 package com.github.moaxcp.graphs;
 
-public class DirectedGraph<ID> extends AbstractGraph<ID> {
+public class DirectedLinkedGraph<ID> extends AbstractLinkedGraph<ID> {
 
-    public DirectedGraph() {
+    public DirectedLinkedGraph() {
 
     }
 
-    public DirectedGraph(ID id) {
+    public DirectedLinkedGraph(ID id) {
         super(id);
     }
 

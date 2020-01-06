@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs.graphviz;
 
-import com.github.moaxcp.graphs.DirectedGraph;
+import com.github.moaxcp.graphs.DirectedLinkedGraph;
 import com.github.moaxcp.graphs.Graph;
 import com.github.moaxcp.graphs.testframework.SimpleGraphs;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class DotTest {
 
     @Test
     void writerIsNull() throws IOException {
-        var writer = dot(new DirectedGraph<String>());
+        var writer = dot(new DirectedLinkedGraph<String>());
         NullPointerException thrown = assertThrows(NullPointerException.class, () -> writer.write(null));
         assertThat(thrown).hasMessageThat().isEqualTo("writer must not be null.");
     }
