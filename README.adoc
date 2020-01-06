@@ -1,6 +1,6 @@
 = graphs
 
-An easy to use java api for graphs which currently supports simple graphs and event streaming. The graph api follows
+An easy to use java api for graphs with support for properties and event streaming. The graph api follows
 a few principles which keeps things simple for the user:
 
 * a graph is always valid
@@ -154,7 +154,59 @@ VertexCreatedEvent, EdgeCreatedEvent.
 
 A subscriber to these events can create a view of the graph as it is modified.
 
+== Traversal
+
+Iterators and streams are provided to traverse the graph.
+
+=== preOrderStream
+
+----
+graph.edge("A", "B")
+  .edge("B", "C")
+  .edge("B", "D")
+  .edge("D", "E")
+  .edge("D", "C")
+  .edge("A", "D")
+  .edge("D", "A")
+  .edge("A", "E")
+  .edge("F", "G")
+  .edge("G", "D");
+
+var result = graph.preOrderStream()
+.map(Vertex::getId)
+.collect(toList());
+
+assertThat(result).containsExactly("A", "B", "C", "D", "E", "F", "G").inOrder();
+----
+
+=== preOrderIterator
+
+----
+graph.edge("A", "B")
+  .edge("B", "C")
+  .edge("B", "D")
+  .edge("D", "E")
+  .edge("D", "C")
+  .edge("A", "D")
+  .edge("D", "A")
+  .edge("A", "E")
+  .edge("F", "G")
+  .edge("G", "D");
+
+var result = new ArrayList<String>();
+var iterator = graph.preOrderIterator();
+while(iterator.hasNext()) {
+  result.add(iterator.next().getId());
+}
+
+assertThat(result).containsExactly("A", "B", "C", "D", "E", "F", "G").inOrder();
+----
+
 = Releases
+
+== 0.8.0
+
+Added iterators and streams for pre-order, post-order, and breadth first traversals.
 
 == 0.7.0
 
