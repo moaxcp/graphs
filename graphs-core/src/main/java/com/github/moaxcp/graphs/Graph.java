@@ -1,5 +1,7 @@
 package com.github.moaxcp.graphs;
 
+import lombok.*;
+
 import java.util.*;
 import java.util.stream.*;
 
@@ -281,7 +283,14 @@ public interface Graph<ID> {
      */
     List<ID> endpoints();
 
-    default ID getOppositeEndpoint(ID id) {
+    /**
+     * Returns the opposite endpoint of this edge
+     * @param id of one endpoint
+     * @return
+     * @throws NullPointerException if id is null
+     * @throws IllegalArgumentException if id is not one of the endpoints of this edge
+     */
+    default ID getOppositeEndpoint(@NonNull ID id) {
       ID from = getFrom();
       ID to = getTo();
       if(from.equals(id)) {
@@ -773,33 +782,85 @@ public interface Graph<ID> {
    */
   Graph<ID> removeVertexProperty(String name);
 
+  /**
+   * Returns a post-order depth-first {@link Iterator<ID>} which returns every {@link Vertex} in this graph starting at
+   * the provided vertices.
+   * @throws NullPointerException if start is null or any id in start
+   * @throws IllegalArgumentException if start contains ids that are not in the graph
+   * @param start ids of traversal
+   * @return
+   */
   default Iterator<Vertex<ID>> postOrderIterator(ID... start) {
     return new PostOrderDepthFirstIterator<>(this, start);
   }
 
+  /**
+   * Returns a post-order depth-first {@link Stream<ID>} of every {@link Vertex} in this graph starting at the provided
+   * vertices.
+   * @throws NullPointerException if start is null or any id in start
+   * @throws IllegalArgumentException if start contains ids that are not in the graph
+   * @param start ids of traversal
+   * @return
+   */
   default Stream<Vertex<ID>> postOrderStream(ID... start) {
     var iterator = postOrderIterator(start);
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
   }
 
+  /**
+   * Returns a pre-order depth-first {@link Iterator<ID>} of every {@link Vertex} in this graph starting at the provided
+   * vertices.
+   * @throws NullPointerException if start is null or any id in start
+   * @throws IllegalArgumentException if start contains ids that are not in the graph
+   * @param start ids of traversal
+   * @return
+   */
   default Iterator<Vertex<ID>> preOrderIterator(ID... start) {
     return new PreOrderDepthFirstIterator<>(this, start);
   }
 
+  /**
+   * Returns a pre-order depth-first {@link Stream<ID>} of every {@link Vertex} in this graph starting at the provided
+   * vertices.
+   * @throws NullPointerException if start is null or any id in start
+   * @throws IllegalArgumentException if start contains ids that are not in the graph
+   * @param start ids of traversal
+   * @return
+   */
   default Stream<Vertex<ID>> preOrderStream(ID... start) {
     var iterator = preOrderIterator(start);
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
   }
 
+  /**
+   * Returns a breadth-first {@link Iterator<ID>} of every {@link Vertex} in this graph starting at the provided
+   * vertices.
+   * @throws NullPointerException if start is null or any id in start
+   * @throws IllegalArgumentException if start contains ids that are not in the graph
+   * @param start ids of traversal
+   * @return
+   */
   default Iterator<Vertex<ID>> breadthFirstIterator(ID... start) {
     return new BreadthFirstIterator<>(this, start);
   }
 
+  /**
+   * Returns a breadth-first {@link Stream<ID>} of every {@link Vertex} in this graph starting at the provided
+   * vertices.
+   * @throws NullPointerException if start is null or any id in start
+   * @throws IllegalArgumentException if start contains ids that are not in the graph
+   * @param start ids of traversal
+   * @return
+   */
   default Stream<Vertex<ID>> breadthFirstStream(ID... start) {
     var iterator = breadthFirstIterator(start);
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
   }
 
+  /**
+   * Returns true if this graph is empty.
+   * @return
+   */
   default boolean isEmpty() {
     return getVertices().isEmpty();
   }
