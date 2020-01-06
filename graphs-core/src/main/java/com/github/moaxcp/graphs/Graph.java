@@ -791,6 +791,15 @@ public interface Graph<ID> {
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
   }
 
+  default Iterator<Vertex<ID>> breadthFirstIterator(ID... start) {
+    return new BreadthFirstIterator<>(this, start);
+  }
+
+  default Stream<Vertex<ID>> breadthFirstStream(ID... start) {
+    var iterator = breadthFirstIterator(start);
+    return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
+  }
+
   default boolean isEmpty() {
     return getVertices().isEmpty();
   }

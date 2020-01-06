@@ -27,13 +27,13 @@ public class PostOrderDepthFirstIteratorTest {
   void nullInOther(Graph<String> graph) {
     graph.vertex("A").vertex("B");
     var exception = assertThrows(NullPointerException.class, () -> graph.postOrderIterator("A", null, "B"));
-    assertThat(exception).hasMessageThat().isEqualTo("'id' in 'start' must not be null.");
+    assertThat(exception).hasMessageThat().isEqualTo("\"id\" in \"start\" must not be null.");
   }
 
   @SimpleGraphs
   void startNotInGraph(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.postOrderIterator("A"));
-    assertThat(exception).hasMessageThat().isEqualTo("vertex 'A' not found in graph.");
+    assertThat(exception).hasMessageThat().isEqualTo("vertex \"A\" not found in graph.");
   }
 
   @SimpleGraphs

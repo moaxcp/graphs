@@ -11,7 +11,7 @@ class PreOrderDepthFirstIterator<ID> extends DepthFirstIterator<ID> {
   void goToNextVertex() {
     if(getCurrentId() != null) {
       List<ID> traverse = getTraverseVertices(getCurrentId());
-      //add to stack in reverse to maintain insertion order for Linked sets
+      //add to stack in reverse to maintain order of edges
       for(int i = traverse.size() - 1; i >= 0; i--) {
         getStack().push(traverse.get(i));
       }

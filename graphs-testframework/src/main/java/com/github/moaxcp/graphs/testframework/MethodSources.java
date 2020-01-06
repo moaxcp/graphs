@@ -64,6 +64,10 @@ public class MethodSources {
         return graphsOrdered(PRE_ORDER);
     }
 
+    public static Stream<Arguments> graphsBreadthFirst() {
+        return graphsOrdered(BREADTH_FIRST);
+    }
+
     private static Stream<Arguments> graphsOrdered(PathOrder order) {
         return Stream.of(
           simpleGraphArguments(g -> one(g, order)),
@@ -105,6 +109,8 @@ public class MethodSources {
                 return arguments(name, graph, startOrder("B", "B"), List.of("D", "B", "C", "A", "Z", "X"));
             case PRE_ORDER:
                 return arguments(name, graph, startOrder("B", "B"), List.of("B", "D", "A", "C", "X", "Z"));
+            case BREADTH_FIRST:
+                return arguments(name, graph, startOrder("B", "B"), List.of("B", "D", "A", "C", "X", "Z"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
 
@@ -129,6 +135,8 @@ public class MethodSources {
                 return arguments(name, graph, startOrder("A", "D"), List.of("C", "E", "D", "B", "A", "G", "F"));
             case PRE_ORDER:
                 return arguments(name, graph, startOrder("A", "D"), List.of("A", "B", "C", "D", "E", "F", "G"));
+            case BREADTH_FIRST:
+                return arguments(name, graph, startOrder("A", "D"), List.of("A", "B", "D", "E", "C", "F", "G"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
         }
@@ -156,6 +164,8 @@ public class MethodSources {
                 return arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A", "G", "F", "Y", "Z","W", "X"));
             case PRE_ORDER:
                 return arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E", "F", "G", "X", "Y", "Z", "W"));
+            case BREADTH_FIRST:
+                return arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C", "F", "G", "X", "Y", "Z", "W"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
         }
@@ -179,6 +189,8 @@ public class MethodSources {
                 return arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A", "G", "F"));
             case PRE_ORDER:
                 return arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E", "F", "G"));
+            case BREADTH_FIRST:
+                return arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C", "F", "G"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
         }
@@ -200,6 +212,8 @@ public class MethodSources {
                 return arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A"));
             case PRE_ORDER:
                 return arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E"));
+            case BREADTH_FIRST:
+                return arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
         }
@@ -221,6 +235,8 @@ public class MethodSources {
                 }
             case PRE_ORDER:
                 return arguments(name, graph, startOrder(), List.of("A", "B", "D", "C"));
+            case BREADTH_FIRST:
+                return arguments(name, graph, startOrder(), List.of("A", "B", "C", "D"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
         }
@@ -235,6 +251,7 @@ public class MethodSources {
             case POST_ORDER:
                 return arguments(name, graph, startOrder(), List.of("B", "C", "A"));
             case PRE_ORDER:
+            case BREADTH_FIRST:
                 return arguments(name, graph, startOrder(), List.of("A", "B", "C"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
@@ -250,6 +267,7 @@ public class MethodSources {
             case POST_ORDER:
                 return arguments(name, graph, startOrder(), List.of("C", "B", "A"));
             case PRE_ORDER:
+            case BREADTH_FIRST:
                 return arguments(name, graph, startOrder(), List.of("A", "B", "C"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
@@ -273,6 +291,7 @@ public class MethodSources {
             case POST_ORDER:
                 return arguments(name, graph, startOrder(), List.of("B", "A"));
             case PRE_ORDER:
+            case BREADTH_FIRST:
                 return arguments(name, graph, startOrder(), List.of("A", "B"));
             default:
                 throw new IllegalArgumentException("not supported: " + order);
