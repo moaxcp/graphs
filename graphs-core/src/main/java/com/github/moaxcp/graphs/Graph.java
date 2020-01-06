@@ -783,7 +783,7 @@ public interface Graph<ID> {
   Graph<ID> removeVertexProperty(String name);
 
   /**
-   * Returns a post-order depth-first {@link Iterator<ID>} which returns every {@link Vertex} in this graph starting at
+   * Returns a post-order depth-first {@link Iterator} which returns every {@link Vertex} in this graph starting at
    * the provided vertices.
    * @throws NullPointerException if start is null or any id in start
    * @throws IllegalArgumentException if start contains ids that are not in the graph
@@ -795,7 +795,7 @@ public interface Graph<ID> {
   }
 
   /**
-   * Returns a post-order depth-first {@link Stream<ID>} of every {@link Vertex} in this graph starting at the provided
+   * Returns a post-order depth-first {@link Stream} of every {@link Vertex} in this graph starting at the provided
    * vertices.
    * @throws NullPointerException if start is null or any id in start
    * @throws IllegalArgumentException if start contains ids that are not in the graph
@@ -808,7 +808,7 @@ public interface Graph<ID> {
   }
 
   /**
-   * Returns a pre-order depth-first {@link Iterator<ID>} of every {@link Vertex} in this graph starting at the provided
+   * Returns a pre-order depth-first {@link Iterator} of every {@link Vertex} in this graph starting at the provided
    * vertices.
    * @throws NullPointerException if start is null or any id in start
    * @throws IllegalArgumentException if start contains ids that are not in the graph
@@ -820,7 +820,7 @@ public interface Graph<ID> {
   }
 
   /**
-   * Returns a pre-order depth-first {@link Stream<ID>} of every {@link Vertex} in this graph starting at the provided
+   * Returns a pre-order depth-first {@link Stream} of every {@link Vertex} in this graph starting at the provided
    * vertices.
    * @throws NullPointerException if start is null or any id in start
    * @throws IllegalArgumentException if start contains ids that are not in the graph
@@ -833,7 +833,7 @@ public interface Graph<ID> {
   }
 
   /**
-   * Returns a breadth-first {@link Iterator<ID>} of every {@link Vertex} in this graph starting at the provided
+   * Returns a breadth-first {@link Iterator} of every {@link Vertex} in this graph starting at the provided
    * vertices.
    * @throws NullPointerException if start is null or any id in start
    * @throws IllegalArgumentException if start contains ids that are not in the graph
@@ -845,7 +845,7 @@ public interface Graph<ID> {
   }
 
   /**
-   * Returns a breadth-first {@link Stream<ID>} of every {@link Vertex} in this graph starting at the provided
+   * Returns a breadth-first {@link Stream} of every {@link Vertex} in this graph starting at the provided
    * vertices.
    * @throws NullPointerException if start is null or any id in start
    * @throws IllegalArgumentException if start contains ids that are not in the graph
