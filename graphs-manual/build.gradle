@@ -1,0 +1,24 @@
+apply plugin: 'org.asciidoctor.convert'
+
+description = 'manual for all graphs projects.'
+
+dependencies {
+    api project(':graphs-core')
+    api project(':graphs-graphviz')
+}
+
+patchModules.config = [
+    "truth=truth-java8-extension-1.0.jar"
+]
+
+compileTestJava {
+    moduleOptions {
+        addReads = [
+            'com.github.moaxcp.graphs.test' : 'truth,org.junit.jupiter.params'
+        ]
+    }
+}
+
+asciidoctor {
+    attributes toc : 'left'
+}
