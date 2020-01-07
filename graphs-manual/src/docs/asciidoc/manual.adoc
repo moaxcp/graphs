@@ -1,0 +1,37 @@
+:toc:
+:sourcedir: ../../../src/test/java
+
+= Graph Topics
+
+== Create a graph using edge methods
+
+A graph can be constructed by calling edge methods. The vertices declared in the calls are implicitly created. The
+following examples create this graph.
+
+image::images/edgeMethods.png[edge classification]
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/EdgeMethods.java[lines=15..24]
+----
+
+`edge` methods return the graph and can be chained to add multiple edges. `getEdge` methods return the Edge so it can
+modified. This allows properties to be added, removed, or updated including the "to" and "from" vertices of the edge.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/EdgeMethods.java[lines=33..42]
+----
+
+The endpoint vertices are returned by the methods `fromVertex` and `toVertex`. These can be used to modify the vertices.
+
+
+
+== Create a graph using vertex methods
+
+A graph can be constructed by only calling vertex methods. A Vertex will be returned which can then be connected to
+other vertices using `connectsTo` or `connectsFrom`.
+
+----
+graph.getVertex("A").connectsTo("B");
+----

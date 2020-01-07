@@ -169,4 +169,11 @@ public class Dot<ID> {
     public void writeImage(OutputStream out, String format) throws IOException {
         ImageIO.write(toImage(), format, out);
     }
+
+    public void writeImage(String fileName, String format) throws IOException {
+        File file = new File(fileName);
+        file.getParentFile().mkdirs();
+        FileOutputStream output = new FileOutputStream(file);
+        writeImage(output, format);
+    }
 }
