@@ -48,6 +48,4 @@ delombok {
     modulePath.from(configurations.runtimeClasspath)
 }
 
-javadoc {
-    source = sourceSets.main.allSource
-}
+javadoc.enabled = false

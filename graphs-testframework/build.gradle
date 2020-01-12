@@ -17,6 +17,9 @@ delombok {
     modulePath.from(configurations.runtimeClasspath)
 }
 
-javadoc {
-    source = sourceSets.main.allSource
+javadoc.enabled = false;
+
+jacocoTestReport {
+    dependsOn ':graphs-test:test'
+    executionData("${project(':graphs-test').buildDir}/jacoco/test.exec")
 }

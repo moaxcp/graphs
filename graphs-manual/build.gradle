@@ -22,3 +22,9 @@ compileTestJava {
 asciidoctor {
     attributes toc : 'left'
 }
+
+javadoc.enabled = false
+
+delombok {
+    modulePath.from(configurations.runtimeClasspath)
+}
