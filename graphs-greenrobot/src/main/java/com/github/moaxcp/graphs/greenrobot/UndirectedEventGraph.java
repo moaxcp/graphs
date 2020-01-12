@@ -4,14 +4,14 @@ import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
 import org.greenrobot.eventbus.*;
 
-public class UndirectedEventLinkedGraph<ID> extends AbstractEventLinkedGraph<ID> {
+public class UndirectedEventGraph<ID> extends AbstractEventGraph<ID> {
 
-    public UndirectedEventLinkedGraph(EventBus bus) {
+    public UndirectedEventGraph(EventBus bus) {
         super(bus);
         getBus().post(UndirectedGraphCreatedEvent.<ID>builder().build());
     }
 
-    public UndirectedEventLinkedGraph(ID id, EventBus bus) {
+    public UndirectedEventGraph(ID id, EventBus bus) {
         super(id, bus);
         getBus().post(UndirectedGraphCreatedEvent.<ID>builder().graphId(id).build());
     }

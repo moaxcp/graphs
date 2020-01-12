@@ -206,10 +206,7 @@ assertThat(result).containsExactly("A", "B", "C", "D", "E", "F", "G").inOrder();
 
 == 0.9.0
 
-Renamed AbstractGraph to AbstractLinkedGraph and renamed implementors accordingly. This naming convention is to allow a
-new type of graph to be created which uses HashMaps instead of LinkedHashMaps. LinkedHashMaps are used to maintain
-order of edges and vertices. Using a LinkedHashMap makes the graph deterministic which is needed when for some
-algorithms but in some cases it is not needed.
+Adding the asciidoctor manual.
 
 == 0.8.0
 

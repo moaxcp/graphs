@@ -23,20 +23,20 @@ public class EdgeMethods {
     @Setup(Level.Trial)
     public void setup() {
         if(directed) {
-            graph = new DirectedLinkedGraph<>();
+            graph = new DirectedGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
                     graph.edge(i, j);
-                    vertex = graph.edge(j, i).toVertex();
+                    vertex = graph.getEdge(j, i).toVertex();
                     lastFrom = j;
                     lastTo = i;
                 }
             }
         } else {
-            graph = new UndirectedLinkedGraph<>();
+            graph = new UndirectedGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
-                    vertex = graph.edge(i, j).toVertex();
+                    vertex = graph.getEdge(i, j).toVertex();
                     lastFrom = i;
                     lastTo = j;
                 }
@@ -47,12 +47,12 @@ public class EdgeMethods {
 
     @Benchmark
     public Edge<Integer> findFirstEdge() {
-        return graph.edge(0, 0);
+        return graph.getEdge(0, 0);
     }
 
     @Benchmark
     public Edge<Integer> findLastEdge() {
-        return graph.edge(lastFrom, lastTo);
+        return graph.getEdge(lastFrom, lastTo);
     }
 
     @Benchmark

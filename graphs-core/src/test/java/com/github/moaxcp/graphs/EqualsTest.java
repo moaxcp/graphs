@@ -8,7 +8,7 @@ public class EqualsTest {
     @Test
     void undirected() {
         EqualsVerifier
-                .forClass(UndirectedLinkedGraph.class)
+                .forClass(UndirectedGraph.class)
                 .withIgnoredFields("edgeIds", "adjacentEdges", "inEdges", "outEdges")
                 .suppress(Warning.NONFINAL_FIELDS)
                 .verify();
@@ -17,7 +17,7 @@ public class EqualsTest {
     @Test
     void directed() {
         EqualsVerifier
-                .forClass(DirectedLinkedGraph.class)
+                .forClass(DirectedGraph.class)
                 .withIgnoredFields("edgeIds", "adjacentEdges", "inEdges", "outEdges")
                 .suppress(Warning.NONFINAL_FIELDS)
                 .verify();

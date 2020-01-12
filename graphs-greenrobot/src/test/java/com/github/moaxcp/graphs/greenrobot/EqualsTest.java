@@ -10,7 +10,7 @@ public class EqualsTest {
     @Test
     void undirected() {
         EqualsVerifier
-                .forClass(UndirectedEventLinkedGraph.class)
+                .forClass(UndirectedEventGraph.class)
                 .withIgnoredFields("edgeIds", "adjacentEdges", "inEdges", "outEdges", "bus")
                 .withPrefabValues(EventBus.class, EventBus.getDefault(), EventBus.builder().build())
                 .suppress(Warning.NONFINAL_FIELDS)
@@ -20,7 +20,7 @@ public class EqualsTest {
     @Test
     void directed() {
         EqualsVerifier
-                .forClass(DirectedEventLinkedGraph.class)
+                .forClass(DirectedEventGraph.class)
                 .withIgnoredFields("edgeIds", "adjacentEdges", "inEdges", "outEdges", "bus")
                 .withPrefabValues(EventBus.class, EventBus.getDefault(), EventBus.builder().build())
                 .suppress(Warning.NONFINAL_FIELDS)

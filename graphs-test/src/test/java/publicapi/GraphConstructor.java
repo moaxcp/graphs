@@ -14,10 +14,10 @@ public class GraphConstructor {
 
     static Stream<Graph> id() {
         return Stream.of(
-                new UndirectedLinkedGraph("id"),
-                new DirectedLinkedGraph("id"),
-                new UndirectedEventLinkedGraph("id", testEventBus()),
-                new DirectedEventLinkedGraph("id", testEventBus())
+                new UndirectedGraph("id"),
+                new DirectedGraph("id"),
+                new UndirectedEventGraph("id", testEventBus()),
+                new DirectedEventGraph("id", testEventBus())
         );
     }
 

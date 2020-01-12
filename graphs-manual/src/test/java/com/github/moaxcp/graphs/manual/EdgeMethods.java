@@ -10,8 +10,9 @@ import static com.github.moaxcp.graphs.graphviz.Dot.*;
 class EdgeMethods {
   @Test
   void edge_graph() throws IOException {
-    var graph = new DirectedLinkedGraph<String>();
+    var graph = new DirectedGraph<String>();
 
+    // tag::edge[]
     graph.edge("A", "B", "color", "black")
       .edge("B", "C", "color", "black")
       .edge("B", "D", "color", "black")
@@ -22,14 +23,18 @@ class EdgeMethods {
       .edge("A", "E", "color", "black")
       .edge("F", "G", "color", "black")
       .edge("G", "D", "color", "blue");
+    // end::edge[]
 
+    // tag::dot[]
     dot(graph).writeImage("src/docs/asciidoc/images/edgeMethods.png", "png");
+    // end::dot[]
   }
 
   @Test
   void getEdge_graph() throws IOException {
-    var graph = new DirectedLinkedGraph<String>();
+    var graph = new DirectedGraph<String>();
 
+    // tag::getEdge[]
     graph.getEdge("A", "B", "color", "black");
     graph.getEdge("B", "C", "color", "black");
     graph.getEdge("B", "D", "color", "black");
@@ -40,6 +45,7 @@ class EdgeMethods {
     graph.getEdge("A", "E", "color", "black");
     graph.getEdge("F", "G", "color", "black");
     graph.getEdge("G", "D").property("color", "blue");
+    // end::getEdge[]
 
     dot(graph).writeImage("src/docs/asciidoc/images/getEdgeMethods.png", "png");
   }

@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.truth;
 
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.UndirectedLinkedGraph;
+import com.github.moaxcp.graphs.UndirectedGraph;
 import com.google.common.truth.ExpectFailure;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ import static com.google.common.truth.ExpectFailure.assertThat;
 public class GraphSubjectTest {
     @Test
     public void doesNotHaveVertex() {
-        AssertionError expected = expectError(whenTesting -> whenTesting.that(new UndirectedLinkedGraph()).hasVertex("id"));
+        AssertionError expected = expectError(whenTesting -> whenTesting.that(new UndirectedGraph()).hasVertex("id"));
 
         assertThat(expected).factValue("value of").isEqualTo("graph.findVertex(id)");
         assertThat(expected).factKeys().contains("expected to be present");
@@ -23,14 +23,14 @@ public class GraphSubjectTest {
 
     @Test
     public void doesHaveVertex() {
-        Graph graph = new UndirectedLinkedGraph();
+        Graph graph = new UndirectedGraph();
         graph.vertex("id");
         assertThat(graph).hasVertex("id");
     }
 
     @Test
     public void doesNotHaveEdge() {
-        Graph graph = new UndirectedLinkedGraph();
+        Graph graph = new UndirectedGraph();
         graph.vertex("A");
         graph.vertex("B");
 
@@ -42,7 +42,7 @@ public class GraphSubjectTest {
 
     @Test
     public void doesHaveEdge() {
-        Graph graph = new UndirectedLinkedGraph();
+        Graph graph = new UndirectedGraph();
         graph.edge("A", "B");
         assertThat(graph).hasEdge("A", "B");
     }

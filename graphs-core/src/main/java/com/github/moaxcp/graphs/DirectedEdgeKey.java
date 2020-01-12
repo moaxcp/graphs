@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs;
 import java.util.Objects;
 
 /**
- * Used by directed implementations of {@link AbstractLinkedGraph}. AbstractGraph uses instances of this class as identifiers
+ * Used by directed implementations of {@link AbstractGraph}. AbstractGraph uses instances of this class as identifiers
  * for Edges in the graph.
  * @param <ID> type of identifier
  */
