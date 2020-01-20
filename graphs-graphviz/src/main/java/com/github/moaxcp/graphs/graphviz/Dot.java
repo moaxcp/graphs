@@ -156,8 +156,11 @@ public class Dot<ID> {
         try(PrintWriter writer = new PrintWriter(process.getOutputStream())) {
             writer.append(toString());
         }
-        String error = new String(process.getErrorStream().readAllBytes());
         BufferedImage image = ImageIO.read(process.getInputStream());
+        String error = new String(process.getErrorStream().readAllBytes());
+        if(!error.isBlank()) {
+            throw new IllegalStateException(toString() + "\n" + error);
+        }
         try {
             process.waitFor();
         } catch (InterruptedException e) {
