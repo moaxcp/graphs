@@ -1,13 +1,13 @@
 :toc:
 :sourcedir: ../../../src/test/java
 
-= Graph Topics
+= Graphs
 
 == Usage
 
-`Graphs` is made up of a few modules published to maven central.
+`Graphs` is written in java 11 and is made up of a few modules published to maven central.
 
-`graphs-core` contains the main classes
+`graphs-core` contains the main interfaces, implementations, and events
 
 ----
 compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.8.0'
@@ -35,9 +35,69 @@ compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.8.0
 == What is a graph
 
 A graph is a data structure containing a set of vertices and a set of edges. A vertex is typically a value and an edge
-is a relationship between two vertices (or values). The relationship (or edge) may be directional. The `Graph`
-interface in this library follows these concepts. Values are represented as properties of a `Graph`, `Vertex`, or
-`Edge`. Some properties are required some are optional.
+is a relationship between two vertices (or values). The graph may be directed or undirected. The `Graph`
+interface provides a dsl for declaring vertices, edges and properties. It is the main interface for representing a
+graph. Values are represented as properties of a `Graph`, `Vertex`, or `Edge`. Some properties are required some are
+optional. The rest of the guide will walk through some of the key concepts of the library.
+
+== Representing a graph as code
+
+The `Graph` interface defines methods for building a graph as well as inner classes `Vertex` and `Edge`. These Inner
+classes provide a perspective of the graph from those elements. Edges can change their endpoints, navigate to an
+endpoint and modify properties. Vertices can add new edges, get in, out, and adjacent edges, and modify properties.
+
+There are two implementations of `Graph` in the `graphs-core` module.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=graphsCore]
+----
+
+There are two other implementations of `Graph` in the 'graphs-greenrobot` module.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=graphsGreenrobot]
+----
+
+These implementations send events to subscribers to the EventBus when the graph changes.
+
+=== Create or modify a vertex
+
+To create or modify a vertex use the `vertex` or `getVertex` methods.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=vertex]
+----
+
+If a vertex already exists in the graph it will be modified.
+
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyVertex]
+----
+
+The first call to `vertex` creates vertex `A`. The second call sets the property `color` to `blue`.
+
+If graph is an `EventGraph` events will be sent to the `EventBus`.
+
+=== Create or modify an edge
+
+To create or modify an edge use the `edge` or `getEdge` methods.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=edge]
+----
+
+If an edge already exits it will be modified.
+
+[source,java,indent=0]
+----
+
+----
 
 === properties
 
@@ -60,20 +120,6 @@ interface represents a property graph.
 
 Vertices and edges in a graph can inherit properties from common vertex properties and edge properties setup in the
 graph.
-
-== Representing a graph as code
-
-The `Graph` interface defines methods for building a graph as well as inner classes `Vertex` and `Edge`. These Inner
-classes provide a perspective of the graph from those elements. Edges can change their endpoints, navigate to an
-endpoint and modify properties. Vertices can add new edges, get in, out, and adjacent edges, and modify properties.
-
-There are two implementations of `Graph`.
-
-[source,java,indent=0]
-----
-var undirectedGraph = new UndirectedGraph<String>();
-var directedGraph = new DirectedGraph<String>();
-----
 
 == Create a graph using edge methods
 
@@ -145,3 +191,9 @@ image::images/edgeMethods.png[edge classification]
 
 And iterator and stream are provided to perform pre-order depth first traversals.
 
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/PreorderTraversal.java[tags=preOrderIterator]
+----
+
+image::images/preOrderTraversal.png[pre order]

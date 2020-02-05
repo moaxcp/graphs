@@ -27,12 +27,14 @@ public class PreorderTraversal {
       .edge("F", "G")
       .edge("G", "D");
 
+    // tag::preOrderIterator[]
     int visit = 1;
     Iterator<Vertex<String>> iterator = graph.preOrderIterator();
     while(iterator.hasNext()) {
       Vertex<String> vertex = iterator.next();
       vertex.property("label", vertex.getProperty("id").get().toString() + visit++);
     }
+    // end::preOrderIterator[]
 
     dot(graph).writeImage("src/docs/asciidoc/images/preOrderTraversal.png", "png");
   }

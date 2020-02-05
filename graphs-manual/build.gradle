@@ -4,7 +4,9 @@ description = 'manual for all graphs projects.'
 
 dependencies {
     api project(':graphs-core')
+    api project(':graphs-greenrobot')
     api project(':graphs-graphviz')
+    api project(':graphs-truth')
 }
 
 patchModules.config = [
