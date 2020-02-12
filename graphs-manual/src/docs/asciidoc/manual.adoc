@@ -71,17 +71,27 @@ To create or modify a vertex use the `vertex` or `getVertex` methods.
 include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=vertex]
 ----
 
-If a vertex already exists in the graph it will be modified.
+`vertex` methods will return the graph while `getVertex` methods will return the vertex. This allows for different
+forms of method chaining.
 
+If a vertex already exists in the graph it can be modified.
 
 [source,java,indent=0]
 ----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyVertex]
 ----
 
-The first call to `vertex` creates vertex `A`. The second call sets the property `color` to `blue`.
+The first call to `vertex` creates vertex `A` with a property `color` set to `red`. The second call changes the property `color` to `blue`.
 
-If graph is an `EventGraph` events will be sent to the `EventBus`.
+If graph is an `EventGraph` events will be sent to the `EventBus`. Every modification of a graph is represented by an
+event.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyVertexEvents]
+----
+
+In this case a `VertexCreatedEvent` is sent to the `EventBus`.
 
 === Create or modify an edge
 
@@ -92,34 +102,52 @@ To create or modify an edge use the `edge` or `getEdge` methods.
 include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=edge]
 ----
 
-If an edge already exits it will be modified.
+If an edge already exits in the graph it can be modified.
 
 [source,java,indent=0]
 ----
-
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyEdge]
 ----
+
+The first call to `edge` creates edge `A -> B` with property `color` set to `red`. The second call changes the property
+`color` to `green`.
+
+If the graph is an `EventGraph` events will be sent to the `EventBus`.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyEdgeEvents]
+----
+
+First a `VertexCreatedEvent` for vertex `A` is sent to the `EventBus`. Followed by a `VertexCreatedEvent` for vertex
+`B` and an `EdgeCreatedEvent` for the edge between them.
 
 === properties
 
-Vertices must have an `id` property which is be unique to all vertices in the `Graph`.
+Vertices must have an `id` property which is unique to all vertices in the `Graph`.
 
-Edges must have a `from` value which represents the `Vertex` the `Edge` connects from (or
-source vertex) and a `to` value which represents the `Vertex` the `Edge` connects to (the target vertex). Edges may
-have an optional `id` value.
+Edges must have a `from` property which represents the `Vertex` the `Edge` connects from (or source vertex) and a `to`
+property which represents the `Vertex` the `Edge` connects to (the target vertex). Edges may have an optional `id`
+property.
 
 Graphs may have an optional `id`.
 
-In addition,
-vertices and edges can have other values associated to them. These extra properties can be used to represent other
-values. For instance, if the graph needs to be represented in graphviz there can be properties for color and style.
+Graphs, vertices, and edges can have other properties added to them. These properties can be used to represent
+anything. For instance, if the graph needs to be represented in graphviz there can be properties for color and style.
 
-Graphs may also have properties associated to them. The `Graph`
-interface represents a property graph.
+The `Graph` interface is used to represent a property graph.
 
 === inherited properties
 
 Vertices and edges in a graph can inherit properties from common vertex properties and edge properties setup in the
 graph.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=inheritedProperties]
+----
+
+The default color for all vertices and edges is set to `"green"` and `"red"` respectively.
 
 == Create a graph using edge methods
 
