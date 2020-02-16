@@ -22,4 +22,5 @@ javadoc.enabled = false;
 jacocoTestReport {
     dependsOn ':graphs-test:test'
     executionData("${project(':graphs-test').buildDir}/jacoco/test.exec")
+    executionData("${project(':graphs-greenrobot').buildDir}/jacoco/test.exec")
 }

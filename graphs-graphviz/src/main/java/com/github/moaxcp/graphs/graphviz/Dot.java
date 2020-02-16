@@ -124,7 +124,7 @@ public class Dot<ID> {
           .filter(e -> !e.getKey().equals("id"))
           .collect(toMap(Entry::getKey, Entry::getValue));
 
-        if((vertex.inEdges().size() > 0 || vertex.outEdges().size() > 0) && attributes.isEmpty()) {
+        if((!vertex.inEdges().isEmpty() || !vertex.outEdges().isEmpty()) && attributes.isEmpty()) {
             return;
         }
         writer.append("  ").append(vertex.getId().toString());
