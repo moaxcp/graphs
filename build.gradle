@@ -34,11 +34,10 @@ nexusStaging {
 }
 
 gitPublish {
-    repoUri = 'https://github.com/moaxcp/graphs.git'
+    repoUri = 'git@github.com:moaxcp/graphs.git'
     branch = 'gh-pages'
     contents {
-        from 'graphs-core/build/docs' //todo create combined javadoc
-        from 'graphs-core/build/reports'
+        from "graphs-manual/build/asciidoc/html5"
     }
     commitMessage = 'Publishing from gradle.'
 }

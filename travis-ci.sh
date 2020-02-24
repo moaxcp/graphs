@@ -19,6 +19,7 @@ build() {
     # run build
     ./gradlew build
     ./gradlew javadoc
+    ./gradlew asciidoctor
 }
 
 publish() {
@@ -29,6 +30,7 @@ publish() {
         -Psigning.keyId=A9A4043B \
         -Psigning.secretKeyRingFile="$PWD"/signingkey.gpg \
         -Psigning.password="$SIGNING_PASSWORD"
+    ./gradlew gitPublishPush
 }
 
 ./gradlew -version
@@ -62,6 +64,7 @@ elif [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; 
     echo "build for master branch"
     scan
     build
+    ./gradlew gitPublishPush
 else
     echo "build for different branch not yet supported"
     exit 1
