@@ -40,6 +40,45 @@ interface provides a dsl for declaring vertices, edges and properties. It is the
 graph. Values are represented as properties of a `Graph`, `Vertex`, or `Edge`. Some properties are required some are
 optional. The rest of the guide will walk through some of the key concepts of the library.
 
+== Design
+
+The API is designed with the following in mind:
+
+* a graph is always valid
+* referencing missing elements will create them
+* for event graphs, creating and changing a graph, vertices, or edges will result in an event
+* never return null
+
+=== Graph
+
+* consists of vertices and edges
+* May be directed or undirected
+* edges must always connect vertices
+* undirected may only have one edge between any two vertices
+* directed may only have one edge in each direction between any two vertices
+* may have an 'id'
+* has properties
+* has properties inherited by all vertices
+* has properties inherited by all edges
+
+=== EventGraph
+* sends events to the EventBus when modified
+
+=== Elements
+* vertices and edges of parent graph
+* inherit properties from parent graph
+* has local properties
+* local properties override inherited properties
+
+=== Vertex
+* must have 'id' property
+* id must be unique for all vertices in graph
+
+=== Edge
+* must have 'from' and 'to' properties
+* 'from' and 'to' connect two vertices by id
+* may have an 'id'
+
 == Representing a graph as code
 
 The `Graph` interface defines methods for building a graph as well as inner classes `Vertex` and `Edge`. These Inner
@@ -225,3 +264,72 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/PreorderTraversal.java[tags
 ----
 
 image::images/preOrderTraversal.png[pre order]
+
+
+== Releases
+
+=== 0.9.0
+
+Adding the asciidoctor manual.
+
+=== 0.8.0
+
+Added iterators and streams for pre-order, post-order, and breadth first traversals.
+
+=== 0.7.0
+
+* `id`, `to`, and `from` are now properties of elements and will be present in calls to `local()`
+* Rewrote events to support multiple property changes in a single event
+
+=== 0.6.0
+
+* Setting an existing property to null now removes it.
+* Fixed sonar test coverage reporting.
+* switch travis-ci to use a nix environment to build and publish the projects.
+
+=== 0.5.0
+
+Adding convenience methods for creating and updating elements with multiple properties. For example:
+
+----
+graph.vertex("A", "name1", "value1", "name2", "value2");
+graph.getVertex("B").property("name1", "value1", "name2", "value2");
+----
+
+`vertex` and `edge` methods now return the `Graph` `getVertex` and `getEdge` return the corresponding element.
+
+=== 0.4.0
+
+Splitting projects into core, greenrobot, graphviz, and truth. Added support for java modules.
+
+=== 0.3.0
+
+Added initial support for graphviz. Added getProperties(), getEdgeProperties(), and getVertexProperties() to Graph api.
+Removing edgeTo(), edgeFrom(), vertexTo(), and vertexFrom() methods in Vertex to reduce complexity of api.
+
+=== 0.2.0
+
+Javadoc for `Vertex.setId` has been updated to throw IllegalArgumentException of a vertex with id already exists. This
+case is also now tested. `getBus` and generic type `BUS` has been removed from EventGraph. Fixed bug #22 where setting
+`from` or `to` on an edge does not result in an event.
+
+=== 0.1.1
+
+This release fixes a major issue where changing a vertex id resulted in adjacentEdges, inEdges, and outEdges being
+inaccurate. A check was also added to `Vertex.setId` which throws IllegalArgumentException if a vertex with id already
+exists.
+
+=== 0.1.0
+
+This release includes the main Graph interface and implementations for undirected and directed graphs. There are also
+event graph implementations which post to greenrobot's event bus. The events are immutable and may be used to track
+changes in the graph by visualizations and other tools. Some edge methods have been benchmarked using jmh and optimized
+for performance.
+
+== License
+
+The license can be found in the LICENSE file.
+
+MIT License
+
+Copyright (c) 2019 John Mercier
