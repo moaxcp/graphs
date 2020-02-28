@@ -10,14 +10,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v6
-    - name: Setup nixos-19.09 channel
-      run:  |
-        nix-channel --add https://nixos.org/channels/nixos-19.09 nixos
-        nix-channel --update
-        nix-channel --list
-        . ~/.nix-profile/etc/profile.d/nix.sh
+    - name: list channels
+      run: nix-channel --list
     - name: Install Adopt Open JDK
-      run: nix-env -i nixos.adoptopenjdk-bin
+      run: nix-env -i adoptopenjdk-bin
     - name: Install Graphviz
       run: nix-env -i graphviz
     - name: Run nix build script
