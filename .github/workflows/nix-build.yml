@@ -15,6 +15,7 @@ jobs:
         nix-channel --add https://nixos.org/channels/nixos-19.09 nixos
         nix-channel --update
         nix-channel --list
+        . ~/.nix-profile/etc/profile.d/nix.sh
     - name: Install Adopt Open JDK
       run: nix-env -i nixos.adoptopenjdk-bin
     - name: Install Graphviz
