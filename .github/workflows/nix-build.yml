@@ -19,7 +19,13 @@ jobs:
       run: nix-env -iA nixos.adoptopenjdk-bin
     - name: Install Graphviz
       run: nix-env -iA nixos.graphviz
-    - name: Run nix build script
+    - name: Versions
       run: |
         ./gradlew -version
+        dot -V
+        neato -V
+    - name: Set JAVA_HOME
+      run: JAVA_HOME=$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')
+    - name: Run ./gradlew build
+      run: |
         ./gradlew build --stacktrace
