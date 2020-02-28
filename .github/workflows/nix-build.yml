@@ -10,5 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v6
+    - name: Install Adopt Open JDK
+      run: nix-env -i nixos.adoptopenjdk-bin
+    - name: Install Graphviz
+      run: nix-env -i graphviz
     - name: Run nix build script
-      run: ./github-build.sh
+      run: ./gradlew build
