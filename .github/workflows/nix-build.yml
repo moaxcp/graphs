@@ -18,7 +18,6 @@ jobs:
     - name: Install Adopt Open JDK
       run: |
         nix-env -iA nixos.adoptopenjdk-bin
-        JAVA_HOME=$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')
     - name: Install Graphviz
       run: nix-env -iA nixos.graphviz
     - name: Versions
@@ -26,6 +25,10 @@ jobs:
         ./gradlew -version
         dot -V
         neato -V
+      env:
+        JAVA_HOME: "$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')"
     - name: Run ./gradlew build
       run: |
         ./gradlew build --stacktrace
+      env:
+        JAVA_HOME: "$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')"
