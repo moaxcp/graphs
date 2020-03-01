@@ -34,7 +34,7 @@ nexusStaging {
 }
 
 gitPublish {
-    repoUri = 'git@github.com:moaxcp/graphs.git'
+    repoUri = 'https://github.com/moaxcp/graphs.git'
     branch = 'gh-pages'
     contents {
         from "graphs-manual/build/asciidoc/html5"
