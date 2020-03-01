@@ -438,6 +438,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_usage">Usage</a></li>
 <li><a href="#_what_is_a_graph">What is a graph</a></li>
+<li><a href="#_design">Design</a>
+<ul class="sectlevel2">
+<li><a href="#_graph">Graph</a></li>
+<li><a href="#_eventgraph">EventGraph</a></li>
+<li><a href="#_elements">Elements</a></li>
+<li><a href="#_vertex">Vertex</a></li>
+<li><a href="#_edge">Edge</a></li>
+</ul>
+</li>
 <li><a href="#_representing_a_graph_as_code">Representing a graph as code</a>
 <ul class="sectlevel2">
 <li><a href="#_create_or_modify_a_vertex">Create or modify a vertex</a></li>
@@ -450,6 +459,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_create_a_graph_using_vertex_methods">Create a graph using vertex methods</a></li>
 <li><a href="#_visualize_a_graph_with_graphviz">Visualize a graph with graphviz</a></li>
 <li><a href="#_pre_order_iterator_and_pre_order_stream">pre-order iterator and pre-order stream</a></li>
+<li><a href="#_releases">Releases</a>
+<ul class="sectlevel2">
+<li><a href="#_0_9_0">0.9.0</a></li>
+<li><a href="#_0_8_0">0.8.0</a></li>
+<li><a href="#_0_7_0">0.7.0</a></li>
+<li><a href="#_0_6_0">0.6.0</a></li>
+<li><a href="#_0_5_0">0.5.0</a></li>
+<li><a href="#_0_4_0">0.4.0</a></li>
+<li><a href="#_0_3_0">0.3.0</a></li>
+<li><a href="#_0_2_0">0.2.0</a></li>
+<li><a href="#_0_1_1">0.1.1</a></li>
+<li><a href="#_0_1_0">0.1.0</a></li>
+</ul>
+</li>
+<li><a href="#_license">License</a></li>
 </ul>
 </div>
 </div>
@@ -503,6 +527,122 @@ is a relationship between two vertices (or values). The graph may be directed or
 interface provides a dsl for declaring vertices, edges and properties. It is the main interface for representing a
 graph. Values are represented as properties of a <code>Graph</code>, <code>Vertex</code>, or <code>Edge</code>. Some properties are required some are
 optional. The rest of the guide will walk through some of the key concepts of the library.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_design">Design</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The API is designed with the following in mind:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a graph is always valid</p>
+</li>
+<li>
+<p>referencing missing elements will create them</p>
+</li>
+<li>
+<p>for event graphs, creating and changing a graph, vertices, or edges will result in an event</p>
+</li>
+<li>
+<p>never return null</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_graph">Graph</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>consists of vertices and edges</p>
+</li>
+<li>
+<p>May be directed or undirected</p>
+</li>
+<li>
+<p>edges must always connect vertices</p>
+</li>
+<li>
+<p>undirected may only have one edge between any two vertices</p>
+</li>
+<li>
+<p>directed may only have one edge in each direction between any two vertices</p>
+</li>
+<li>
+<p>may have an 'id'</p>
+</li>
+<li>
+<p>has properties</p>
+</li>
+<li>
+<p>has properties inherited by all vertices</p>
+</li>
+<li>
+<p>has properties inherited by all edges</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_eventgraph">EventGraph</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>sends events to the EventBus when modified</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_elements">Elements</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>vertices and edges of parent graph</p>
+</li>
+<li>
+<p>inherit properties from parent graph</p>
+</li>
+<li>
+<p>has local properties</p>
+</li>
+<li>
+<p>local properties override inherited properties</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vertex">Vertex</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>must have 'id' property</p>
+</li>
+<li>
+<p>id must be unique for all vertices in graph</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_edge">Edge</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>must have 'from' and 'to' properties</p>
+</li>
+<li>
+<p>'from' and 'to' connect two vertices by id</p>
+</li>
+<li>
+<p>may have an 'id'</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -821,10 +961,123 @@ while(iterator.hasNext()) {
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_releases">Releases</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_0_9_0">0.9.0</h3>
+<div class="paragraph">
+<p>Adding the asciidoctor manual.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_8_0">0.8.0</h3>
+<div class="paragraph">
+<p>Added iterators and streams for pre-order, post-order, and breadth first traversals.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_7_0">0.7.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>id</code>, <code>to</code>, and <code>from</code> are now properties of elements and will be present in calls to <code>local()</code></p>
+</li>
+<li>
+<p>Rewrote events to support multiple property changes in a single event</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_6_0">0.6.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Setting an existing property to null now removes it.</p>
+</li>
+<li>
+<p>Fixed sonar test coverage reporting.</p>
+</li>
+<li>
+<p>switch travis-ci to use a nix environment to build and publish the projects.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_5_0">0.5.0</h3>
+<div class="paragraph">
+<p>Adding convenience methods for creating and updating elements with multiple properties. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>graph.vertex("A", "name1", "value1", "name2", "value2");
+graph.getVertex("B").property("name1", "value1", "name2", "value2");</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>vertex</code> and <code>edge</code> methods now return the <code>Graph</code> <code>getVertex</code> and <code>getEdge</code> return the corresponding element.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_4_0">0.4.0</h3>
+<div class="paragraph">
+<p>Splitting projects into core, greenrobot, graphviz, and truth. Added support for java modules.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_3_0">0.3.0</h3>
+<div class="paragraph">
+<p>Added initial support for graphviz. Added getProperties(), getEdgeProperties(), and getVertexProperties() to Graph api.
+Removing edgeTo(), edgeFrom(), vertexTo(), and vertexFrom() methods in Vertex to reduce complexity of api.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_2_0">0.2.0</h3>
+<div class="paragraph">
+<p>Javadoc for <code>Vertex.setId</code> has been updated to throw IllegalArgumentException of a vertex with id already exists. This
+case is also now tested. <code>getBus</code> and generic type <code>BUS</code> has been removed from EventGraph. Fixed bug #22 where setting
+<code>from</code> or <code>to</code> on an edge does not result in an event.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_1_1">0.1.1</h3>
+<div class="paragraph">
+<p>This release fixes a major issue where changing a vertex id resulted in adjacentEdges, inEdges, and outEdges being
+inaccurate. A check was also added to <code>Vertex.setId</code> which throws IllegalArgumentException if a vertex with id already
+exists.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_0_1_0">0.1.0</h3>
+<div class="paragraph">
+<p>This release includes the main Graph interface and implementations for undirected and directed graphs. There are also
+event graph implementations which post to greenrobot&#8217;s event bus. The events are immutable and may be used to track
+changes in the graph by visualizations and other tools. Some edge methods have been benchmarked using jmh and optimized
+for performance.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_license">License</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The license can be found in the LICENSE file.</p>
+</div>
+<div class="paragraph">
+<p>MIT License</p>
+</div>
+<div class="paragraph">
+<p>Copyright (c) 2019 John Mercier</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-09 11:22:20 -0500
+Last updated 2020-02-24 09:38:02 -0500
 </div>
 </div>
 </body>
