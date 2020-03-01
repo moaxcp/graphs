@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --show-trace --pure --keep encrypted_de4911fc7d4a_key --keep encrypted_de4911fc7d4a_iv --keep TRAVIS_PULL_REQUEST --keep TRAVIS_TAG --keep TRAVIS_BRANCH --keep SIGNING_PASSWORD --keep SONAR_TOKEN --keep NEXUS_PASSWORD -i bash -p git cacert graphviz adoptopenjdk-bin openssl
+#! nix-shell --show-trace --pure --keep encrypted_de4911fc7d4a_key --keep encrypted_de4911fc7d4a_iv --keep TRAVIS_PULL_REQUEST --keep TRAVIS_TAG --keep TRAVIS_BRANCH --keep SIGNING_PASSWORD --keep SONAR_TOKEN --keep NEXUS_PASSWORD --keep GITHUB_KEY -i bash -p git cacert graphviz adoptopenjdk-bin openssl
 
 set -euo pipefail
 
@@ -29,8 +29,10 @@ publish() {
         -Pnexus.password="$NEXUS_PASSWORD" \
         -Psigning.keyId=A9A4043B \
         -Psigning.secretKeyRingFile="$PWD"/signingkey.gpg \
-        -Psigning.password="$SIGNING_PASSWORD"
-    ./gradlew gitPublishPush
+        -Psigning.password="$SIGNING_PASSWORD" \
+        -Pgithub.user="moaxcp" \
+        -Pgithub.key="$GITHUB_KEY"
+    GRGIT_USER="$GITHUB_KEY" ./gradlew gitPublishPush
 }
 
 ./gradlew -version
@@ -64,7 +66,7 @@ elif [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; 
     echo "build for master branch"
     scan
     build
-    ./gradlew gitPublishPush
+    GRGIT_USER="$GITHUB_KEY" ./gradlew gitPublishPush
 else
     echo "build for different branch not yet supported"
     exit 1
