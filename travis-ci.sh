@@ -32,6 +32,11 @@ publish() {
         -Psigning.password="$SIGNING_PASSWORD" \
         -Pgithub.user="moaxcp" \
         -Pgithub.key="$GITHUB_KEY"
+        publishSite
+}
+
+publishSite() {
+    ./gradlew asciidoctor
     ./gradlew gitPublishPush \
         -Dorg.ajoberstar.grgit.auth.username="$GITHUB_KEY"
 }
@@ -67,8 +72,7 @@ elif [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; 
     echo "build for master branch"
     scan
     build
-    ./gradlew gitPublishPush \
-        -Dorg.ajoberstar.grgit.auth.username="$GITHUB_KEY"
+    publishSite
 else
     echo "build for different branch not yet supported"
     exit 1
