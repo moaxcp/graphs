@@ -951,7 +951,7 @@ image. Example:</p>
 Iterator&lt;Vertex&lt;String&gt;&gt; iterator = graph.preOrderIterator();
 while(iterator.hasNext()) {
   Vertex&lt;String&gt; vertex = iterator.next();
-  vertex.property("label", vertex.getProperty("id").get().toString() + visit++);
+  vertex.property("label", vertex.findProperty("id").get().toString() + visit++);
 }</code></pre>
 </div>
 </div>
