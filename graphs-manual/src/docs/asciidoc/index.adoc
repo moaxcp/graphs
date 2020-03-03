@@ -268,6 +268,10 @@ image::images/preOrderTraversal.png[pre order]
 
 == Releases
 
+=== 0.10.0
+
+Attempting to fix oss nexus publishing by using suggestions found https://github.com/Codearte/gradle-nexus-staging-plugin/blob/master/README.md#2-why-my-release-build-on-travis-suddenly-started-to-fail-with-wrong-number-of-received-repositories[here].
+
 === 0.9.0
 
 Adding the asciidoctor manual.

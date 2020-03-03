@@ -24,7 +24,7 @@ build() {
 
 publish() {
     # publish
-    ./gradlew publish \
+    ./gradlew publishToNexus \
         -Pnexus.username=moaxcp \
         -Pnexus.password="$NEXUS_PASSWORD" \
         -Psigning.keyId=A9A4043B \
