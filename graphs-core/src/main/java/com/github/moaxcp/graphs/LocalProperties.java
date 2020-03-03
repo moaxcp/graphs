@@ -35,12 +35,25 @@ class LocalProperties {
   /**
    * Returns the value of a property.
    *
+   * @param <T> return type of property
    * @param name of property to return
    * @return value mapped to name
    * @throws NullPointerException if name is null
    */
-  Optional<Object> getProperty(@NonNull String name) {
-    return Optional.ofNullable(local.get(name));
+  <T> Optional<T> findProperty(@NonNull String name) {
+    return Optional.ofNullable(getProperty(name));
+  }
+
+  /**
+   * Returns the value of a property.
+   *
+   * @param <T> return type of property
+   * @param name of property to return
+   * @return value mapped to name
+   * @throws NullPointerException if name is null
+   */
+  <T> T getProperty(@NonNull String name) {
+    return (T) local.get(name);
   }
 
   private void checkEntry(@NonNull String name, Object value) {

@@ -119,7 +119,19 @@ public interface Graph<ID> {
      * @return optional of named property
      * @throws NullPointerException if name is null
      */
-    Optional<Object> getProperty(String name);
+    <T> Optional<T> findProperty(String name);
+
+    /**
+     * Returns a property. If the property does not exist null is returned.
+     *
+     * <p>A property is resolved by first checking properties set on this vertex. If the local proeprty does not exist
+     * vertexProperties in the graph are checked.</p>
+     * @param <T> return type of property
+     * @param name of property
+     * @return value of named property
+     * @throws NullPointerException if name is null
+     */
+    <T> T getProperty(String name);
 
     /**
      * Sets the value of a local property.
@@ -333,7 +345,19 @@ public interface Graph<ID> {
      * @return optional of named property
      * @throws NullPointerException if name is null
      */
-    Optional<Object> getProperty(String name);
+    <T> Optional<T> findProperty(String name);
+
+    /**
+     * Returns a property. If the property does not exist null is returned.
+     *
+     * <p>A property is resolved by first checking properties set on this edge. If the local proeprty does not exist
+     * edgeProperties in the graph are checked.</p>
+     * @param <T> return type of property
+     * @param name of property
+     * @return value of named property
+     * @throws NullPointerException if name is null
+     */
+    <T> T getProperty(String name);
 
     /**
      * Sets the value of a local property.
@@ -656,7 +680,17 @@ public interface Graph<ID> {
    * @return optional of named proeprty
    * @throws NullPointerException if name is null
    */
-  Optional<Object> getProperty(String name);
+  <T> Optional<T> findProperty(String name);
+
+  /**
+   * Returns a property. If the property does not exist null is returned.
+   *
+   * @param <T> return type of property
+   * @param name of property
+   * @return value of named property
+   * @throws NullPointerException if name is null
+   */
+  <T> T getProperty(String name);
 
   /**
    * Sets property on this graph
@@ -703,7 +737,16 @@ public interface Graph<ID> {
    * @return optional of property
    * @throws NullPointerException if name is null
    */
-  Optional<Object> getEdgeProperty(String name);
+  <T> Optional<T> findEdgeProperty(String name);
+
+  /**
+   * Returns an edge property. If the property does not exist null is returned.
+   *
+   * @param name of property
+   * @return property value
+   * @throws NullPointerException if name is null
+   */
+  <T> T getEdgeProperty(String name);
 
   /**
    * Sets edge property.
@@ -750,7 +793,16 @@ public interface Graph<ID> {
    * @return optional of property
    * @throws NullPointerException if name is null
    */
-  Optional<Object> getVertexProperty(String name);
+  <T> Optional<T> findVertexProperty(String name);
+
+  /**
+   * Returns a vertex property. If the property does not exist null is returned.
+   *
+   * @param name of property
+   * @return property value
+   * @throws NullPointerException if name is null
+   */
+  <T> T getVertexProperty(String name);
 
   /**
    * Sets vertex property.

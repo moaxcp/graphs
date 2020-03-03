@@ -32,7 +32,7 @@ public class PreorderTraversal {
     Iterator<Vertex<String>> iterator = graph.preOrderIterator();
     while(iterator.hasNext()) {
       Vertex<String> vertex = iterator.next();
-      vertex.property("label", vertex.getProperty("id").get().toString() + visit++);
+      vertex.property("label", vertex.findProperty("id").get().toString() + visit++);
     }
     // end::preOrderIterator[]
 

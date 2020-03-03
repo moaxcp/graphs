@@ -39,7 +39,7 @@ public class VertexSubject extends Subject {
     }
 
     public OptionalSubject withProperty(String name) {
-        Optional<Object> optional = actual.getProperty(name);
+        Optional<Object> optional = actual.findProperty(name);
         return check("getProperty(%s)", name).about(optionals()).that(optional);
     }
 

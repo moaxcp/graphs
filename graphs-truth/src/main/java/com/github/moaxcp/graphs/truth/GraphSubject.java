@@ -124,14 +124,14 @@ public final class GraphSubject extends Subject {
     }
 
     public OptionalSubject withProperty(String name) {
-        return check("getProperty(%s)", name).about(optionals()).that(actual.getProperty(name));
+        return check("getProperty(%s)", name).about(optionals()).that(actual.findProperty(name));
     }
 
     public OptionalSubject withEdgeProperty(String name) {
-        return check("getEdgeProperty(%s)", name).about(optionals()).that(actual.getEdgeProperty(name));
+        return check("getEdgeProperty(%s)", name).about(optionals()).that(actual.findEdgeProperty(name));
     }
 
     public OptionalSubject withVertexProperty(String name) {
-        return check("getVertexProperty(%s)", name).about(optionals()).that(actual.getVertexProperty(name));
+        return check("getVertexProperty(%s)", name).about(optionals()).that(actual.findVertexProperty(name));
     }
 }

@@ -4,8 +4,6 @@ import lombok.*;
 
 import java.util.*;
 
-import static java.util.Optional.*;
-
 /**
  * Implements local properties which are overriden by inherited properties.
  */
@@ -30,16 +28,29 @@ class InheritedProperties extends LocalProperties {
    * Returns the value of a property. If the property is local its value is returned before checking for an
    * inherited property.
    *
+   * @param <T> return type of property
    * @param name of property to return
    * @return value mapped to name
    * @throws NullPointerException if name is null
    */
   @Override
-  public final Optional<Object> getProperty(@NonNull String name) {
-    Optional<Object> optional = super.getProperty(name);
-    if (optional.isPresent()) {
-      return optional;
+  public final <T> Optional<T> findProperty(@NonNull String name) {
+    return Optional.ofNullable(getProperty(name));
+  }
+
+  /**
+   * Returns the value of a property.
+   *
+   * @param <T> return type of property
+   * @param name of property to return
+   * @return value mapped to name
+   * @throws NullPointerException if name is null
+   */
+  <T> T getProperty(@NonNull String name) {
+    T value = super.getProperty(name);
+    if(value == null) {
+      return (T) inherited.get(name);
     }
-    return ofNullable(inherited.get(name));
+    return value;
   }
 }

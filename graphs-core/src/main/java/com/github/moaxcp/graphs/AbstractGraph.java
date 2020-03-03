@@ -492,7 +492,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
   @Override
   public Optional<ID> getId() {
-    return Optional.ofNullable((ID) properties.getProperty("id").orElse(null));
+    return Optional.ofNullable((ID) properties.findProperty("id").orElse(null));
   }
 
   @Override
@@ -512,7 +512,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Optional<Object> getProperty(String name) {
+  public <T> Optional<T> findProperty(String name) {
+    return properties.findProperty(name);
+  }
+
+  @Override
+  public <T> T getProperty(String name) {
     return properties.getProperty(name);
   }
 
@@ -548,7 +553,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Optional<Object> getEdgeProperty(String name) {
+  public <T> Optional<T> findEdgeProperty(String name) {
+    return edgeProperties.findProperty(name);
+  }
+
+  @Override
+  public <T> T getEdgeProperty(String name) {
     return edgeProperties.getProperty(name);
   }
 
@@ -581,7 +591,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Optional<Object> getVertexProperty(String name) {
+  public <T> Optional<T> findVertexProperty(String name) {
+    return vertexProperties.findProperty(name);
+  }
+
+  @Override
+  public <T> T getVertexProperty(String name) {
     return vertexProperties.getProperty(name);
   }
 
@@ -649,7 +664,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final Optional<ID> getId() {
-      return (Optional<ID>) properties.getProperty("id");
+      return (Optional<ID>) properties.findProperty("id");
     }
 
     @Override
@@ -674,7 +689,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final ID getFrom() {
-      return (ID) properties.getProperty("from").orElseThrow(() -> new IllegalStateException("from was not set as a property."));
+      return (ID) properties.findProperty("from").orElseThrow(() -> new IllegalStateException("from was not set as a property."));
     }
 
     @Override
@@ -707,7 +722,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final ID getTo() {
-      return (ID) properties.getProperty("to").orElseThrow(() -> new IllegalStateException("to was not set as a property."));
+      return (ID) properties.findProperty("to").orElseThrow(() -> new IllegalStateException("to was not set as a property."));
     }
 
     @Override
@@ -761,7 +776,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public Optional<Object> getProperty(String name) {
+    public <T> Optional<T> findProperty(String name) {
+      return properties.findProperty(name);
+    }
+
+    @Override
+    public <T> T getProperty(String name) {
       return properties.getProperty(name);
     }
 
@@ -884,7 +904,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     public ID getId() {
-      return (ID) properties.getProperty("id").orElseThrow(() -> new IllegalStateException("id was not set as a property."));
+      return (ID) properties.findProperty("id").orElseThrow(() -> new IllegalStateException("id was not set as a property."));
     }
 
     @Override
@@ -915,7 +935,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
-    public Optional<Object> getProperty(String name) {
+    public <T> Optional<T> findProperty(String name) {
+      return properties.findProperty(name);
+    }
+
+    @Override
+    public <T> T getProperty(String name) {
       return properties.getProperty(name);
     }
 
