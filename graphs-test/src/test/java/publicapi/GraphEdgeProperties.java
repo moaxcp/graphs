@@ -1,11 +1,14 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.testframework.SimpleGraphs;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.testframework.*;
+
+import java.util.*;
 
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.google.common.truth.Truth8.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphEdgeProperties {
 
@@ -69,5 +72,19 @@ public class GraphEdgeProperties {
   void getProperties(Graph graph) {
     graph.edgeProperty("property", "value");
     assertThat(graph.getEdgeProperties()).containsExactly("property", "value");
+  }
+
+  @SimpleGraphs
+  void findProperty(Graph graph) {
+    graph.setProperty("property", "value");
+    Optional<String> value = graph.findProperty("property");
+    assertThat(value).hasValue("value");
+  }
+
+  @SimpleGraphs
+  void getProperty(Graph graph) {
+    graph.setProperty("property", "value");
+    String value = graph.getProperty("property");
+    assertThat(value).isEqualTo("value");
   }
 }
