@@ -8,7 +8,7 @@ import static com.google.common.truth.Truth.assertThat;
 public class EdgeIds {
 
     @SimpleGraphs
-    void defaultValue(Graph graph) {
+    void defaultValue(Graph<String> graph) {
         assertThat(graph.getEdgeIds()).isEmpty();
     }
 

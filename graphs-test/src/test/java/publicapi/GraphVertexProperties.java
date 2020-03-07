@@ -10,63 +10,63 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class GraphVertexProperties {
 
     @SimpleGraphs
-    void defaultProperty(Graph graph) {
+    void defaultProperty(Graph<String> graph) {
         assertThat(graph).withVertexProperty("property").isEmpty();
     }
 
     @SimpleGraphs
-    void setPropertyNullKey(Graph graph) {
+    void setPropertyNullKey(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setVertexProperty(null, null));
         assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");
     }
 
     @SimpleGraphs
-    void setPropertyNullValue(Graph graph) {
+    void setPropertyNullValue(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setVertexProperty("property", null));
         assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
     }
 
     @SimpleGraphs
-    void setProperty(Graph graph) {
+    void setProperty(Graph<String> graph) {
         graph.setVertexProperty("property", "value");
         assertThat(graph).withVertexProperty("property").hasValue("value");
     }
 
     @SimpleGraphs
-    void setPropertyEmptyName(Graph graph) {
+    void setPropertyEmptyName(Graph<String> graph) {
         Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setVertexProperty("", ""));
         assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
     }
 
     @SimpleGraphs
-    void property(Graph graph) {
+    void property(Graph<String> graph) {
         Graph next = graph.vertexProperty("property", "value");
         assertThat(graph).withVertexProperty("property").hasValue("value");
         assertThat(next).isSameInstanceAs(graph);
     }
 
     @SimpleGraphs
-    void removePropertyMissing(Graph graph) {
+    void removePropertyMissing(Graph<String> graph) {
         Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeVertexProperty("property"));
         assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
     }
 
     @SimpleGraphs
-    void removeProperty(Graph graph) {
+    void removeProperty(Graph<String> graph) {
         graph.vertexProperty("property", "value");
         graph.removeVertexProperty("property");
         assertThat(graph).withVertexProperty("property").isEmpty();
     }
 
     @SimpleGraphs
-    void propertyIsInherited(Graph graph) {
+    void propertyIsInherited(Graph<String> graph) {
         graph.vertexProperty("property", "value");
         var vertex = graph.getVertex("id");
         assertThat(vertex).withProperty("property").hasValue("value");
     }
 
     @SimpleGraphs
-    void getProperties(Graph graph) {
+    void getProperties(Graph<String> graph) {
         graph.vertexProperty("property", "value");
         assertThat(graph.getVertexProperties()).containsExactly("property", "value");
     }

@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemovedVertex {
     @SimpleGraphs
-    void setId(Graph graph) {
+    void setId(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.setId("B"));
@@ -16,7 +16,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void id(Graph graph) {
+    void id(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.id("B"));
@@ -24,7 +24,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void setProperty(Graph graph) {
+    void setProperty(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.setProperty("name", "value"));
@@ -32,7 +32,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void property(Graph graph) {
+    void property(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.property("name", "value"));
@@ -40,7 +40,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void removeProperty(Graph graph) {
+    void removeProperty(Graph<String> graph) {
         var vertex = graph.getVertex("A").property("name", "value");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.removeProperty("name"));
@@ -48,7 +48,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void connectsTo(Graph graph) {
+    void connectsTo(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsTo("B"));
@@ -56,7 +56,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void connectsFrom(Graph graph) {
+    void connectsFrom(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsFrom("B"));
@@ -64,7 +64,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void adjacentEdges(Graph graph) {
+    void adjacentEdges(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.adjacentEdges());
@@ -72,7 +72,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void inEdges(Graph graph) {
+    void inEdges(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.inEdges());
@@ -80,7 +80,7 @@ public class RemovedVertex {
     }
 
     @SimpleGraphs
-    void outEdges(Graph graph) {
+    void outEdges(Graph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.outEdges());

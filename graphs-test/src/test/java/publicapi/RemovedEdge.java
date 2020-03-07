@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemovedEdge {
     @SimpleGraphs
-    void setId(Graph graph) {
+    void setId(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setId("id"));
@@ -16,7 +16,7 @@ public class RemovedEdge {
     }
 
     @SimpleGraphs
-    void id(Graph graph) {
+    void id(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.id("id"));
@@ -24,7 +24,7 @@ public class RemovedEdge {
     }
 
     @SimpleGraphs
-    void setFrom(Graph graph) {
+    void setFrom(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setFrom("C"));
@@ -32,7 +32,7 @@ public class RemovedEdge {
     }
 
     @SimpleGraphs
-    void from(Graph graph) {
+    void from(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.from("C"));
@@ -40,7 +40,7 @@ public class RemovedEdge {
     }
 
     @SimpleGraphs
-    void setTo(Graph graph) {
+    void setTo(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setTo("C"));
@@ -48,7 +48,7 @@ public class RemovedEdge {
     }
 
     @SimpleGraphs
-    void to(Graph graph) {
+    void to(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.to("C"));
@@ -56,7 +56,7 @@ public class RemovedEdge {
     }
 
     @SimpleGraphs
-    void setProperty(Graph graph) {
+    void setProperty(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setProperty("name", "value"));
@@ -64,7 +64,7 @@ public class RemovedEdge {
     }
 
     @SimpleGraphs
-    void removeProperty(Graph graph) {
+    void removeProperty(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.removeProperty("name"));

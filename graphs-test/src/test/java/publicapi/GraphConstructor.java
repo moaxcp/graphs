@@ -23,7 +23,7 @@ public class GraphConstructor {
 
     @ParameterizedTest
     @MethodSource("id")
-    void hasId(Graph graph) {
+    void hasId(Graph<String> graph) {
         assertThat(graph).hasIdThat().hasValue("id");
     }
 }
