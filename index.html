@@ -970,6 +970,24 @@ while(iterator.hasNext()) {
 <div class="paragraph">
 <p>Attempting to fix oss nexus publishing by using suggestions found <a href="https://github.com/Codearte/gradle-nexus-staging-plugin/blob/master/README.md#2-why-my-release-build-on-travis-suddenly-started-to-fail-with-wrong-number-of-received-repositories">here</a>.</p>
 </div>
+<div class="paragraph">
+<p>Changing <code>Optional&lt;Object&gt; getProperty(String)</code> to <code>Optional&lt;String&gt; findProperty(String)</code> and adding
+<code>&lt;T&gt; T getProperty(String)</code>. This will allow the type of a property to be inferred and remove the need to cast.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>String value = graph.getProperty("name");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Adding remove method to <code>Vertex</code> and <code>Edge</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>graph.getVertex("A").remove();
+graph.getEdge("A", "B").remove();</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_0_9_0">0.9.0</h3>
