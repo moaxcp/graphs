@@ -862,6 +862,12 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
+    public Edge<ID> remove() {
+      AbstractGraph.this.removeEdge(getFrom(), getTo());
+      return this;
+    }
+
+    @Override
     public final boolean equals(Object o) {
       if (this == o) return true;
       if (!(o instanceof AbstractGraph<?>.SimpleEdge)) return false;
@@ -1057,6 +1063,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
         return emptySet();
       }
       return unmodifiableSet(edges);
+    }
+
+    public Vertex<ID> remove() {
+      AbstractGraph.this.removeVertex(getId());
+      return this;
     }
 
     @Override

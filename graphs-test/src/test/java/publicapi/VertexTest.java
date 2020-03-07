@@ -440,4 +440,10 @@ public class VertexTest {
 
     assertThat(vertex1.equals(vertex2)).isFalse();
   }
+
+  @SimpleGraphs
+  void remove(Graph<String> graph) {
+    graph.getVertex("A").remove();
+    assertThat(graph).hasNoVertex("A");
+  }
 }

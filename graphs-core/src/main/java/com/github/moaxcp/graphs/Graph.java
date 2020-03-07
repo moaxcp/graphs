@@ -26,7 +26,7 @@ public interface Graph<ID> {
    *
    * @param <ID> type of identifier
    */
-  public interface Vertex<ID> {
+  interface Vertex<ID> {
     /**
      * returns identifier of vertex.
      *
@@ -194,6 +194,12 @@ public interface Graph<ID> {
      * @return map of local properties
      */
     Map<String, Object> local();
+
+    /**
+     * Removes this vertex from the graph.
+     * @return tis vertex
+     */
+    Vertex<ID> remove();
   }
 
   /**
@@ -202,7 +208,7 @@ public interface Graph<ID> {
    *
    * @param <ID> type of identifier
    */
-  public interface Edge<ID> {
+  interface Edge<ID> {
     /**
      * Returns optional identifier of this edge.
      *
@@ -430,6 +436,12 @@ public interface Graph<ID> {
      * @return map of local properties
      */
     Map<String, Object> local();
+
+    /**
+     * Removes this edge from the graph.
+     * @return this edge
+     */
+    Edge<ID> remove();
   }
 
   /**
