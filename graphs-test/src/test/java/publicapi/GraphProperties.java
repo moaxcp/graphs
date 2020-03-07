@@ -105,10 +105,22 @@ public class GraphProperties {
   }
 
   @SimpleGraphs
+  void findPropertyNull(Graph<String> graph) {
+    var exception = assertThrows(NullPointerException.class, () -> graph.findProperty(null));
+    assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+  }
+
+  @SimpleGraphs
   void findProperty(Graph<String> graph) {
     graph.setProperty("property", "value");
     Optional<String> value = graph.findProperty("property");
     Truth8.assertThat(value).hasValue("value");
+  }
+
+  @SimpleGraphs
+  void getPropertyNull(Graph<String> graph) {
+    var exception = assertThrows(NullPointerException.class, () -> graph.getProperty(null));
+    assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
   }
 
   @SimpleGraphs

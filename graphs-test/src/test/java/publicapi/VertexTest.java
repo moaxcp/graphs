@@ -1,17 +1,15 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.UndirectedGraph;
-import com.github.moaxcp.graphs.testframework.SimpleGraphs;
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.testframework.*;
+import nl.jqno.equalsverifier.*;
 
-import java.util.Map;
+import java.util.*;
 
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class VertexTest {
 
@@ -224,6 +222,36 @@ public class VertexTest {
   void propertySetIdFails(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getVertex("A").property("id", "B"));
     assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
+  }
+
+  @SimpleGraphs
+  void findPropertyNull(Graph<String> graph) {
+    var vertex = graph.getVertex("A");
+    var exception = assertThrows(NullPointerException.class, () -> vertex.findProperty(null));
+    assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+  }
+
+  @SimpleGraphs
+  void findProperty(Graph<String> graph) {
+    var vertex = graph.getVertex("A");
+    vertex.property("name", "value");
+    Optional<String> result = vertex.findProperty("name");
+    assertThat(result).hasValue("value");
+  }
+
+  @SimpleGraphs
+  void getPropertyNull(Graph<String> graph) {
+    var vertex = graph.getVertex("A");
+    var exception = assertThrows(NullPointerException.class, () -> vertex.getProperty(null));
+    assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+  }
+
+  @SimpleGraphs
+  void getProperty(Graph<String> graph) {
+    var vertex = graph.getVertex("A");
+    vertex.property("name", "value");
+    String result = vertex.getProperty("name");
+    assertThat(result).isEqualTo("value");
   }
 
   @SimpleGraphs

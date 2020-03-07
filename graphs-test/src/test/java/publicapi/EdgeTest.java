@@ -1,16 +1,15 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.UndirectedGraph;
-import com.github.moaxcp.graphs.testframework.SimpleGraphs;
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.testframework.*;
+import com.google.common.truth.*;
+import nl.jqno.equalsverifier.*;
 
-import java.util.Map;
+import java.util.*;
 
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EdgeTest {
     @SimpleGraphs
@@ -270,6 +269,36 @@ public class EdgeTest {
         graph.getEdge("A", "B").property("name", "value");
         graph.getEdge("A", "B").property("name", null);
         assertThat(graph).hasEdge("A", "B").withProperty("name").isEmpty();
+    }
+
+    @SimpleGraphs
+    void findPropertyNull(Graph<String> graph) {
+        var edge = graph.getEdge("A", "B");
+        var exception = assertThrows(NullPointerException.class, () -> edge.findProperty(null));
+        assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+    }
+
+    @SimpleGraphs
+    void findProperty(Graph<String> graph) {
+        var edge = graph.getEdge("A", "B");
+        edge.property("name", "value");
+        Optional<String> result = edge.findProperty("name");
+        Truth8.assertThat(result).hasValue("value");
+    }
+
+    @SimpleGraphs
+    void getPropertyNull(Graph<String> graph) {
+        var edge = graph.getEdge("A", "B");
+        var exception = assertThrows(NullPointerException.class, () -> edge.getProperty(null));
+        assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+    }
+
+    @SimpleGraphs
+    void getProperty(Graph<String> graph) {
+        var edge = graph.getEdge("A", "B");
+        edge.property("name", "value");
+        String result = edge.getProperty("name");
+        assertThat(result).isEqualTo("value");
     }
 
     @SimpleGraphs

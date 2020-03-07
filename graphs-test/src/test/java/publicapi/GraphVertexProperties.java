@@ -1,11 +1,14 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.testframework.SimpleGraphs;
+import com.github.moaxcp.graphs.*;
+import com.github.moaxcp.graphs.testframework.*;
+import com.google.common.truth.*;
+
+import java.util.*;
 
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphVertexProperties {
 
@@ -69,5 +72,31 @@ public class GraphVertexProperties {
     void getProperties(Graph<String> graph) {
         graph.vertexProperty("property", "value");
         assertThat(graph.getVertexProperties()).containsExactly("property", "value");
+    }
+
+    @SimpleGraphs
+    void findPropertyNull(Graph<String> graph) {
+        var exception = assertThrows(NullPointerException.class, () -> graph.findVertexProperty(null));
+        assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+    }
+
+    @SimpleGraphs
+    void findProperty(Graph<String> graph) {
+        graph.vertexProperty("name", "value");
+        Optional<String> result = graph.findVertexProperty("name");
+        Truth8.assertThat(result).hasValue("value");
+    }
+
+    @SimpleGraphs
+    void getPropertyNull(Graph<String> graph) {
+        var exception = assertThrows(NullPointerException.class, () -> graph.getVertexProperty(null));
+        assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+    }
+
+    @SimpleGraphs
+    void getProperty(Graph<String> graph) {
+        graph.vertexProperty("name", "value");
+        String value = graph.getVertexProperty("name");
+        assertThat(value).isEqualTo("value");
     }
 }

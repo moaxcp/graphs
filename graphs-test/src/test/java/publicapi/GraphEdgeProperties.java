@@ -2,6 +2,9 @@ package publicapi;
 
 import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.testframework.*;
+import com.google.common.truth.*;
+
+import java.util.*;
 
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertThat;
@@ -69,5 +72,31 @@ public class GraphEdgeProperties {
   void getProperties(Graph<String> graph) {
     graph.edgeProperty("property", "value");
     assertThat(graph.getEdgeProperties()).containsExactly("property", "value");
+  }
+
+  @SimpleGraphs
+  void findPropertyNull(Graph<String> graph) {
+    var exception = assertThrows(NullPointerException.class, () -> graph.getEdgeProperty(null));
+    assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+  }
+
+  @SimpleGraphs
+  void findProperty(Graph<String> graph) {
+    graph.edgeProperty("name", "value");
+    Optional<String> result = graph.findEdgeProperty("name");
+    Truth8.assertThat(result).hasValue("value");
+  }
+
+  @SimpleGraphs
+  void getPropertyNull(Graph<String> graph) {
+    var exception = assertThrows(NullPointerException.class, () -> graph.getEdgeProperty(null));
+    assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
+  }
+
+  @SimpleGraphs
+  void getProperty(Graph<String> graph) {
+    graph.setEdgeProperty("name", "value");
+    String value = graph.getEdgeProperty("name");
+    assertThat(value).isEqualTo("value");
   }
 }
