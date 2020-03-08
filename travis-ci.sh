@@ -22,9 +22,9 @@ build() {
     ./gradlew asciidoctor
 }
 
-publish() {
+release() {
     # publish
-    ./gradlew publish \
+    ./gradlew publish closeAndReleaseRepository \
         -Pnexus.username=moaxcp \
         -Pnexus.password="$NEXUS_PASSWORD" \
         -Psigning.keyId=A9A4043B \
@@ -62,11 +62,7 @@ if [ -n "$TRAVIS_TAG" ]; then
     echo "release for $TRAVIS_TAG"
     scan
     build
-    publish
-
-    ./gradlew closeAndReleaseRepository --info --stacktrace \
-        -Pnexus.username=moaxcp \
-        -Pnexus.password="$NEXUS_PASSWORD"
+    release
 
 elif [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     echo "build for master branch"
