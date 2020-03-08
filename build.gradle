@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'org.javamodularity:moduleplugin:1.6.0'
-        classpath 'io.freefair.gradle:lombok-plugin:4.1.6'
+        classpath 'io.freefair.gradle:lombok-plugin:5.0.0-rc4'
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2'
     }
 }
@@ -15,7 +15,7 @@ plugins {
     id 'org.ajoberstar.grgit' version '4.0.1'
     id 'org.ajoberstar.reckon' version '0.12.0'
     id 'io.codearte.nexus-staging' version '0.21.2'
-    id 'de.marcphilipp.nexus-publish' version '0.3.0'
+    id 'de.marcphilipp.nexus-publish' version '0.4.0'
     id 'org.sonarqube' version '2.8'
     id 'org.ajoberstar.git-publish' version '3.0.0-rc.1'
 }
@@ -81,13 +81,13 @@ subprojects {
 
     dependencies {
         //checkstyle 'com.puppycrawl.tools:checkstyle:8.12'
-        testImplementation enforcedPlatform('org.junit:junit-bom:5.5.2')
+        testImplementation enforcedPlatform('org.junit:junit-bom:5.6.0')
         testImplementation 'org.junit.jupiter:junit-jupiter-api'
         testImplementation 'org.junit.jupiter:junit-jupiter-params'
-        testImplementation 'com.google.truth:truth:1.0'
-        testImplementation 'com.google.truth.extensions:truth-java8-extension:1.0'
-        testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.10'
-        testImplementation 'org.assertj:assertj-core:3.14.0'
+        testImplementation 'com.google.truth:truth:1.0.1'
+        testImplementation 'com.google.truth.extensions:truth-java8-extension:1.0.1'
+        testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.12'
+        testImplementation 'org.assertj:assertj-core:3.15.0'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
         //https://github.com/openjdk/skara/pull/66
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

@@ -10,7 +10,7 @@ dependencies {
 }
 
 patchModules.config = [
-    "truth=truth-java8-extension-1.0.jar"
+    "truth=truth-java8-extension-1.0.1.jar"
 ]
 
 compileTestJava {

@@ -7,7 +7,7 @@ description = 'graph implementations which send events to the greenrobot EventBu
 
 dependencies {
     api project(':graphs-core')
-    api 'org.greenrobot:eventbus:3.1.1'
+    api 'org.greenrobot:eventbus:3.2.0'
     testImplementation project(':graphs-truth')
     testImplementation project(':graphs-testframework')
 }
@@ -80,7 +80,7 @@ signing {
 }
 
 patchModules.config = [
-    "truth=truth-java8-extension-1.0.jar"
+    "truth=truth-java8-extension-1.0.1.jar"
 ]
 
 compileTestJava {
