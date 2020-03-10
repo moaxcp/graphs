@@ -461,6 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_pre_order_iterator_and_pre_order_stream">pre-order iterator and pre-order stream</a></li>
 <li><a href="#_releases">Releases</a>
 <ul class="sectlevel2">
+<li><a href="#_0_11_0">0.11.0</a></li>
 <li><a href="#_0_10_0">0.10.0</a></li>
 <li><a href="#_0_9_0">0.9.0</a></li>
 <li><a href="#_0_8_0">0.8.0</a></li>
@@ -965,6 +966,28 @@ while(iterator.hasNext()) {
 <div class="sect1">
 <h2 id="_releases">Releases</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_0_11_0">0.11.0</h3>
+<div class="paragraph">
+<p>Found issue when getting and edge with different ordered endpoints in an UndirectedGraph. This test now passes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>var edge1 = graph.getEdge("A", "B");
+var edge2 = graph.getEdge("B", "A");
+assertThat(edge1).isEqualTo(edge2);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This all came down to how the <code>Objects.hash(&#8230;&#8203;)</code> method is ordered but undirected edges need an unordered hash. The
+solution is to simply add the hashcodes of the two ids together. This is similar to how HashSet calculates its
+<code>hashCode()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Adding <code>boolean connected(ID from, ID to)</code> to <code>Graph</code>. This can be used to check if two vertices are connected. It can
+be used to enforce that the graph is always a DAG when adding edges.</p>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_0_10_0">0.10.0</h3>
 <div class="paragraph">
