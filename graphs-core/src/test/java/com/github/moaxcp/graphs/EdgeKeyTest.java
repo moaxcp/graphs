@@ -1,15 +1,14 @@
 package com.github.moaxcp.graphs;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-import org.junit.jupiter.api.Test;
+import nl.jqno.equalsverifier.*;
+import org.junit.jupiter.api.*;
 
-import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.*;
 
 public class EdgeKeyTest {
     @Test
     void directedEquals() {
-        EqualsVerifier.forClass(DirectedEdgeKey.class).suppress(Warning.NONFINAL_FIELDS).verify();
+        EqualsVerifier.forClass(DirectedEdgeKey.class).verify();
     }
 
     @Test

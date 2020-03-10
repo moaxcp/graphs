@@ -636,6 +636,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     return Objects.hash(properties, vertexProperties, edgeProperties, vertices, edges);
   }
 
+  @ToString
   public class SimpleEdge implements Edge<ID> {
     private InheritedProperties properties;
 
@@ -882,6 +883,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
   }
 
+  @ToString
   public class SimpleVertex implements Vertex<ID> {
     InheritedProperties properties;
 

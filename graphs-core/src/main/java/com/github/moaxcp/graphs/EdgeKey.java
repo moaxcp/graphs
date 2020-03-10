@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import static java.util.Objects.requireNonNull;
+import static java.util.Objects.*;
 
 /**
  * Key for identifying edges within a collection such as Map. Extensions of this class define how two edges are equal
@@ -11,8 +11,8 @@ import static java.util.Objects.requireNonNull;
  * @param <ID> type of identifiers
  */
 public abstract class EdgeKey<ID> {
-    private ID from;
-    private ID to;
+    private final ID from;
+    private final ID to;
 
     /**
      * Creates an EdgeKey with given from and to params.

@@ -365,4 +365,29 @@ public class EdgeTest {
     graph.getEdge("A", "B").remove();
     assertThat(graph).hasNoEdge("A", "B");
   }
+
+  @SimpleGraphs
+  void getEdgeEndpoints(Graph<String> graph) {
+    var edge = graph.getEdge("A", "B");
+    assertThat(edge.endpoints()).containsExactly("A", "B").inOrder();
+  }
+
+  @SimpleGraphs
+  void getEdgeOppositeFrom(Graph<String> graph) {
+    var edge = graph.getEdge("A", "B");
+    assertThat(edge.getOppositeEndpoint("A")).isEqualTo("B");
+  }
+
+  @SimpleGraphs
+  void getEdgeOppositeTo(Graph<String> graph) {
+    var edge = graph.getEdge("A", "B");
+    assertThat(edge.getOppositeEndpoint("B")).isEqualTo("A");
+  }
+
+  @SimpleGraphs
+  void getEdgeOppositeMissing(Graph<String> graph) {
+    var edge = graph.getEdge("A", "B");
+    var exception = assertThrows(IllegalArgumentException.class, () -> edge.getOppositeEndpoint("C"));
+    assertThat(exception).hasMessageThat().isEqualTo("id \"C\" is not an endpoint of this edge.");
+  }
 }

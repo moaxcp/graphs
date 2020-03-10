@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Used by undirected implementations of {@link AbstractGraph}. AbstractGraph uses instances of this class as
@@ -29,6 +29,6 @@ public final class UndirectedEdgeKey<ID> extends EdgeKey<ID> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFrom(), getTo());
+        return getFrom().hashCode() + getTo().hashCode();
     }
 }

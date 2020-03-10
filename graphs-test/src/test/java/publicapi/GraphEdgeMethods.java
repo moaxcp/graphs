@@ -1,7 +1,7 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.testframework.SimpleGraphs;
+import com.github.moaxcp.graphs.testframework.*;
 
 import java.util.Map;
 
@@ -52,30 +52,35 @@ public class GraphEdgeMethods {
     assertThat(edge).hasToThat().isEqualTo("B");
   }
 
-  @SimpleGraphs
-  void getEdgeEndpoints(Graph<String> graph) {
-    var edge = graph.getEdge("A", "B");
-    assertThat(edge.endpoints()).containsExactly("A", "B").inOrder();
+  @UndirectedSimpleGraphs
+  void getEdgeDifferentOrderOfEndpointsUndirected(Graph<String> graph) {
+    var edge1 = graph.getEdge("A", "B");
+    var edge2 = graph.getEdge("B", "A");
+    assertThat(edge1).isEqualTo(edge2);
   }
 
-  @SimpleGraphs
-  void getEdgeOppositeFrom(Graph<String> graph) {
-    var edge = graph.getEdge("A", "B");
-    assertThat(edge.getOppositeEndpoint("A")).isEqualTo("B");
+  @UndirectedSimpleGraphs
+  void findEdgeDifferentOrderOfEndpointsUndirected(Graph<String> graph) {
+    graph.edge("A", "B");
+    var edge1 = graph.findEdge("A", "B");
+    var edge2 = graph.findEdge("B", "A");
+    assertThat(edge1).isEqualTo(edge2);
   }
 
-    @SimpleGraphs
-    void getEdgeOppositeTo(Graph<String> graph) {
-        var edge = graph.getEdge("A", "B");
-        assertThat(edge.getOppositeEndpoint("B")).isEqualTo("A");
-    }
+  @DirectedSimpleGraphs
+  void getEdgeDifferentOrderOfEndpointsDirected(Graph<String> graph) {
+    var edge1 = graph.getEdge("A", "B");
+    var edge2 = graph.getEdge("B", "A");
+    assertThat(edge1).isNotEqualTo(edge2);
+  }
 
-    @SimpleGraphs
-    void getEdgeOppositeMissing(Graph<String> graph) {
-        var edge = graph.getEdge("A", "B");
-        var exception = assertThrows(IllegalArgumentException.class, () -> edge.getOppositeEndpoint("C"));
-        assertThat(exception).hasMessageThat().isEqualTo("id \"C\" is not an endpoint of this edge.");
-    }
+  @DirectedSimpleGraphs
+  void findEdgeDifferentOrderOfEndpointsDirected(Graph<String> graph) {
+    graph.edge("A", "B");
+    var edge1 = graph.findEdge("A", "B");
+    var edge2 = graph.findEdge("B", "A");
+    assertThat(edge1).isNotEqualTo(edge2);
+  }
 
   @SimpleGraphs
   void getEdgeProperty1(Graph<String> graph) {

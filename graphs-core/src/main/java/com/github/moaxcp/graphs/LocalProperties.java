@@ -11,6 +11,7 @@ import static java.util.Collections.*;
  * property is a name/value pair. The name and/or value cannot be null. Updating a value to null will remove it but it
  * can never be set as null.
  */
+@ToString
 class LocalProperties {
   private final Map<String, Object> local = new LinkedHashMap<>();
 

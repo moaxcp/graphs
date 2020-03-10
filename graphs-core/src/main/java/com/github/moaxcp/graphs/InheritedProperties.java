@@ -7,6 +7,7 @@ import java.util.*;
 /**
  * Implements local properties which are overriden by inherited properties.
  */
+@ToString
 class InheritedProperties extends LocalProperties {
   private final Map<String, Object> inherited;
 
