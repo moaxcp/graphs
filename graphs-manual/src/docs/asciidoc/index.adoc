@@ -279,7 +279,11 @@ assertThat(edge1).isEqualTo(edge2);
 ----
 
 This all came down to how the `Objects.hash(...)` method is ordered but undirected edges need an unordered hash. The
-solution is to simply add the hashcodes of the two ids together. This is similar to how HashSet calculates its `hashCode()`.
+solution is to simply add the hashcodes of the two ids together. This is similar to how HashSet calculates its
+`hashCode()`.
+
+Adding `boolean connected(ID from, ID to)` to `Graph`. This can be used to check if two vertices are connected. It can
+be used to enforce that the graph is always a DAG when adding edges.
 
 === 0.10.0
 

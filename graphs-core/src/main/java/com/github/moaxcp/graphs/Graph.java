@@ -846,6 +846,43 @@ public interface Graph<ID> {
    */
   Graph<ID> removeVertexProperty(String name);
 
+  default boolean connected(@NonNull ID from, @NonNull ID to) {
+    if(findVertex(from).isEmpty() || findVertex(to).isEmpty()) {
+      return false;
+    }
+    if(findEdge(from, to).isPresent()) {
+      return true;
+    }
+
+    Deque<ID> stack = new LinkedList<>();
+    stack.push(from);
+    Set<ID> visited = new HashSet<>();
+
+    while(!stack.isEmpty()) {
+      ID id = stack.pop();
+      if(visited.contains(id)) {
+        continue;
+      }
+      Vertex<ID> vertex = getVertex(id);
+      visited.add(id);
+      Set<Edge<ID>> edges;
+      if(isDirected()) {
+        edges = vertex.outEdges();
+      } else {
+        edges = vertex.adjacentEdges();
+      }
+      for(var edge : edges) {
+        ID next = edge.getOppositeEndpoint(id);
+        if(to.equals(next)) {
+          return true;
+        }
+        stack.push(next);
+      }
+    }
+
+    return false;
+  }
+
   /**
    * Returns a post-order depth-first {@link Iterator} which returns every {@link Vertex} in this graph starting at
    * the provided vertices.
