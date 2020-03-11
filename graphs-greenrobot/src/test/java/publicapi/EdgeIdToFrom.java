@@ -9,7 +9,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EdgeIdToFrom {
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void edgeIdAdded(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edge("A", "B");
@@ -19,13 +19,13 @@ public class EdgeIdToFrom {
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id("edge")).containsExactly(expected);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void edgeIdRemovedNoId(EventGraph<String> graph, EventBus bus) {
         graph.edge("A", "B");
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id(null)).isEmpty();
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void edgeIdRemoved(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "B").id("edge");
@@ -35,7 +35,7 @@ public class EdgeIdToFrom {
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id(null)).containsExactly(expected);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void edgeIdUpdated(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "B").id("oldEdge");
@@ -45,7 +45,7 @@ public class EdgeIdToFrom {
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id("edge")).containsExactly(expected);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void edgeFromUpdatedCreatedVertex(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("oldFrom", "B").id("edge");
@@ -68,7 +68,7 @@ public class EdgeIdToFrom {
           .containsExactly(expected1, expected2).inOrder();
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void edgeToUpdatedCreatedVertex(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "oldTo").id("edge");
@@ -85,7 +85,7 @@ public class EdgeIdToFrom {
           .containsExactly(expected1, expected2);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void edgeFromUpdated(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
@@ -96,7 +96,7 @@ public class EdgeIdToFrom {
         assertThat(bus).withAction(() -> graph.getEdge("oldFrom", "B").setFrom("A")).containsExactly(expected);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void edgeToUpdated(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("B");

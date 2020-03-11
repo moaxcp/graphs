@@ -12,7 +12,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class Vertex {
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateId(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -27,7 +27,7 @@ public class Vertex {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -40,7 +40,7 @@ public class Vertex {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -54,7 +54,7 @@ public class Vertex {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -66,7 +66,7 @@ public class Vertex {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -82,7 +82,7 @@ public class Vertex {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -99,7 +99,7 @@ public class Vertex {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -116,7 +116,7 @@ public class Vertex {
           "name6", "value6")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -134,7 +134,7 @@ public class Vertex {
           "name7", "value7")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -153,7 +153,7 @@ public class Vertex {
           "name8", "value8")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -173,7 +173,7 @@ public class Vertex {
           "name9", "value9")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -194,7 +194,7 @@ public class Vertex {
           "name10", "value10")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addPropertyMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -210,7 +210,7 @@ public class Vertex {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A");
@@ -222,7 +222,7 @@ public class Vertex {
         .property("name1", "value1")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
@@ -235,7 +235,7 @@ public class Vertex {
           "name2", "value2")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
@@ -249,7 +249,7 @@ public class Vertex {
           "name3", "value3")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A",
@@ -266,7 +266,7 @@ public class Vertex {
           "name4", "value4")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E");
@@ -282,7 +282,7 @@ public class Vertex {
           "name5", "value5")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F");
@@ -299,7 +299,7 @@ public class Vertex {
           "name6", "value6")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G");
@@ -317,7 +317,7 @@ public class Vertex {
           "name7", "value7")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H");
@@ -336,7 +336,7 @@ public class Vertex {
           "name8", "value8")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I");
@@ -356,7 +356,7 @@ public class Vertex {
           "name9", "value9")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I", "name10", "J");
@@ -377,7 +377,7 @@ public class Vertex {
           "name10", "value10")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatePropertyMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property(Map.of("name1", "A", "name2", "B"));
@@ -389,7 +389,7 @@ public class Vertex {
         .property(Map.of("name1", "value1", "name2", "value2"))).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty1Remove(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A", "name1", "value1");
@@ -404,7 +404,7 @@ public class Vertex {
         .build());
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatePropertyAlreadyExists(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "value1");
@@ -420,7 +420,7 @@ public class Vertex {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void removeProperty(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name", "value");

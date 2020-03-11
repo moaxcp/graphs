@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.testframework.DirectedSimpleGraphs;
+import com.github.moaxcp.graphs.testframework.TestDirectedGraphs;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -11,14 +11,14 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class DirectedDotWriterTest {
 
-    @DirectedSimpleGraphs
+    @TestDirectedGraphs
     void strictDirected(Graph<String> graph) throws IOException {
         StringWriter s = new StringWriter();
         dot(graph).write(s);
         assertThat(s.toString()).startsWith("strict digraph {");
     }
 
-    @DirectedSimpleGraphs
+    @TestDirectedGraphs
     void containsDirectedEdge(Graph<String> graph) throws IOException {
         graph.edge("A", "B");
         StringWriter s = new StringWriter();
@@ -28,7 +28,7 @@ public class DirectedDotWriterTest {
                 "}\n");
     }
 
-    @DirectedSimpleGraphs
+    @TestDirectedGraphs
     void containsVertices(Graph<String> graph) throws IOException {
         graph.vertex("A");
         graph.vertex("B");

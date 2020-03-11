@@ -37,7 +37,7 @@ public class Graph {
         assertThat(bus).withAction(() -> new DirectedEventGraph<>("id", bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void addId(EventGraph<String> graph, EventBus bus) {
         var event = GraphPropertyEvent.<String>builder()
           .graphId(null)
@@ -48,7 +48,7 @@ public class Graph {
           .containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void removeId(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
 
@@ -62,7 +62,7 @@ public class Graph {
           .containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void updateId(EventGraph<String> graph, EventBus bus) {
         graph.id("id1");
 
@@ -76,7 +76,7 @@ public class Graph {
           .containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void addProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = GraphPropertyEvent.<String>builder()
@@ -86,7 +86,7 @@ public class Graph {
         assertThat(bus).withAction(() -> graph.property("name", "value")).containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void removeProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
@@ -97,7 +97,7 @@ public class Graph {
         assertThat(bus).withAction(() -> graph.removeProperty("name")).containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void updateProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
@@ -108,7 +108,7 @@ public class Graph {
         assertThat(bus).withAction(() -> graph.property("name", "value2")).containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void addAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = EdgeInheritedPropertyEvent.<String>builder()
@@ -118,7 +118,7 @@ public class Graph {
         assertThat(bus).withAction(() -> graph.edgeProperty("name", "value")).containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void removeAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edgeProperty("name", "value");
@@ -129,7 +129,7 @@ public class Graph {
         assertThat(bus).withAction(() -> graph.removeEdgeProperty("name")).containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void updateAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edgeProperty("name", "A");
@@ -140,7 +140,7 @@ public class Graph {
         assertThat(bus).withAction(() -> graph.edgeProperty("name", "value")).containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void addAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = VertexInheritedPropertyEvent.<String>builder()
@@ -150,7 +150,7 @@ public class Graph {
         assertThat(bus).withAction(() -> graph.vertexProperty("name", "value")).containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void removeAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertexProperty("name", "value");
@@ -161,7 +161,7 @@ public class Graph {
         assertThat(bus).withAction(() -> graph.removeVertexProperty("name")).containsExactly(event);
     }
 
-    @EventSimpleGraphs
+    @TestEventGraphs
     void updateAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertexProperty("name", "A");

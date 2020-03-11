@@ -2,7 +2,7 @@ package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.DirectedGraph;
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.testframework.SimpleGraphs;
+import com.github.moaxcp.graphs.testframework.TestGraphs;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class DotTest {
         assertThat(thrown).hasMessageThat().isEqualTo("writer must not be null.");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void endsWithBraceWriter(Graph<String> graph) throws IOException {
         var writer = dot(graph);
         StringWriter s = new StringWriter();
@@ -35,13 +35,13 @@ public class DotTest {
         assertThat(s.toString()).endsWith("}\n");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void endsWithBrace(Graph<String> graph) {
         var s = dot(graph).toString();
         assertThat(s).endsWith("}\n");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void graphAttributes(Graph<String> graph) {
         graph.property("color", "blue");
         graph.property("label", "graph");
@@ -50,21 +50,21 @@ public class DotTest {
         assertThat(s).contains("color=blue\n  label=graph");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void edgeAttributes(Graph<String> graph) {
         graph.getEdge("A", "B").property("color", "blue").property("size", 10);
         var s = dot(graph).toString();
         assertThat(s).containsMatch("A -[->] B \\[color=blue, size=10\\]");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void vertexAttributes(Graph<String> graph) {
         graph.getVertex("A").property("color", "blue").property("size", 10);
         var s = dot(graph).toString();
         assertThat(s).contains("A [color=blue, size=10]");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void graphEdgeAttributes(Graph<String> graph) {
         graph.edge("A", "B");
         graph.edgeProperty("color", "blue");
@@ -72,7 +72,7 @@ public class DotTest {
         assertThat(s).contains("edge [color=blue]");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void graphVertexAttributes(Graph<String> graph) {
         graph.vertex("A");
         graph.vertexProperty("color", "blue");
@@ -80,7 +80,7 @@ public class DotTest {
         assertThat(s).contains("node [color=blue]");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void toImageDirected(Graph<String> graph) throws IOException {
         graph.property("rankdir", "LR");
         graph.edge("A", "B").property("color", "red");

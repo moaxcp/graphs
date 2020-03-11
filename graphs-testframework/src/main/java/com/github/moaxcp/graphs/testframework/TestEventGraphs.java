@@ -8,6 +8,6 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 @ParameterizedTest
-@MethodSource("com.github.moaxcp.graphs.testframework.MethodSources#nonEventSimpleGraphs")
-public @interface NonEventSimpleGraphs {
+@MethodSource("com.github.moaxcp.graphs.testframework.MethodSources#eventSimpleGraphs")
+public @interface TestEventGraphs {
 }

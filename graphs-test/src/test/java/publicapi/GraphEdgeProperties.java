@@ -12,88 +12,88 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphEdgeProperties {
 
-  @SimpleGraphs
+  @TestGraphs
   void defaultProperty(Graph<String> graph) {
     assertThat(graph).withEdgeProperty("property").isEmpty();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setPropertyNullKey(Graph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setEdgeProperty(null, null));
     assertThat(thrown).hasMessageThat().isEqualTo("name is marked non-null but is null");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setPropertyNullValue(Graph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.setEdgeProperty("property", null));
     assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setPropertyEmptyName(Graph<String> graph) {
     Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.setEdgeProperty("", ""));
     assertThat(thrown).hasMessageThat().isEqualTo("name must not be empty.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setProperty(Graph<String> graph) {
     graph.setEdgeProperty("property", "value");
     assertThat(graph).withEdgeProperty("property").hasValue("value");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property(Graph<String> graph) {
     Graph next = graph.edgeProperty("property", "value");
     assertThat(graph).withEdgeProperty("property").hasValue("value");
     assertThat(next).isSameInstanceAs(graph);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void removePropertyMissing(Graph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdgeProperty("property"));
     assertThat(thrown).hasMessageThat().isEqualTo("value must not be null.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void removeProperty(Graph<String> graph) {
     graph.edgeProperty("property", "value");
     graph.removeEdgeProperty("property");
     assertThat(graph).withEdgeProperty("property").isEmpty();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void propertyIsInherited(Graph<String> graph) {
     graph.edgeProperty("property", "value");
     var edge = graph.getEdge("A", "B");
     assertThat(edge).withProperty("property").hasValue("value");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getProperties(Graph<String> graph) {
     graph.edgeProperty("property", "value");
     assertThat(graph.getEdgeProperties()).containsExactly("property", "value");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void findPropertyNull(Graph<String> graph) {
     var exception = assertThrows(NullPointerException.class, () -> graph.getEdgeProperty(null));
     assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void findProperty(Graph<String> graph) {
     graph.edgeProperty("name", "value");
     Optional<String> result = graph.findEdgeProperty("name");
     Truth8.assertThat(result).hasValue("value");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getPropertyNull(Graph<String> graph) {
     var exception = assertThrows(NullPointerException.class, () -> graph.getEdgeProperty(null));
     assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getProperty(Graph<String> graph) {
     graph.setEdgeProperty("name", "value");
     String value = graph.getEdgeProperty("name");

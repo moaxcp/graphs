@@ -12,7 +12,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EdgeTest {
-  @SimpleGraphs
+  @TestGraphs
   void setId(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.setId("id");
@@ -20,7 +20,7 @@ public class EdgeTest {
     assertThat(graph).hasEdge("id").isSameInstanceAs(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void changeId(Graph<String> graph) {
     var edge = graph.getEdge("A", "B").id("id");
     edge.setId("id2");
@@ -30,14 +30,14 @@ public class EdgeTest {
     assertThat(graph).hasNoEdge("id");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setIdNullNoId(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.setId(null);
     assertThat(edge).hasNoId();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setIdNullRemovesId(Graph<String> graph) {
     var edge = graph.getEdge("A", "to").id("id");
     edge.setId(null);
@@ -45,14 +45,14 @@ public class EdgeTest {
     assertThat(graph).hasNoEdge("id");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void id(Graph<String> graph) {
     var edge = graph.getEdge("A", "B").id("id");
     assertThat(graph).hasEdge("A", "B").hasIdThat().hasValue("id");
     assertThat(graph).hasEdge("id").isSameInstanceAs(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setFrom(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.setFrom("C");
@@ -60,21 +60,21 @@ public class EdgeTest {
     assertThat(edge).hasFromThat().isEqualTo("C");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setFromNull(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setFrom(null));
     assertThat(thrown).hasMessageThat().isEqualTo("from is marked non-null but is null");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setFromCreatesNewVertex(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.setFrom("C");
     assertThat(graph).hasVertex("C");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setFromChangesChangesAdjacentEdges(Graph<String> graph) {
     var edge = graph.getEdge("id", "B");
     edge.setFrom("A");
@@ -82,7 +82,7 @@ public class EdgeTest {
     assertThat(inEdges).containsExactly(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setFromChangesChangesInEdges(Graph<String> graph) {
     var edge = graph.getEdge("id", "B");
     edge.setFrom("A");
@@ -90,7 +90,7 @@ public class EdgeTest {
     assertThat(inEdges).containsExactly(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setFromChangesChangesOutEdges(Graph<String> graph) {
     var edge = graph.getEdge("A", "id");
     edge.setTo("A");
@@ -98,7 +98,7 @@ public class EdgeTest {
     assertThat(outEdges).containsExactly(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void from(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     var result = edge.from("C");
@@ -106,12 +106,12 @@ public class EdgeTest {
     assertThat(result).isSameInstanceAs(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void fromGet(Graph<String> graph) {
     assertThat(graph.getEdge("A", "B").from()).isEqualTo("A");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setTo(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.setTo("C");
@@ -119,21 +119,21 @@ public class EdgeTest {
     assertThat(edge).hasToThat().isEqualTo("C");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setToNull(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     Throwable thrown = assertThrows(NullPointerException.class, () -> edge.setTo(null));
     assertThat(thrown).hasMessageThat().isEqualTo("to is marked non-null but is null");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setToCreatesNewVertex(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.setTo("C");
     assertThat(graph).hasVertex("C");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setToChangesChangesAdjacentEdges(Graph<String> graph) {
     var edge = graph.getEdge("A", "id");
     edge.setTo("B");
@@ -141,7 +141,7 @@ public class EdgeTest {
     assertThat(adjacentEdges).containsExactly(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setToChangesChangesInEdges(Graph<String> graph) {
     var edge = graph.getEdge("A", "id");
     edge.setTo("B");
@@ -149,7 +149,7 @@ public class EdgeTest {
     assertThat(inEdges).containsExactly(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setToChangesChangesOutEdges(Graph<String> graph) {
     var edge = graph.getEdge("A", "id");
     edge.setTo("A");
@@ -157,7 +157,7 @@ public class EdgeTest {
     assertThat(outEdges).containsExactly(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void to(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     var result = edge.to("C");
@@ -165,120 +165,120 @@ public class EdgeTest {
     assertThat(result).isSameInstanceAs(edge);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void toGet(Graph<String> graph) {
     assertThat(graph.getEdge("A", "B").to()).isEqualTo("B");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void fromVertex(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     var vertex = graph.findVertex("A").get();
     assertThat(edge.fromVertex()).isEqualTo(vertex);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void toVertex(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     var vertex = graph.findVertex("B").get();
     assertThat(edge.toVertex()).isEqualTo(vertex);
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setProperty(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.setProperty("key", "value");
     assertThat(edge).withProperty("key").hasValue("value");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void setPropertyUpdateToNull(Graph<String> graph) {
     graph.getEdge("A", "B").setProperty("name", "value");
     graph.getEdge("A", "B").setProperty("name", null);
     assertThat(graph).hasEdge("A", "B").withProperty("name").isEmpty();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property2(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property3(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property4(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property5(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property6(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property7(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property8(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property9(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void property10(Graph<String> graph) {
     graph.getEdge("A", "B").property("name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void propertyWithMap(Graph<String> graph) {
     graph.getEdge("A", "B").property(Map.of("name", "value"));
     assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name", "value");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void propertyUpdateToNull(Graph<String> graph) {
     graph.getEdge("A", "B").property("name", "value");
     graph.getEdge("A", "B").property("name", null);
     assertThat(graph).hasEdge("A", "B").withProperty("name").isEmpty();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void findPropertyNull(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     var exception = assertThrows(NullPointerException.class, () -> edge.findProperty(null));
     assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void findProperty(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.property("name", "value");
@@ -286,14 +286,14 @@ public class EdgeTest {
     Truth8.assertThat(result).hasValue("value");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getPropertyNull(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     var exception = assertThrows(NullPointerException.class, () -> edge.getProperty(null));
     assertThat(exception).hasMessageThat().isEqualTo("name is marked non-null but is null");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getProperty(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     edge.property("name", "value");
@@ -301,56 +301,56 @@ public class EdgeTest {
     assertThat(result).isEqualTo("value");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void propertySetIdFails(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").property("id", "edge"));
     assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void removePropertyIdFails(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").id("edge").removeProperty("id"));
     assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void propertySetFromFails(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").property("from", "C"));
     assertThat(exception).hasMessageThat().isEqualTo("from cannot be set as a property.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void removePropertyFromFails(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").removeProperty("from"));
     assertThat(exception).hasMessageThat().isEqualTo("from cannot be set as a property.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void propertySetToFails(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").property("to", "C"));
     assertThat(exception).hasMessageThat().isEqualTo("to cannot be set as a property.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void removePropertyToFails(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getEdge("A", "B").removeProperty("to"));
     assertThat(exception).hasMessageThat().isEqualTo("to cannot be set as a property.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void removeProperty(Graph<String> graph) {
     var edge = graph.getEdge("A", "B").property("name", "value");
     edge.removeProperty("name");
     assertThat(edge).withProperty("name").isEmpty();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void testEquals(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     EqualsVerifier.forClass(edge.getClass()).suppress(Warning.NONFINAL_FIELDS, Warning.NULL_FIELDS).verify();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void testEqualsDifferentInherited(Graph<String> graph) {
     var other = new UndirectedGraph<String>();
     other.edgeProperty("name", "value");
@@ -360,31 +360,31 @@ public class EdgeTest {
     assertThat(edge1.equals(edge2)).isFalse();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void remove(Graph<String> graph) {
     graph.getEdge("A", "B").remove();
     assertThat(graph).hasNoEdge("A", "B");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getEdgeEndpoints(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     assertThat(edge.endpoints()).containsExactly("A", "B").inOrder();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getEdgeOppositeFrom(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     assertThat(edge.getOppositeEndpoint("A")).isEqualTo("B");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getEdgeOppositeTo(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     assertThat(edge.getOppositeEndpoint("B")).isEqualTo("A");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void getEdgeOppositeMissing(Graph<String> graph) {
     var edge = graph.getEdge("A", "B");
     var exception = assertThrows(IllegalArgumentException.class, () -> edge.getOppositeEndpoint("C"));

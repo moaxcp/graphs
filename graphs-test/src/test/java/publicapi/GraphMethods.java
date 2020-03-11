@@ -7,7 +7,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class GraphMethods {
 
-  @SimpleGraphs
+  @TestGraphs
   void isEmpty(Graph<String> graph) {
     assertThat(graph).isEmpty();
   }

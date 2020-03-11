@@ -17,46 +17,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PreOrderDepthFirstIteratorTest {
 
-  @SimpleGraphs
+  @TestGraphs
   void nullStart(Graph<String> graph) {
     var exception = assertThrows(NullPointerException.class, () -> graph.preOrderIterator((String[]) null));
     assertThat(exception).hasMessageThat().isEqualTo("start is marked non-null but is null");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void nullInOther(Graph<String> graph) {
     graph.vertex("A").vertex("B");
     var exception = assertThrows(NullPointerException.class, () -> graph.preOrderIterator("A", null, "B"));
     assertThat(exception).hasMessageThat().isEqualTo("\"id\" in \"start\" must not be null.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void startNotInGraph(Graph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.preOrderIterator("A"));
     assertThat(exception).hasMessageThat().isEqualTo("vertex \"A\" not found in graph.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void hasNext_EmptyGraph(Graph<String> graph) {
     var iterator = graph.preOrderIterator();
     assertThat(iterator.hasNext()).isFalse();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void next_EmptyGraph(Graph<String> graph) {
     var iterator = graph.preOrderIterator();
     var exception = assertThrows(NoSuchElementException.class, () -> iterator.next());
     assertThat(exception).hasMessageThat().isEqualTo("Could not find next element.");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void hasNext_beforeIteration(Graph<String> graph) {
     graph.vertex("A");
     var iterator = graph.preOrderIterator();
     assertThat(iterator.hasNext()).isTrue();
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void hasNext_MultipleBeforeIteration(Graph<String> graph) {
     graph.vertex("A");
     var iterator = graph.preOrderIterator();
@@ -66,7 +66,7 @@ class PreOrderDepthFirstIteratorTest {
     assertThat(iterator.next().getId()).isEqualTo("A");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void hasNext_MultipleBetweenComponents(Graph<String> graph) {
     graph.vertex("A");
     graph.vertex("B");
@@ -79,7 +79,7 @@ class PreOrderDepthFirstIteratorTest {
     assertThat(iterator.next().getId()).isEqualTo("B");
   }
 
-  @SimpleGraphs
+  @TestGraphs
   void next_withoutCallingHasNext(Graph<String> graph) {
     graph.vertex("A");
     var iterator = graph.preOrderIterator();
@@ -99,7 +99,7 @@ class PreOrderDepthFirstIteratorTest {
     assertThat(result).containsExactlyElementsIn(expectedOrder);
   }
 
-  @DirectedSimpleGraphs
+  @TestDirectedGraphs
   void preOrderIteratorStart(Graph<String> graph) {
     complexTwoComponents(graph, POST_ORDER);
     var result = new ArrayList<String>();
@@ -122,7 +122,7 @@ class PreOrderDepthFirstIteratorTest {
     assertThat(result).isEqualTo(expectedOrder);
   }
 
-  @DirectedSimpleGraphs
+  @TestDirectedGraphs
   void preOrderStreamStart(Graph<String> graph) {
     complexTwoComponents(graph, POST_ORDER);
     var result = graph.preOrderStream("D", "G", "W")

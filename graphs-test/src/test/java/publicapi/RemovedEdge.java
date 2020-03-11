@@ -1,13 +1,13 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.testframework.SimpleGraphs;
+import com.github.moaxcp.graphs.testframework.TestGraphs;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemovedEdge {
-    @SimpleGraphs
+    @TestGraphs
     void setId(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -15,7 +15,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void id(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -23,7 +23,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void setFrom(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -31,7 +31,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void from(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -39,7 +39,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void setTo(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -47,7 +47,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void to(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -55,7 +55,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void setProperty(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -63,7 +63,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @SimpleGraphs
+    @TestGraphs
     void removeProperty(Graph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");

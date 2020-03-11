@@ -11,7 +11,7 @@ import static com.github.moaxcp.graphs.testframework.Events.*;
 import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EventGraphVertexMethods {
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(0);
@@ -20,7 +20,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(1);
@@ -31,7 +31,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(2);
@@ -43,7 +43,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(3);
@@ -56,7 +56,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(4);
@@ -70,7 +70,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(5);
@@ -84,7 +84,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(6);
@@ -100,7 +100,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(7);
@@ -117,7 +117,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(8);
@@ -135,7 +135,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(9);
@@ -153,7 +153,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertex10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(10);
@@ -173,7 +173,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithVertexMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(1);
@@ -184,7 +184,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A");
@@ -194,7 +194,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex1Remove(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A", "name1", "value1");
@@ -208,7 +208,7 @@ public class EventGraphVertexMethods {
         .build());
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
@@ -218,7 +218,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
@@ -232,7 +232,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
@@ -250,7 +250,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
@@ -271,7 +271,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
@@ -294,7 +294,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
@@ -319,7 +319,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
@@ -346,7 +346,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
@@ -375,7 +375,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertex10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
@@ -406,7 +406,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithVertexMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
@@ -420,7 +420,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(0);
@@ -429,7 +429,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(1);
@@ -439,7 +439,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(2);
@@ -451,7 +451,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(3);
@@ -464,7 +464,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(4);
@@ -477,7 +477,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(5);
@@ -492,7 +492,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(6);
@@ -508,7 +508,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(7);
@@ -525,7 +525,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(8);
@@ -543,7 +543,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(9);
@@ -562,7 +562,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertex10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(10);
@@ -582,7 +582,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetVertexMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(1);
@@ -593,7 +593,7 @@ public class EventGraphVertexMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithGetVertex1Remove(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A", "name1", "value1");
@@ -607,13 +607,13 @@ public class EventGraphVertexMethods {
         .build());
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void notCreated(EventGraph<String> graph, EventBus bus) {
     graph.vertex("A");
     assertThat(bus).withAction(() -> graph.vertex("A")).isEmpty();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void remove(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
@@ -626,7 +626,7 @@ public class EventGraphVertexMethods {
     assertThat(bus).withAction(() -> graph.removeVertex("A")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void removeWithProperties(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A", "name1", "value1");
@@ -639,7 +639,7 @@ public class EventGraphVertexMethods {
     assertThat(bus).withAction(() -> graph.removeVertex("A")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void removeWithEdges(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.edge("A", "B");

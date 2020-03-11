@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.testframework.UndirectedSimpleGraphs;
+import com.github.moaxcp.graphs.testframework.TestUndirectedGraphs;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -11,14 +11,14 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class UndirectedDotWriterTest {
 
-    @UndirectedSimpleGraphs
+    @TestUndirectedGraphs
     void strictUndirected(Graph<String> graph) throws IOException {
         StringWriter s = new StringWriter();
         dot(graph).write(s);
         assertThat(s.toString()).startsWith("strict graph {");
     }
 
-    @UndirectedSimpleGraphs
+    @TestUndirectedGraphs
     void containsUndirectedEdge(Graph<String> graph) throws IOException {
         graph.edge("A", "B");
         StringWriter s = new StringWriter();
@@ -28,7 +28,7 @@ public class UndirectedDotWriterTest {
                 "}\n");
     }
 
-    @UndirectedSimpleGraphs
+    @TestUndirectedGraphs
     void containsVertices(Graph<String> graph) throws IOException {
         graph.vertex("A");
         graph.vertex("B");

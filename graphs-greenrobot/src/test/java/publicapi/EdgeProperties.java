@@ -12,7 +12,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EdgeProperties {
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -24,7 +24,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -38,7 +38,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -53,7 +53,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -69,7 +69,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -86,7 +86,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -104,7 +104,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -123,7 +123,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -143,7 +143,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -164,7 +164,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addProperty10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -186,7 +186,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void addPropertyMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
@@ -200,7 +200,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "A");
@@ -212,7 +212,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -228,7 +228,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -246,7 +246,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -266,7 +266,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -288,7 +288,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -312,7 +312,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -338,7 +338,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -366,7 +366,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -396,7 +396,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -428,7 +428,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatePropertyMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
@@ -444,7 +444,7 @@ public class EdgeProperties {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updateProperty1Remove(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "value1");
@@ -460,7 +460,7 @@ public class EdgeProperties {
         .build());
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void removeProperty(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name", "value");

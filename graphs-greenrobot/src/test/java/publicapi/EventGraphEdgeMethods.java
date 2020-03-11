@@ -11,7 +11,7 @@ import static com.github.moaxcp.graphs.testframework.Events.*;
 import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EventGraphEdgeMethods {
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -23,7 +23,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -38,7 +38,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -54,7 +54,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -71,7 +71,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -89,7 +89,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -108,7 +108,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -128,7 +128,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -149,7 +149,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -171,7 +171,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -194,7 +194,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdge10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -224,7 +224,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithEdgeMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -249,7 +249,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -261,7 +261,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge1(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -277,7 +277,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge2(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -296,7 +296,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge3(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -317,7 +317,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge4(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -340,7 +340,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge5(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -365,7 +365,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge6(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -392,7 +392,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge7(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -421,7 +421,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge8(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -452,7 +452,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge9(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -485,7 +485,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdge10(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -528,7 +528,7 @@ public class EventGraphEdgeMethods {
       . containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void createdWithGetEdgeMap(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -547,7 +547,7 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void updatedWithEdgeMap(EventGraph<String> graph, EventBus bus) {
       graph.id("graph").getEdge("A", "B").id("edge");
       graph.getEdge("A", "B").property("name1", "A");
@@ -560,14 +560,14 @@ public class EventGraphEdgeMethods {
       .containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void notCreated(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
     assertThat(bus).withAction(() -> graph.edge("A", "B")).isEmpty();
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void removed(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "value1", "name2", "value2");
@@ -577,7 +577,7 @@ public class EventGraphEdgeMethods {
     assertThat(bus).withAction(() -> graph.removeEdge("A", "B")).containsExactly(expected);
   }
 
-  @EventSimpleGraphs
+  @TestEventGraphs
   void removeWithId(EventGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
