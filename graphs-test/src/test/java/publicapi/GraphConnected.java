@@ -3,6 +3,8 @@ package publicapi;
 import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.testframework.*;
 
+import static com.github.moaxcp.graphs.testframework.MethodSources.*;
+import static com.github.moaxcp.graphs.testframework.PathOrder.*;
 import static com.google.common.truth.Truth.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,6 +69,18 @@ public class GraphConnected {
     graph.edge("A", "B");
     graph.edge("C", "D");
     assertThat(graph.connected("A", "D")).isFalse();
+  }
+
+  @DirectedSimpleGraphs
+  void connectedComplex(Graph<String> graph) {
+    complexTwoComponents(graph, PRE_ORDER);
+    assertThat(graph.connected("A", "C")).isTrue();
+  }
+
+  @DirectedSimpleGraphs
+  void connectedComplexFalse(Graph<String> graph) {
+    complexTwoComponents(graph, PRE_ORDER);
+    assertThat(graph.connected("A", "X")).isFalse();
   }
 
 }
