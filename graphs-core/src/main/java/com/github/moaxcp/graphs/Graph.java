@@ -200,6 +200,13 @@ public interface Graph<ID> {
      * @return tis vertex
      */
     Vertex<ID> remove();
+
+    /**
+     * Returns true if this vertex and 'id' vertex is connected.
+     * @param id of vertex
+     * @return true if the two vertices are connected
+     */
+    boolean connected(ID id);
   }
 
   /**
@@ -846,6 +853,12 @@ public interface Graph<ID> {
    */
   Graph<ID> removeVertexProperty(String name);
 
+  /**
+   * Returns true if 'from' and 'to' vertices are connected.
+   * @param from id of vertex
+   * @param to id of vertex
+   * @return true if the two vertices are connected
+   */
   default boolean connected(@NonNull ID from, @NonNull ID to) {
     if(findVertex(from).isEmpty() || findVertex(to).isEmpty()) {
       return false;

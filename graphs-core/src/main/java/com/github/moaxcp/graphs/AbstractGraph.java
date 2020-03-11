@@ -1073,6 +1073,11 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     @Override
+    public boolean connected(@NonNull ID id) {
+      return AbstractGraph.this.connected(getId(), id);
+    }
+
+    @Override
     public final boolean equals(Object o) {
       if (this == o) return true;
       if (!(o instanceof AbstractGraph<?>.SimpleVertex)) return false;
