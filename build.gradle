@@ -28,6 +28,12 @@ reckon {
     snapshotFromProp()
 }
 
+nexusStaging {
+    username = System.getProperty('nexus.username')
+    password = System.getProperty('nexus.password')
+    packageGroup = 'com.github.moaxcp.graphs'
+}
+
 gitPublish {
     repoUri = 'https://github.com/moaxcp/graphs.git'
     branch = 'gh-pages'
@@ -91,7 +97,6 @@ subprojects {
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
         //https://github.com/openjdk/skara/pull/66
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
     }
 
     test {
