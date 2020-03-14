@@ -24,7 +24,7 @@ build() {
 
 release() {
     # publish
-    ./gradlew publishToOSSRepository closeAndReleaseRepository --stacktrace --debug \
+    ./gradlew publishAllPublicationsToOSSRepository closeAndReleaseRepository \
         -Pnexus.username=moaxcp \
         -Pnexus.password="$NEXUS_PASSWORD" \
         -Psigning.keyId=A9A4043B \
