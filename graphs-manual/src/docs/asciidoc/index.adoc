@@ -270,6 +270,8 @@ image::images/preOrderTraversal.png[pre order]
 
 === 0.11.0
 
+Updating to jdk 17. Updating gradle and all dependencies.
+
 Found issue when getting and edge with different ordered endpoints in an UndirectedGraph. This test now passes:
 
 ----

@@ -7,7 +7,7 @@ plugins {
 description = 'Graph api and implementations.'
 
 patchModules.config = [
-        "truth=truth-java8-extension-1.0.1.jar"
+    "truth=truth-java8-extension-1.0.1.jar"
 ]
 
 dependencies {
@@ -75,7 +75,7 @@ publishing {
                     url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
                     credentials {
                         username = project.findProperty('nexus.username')
-                        password = project.findProperty('nexus.password')
+                        password = project.findProperty('nwexus.password')
                     }
                 }
                 maven {
@@ -103,7 +103,7 @@ jacocoTestReport {
 compileTestJava {
     moduleOptions {
         addReads = [
-            'com.github.moaxcp.graphs.core' : 'truth,nl.jqno.equalsverifier,org.junit.jupiter.params',
+            'com.github.moaxcp.graphs.core' : 'truth,nl.jqno.equalsverifier,org.junit.jupiter.params'
         ]
 
         addModules = ['truth', 'org.junit.jupiter.params']
@@ -113,7 +113,7 @@ compileTestJava {
 test {
     moduleOptions {
         addReads = [
-            'com.github.moaxcp.graphs.core' : 'truth,nl.jqno.equalsverifier,org.junit.jupiter.params',
+            'com.github.moaxcp.graphs.core' : 'truth,nl.jqno.equalsverifier,org.junit.jupiter.params'
         ]
     }
 }

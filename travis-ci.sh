@@ -12,7 +12,7 @@ scan() {
     ./gradlew jacocoTestReport
     git fetch --unshallow #get all commit history for exact blame info
     echo "running sonar skipping tests"
-    ./gradlew -x test -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=moaxcp -Dsonar.login=$SONAR_TOKEN sonarqube
+    ./gradlew -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=moaxcp -Dsonar.login=$SONAR_TOKEN sonarqube
 }
 
 build() {
