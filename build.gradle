@@ -1,17 +1,7 @@
-buildscript {
-    repositories {
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
-    }
-    dependencies {
-        classpath 'org.javamodularity:moduleplugin:1.8.10'
-        classpath 'io.freefair.gradle:lombok-plugin:6.4.1'
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2'
-    }
-}
-
 plugins {
+    id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
+    id 'io.freefair.lombok' version '6.4.1' apply false
+    id 'org.asciidoctor.convert' version '1.6.1' apply false
     id 'org.ajoberstar.grgit' version '5.0.0'
     id 'org.ajoberstar.reckon' version '0.16.1'
     id 'io.codearte.nexus-staging' version '0.30.0'
@@ -24,8 +14,9 @@ group = 'com.github.moaxcp.graphs'
 description = 'dynamic graphs supporting streams and an EventBus'
 
 reckon {
-    scopeFromProp()
-    snapshotFromProp()
+    snapshots()
+    scopeCalc = calcScopeFromProp().or(calcScopeFromCommitMessages())
+    stageCalc = calcStageFromProp()
 }
 
 nexusStaging {
@@ -45,7 +36,7 @@ gitPublish {
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
 
