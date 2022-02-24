@@ -7,7 +7,7 @@ plugins {
 description = 'Graph api and implementations.'
 
 patchModules.config = [
-    "truth=truth-java8-extension-1.0.1.jar"
+    "truth=truth-java8-extension-1.1.3.jar"
 ]
 
 dependencies {
