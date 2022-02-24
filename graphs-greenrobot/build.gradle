@@ -7,7 +7,7 @@ description = 'graph implementations which send events to the greenrobot EventBu
 
 dependencies {
     api project(':graphs-core')
-    api 'org.greenrobot:eventbus:3.2.0'
+    api 'org.greenrobot:eventbus-java:3.3.1'
     testImplementation project(':graphs-truth')
     testImplementation project(':graphs-testframework')
 }
