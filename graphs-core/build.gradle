@@ -100,6 +100,12 @@ jacocoTestReport {
     executionData("${project(':graphs-test').buildDir}/jacoco/test.exec")
 }
 
+sonarqube {
+    properties {
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml,${project(':graphs-test').buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    }
+}
+
 compileTestJava {
     moduleOptions {
         addReads = [

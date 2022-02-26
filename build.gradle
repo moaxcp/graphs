@@ -41,6 +41,15 @@ gitPublish {
     commitMessage = 'Publishing from gradle.'
 }
 
+sonarqube {
+    properties {
+        property "sonar.projectKey", "com.github.moaxcp.graphs:graphs"
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.organization', 'moaxcp'
+        property 'sonar.scm.exclusions.disabled', 'true'
+    }
+}
+
 allprojects {
     repositories {
         mavenCentral()
