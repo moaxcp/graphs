@@ -33,10 +33,9 @@ nexusPublishing {
 }
 
 gitPublish {
-    repoUri = 'https://github.com/moaxcp/graphs.git'
     branch = 'gh-pages'
     contents {
-        from "graphs-manual/build/asciidoc/html5"
+        from "graphs-manual/build/docs/asciidoc"
     }
     commitMessage = 'Publishing from gradle.'
 }
