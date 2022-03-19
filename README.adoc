@@ -8,7 +8,7 @@ a few principles which keeps things simple for the user:
 * for event graphs, creating and changing a graph, vertices, or edges will result in an event
 * never return null
 
-image:https://travis-ci.org/moaxcp/graphs.svg?branch=master["Build Status", link="https://travis-ci.org/moaxcp/graphs"]
+image:https://github.com/moaxcp/graphs/actions/workflows/gradle.yml/badge.svg["Java CI with Gradle", link="https://github.com/moaxcp/graphs/actions/workflows/gradle.yml"]
 image:https://sonarcloud.io/api/project_badges/measure?project=com.github.moaxcp.graphs%3Agraphs&metric=alert_status["Quality Gate", link="https://sonarcloud.io/dashboard?id=com.github.moaxcp.graphs%3Agraphs"]
 image:https://img.shields.io/maven-central/v/com.github.moaxcp.graphs/graphs-core.svg["Maven Central", link="https://mvnrepository.com/artifact/com.github.moaxcp.graphs/graphs-core"]
 image:https://www.javadoc.io/badge/com.github.moaxcp.graphs/graphs-core.svg["Javadocs", link="https://www.javadoc.io/doc/com.github.moaxcp.graphs/graphs-core"]
