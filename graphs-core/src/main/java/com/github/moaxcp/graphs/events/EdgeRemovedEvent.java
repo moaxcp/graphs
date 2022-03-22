@@ -4,7 +4,7 @@ import lombok.*;
 
 @Value
 @Builder
-public class EdgeRemovedEvent<ID> {
+public class EdgeRemovedEvent<ID> implements GraphEvent<ID> {
   private final ID graphId;
   private final ID edgeId;
   @NonNull

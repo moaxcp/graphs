@@ -1,12 +1,15 @@
 plugins {
     id 'maven-publish'
     id 'signing'
+    id 'org.javamodularity.moduleplugin'
 }
 
-description = 'supports converting graphs to dot format and images'
+description = 'Supports converting events into a gif image of a graph'
 
 dependencies {
     api project(':graphs-core')
+    implementation project(':graphs-graphviz')
+    implementation 'com.github.moaxcp:gif-builder:0.1.0'
     testImplementation project(':graphs-testframework')
 }
 
@@ -74,17 +77,17 @@ signing {
 compileTestJava {
     moduleOptions {
         addReads = [
-            'com.github.moaxcp.graphs.graphviz' : 'com.github.moaxcp.graphs.testframework,truth'
+            'com.github.moaxcp.graphs.gif' : 'com.github.moaxcp.graphs.greenrobot,eventbus.java,com.github.moaxcp.graphs.testframework,truth'
         ]
 
-        addModules = ['com.github.moaxcp.graphs.testframework']
+        addModules = ['com.github.moaxcp.graphs.testframework', 'com.github.moaxcp.graphs.greenrobot']
     }
 }
 
 test {
     moduleOptions {
         addReads = [
-            'com.github.moaxcp.graphs.graphviz' : 'com.github.moaxcp.graphs.testframework,truth,org.junit.jupiter.params'
+            'com.github.moaxcp.graphs.gif' : 'com.github.moaxcp.graphs.testframework,com.github.moaxcp.graphs.greenrobot,eventbus.java,truth,org.junit.jupiter.params'
         ]
     }
 }

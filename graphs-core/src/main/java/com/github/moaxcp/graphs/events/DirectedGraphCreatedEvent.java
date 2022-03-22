@@ -4,6 +4,6 @@ import lombok.*;
 
 @Value
 @Builder
-public class DirectedGraphCreatedEvent<ID> {
+public class DirectedGraphCreatedEvent<ID> implements GraphEvent<ID> {
   private final ID graphId;
 }

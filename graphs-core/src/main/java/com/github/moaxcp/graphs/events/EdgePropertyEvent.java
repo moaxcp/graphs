@@ -6,7 +6,7 @@ import java.util.*;
 
 @Value
 @Builder
-public class EdgePropertyEvent<ID> {
+public class EdgePropertyEvent<ID> implements GraphEvent<ID> {
   private final ID graphId;
   private final ID edgeId;
   private final ID newEdgeId;

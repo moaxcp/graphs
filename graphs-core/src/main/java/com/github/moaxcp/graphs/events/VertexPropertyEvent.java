@@ -6,7 +6,7 @@ import java.util.*;
 
 @Value
 @Builder
-public class VertexPropertyEvent<ID> {
+public class VertexPropertyEvent<ID> implements GraphEvent<ID> {
   private final ID graphId;
   @NonNull
   private final ID vertexId;

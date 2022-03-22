@@ -6,7 +6,7 @@ import java.util.*;
 
 @Value
 @Builder
-public class GraphPropertyEvent<ID> {
+public class GraphPropertyEvent<ID> implements GraphEvent<ID> {
   private final ID graphId;
   private final ID newId;
   @Singular

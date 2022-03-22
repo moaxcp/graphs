@@ -6,7 +6,7 @@ import java.util.*;
 
 @Value
 @Builder
-public class EdgeInheritedPropertyEvent<ID> {
+public class EdgeInheritedPropertyEvent<ID> implements GraphEvent<ID> {
   private final ID graphId;
   @Singular
   @NonNull

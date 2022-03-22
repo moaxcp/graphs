@@ -69,16 +69,6 @@ publishing {
             }
             repositories {
                 maven {
-                    name = "OSS"
-                    def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
-                    def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
-                    url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-                    credentials {
-                        username = project.findProperty('nexus.username')
-                        password = project.findProperty('nwexus.password')
-                    }
-                }
-                maven {
                     name = "GitHubPackages"
                     url = uri("https://maven.pkg.github.com/moaxcp/graphs")
                     credentials {
