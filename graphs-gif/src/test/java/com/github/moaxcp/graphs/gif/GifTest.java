@@ -8,6 +8,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class GifTest {
 
   public static class GraphSubscriber {
@@ -26,7 +28,8 @@ public class GifTest {
   void create() throws IOException {
     var bus = new EventBus();
     var graph = new DirectedEventGraph<String>(bus);
-    var gif = new SimpleGraphGif<String>(graph, Path.of("testCreate.gif"));
+    var path = Path.of("build/tmp/testCreate.gif");
+    var gif = new SimpleGraphGif<String>(graph, path);
     bus.register(new GraphSubscriber(gif));
 
     graph.vertex("A");
@@ -38,5 +41,7 @@ public class GifTest {
     graph.removeVertex("A");
 
     gif.writeFile();
+
+    assertThat(path).exists();
   }
 }
