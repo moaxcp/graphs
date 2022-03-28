@@ -13,7 +13,6 @@ include 'graphs-test'
 include 'graphs-truth'
 include 'graphs-greenrobot'
 include 'graphs-graphviz'
-include 'graphs-gif'
 include 'graphs-testframework'
 include 'graphs-manual'
 

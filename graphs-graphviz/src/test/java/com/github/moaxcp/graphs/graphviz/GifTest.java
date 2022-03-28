@@ -1,4 +1,4 @@
-package com.github.moaxcp.graphs.gif;
+package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.events.GraphEvent;
 import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
