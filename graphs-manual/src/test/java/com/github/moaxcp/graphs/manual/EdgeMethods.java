@@ -1,11 +1,10 @@
 package com.github.moaxcp.graphs.manual;
 
-import com.github.moaxcp.graphs.*;
-import org.junit.jupiter.api.*;
+import com.github.moaxcp.graphs.DirectedGraph;
+import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
-import java.io.*;
-
-import static com.github.moaxcp.graphs.graphviz.Dot.*;
+import static com.github.moaxcp.graphs.graphviz.Dot.dot;
 
 class EdgeMethods {
   @Test
@@ -24,10 +23,6 @@ class EdgeMethods {
       .edge("F", "G", "color", "black")
       .edge("G", "D", "color", "blue");
     // end::edge[]
-
-    // tag::dot[]
-    dot(graph).writeImage("src/docs/asciidoc/images/edgeMethods.png", "png");
-    // end::dot[]
   }
 
   @Test

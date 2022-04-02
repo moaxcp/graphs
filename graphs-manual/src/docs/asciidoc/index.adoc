@@ -19,7 +19,7 @@ compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.11.0
 compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.11.0'
 ----
 
-`graphs-graphviz` rendering for graphviz
+`graphs-graphviz` rendering of graph as png or animated gifs using graphviz
 
 ----
 compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.11.0'
@@ -44,10 +44,10 @@ optional. The rest of the guide will walk through some of the key concepts of th
 
 The API is designed with the following in mind:
 
-* a graph is always valid
+* a graph is always valid.
 * referencing missing elements will create them
 * for event graphs, creating and changing a graph, vertices, or edges will result in an event
-* never return null
+* never return null or accept null
 
 === Graph
 
@@ -62,7 +62,7 @@ The API is designed with the following in mind:
 * has properties inherited by all edges
 
 === EventGraph
-* sends events to the EventBus when modified
+* Works exactly like a `Graph` and sends events to the EventBus when modified
 
 === Elements
 * vertices and edges of parent graph
@@ -92,14 +92,16 @@ There are two implementations of `Graph` in the `graphs-core` module.
 include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=graphsCore]
 ----
 
-There are two other implementations of `Graph` in the 'graphs-greenrobot` module.
+There are two other implementations of `Graph` in the 'graphs-greenrobot` module. These implementations send events to the EventBus when the graph is created or modified.
+
+Note: Only greenrobot is currently supported but adding support for Guava's EventBus should be possible.
 
 [source,java,indent=0]
 ----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=graphsGreenrobot]
 ----
 
-These implementations send events to subscribers to the EventBus when the graph changes.
+`graphs-test` provides a solutions for assertions on the `EventBus`. It shows that the two creation events were sent to the bus.
 
 === Create or modify a vertex
 
@@ -113,6 +115,13 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.ja
 `vertex` methods will return the graph while `getVertex` methods will return the vertex. This allows for different
 forms of method chaining.
 
+An `EventGraph` will send `VertexCreated` events to subscribers.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=vertexEvent]
+----
+
 If a vertex already exists in the graph it can be modified.
 
 [source,java,indent=0]
@@ -122,8 +131,7 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.ja
 
 The first call to `vertex` creates vertex `A` with a property `color` set to `red`. The second call changes the property `color` to `blue`.
 
-If graph is an `EventGraph` events will be sent to the `EventBus`. Every modification of a graph is represented by an
-event.
+If graph is an `EventGraph` first `VertexCreatedEvent`,then `VertexPropertyEvent` will be sent to the `EventBus`.
 
 [source,java,indent=0]
 ----
@@ -134,11 +142,20 @@ In this case a `VertexCreatedEvent` is sent to the `EventBus`.
 
 === Create or modify an edge
 
-To create or modify an edge use the `edge` or `getEdge` methods.
+To create or modify an edge use the `edge` or `getEdge` methods. If the vertices do not already exist they will be created.
 
 [source,java,indent=0]
 ----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=edge]
+----
+
+Similar to `vertex` methods, `edge` methods will return the graph and `getEdge` will return the `Edge`.
+
+With an `EventGraph` the `EdgeCreatedEvent` will be sent to the bus. If any of the vertices need to be created `VertexCreatedEvent` will be sent to the bus.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=edgeEvent]
 ----
 
 If an edge already exits in the graph it can be modified.
@@ -159,9 +176,18 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.ja
 ----
 
 First a `VertexCreatedEvent` for vertex `A` is sent to the `EventBus`. Followed by a `VertexCreatedEvent` for vertex
-`B` and an `EdgeCreatedEvent` for the edge between them.
+`B`. Then an `EdgeCreatedEvent` for the edge between them. Finally, an `EdgePropertyEvent` for the change in color from red to green.
 
 === properties
+
+The `Graph` interface is used to represent a property graph. This means graphs, vertices, and edges can have properties added to them. These properties can be used to represent
+anything. For instance, if the graph needs to be represented in graphviz there can be properties for color and style.
+
+Id properties are different. For graphs and edges the id property is optional.
+
+==== id properties
+
+The generic parameter in `Graph<ID>` represents the type for all id properties.
 
 Vertices must have an `id` property which is unique to all vertices in the `Graph`.
 
@@ -171,12 +197,9 @@ property.
 
 Graphs may have an optional `id`.
 
-Graphs, vertices, and edges can have other properties added to them. These properties can be used to represent
-anything. For instance, if the graph needs to be represented in graphviz there can be properties for color and style.
+`id` properties are not final. They can be changed like normal properties.
 
-The `Graph` interface is used to represent a property graph.
-
-=== inherited properties
+==== inherited properties
 
 Vertices and edges in a graph can inherit properties from common vertex properties and edge properties setup in the
 graph.
@@ -187,6 +210,27 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.ja
 ----
 
 The default color for all vertices and edges is set to `"green"` and `"red"` respectively.
+
+== Visualize a graph with graphviz
+
+Graphs can be visualized using the `graphs-graphviz` module. The module converts a graph to the `dot` language or an
+image. Example:
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAGraph.java[tags=dot]
+----
+
+image::images/edgeMethods.png[edge methods]
+
+EventGraphs can also be visualized as an animated gif. Each event creates a new frame in the gif.
+
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAGraph.java[tags=gif]
+----
+
+image::images/gifExample.gif[gif]
 
 == Create a graph using edge methods
 
@@ -242,18 +286,6 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/VertexMethods.java[tag=getV
 
 image::images/getVertexMethods.png[]
 
-== Visualize a graph with graphviz
-
-Graphs can be visualized using the `graphs-graphviz` module. The module converts a graph to the `dot` language or an
-image. Example:
-
-[source,java,indent=0]
-----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/EdgeMethods.java[tags=dot]
-----
-
-image::images/edgeMethods.png[edge classification]
-
 == pre-order iterator and pre-order stream
 
 And iterator and stream are provided to perform pre-order depth first traversals.
@@ -270,7 +302,7 @@ image::images/preOrderTraversal.png[pre order]
 
 == 0.12.0-SNAPSHOT
 
-Adding graphs-gif module. This allows gif animations to be built from an `EventGraph`.
+Adding gif support to graphs-graphviz module. This allows gif animations to be built from an `EventGraph`.
 
 === 0.11.0
 
