@@ -1,20 +1,20 @@
 package com.github.moaxcp.graphs.manual;
 
-import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.Graph.*;
-import org.junit.jupiter.api.*;
-
-import java.io.*;
-import java.util.*;
-
-import static com.github.moaxcp.graphs.graphviz.Dot.*;
+import com.github.moaxcp.graphs.Graph.Vertex;
+import com.github.moaxcp.graphs.graphviz.SimpleGraphGif;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Iterator;
+import org.greenrobot.eventbus.EventBus;
+import org.junit.jupiter.api.Test;
 
 public class PreorderTraversal {
 
   @Test
   void preOrderTraversal() throws IOException {
-
-    var graph = new DirectedGraph<String>();
+    var bus = new EventBus();
+    var graph = new DirectedEventGraph<String>(bus);
 
     graph.edge("A", "B")
       .edge("B", "C")
@@ -26,16 +26,18 @@ public class PreorderTraversal {
       .edge("A", "E")
       .edge("F", "G")
       .edge("G", "D");
+    var gif = new SimpleGraphGif<String>(graph, Path.of("src/docs/asciidoc/images/preOrderTraversal.gif"));
+    gif.addImage();
+    var subscriber = new GraphSubscriber(gif);
+    bus.register(subscriber);
 
     // tag::preOrderIterator[]
-    int visit = 1;
     Iterator<Vertex<String>> iterator = graph.preOrderIterator();
     while(iterator.hasNext()) {
       Vertex<String> vertex = iterator.next();
-      vertex.property("label", vertex.findProperty("id").get().toString() + visit++);
+      vertex.property("color", "green");
     }
     // end::preOrderIterator[]
-
-    dot(graph).writeImage("src/docs/asciidoc/images/preOrderTraversal.png", "png");
+    gif.writeFile();
   }
 }

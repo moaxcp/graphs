@@ -249,7 +249,7 @@ The properties can be anything but here they are used for graphviz.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/EdgeMethods.java[tags=dot]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAGraph.java[tags=dot]
 ----
 
 image::images/edgeMethods.png[edge classification]
@@ -295,7 +295,7 @@ And iterator and stream are provided to perform pre-order depth first traversals
 include::{sourcedir}/com/github/moaxcp/graphs/manual/PreorderTraversal.java[tags=preOrderIterator]
 ----
 
-image::images/preOrderTraversal.png[pre order]
+image::images/preOrderTraversal.gif[pre order]
 
 
 == Releases
