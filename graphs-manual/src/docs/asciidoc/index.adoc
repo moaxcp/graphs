@@ -342,7 +342,7 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
-== 0.12.0-SNAPSHOT
+== 0.12.0
 
 Adding gif support to graphs-graphviz module. This allows gif animations to be built from an `EventGraph`. It is enabled with the greenrobotgif capability in gradle.
 
