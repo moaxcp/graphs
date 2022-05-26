@@ -13,9 +13,9 @@ java {
 
 dependencies {
     api project(':graphs-core')
-    implementation 'com.github.moaxcp:gif-builder:0.1.0'
+    implementation 'com.github.moaxcp:gif-builder:0.2.0'
     greenrobotgifApi project(':graphs-core')
-    greenrobotgifApi 'com.github.moaxcp:gif-builder:0.1.0'
+    greenrobotgifApi 'com.github.moaxcp:gif-builder:0.2.0'
     greenrobotgifApi project(':graphs-greenrobot')
     testImplementation project(':graphs-testframework')
 }
