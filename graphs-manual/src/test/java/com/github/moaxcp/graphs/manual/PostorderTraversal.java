@@ -9,37 +9,37 @@ import java.util.Iterator;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
-public class PreorderTraversal {
+public class PostorderTraversal {
 
   @Test
-  void preOrderTraversal() {
+  void postOrderTraversal() {
     var bus = new EventBus();
     var graph = new DirectedEventGraph<String>(bus);
 
     graph.edge("A", "B")
-      .edge("B", "C")
-      .edge("B", "D")
-      .edge("D", "E")
-      .edge("D", "C")
-      .edge("A", "D")
-      .edge("D", "A")
-      .edge("A", "E")
-      .edge("F", "G")
-      .edge("G", "D");
-    var gif = new GreenrobotGifSubscriber<>(graph, Path.of("src/docs/asciidoc/images/preOrderTraversal.gif"));
+        .edge("B", "C")
+        .edge("B", "D")
+        .edge("D", "E")
+        .edge("D", "C")
+        .edge("A", "D")
+        .edge("D", "A")
+        .edge("A", "E")
+        .edge("F", "G")
+        .edge("G", "D");
+    var gif = new GreenrobotGifSubscriber<>(graph, Path.of("src/docs/asciidoc/images/postOrderTraversal.gif"));
 
-    // tag::preOrderIterator[]
-    Iterator<Vertex<String>> iterator = graph.preOrderIterator();
+    // tag::postOrderIterator[]
+    Iterator<Vertex<String>> iterator = graph.postOrderIterator("A");
     while(iterator.hasNext()) {
       Vertex<String> vertex = iterator.next();
       vertex.property("color", "green");
     }
-    // end::preOrderIterator[]
+    // end::postOrderIterator[]
     gif.writeFile();
   }
 
-  @Test
-  void preOrderStream() {
+  @org.junit.jupiter.api.Test
+  void postOrderStream() {
     var graph = new DirectedGraph<String>();
 
     graph.edge("A", "B")
@@ -52,8 +52,8 @@ public class PreorderTraversal {
         .edge("A", "E")
         .edge("F", "G")
         .edge("G", "D");
-    // tag::preOrderStream[]
-    graph.preOrderStream().forEach(v -> v.property("color", "green"));
-    // end::preOrderStream[]
+    // tag::postOrderStream[]
+    graph.postOrderStream("A").forEach(v -> v.property("color", "green"));
+    // end::postOrderStream[]
   }
 }

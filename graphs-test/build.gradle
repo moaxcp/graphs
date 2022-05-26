@@ -2,7 +2,11 @@ dependencies {
     api project(':graphs-core')
     api project(':graphs-greenrobot')
     api project(':graphs-truth')
-    api project(':graphs-graphviz')
+    api(project(':graphs-graphviz')) {
+        capabilities {
+            requireCapability('graphs:graphs-graphviz-greenrobotgif')
+        }
+    }
     api project(':graphs-testframework')
     testImplementation 'org.jmockit:jmockit:1.49'
 }

@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.manual;
 
 import com.github.moaxcp.graphs.DirectedGraph;
-import com.github.moaxcp.graphs.graphviz.SimpleGraphGif;
+import com.github.moaxcp.graphs.graphviz.GreenrobotGifSubscriber;
 import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -34,13 +34,11 @@ public class VisualizeAGraph {
   }
 
   @Test
-  void gif() throws IOException {
+   void gif() throws IOException {
 
     // tag::gif[]
-    var bus = new EventBus();
-    var graph = new DirectedEventGraph<String>(bus);
-    var gif = new SimpleGraphGif<>(graph, Path.of("src/docs/asciidoc/images/gifExample.gif"));
-    bus.register(new GraphSubscriber(gif));
+    var graph = new DirectedEventGraph<String>(new EventBus());
+    var gif = new GreenrobotGifSubscriber<>(graph, Path.of("src/docs/asciidoc/images/gifExample.gif"));
 
     graph.vertex("A");
     graph.vertex("B");

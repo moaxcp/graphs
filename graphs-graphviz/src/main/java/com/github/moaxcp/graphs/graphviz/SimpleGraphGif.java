@@ -31,7 +31,11 @@ public class SimpleGraphGif<ID> {
     addImage();
   }
 
-  public void writeFile() throws IOException {
-    spec.build().create();
+  public void writeFile() {
+    try {
+      spec.build().create();
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
   }
 }

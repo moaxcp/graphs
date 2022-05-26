@@ -5,9 +5,18 @@ plugins {
 
 description = 'supports converting graphs to dot format and images'
 
+java {
+    registerFeature('greenrobotgif') {
+        usingSourceSet(sourceSets.main)
+    }
+}
+
 dependencies {
     api project(':graphs-core')
     implementation 'com.github.moaxcp:gif-builder:0.1.0'
+    greenrobotgifApi project(':graphs-core')
+    greenrobotgifApi 'com.github.moaxcp:gif-builder:0.1.0'
+    greenrobotgifApi project(':graphs-greenrobot')
     testImplementation project(':graphs-testframework')
 }
 

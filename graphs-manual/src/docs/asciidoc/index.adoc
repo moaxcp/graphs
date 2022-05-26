@@ -288,21 +288,64 @@ image::images/getVertexMethods.png[]
 
 == pre-order iterator and pre-order stream
 
-And iterator and stream are provided to perform pre-order depth first traversals.
+An iterator and stream are provided to perform pre-order depth first traversals.
 
+.preOrderIterator()
 [source,java,indent=0]
 ----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/PreorderTraversal.java[tags=preOrderIterator]
 ----
 
+.preOrderStream()
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/PreorderTraversal.java[tags=preOrderStream]
+----
+
 image::images/preOrderTraversal.gif[pre order]
 
+== post-order iterator and post-order stream
+
+An iterator and stream are provided to perform post-order depth first traversals.
+
+.postOrderIterator()
+[source,java,indent=0]
+---
+include::{sourcedir}/com/github/moaxcp/graphs/manual/PostorderTraversal.java[tags=postOrderIterator]
+---
+
+.postOrderStream()
+[source,java,indent=0]
+---
+include::{sourcedir}/com/github/moaxcp/graphs/manual/PostorderTraversal.java[tags=postOrderStream]
+---
+
+image::images/postOrderTraversal.gif[post order]
+
+== breadth first iterator and breadth first stream
+
+An iterator and stream are provided to perform breadth first traversals.
+
+.breadthFirstIterator()
+[source,java,indent=0]
+---
+include::{sourcedir}/com/github/moaxcp/graphs/manual/BreadthFirstTraversal.java[tags=breadthFirstIterator]
+---
+
+.breadthFirstStream()
+[source,java,indent=0]
+---
+include::{sourcedir}/com/github/moaxcp/graphs/manual/BreadthFirstTraversal.java[tags=breadthFirstStream]
+---
+
+image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
 == 0.12.0-SNAPSHOT
 
-Adding gif support to graphs-graphviz module. This allows gif animations to be built from an `EventGraph`.
+Adding gif support to graphs-graphviz module. This allows gif animations to be built from an `EventGraph`. It is enabled with the greenrobotgif capability in gradle.
+
 
 === 0.11.0
 
