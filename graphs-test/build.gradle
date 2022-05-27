@@ -4,7 +4,7 @@ dependencies {
     api project(':graphs-truth')
     api(project(':graphs-graphviz')) {
         capabilities {
-            requireCapability('graphs:graphs-graphviz-greenrobotgif')
+            requireCapability('graphs:graphs-graphviz-greenrobot-gif')
         }
     }
     api project(':graphs-testframework')

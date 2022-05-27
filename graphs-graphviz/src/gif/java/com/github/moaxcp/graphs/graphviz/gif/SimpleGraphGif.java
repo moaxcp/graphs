@@ -1,14 +1,13 @@
-package com.github.moaxcp.graphs.graphviz;
+package com.github.moaxcp.graphs.graphviz.gif;
 
 import com.github.moaxcp.gifbuilder.GifMethods;
 import com.github.moaxcp.gifbuilder.GifSpec;
 import com.github.moaxcp.graphs.PropertyGraph;
 import com.github.moaxcp.graphs.events.GraphEvent;
+import com.github.moaxcp.graphs.graphviz.Dot;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;
-
-import static com.github.moaxcp.graphs.graphviz.Dot.dot;
 
 public class SimpleGraphGif<ID> {
   private final PropertyGraph<ID> graph;
@@ -21,7 +20,7 @@ public class SimpleGraphGif<ID> {
 
   public void addImage() {
     try {
-      spec.addImages(GifMethods.image(dot(graph).toImage()));
+      spec.addImages(GifMethods.image(Dot.dot(graph).toImage()));
     } catch(IOException e) {
       throw new UncheckedIOException(e);
     }

@@ -7,7 +7,7 @@ dependencies {
     api project(':graphs-greenrobot')
     api(project(':graphs-graphviz')) {
         capabilities {
-            requireCapability('graphs:graphs-graphviz-greenrobotgif')
+            requireCapability('graphs:graphs-graphviz-greenrobot-gif')
         }
     }
     //api 'com.github.moaxcp:gif-builder:0.1.0'

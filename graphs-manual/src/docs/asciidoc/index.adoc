@@ -46,8 +46,9 @@ The API is designed with the following in mind:
 
 * a graph is always valid.
 * referencing missing elements will create them
-* for event graphs, creating and changing a graph, vertices, or edges will result in an event
-* never return null or accept null
+* for event graphs, each action (creating and modifying a graph, vertices, or edges), will result in a single event
+* never return null or accept null (use optionals and overload methods)
+* interfaces allow for immutable implementations
 
 === PropertyGraph
 
@@ -342,7 +343,11 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
-== 0.13.0-SNAPSHOT
+== 0.14.0-SNAPSHOT
+
+* Expanding on graphviz capabilities. Now there is `gif` and `greenrobot-gif`.
+
+== 0.13.0
 
 Renaming Graph to PropertyGraph. Renaming "from" to source and "to" to target.
 

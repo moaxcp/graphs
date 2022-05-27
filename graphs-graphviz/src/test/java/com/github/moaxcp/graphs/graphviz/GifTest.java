@@ -1,6 +1,7 @@
 package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.events.GraphEvent;
+import com.github.moaxcp.graphs.graphviz.gif.SimpleGraphGif;
 import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,8 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GifTest {
 
   public static class GraphSubscriber {
-    private final SimpleGraphGif gif;
-    public GraphSubscriber(SimpleGraphGif gif) {
+    private final SimpleGraphGif<String> gif;
+    public GraphSubscriber(SimpleGraphGif<String> gif) {
       this.gif = gif;
     }
 
