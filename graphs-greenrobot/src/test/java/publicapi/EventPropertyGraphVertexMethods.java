@@ -646,9 +646,9 @@ public class EventPropertyGraphVertexMethods {
     graph.edge("A", "C");
     graph.edge("A", "D");
 
-    var expected1 = EdgeRemovedEvent.<String>builder().graphId("graph").fromId("A").toId("B").build();
-    var expected2 = EdgeRemovedEvent.<String>builder().graphId("graph").fromId("A").toId("C").build();
-    var expected3 = EdgeRemovedEvent.<String>builder().graphId("graph").fromId("A").toId("D").build();
+    var expected1 = EdgeRemovedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B").build();
+    var expected2 = EdgeRemovedEvent.<String>builder().graphId("graph").sourceId("A").targetId("C").build();
+    var expected3 = EdgeRemovedEvent.<String>builder().graphId("graph").sourceId("A").targetId("D").build();
     var expected4 = VertexRemovedEvent.<String>builder()
       .graphId("graph")
       .vertexId("A")

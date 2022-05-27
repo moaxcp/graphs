@@ -104,9 +104,9 @@ public class RepresentingAPropertyGraphAsCode {
       graph.getEdge("A", "C", "color", "green");
     }).containsExactly(VertexCreatedEvent.<String>builder().vertexId("A").build(),
         VertexCreatedEvent.<String>builder().vertexId("B").build(),
-        EdgeCreatedEvent.<String>builder().fromId("A").toId("B").property("color", "red").build(),
+        EdgeCreatedEvent.<String>builder().sourceId("A").targetId("B").property("color", "red").build(),
         VertexCreatedEvent.<String>builder().vertexId("C").build(),
-        EdgeCreatedEvent.<String>builder().fromId("A").toId("C").property("color", "green").build())
+        EdgeCreatedEvent.<String>builder().sourceId("A").targetId("C").property("color", "green").build())
         .inOrder();
     // end::edgeEvent[]
   }
@@ -133,8 +133,8 @@ public class RepresentingAPropertyGraphAsCode {
       }).containsExactly(
           VertexCreatedEvent.<String>builder().vertexId("A").build(),
           VertexCreatedEvent.<String>builder().vertexId("B").build(),
-          EdgeCreatedEvent.<String>builder().fromId("A").toId("B").property("color", "red").build(),
-          EdgePropertyEvent.<String>builder().fromId("A").toId("B").property("color", "green").build())
+          EdgeCreatedEvent.<String>builder().sourceId("A").targetId("B").property("color", "red").build(),
+          EdgePropertyEvent.<String>builder().sourceId("A").targetId("B").property("color", "green").build())
     .inOrder();
     // end::modifyEdgeEvents[]
   }

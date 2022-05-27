@@ -288,8 +288,8 @@ public class VertexTest {
     a.setId("a");
 
     assertThat(a.getId()).isEqualTo("a");
-    assertThat(from.getFrom()).isEqualTo("a");
-    assertThat(to.getTo()).isEqualTo("a");
+    assertThat(from.getSource()).isEqualTo("a");
+    assertThat(to.getTarget()).isEqualTo("a");
   }
 
   @TestGraphs

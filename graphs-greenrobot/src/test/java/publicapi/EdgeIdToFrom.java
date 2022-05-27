@@ -14,7 +14,7 @@ public class EdgeIdToFrom {
         graph.id("graph");
         graph.edge("A", "B");
 
-        var expected = EdgePropertyEvent.<String>builder().graphId("graph").newEdgeId("edge").fromId("A").toId("B").build();
+        var expected = EdgePropertyEvent.<String>builder().graphId("graph").newEdgeId("edge").sourceId("A").targetId("B").build();
 
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id("edge")).containsExactly(expected);
     }
@@ -30,7 +30,7 @@ public class EdgeIdToFrom {
         graph.id("graph");
         graph.getEdge("A", "B").id("edge");
 
-        var expected = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("edge").newEdgeId(null).fromId("A").toId("B").build();
+        var expected = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("edge").newEdgeId(null).sourceId("A").targetId("B").build();
 
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id(null)).containsExactly(expected);
     }
@@ -40,7 +40,7 @@ public class EdgeIdToFrom {
         graph.id("graph");
         graph.getEdge("A", "B").id("oldEdge");
 
-        var expected = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("oldEdge").newEdgeId("edge").fromId("A").toId("B").build();
+        var expected = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("oldEdge").newEdgeId("edge").sourceId("A").targetId("B").build();
 
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id("edge")).containsExactly(expected);
     }
@@ -58,13 +58,13 @@ public class EdgeIdToFrom {
         var expected2 = EdgePropertyEvent.<String>builder()
           .graphId("graph")
           .edgeId("edge")
-          .fromId("oldFrom")
-          .newFromId("A")
-          .toId("B")
+          .sourceId("oldFrom")
+          .newSourceId("A")
+          .targetId("B")
           .build();
 
         assertThat(bus)
-          .withAction(() -> graph.getEdge("oldFrom", "B").setFrom("A"))
+          .withAction(() -> graph.getEdge("oldFrom", "B").setSource("A"))
           .containsExactly(expected1, expected2).inOrder();
     }
 
@@ -78,10 +78,10 @@ public class EdgeIdToFrom {
           .vertexId("B")
           .build();
 
-        var expected2 = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("edge").fromId("A").toId("oldTo").newToId("B").build();
+        var expected2 = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("edge").sourceId("A").targetId("oldTo").newTargetId("B").build();
 
         assertThat(bus)
-          .withAction(() -> graph.getEdge("A", "oldTo").setTo("B"))
+          .withAction(() -> graph.getEdge("A", "oldTo").setTarget("B"))
           .containsExactly(expected1, expected2);
     }
 
@@ -91,9 +91,9 @@ public class EdgeIdToFrom {
         graph.vertex("A");
         graph.getEdge("oldFrom", "B").id("edge");
 
-        var expected = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("edge").fromId("oldFrom").newFromId("A").toId("B").build();
+        var expected = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("edge").sourceId("oldFrom").newSourceId("A").targetId("B").build();
 
-        assertThat(bus).withAction(() -> graph.getEdge("oldFrom", "B").setFrom("A")).containsExactly(expected);
+        assertThat(bus).withAction(() -> graph.getEdge("oldFrom", "B").setSource("A")).containsExactly(expected);
     }
 
     @TestEventGraphs
@@ -102,8 +102,8 @@ public class EdgeIdToFrom {
         graph.vertex("B");
         graph.getEdge("A", "oldTo").id("edge");
 
-        var expected = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("edge").fromId("A").toId("oldTo").newToId("B").build();
+        var expected = EdgePropertyEvent.<String>builder().graphId("graph").edgeId("edge").sourceId("A").targetId("oldTo").newTargetId("B").build();
 
-        assertThat(bus).withAction(() -> graph.getEdge("A", "oldTo").setTo("B")).containsExactly(expected);
+        assertThat(bus).withAction(() -> graph.getEdge("A", "oldTo").setTarget("B")).containsExactly(expected);
     }
 }

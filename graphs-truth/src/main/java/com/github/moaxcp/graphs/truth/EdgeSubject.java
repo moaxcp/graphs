@@ -33,11 +33,11 @@ public class EdgeSubject extends Subject {
     }
 
     public Subject hasFromThat() {
-        return check("getFrom()").that(actual.getFrom());
+        return check("getFrom()").that(actual.getSource());
     }
 
     public Subject hasToThat() {
-        return check("getTo()").that(actual.getTo());
+        return check("getTo()").that(actual.getTarget());
     }
 
     public OptionalSubject withProperty(String name) {

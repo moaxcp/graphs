@@ -30,11 +30,11 @@ public final class DirectedEdgeKey<ID> extends EdgeKey<ID> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DirectedEdgeKey that = (DirectedEdgeKey) o;
-        return Objects.equals(getFrom(), that.getFrom()) && Objects.equals(getTo(), that.getTo());
+        return Objects.equals(getSource(), that.getSource()) && Objects.equals(getTarget(), that.getTarget());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFrom(), getTo());
+        return Objects.hash(getSource(), getTarget());
     }
 }

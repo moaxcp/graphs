@@ -12,11 +12,11 @@ public class EdgePropertyEvent<ID> implements GraphEvent<ID> {
   private final ID newEdgeId;
 
   @NonNull
-  private final ID fromId;
-  private final ID newFromId;
+  private final ID sourceId;
+  private final ID newSourceId;
   @NonNull
-  private final ID toId;
-  private final ID newToId;
+  private final ID targetId;
+  private final ID newTargetId;
 
   @NonNull
   @Singular

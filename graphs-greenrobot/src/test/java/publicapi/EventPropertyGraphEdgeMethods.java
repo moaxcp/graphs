@@ -17,7 +17,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B").build();
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B").build();
 
     assertThat(bus).withAction(() -> graph.edge("A", "B"))
       .containsExactly(expected1, expected2, expected3).inOrder();
@@ -236,7 +236,7 @@ public class EventPropertyGraphEdgeMethods {
       .graphId("graph")
       .vertexId("B")
       .build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2")).build();
@@ -255,7 +255,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B").build();
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B").build();
 
     assertThat(bus).withAction(() -> graph.getEdge("A", "B"))
       .containsExactly(expected1, expected2, expected3).inOrder();
@@ -267,7 +267,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of("name1", "value1")).build();
 
     assertThat(bus)
@@ -283,7 +283,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2")).build();
@@ -302,7 +302,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2",
@@ -323,7 +323,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2",
@@ -346,7 +346,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2",
@@ -371,7 +371,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2",
@@ -398,7 +398,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2",
@@ -427,7 +427,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2",
@@ -458,7 +458,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2",
@@ -499,7 +499,7 @@ public class EventPropertyGraphEdgeMethods {
       .vertexId("B")
       .build();
 
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2",
@@ -534,7 +534,7 @@ public class EventPropertyGraphEdgeMethods {
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
     var expected2 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("B").build();
-    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").fromId("A").toId("B")
+    var expected3 = EdgeCreatedEvent.<String>builder().graphId("graph").sourceId("A").targetId("B")
       .properties(Map.of(
         "name1", "value1",
         "name2", "value2")).build();
@@ -572,7 +572,7 @@ public class EventPropertyGraphEdgeMethods {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "value1", "name2", "value2");
 
-    var expected = EdgeRemovedEvent.<String>builder().graphId("graph").edgeId("edge").fromId("A").toId("B").build();
+    var expected = EdgeRemovedEvent.<String>builder().graphId("graph").edgeId("edge").sourceId("A").targetId("B").build();
 
     assertThat(bus).withAction(() -> graph.removeEdge("A", "B")).containsExactly(expected);
   }
@@ -582,7 +582,7 @@ public class EventPropertyGraphEdgeMethods {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
-    var expected = EdgeRemovedEvent.<String>builder().graphId("graph").edgeId("edge").fromId("A").toId("B").build();
+    var expected = EdgeRemovedEvent.<String>builder().graphId("graph").edgeId("edge").sourceId("A").targetId("B").build();
 
     assertThat(bus).withAction(() -> graph.removeEdge("edge")).containsExactly(expected);
   }

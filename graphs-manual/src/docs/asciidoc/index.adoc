@@ -10,25 +10,25 @@
 `graphs-core` contains the main interfaces, implementations, and events
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.12.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.13.0'
 ----
 
 `graphs-greenrobot` EventGraph implementation using greenrobot's EventBus
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.12.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.13.0'
 ----
 
 `graphs-graphviz` rendering of graph as png or animated gifs using graphviz
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.12.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.13.0'
 ----
 
 `graphs-truth` assertions using google-truth
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.12.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.13.0'
 ----
 
 
@@ -75,9 +75,9 @@ The API is designed with the following in mind:
 * id must be unique for all vertices in graph
 
 === Edge
-* must have 'from' and 'to' properties
-* 'from' and 'to' connect two vertices by id
-* may have an 'id'
+* must have source and target properties
+* source and target connect two vertices by id
+* may have an id
 
 == Representing a graph as code
 
@@ -191,7 +191,7 @@ The generic parameter in `PropertyGraph<ID>` represents the type for all id prop
 
 Vertices must have an `id` property which is unique to all vertices in the `PropertyGraph`.
 
-Edges must have a `from` property which represents the `Vertex` the `Edge` connects from (or source vertex) and a `to`
+Edges must have a `source` property which represents the `Vertex` the `Edge` connects from (or source vertex) and a `target`
 property which represents the `Vertex` the `Edge` connects to (the target vertex). Edges may have an optional `id`
 property.
 
@@ -256,7 +256,7 @@ image::images/edgeMethods.png[edge classification]
 
 `edge` methods return the graph and can be chained to add multiple edges. If an `Edge` instance is needed use `getEdge`
 instead. `getEdge` return the Edge so it can modified. This allows properties to be added, removed, or updated
-including the "to" and "from" vertices of the edge. `getEdge` can also be used to declare properties on the edge.
+including the "source" and "target" vertices of the edge. `getEdge` can also be used to declare properties on the edge.
 
 [source,java,indent=0]
 ----
@@ -344,7 +344,7 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == 0.13.0-SNAPSHOT
 
-Renaming Graph to PropertyGraph.
+Renaming Graph to PropertyGraph. Renaming "from" to source and "to" to target.
 
 == 0.12.0
 

@@ -269,17 +269,17 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
       throw new IllegalArgumentException("vertex '" + id + "' not found.");
     }
     var adjacent = optional.get().adjacentEdges().stream()
-      .map(e -> newEdgeKey(e.getFrom(), e.getTo()))
+      .map(e -> newEdgeKey(e.getSource(), e.getTarget()))
       .collect(toSet());
     for (var edge : adjacent) {
-      removeEdge(edge.getFrom(), edge.getTo());
+      removeEdge(edge.getSource(), edge.getTarget());
     }
     vertices.remove(id);
   }
 
   @Override
-  public Optional<Edge<ID>> findEdge(@NonNull ID from, @NonNull ID to) {
-    var key = newEdgeKey(from, to);
+  public Optional<Edge<ID>> findEdge(@NonNull ID source, @NonNull ID target) {
+    var key = newEdgeKey(source, target);
     var edge = edges.get(key);
     return Optional.ofNullable(edge);
   }
@@ -290,59 +290,59 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to) {
-    getEdge(from, to);
+  public PropertyGraph<ID> edge(ID source, ID target) {
+    getEdge(source, target);
     return this;
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name, Object value) {
-    return edge(from, to, linkedHashMap(name, value));
+  public PropertyGraph<ID> edge(ID source, ID target, String name, Object value) {
+    return edge(source, target, linkedHashMap(name, value));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
-    return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
+  public PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
+    return edge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
   }
 
   private PropertyGraph<ID> edge(ID from, ID to, LinkedHashMap<String, Object> properties) {
@@ -351,71 +351,71 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
   }
 
   @Override
-  public PropertyGraph<ID> edge(ID from, ID to, Map<String, Object> properties) {
-    getEdge(from, to, properties);
+  public PropertyGraph<ID> edge(ID source, ID target, Map<String, Object> properties) {
+    getEdge(source, target, properties);
     return this;
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to) {
-    return findEdge(from, to).orElseGet(() -> addEdge(from, to, Map.of()));
+  public Edge<ID> getEdge(ID source, ID target) {
+    return findEdge(source, target).orElseGet(() -> addEdge(source, target, Map.of()));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name, Object value) {
-    return getEdge(from, to, linkedHashMap(name, value));
+  public Edge<ID> getEdge(ID source, ID target, String name, Object value) {
+    return getEdge(source, target, linkedHashMap(name, value));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
-    return getEdge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
+  public Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
+    return getEdge(source, target, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
   }
 
   @Override
-  public Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties) {
-    var optional = findEdge(from, to);
+  public Edge<ID> getEdge(ID source, ID target, Map<String, Object> properties) {
+    var optional = findEdge(source, target);
     optional.ifPresent(e -> e.property(properties));
-    return optional.orElseGet(() -> addEdge(from, to, properties));
+    return optional.orElseGet(() -> addEdge(source, target, properties));
   }
 
   protected Edge<ID> newEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
@@ -434,10 +434,10 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
     var edge = newEdge(from, to, local, edgeProperties.local());
     var edgeKey = newEdgeKey(from, to);
     edges.put(edgeKey, edge);
-    adjacentEdges.compute(edgeKey.getFrom(), (k, v) -> mergeSet(edge, v));
-    adjacentEdges.compute(edgeKey.getTo(), (k, v) -> mergeSet(edge, v));
-    inEdges.compute(edgeKey.getTo(), (k, v) -> mergeSet(edge, v));
-    outEdges.compute(edgeKey.getFrom(), (k, v) -> mergeSet(edge, v));
+    adjacentEdges.compute(edgeKey.getSource(), (k, v) -> mergeSet(edge, v));
+    adjacentEdges.compute(edgeKey.getTarget(), (k, v) -> mergeSet(edge, v));
+    inEdges.compute(edgeKey.getTarget(), (k, v) -> mergeSet(edge, v));
+    outEdges.compute(edgeKey.getSource(), (k, v) -> mergeSet(edge, v));
     return edge;
   }
 
@@ -452,39 +452,39 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
   }
 
   @Override
-  public void removeEdge(@NonNull ID from, @NonNull ID to) {
-    EdgeKey<ID> key = newEdgeKey(from, to);
+  public void removeEdge(@NonNull ID source, @NonNull ID target) {
+    EdgeKey<ID> key = newEdgeKey(source, target);
     var edge = edges.remove(key);
     if (edge == null) {
-      throw new IllegalArgumentException("edge from '" + from + "' to '" + to + "' not found.");
+      throw new IllegalArgumentException("edge from '" + source + "' to '" + target + "' not found.");
     }
     edge.getId().ifPresent(edgeIds::remove);
-    var fromSet = adjacentEdges.get(from);
+    var fromSet = adjacentEdges.get(source);
     fromSet.remove(edge);
     if (fromSet.isEmpty()) {
-      adjacentEdges.remove(from);
+      adjacentEdges.remove(source);
     }
-    var toSet = adjacentEdges.get(to);
+    var toSet = adjacentEdges.get(target);
     toSet.remove(edge);
     if (toSet.isEmpty()) {
-      adjacentEdges.remove(to);
+      adjacentEdges.remove(target);
     }
-    var outSet = outEdges.get(from);
+    var outSet = outEdges.get(source);
     outSet.remove(edge);
     if (outSet.isEmpty()) {
-      outEdges.remove(from);
+      outEdges.remove(source);
     }
-    var inSet = inEdges.get(to);
+    var inSet = inEdges.get(target);
     inSet.remove(edge);
     if (inSet.isEmpty()) {
-      inEdges.remove(to);
+      inEdges.remove(target);
     }
   }
 
   @Override
   public void removeEdge(@NonNull ID id) {
     var optional = findEdge(id);
-    optional.ifPresent(edge -> removeEdge(edge.getFrom(), edge.getTo()));
+    optional.ifPresent(edge -> removeEdge(edge.getSource(), edge.getTarget()));
     if (optional.isEmpty()) {
       throw new IllegalArgumentException("edge with id '" + id + "' not found.");
     }
@@ -640,14 +640,14 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
   public class SimpleEdge implements Edge<ID> {
     private InheritedProperties properties;
 
-    protected SimpleEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
+    protected SimpleEdge(ID source, ID target, Map<String, Object> local, Map<String, Object> inherited) {
       properties = new InheritedProperties(local, inherited);
-      properties.putProperty("from", from);
-      properties.putProperty("to", to);
+      properties.putProperty("source", source);
+      properties.putProperty("target", target);
     }
 
     private void check() {
-      EdgeKey<ID> key = newEdgeKey(getFrom(), getTo());
+      EdgeKey<ID> key = newEdgeKey(getSource(), getTarget());
       if (!edges.containsKey(key)) {
         throw new IllegalStateException("Edge is not in graph.");
       }
@@ -689,69 +689,69 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
     }
 
     @Override
-    public final ID getFrom() {
-      return (ID) properties.findProperty("from").orElseThrow(() -> new IllegalStateException("from was not set as a property."));
+    public final ID getSource() {
+      return (ID) properties.findProperty("source").orElseThrow(() -> new IllegalStateException("source was not set as a property."));
     }
 
     @Override
-    public void setFrom(@NonNull ID from) {
+    public void setSource(@NonNull ID source) {
       check();
-      EdgeKey<ID> oldKey = newEdgeKey(getFrom(), getTo());
+      EdgeKey<ID> oldKey = newEdgeKey(getSource(), getTarget());
       edges.remove(oldKey);
-      adjacentEdges.get(getFrom()).remove(this);
-      inEdges.get(getTo()).remove(this);
-      outEdges.get(getFrom()).remove(this);
-      vertex(from);
-      adjacentEdges.compute(from, (k, v) -> mergeSet(this, v));
-      inEdges.compute(getTo(), (k, v) -> mergeSet(this, v));
-      outEdges.compute(from, (k, v) -> mergeSet(this, v));
-      properties.putProperty("from", from);
-      EdgeKey<ID> key = newEdgeKey(getFrom(), getTo());
+      adjacentEdges.get(getSource()).remove(this);
+      inEdges.get(getTarget()).remove(this);
+      outEdges.get(getSource()).remove(this);
+      vertex(source);
+      adjacentEdges.compute(source, (k, v) -> mergeSet(this, v));
+      inEdges.compute(getTarget(), (k, v) -> mergeSet(this, v));
+      outEdges.compute(source, (k, v) -> mergeSet(this, v));
+      properties.putProperty("source", source);
+      EdgeKey<ID> key = newEdgeKey(getSource(), getTarget());
       edges.put(key, this);
     }
 
     @Override
-    public Edge<ID> from(ID from) {
-      setFrom(from);
+    public Edge<ID> source(ID source) {
+      setSource(source);
       return this;
     }
 
     @Override
-    public final ID from() {
-      return getFrom();
+    public final ID source() {
+      return getSource();
     }
 
     @Override
-    public final ID getTo() {
-      return (ID) properties.findProperty("to").orElseThrow(() -> new IllegalStateException("to was not set as a property."));
+    public final ID getTarget() {
+      return (ID) properties.findProperty("target").orElseThrow(() -> new IllegalStateException("target was not set as a property."));
     }
 
     @Override
-    public void setTo(@NonNull ID to) {
+    public void setTarget(@NonNull ID target) {
       check();
-      EdgeKey<ID> oldKey = newEdgeKey(getFrom(), getTo());
+      EdgeKey<ID> oldKey = newEdgeKey(getSource(), getTarget());
       edges.remove(oldKey);
-      adjacentEdges.get(getTo()).remove(this);
-      inEdges.get(getTo()).remove(this);
-      outEdges.get(getFrom()).remove(this);
-      vertex(to);
-      adjacentEdges.compute(to, (k, v) -> mergeSet(this, v));
-      inEdges.compute(to, (k, v) -> mergeSet(this, v));
-      outEdges.compute(getFrom(), (k, v) -> mergeSet(this, v));
-      properties.putProperty("to", to);
-      EdgeKey<ID> key = newEdgeKey(getFrom(), getTo());
+      adjacentEdges.get(getTarget()).remove(this);
+      inEdges.get(getTarget()).remove(this);
+      outEdges.get(getSource()).remove(this);
+      vertex(target);
+      adjacentEdges.compute(target, (k, v) -> mergeSet(this, v));
+      inEdges.compute(target, (k, v) -> mergeSet(this, v));
+      outEdges.compute(getSource(), (k, v) -> mergeSet(this, v));
+      properties.putProperty("target", target);
+      EdgeKey<ID> key = newEdgeKey(getSource(), getTarget());
       edges.put(key, this);
     }
 
     @Override
-    public final Edge<ID> to(ID to) {
-      setTo(to);
+    public final Edge<ID> target(ID target) {
+      setTarget(target);
       return this;
     }
 
     @Override
-    public final ID to() {
-      return getTo();
+    public final ID target() {
+      return getTarget();
     }
 
     @Override
@@ -761,19 +761,19 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
 
     @Override
     public final List<ID> endpoints() {
-      return List.of(getFrom(), getTo());
+      return List.of(getSource(), getTarget());
     }
 
     @Override
-    public final Vertex<ID> fromVertex() {
+    public final Vertex<ID> sourceVertex() {
       check();
-      return getVertex(getFrom());
+      return getVertex(getSource());
     }
 
     @Override
-    public final Vertex<ID> toVertex() {
+    public final Vertex<ID> targetVertex() {
       check();
-      return getVertex(getTo());
+      return getVertex(getTarget());
     }
 
     @Override
@@ -846,10 +846,10 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
       check();
       if(properties.containsKey("id")) {
         throw new IllegalArgumentException("id cannot be set as a property.");
-      } else if(properties.containsKey("from")) {
-        throw new IllegalArgumentException("from cannot be set as a property.");
-      } else if(properties.containsKey("to")) {
-        throw new IllegalArgumentException("to cannot be set as a property.");
+      } else if(properties.containsKey("source")) {
+        throw new IllegalArgumentException("source cannot be set as a property.");
+      } else if(properties.containsKey("target")) {
+        throw new IllegalArgumentException("target cannot be set as a property.");
       }
       this.properties.putProperties(properties);
       return this;
@@ -864,7 +864,7 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
 
     @Override
     public Edge<ID> remove() {
-      AbstractPropertyGraph.this.removeEdge(getFrom(), getTo());
+      AbstractPropertyGraph.this.removeEdge(getSource(), getTarget());
       return this;
     }
 
@@ -927,11 +927,11 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
       properties.putProperties(linkedHashMap("id", id));
       vertices.put(id, this);
       for (Edge<ID> edge : adjacent) {
-        if (edge.getFrom().equals(oldId)) {
-          edge.setFrom(id);
+        if (edge.getSource().equals(oldId)) {
+          edge.setSource(id);
         }
-        if (edge.getTo().equals(oldId)) {
-          edge.setTo(id);
+        if (edge.getTarget().equals(oldId)) {
+          edge.setTarget(id);
         }
       }
     }
@@ -1024,16 +1024,16 @@ public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
     }
 
     @Override
-    public Vertex<ID> connectsTo(ID to) {
+    public Vertex<ID> connectsTo(ID target) {
       check();
-      edge(getId(), to);
+      edge(getId(), target);
       return this;
     }
 
     @Override
-    public Vertex<ID> connectsFrom(ID s) {
+    public Vertex<ID> connectsFrom(ID source) {
       check();
-      edge(s, getId());
+      edge(source, getId());
       return this;
     }
 

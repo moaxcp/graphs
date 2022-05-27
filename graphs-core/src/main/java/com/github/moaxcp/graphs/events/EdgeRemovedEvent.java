@@ -8,7 +8,7 @@ public class EdgeRemovedEvent<ID> implements GraphEvent<ID> {
   private final ID graphId;
   private final ID edgeId;
   @NonNull
-  private final ID fromId;
+  private final ID sourceId;
   @NonNull
-  private final ID toId;
+  private final ID targetId;
 }

@@ -24,35 +24,35 @@ public abstract class AbstractEventPropertyGraph<ID> extends AbstractPropertyGra
       super.setId(id);
       bus.post(EdgePropertyEvent.<ID>builder()
         .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
-        .fromId(getFrom())
-        .toId(getTo())
+        .sourceId(getSource())
+        .targetId(getTarget())
         .edgeId(oldId)
         .newEdgeId(id)
         .build());
     }
 
     @Override
-    public void setFrom(ID from) {
-      var oldFrom = this.getFrom();
-      super.setFrom(from);
+    public void setSource(ID source) {
+      var oldFrom = this.getSource();
+      super.setSource(source);
       bus.post(EdgePropertyEvent.<ID>builder()
         .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
-        .fromId(oldFrom)
-        .newFromId(from)
-        .toId(getTo())
+        .sourceId(oldFrom)
+        .newSourceId(source)
+        .targetId(getTarget())
         .edgeId(getId().orElse(null))
         .build());
     }
 
     @Override
-    public void setTo(ID to) {
-      var oldTo = this.getTo();
-      super.setTo(to);
+    public void setTarget(ID target) {
+      var oldTo = this.getTarget();
+      super.setTarget(target);
       bus.post(EdgePropertyEvent.<ID>builder()
         .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
-        .fromId(getFrom())
-        .toId(oldTo)
-        .newToId(to)
+        .sourceId(getSource())
+        .targetId(oldTo)
+        .newTargetId(target)
         .edgeId(getId().orElse(null))
         .build());
     }
@@ -62,8 +62,8 @@ public abstract class AbstractEventPropertyGraph<ID> extends AbstractPropertyGra
       super.property(properties);
       bus.post(EdgePropertyEvent.<ID>builder()
         .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
-        .fromId(getFrom())
-        .toId(getTo())
+        .sourceId(getSource())
+        .targetId(getTarget())
         .edgeId(getId().orElse(null))
         .properties(properties)
         .build());
@@ -172,23 +172,23 @@ public abstract class AbstractEventPropertyGraph<ID> extends AbstractPropertyGra
     var edge = super.addEdge(from, to, local);
     bus.post(EdgeCreatedEvent.<ID>builder()
       .graphId(getId().orElse(null))
-      .fromId(from)
-      .toId(to)
+      .sourceId(from)
+      .targetId(to)
       .properties(local)
       .build());
     return edge;
   }
 
   @Override
-  public void removeEdge(ID from, ID to) {
-    var optional = findEdge(from, to);
-    super.removeEdge(from, to);
+  public void removeEdge(ID source, ID target) {
+    var optional = findEdge(source, target);
+    super.removeEdge(source, target);
     optional.ifPresent(edge -> bus.post(
       EdgeRemovedEvent.<ID>builder()
         .graphId(getId().orElse(null))
         .edgeId(edge.getId().orElse(null))
-        .fromId(edge.getFrom())
-        .toId(edge.getTo())
+        .sourceId(edge.getSource())
+        .targetId(edge.getTarget())
         .build()));
   }
 

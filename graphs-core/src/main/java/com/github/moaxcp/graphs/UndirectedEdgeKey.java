@@ -11,12 +11,12 @@ import java.util.*;
 public final class UndirectedEdgeKey<ID> extends EdgeKey<ID> {
 
     /**
-     * Creates an UndirectedEdgeKey with given from and to params.
-     * @param from id of vertex
-     * @param to id of vertex
+     * Creates an UndirectedEdgeKey with given source and target params.
+     * @param source id of vertex
+     * @param target id of vertex
      */
-    public UndirectedEdgeKey(ID from, ID to) {
-        super(from, to);
+    public UndirectedEdgeKey(ID source, ID target) {
+        super(source, target);
     }
 
     @Override
@@ -24,11 +24,11 @@ public final class UndirectedEdgeKey<ID> extends EdgeKey<ID> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UndirectedEdgeKey that = (UndirectedEdgeKey) o;
-        return (Objects.equals(getFrom(), that.getFrom()) || Objects.equals(getFrom(), that.getTo())) && (Objects.equals(getTo(), that.getTo()) || Objects.equals(getTo(), that.getFrom()));
+        return (Objects.equals(getSource(), that.getSource()) || Objects.equals(getSource(), that.getTarget())) && (Objects.equals(getTarget(), that.getTarget()) || Objects.equals(getTarget(), that.getSource()));
     }
 
     @Override
     public int hashCode() {
-        return getFrom().hashCode() + getTo().hashCode();
+        return getSource().hashCode() + getTarget().hashCode();
     }
 }

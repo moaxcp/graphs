@@ -9,12 +9,12 @@ import java.util.stream.*;
  * A graph is composed of vertices and edges. A vertex is able to connect to other vertices through edges. Edges
  * connect two vertices. A graph can be directed or undirected.
  *
- * <p>Vertices have an 'id' which uniquely identifies the vertex within the graph. Edges have a 'to' and 'from'
+ * <p>Vertices have an id which uniquely identifies the vertex within the graph. Edges have a source and target
  * property which are the ids of the vertex endpoints. Edges are optionally identified.</p>
  *
  * <p>At all times the graph is valid event when removing connected vertices.</p>
  *
- * <p>Undirected graphs ignore 'from'/'to' order in edges.</p>
+ * <p>Undirected graphs ignore source/target order in edges.</p>
  *
  * <p>Once a vertex or edge is removed it can no longer modify the graph or be modified.</p>
  *
@@ -54,38 +54,38 @@ public interface PropertyGraph<ID> {
     Vertex<ID> id(ID id);
 
     /**
-     * Ensures this vertex connects to the vertex with an 'id' property equal to the 'to' parameter. The
+     * Ensures this vertex connects to the vertex with an 'id' property equal to the target parameter. The
      * edge or vertex is created if needed. This vertex is returned.
      *
-     * <p>If a vertex is created its 'id' property will be set to the 'to' parameter. If an edge is created the
-     * 'from' property is set to the 'id' of this vertex and the 'to' property is set to the 'id' of the 'to'
+     * <p>If a vertex is created its 'id' property will be set to the target parameter. If an edge is created the
+     * source property is set to the 'id' of this vertex and the target property is set to the 'id' of the target
      * vertex.</p>
      *
-     * <p>If this graph is undirected and contains an edge connecting this vertex with 'to' the edge will not be
-     * created. Undirected graphs ignore 'from'/'to' order in edges.</p>
+     * <p>If this graph is undirected and contains an edge connecting this vertex with target the edge will not be
+     * created. Undirected graphs ignore source/target order in edges.</p>
      *
-     * @param to vertex id
+     * @param target vertex id
      * @return this vertex
-     * @throws NullPointerException if to is null
+     * @throws NullPointerException if target is null
      */
-    Vertex<ID> connectsTo(ID to);
+    Vertex<ID> connectsTo(ID target);
 
     /**
-     * Ensures this vertex connects to the vertex with an 'id' property equal to the 'from' parameter. The
+     * Ensures this vertex connects to the vertex with an id property equal to the source parameter. The
      * edge or vertex is created if needed. This vertex is returned.
      *
-     * <p>If a vertex is created its 'id' property will be set to the 'from' parameter. If an edge is created the
-     * 'from' property is set to the 'id' of the 'from' vertex and the 'to' property is set to the 'id' of this
+     * <p>If a vertex is created its id property will be set to the source parameter. If an edge is created the
+     * target property is set to the id of the source vertex and the target property is set to the id of this
      * vertex.</p>
      *
-     * <p>If this graph is undirected and contains an edge connecting this vertex with 'from' the edge will not be
-     * created. Undirected graphs ignore 'from'/'to' order in edges.</p>
+     * <p>If this graph is undirected and contains an edge connecting this vertex with source the edge will not be
+     * created. Undirected graphs ignore source/target order in edges.</p>
      *
-     * @param from vertex id
+     * @param source vertex id
      * @return this vertex
-     * @throws NullPointerException if from is null
+     * @throws NullPointerException if source is null
      */
-    Vertex<ID> connectsFrom(ID from);
+    Vertex<ID> connectsFrom(ID source);
 
     /**
      * Returns the set of all edges connecting to this vertex.
@@ -95,14 +95,14 @@ public interface PropertyGraph<ID> {
     Set<Edge<ID>> adjacentEdges();
 
     /**
-     * Returns the set of edges connecting to this vertex where 'to' is the 'id' of this vertex
+     * Returns the set of edges connecting to this vertex where target is the id of this vertex
      *
      * @return incoming edges
      */
     Set<Edge<ID>> inEdges();
 
     /**
-     * Returns the set of edges connecting to this vertex where 'from' is the 'id' of this vertex
+     * Returns the set of edges connecting to this vertex where source is the id of this vertex
      *
      * @return outgoing edges
      */
@@ -124,7 +124,7 @@ public interface PropertyGraph<ID> {
     /**
      * Returns a property. If the property does not exist null is returned.
      *
-     * <p>A property is resolved by first checking properties set on this vertex. If the local proeprty does not exist
+     * <p>A property is resolved by first checking properties set on this vertex. If the local property does not exist
      * vertexProperties in the graph are checked.</p>
      * @param <T> return type of property
      * @param name of property
@@ -197,12 +197,12 @@ public interface PropertyGraph<ID> {
 
     /**
      * Removes this vertex from the graph.
-     * @return tis vertex
+     * @return this vertex
      */
     Vertex<ID> remove();
 
     /**
-     * Returns true if this vertex and 'id' vertex is connected.
+     * Returns true if this vertex and id vertex is connected.
      * @param id of vertex
      * @return true if the two vertices are connected
      */
@@ -241,68 +241,68 @@ public interface PropertyGraph<ID> {
     Edge<ID> id(ID id);
 
     /**
-     * Returns vertex id of 'from' endpoint.
+     * Returns vertex id of source endpoint.
      *
-     * @return id of 'from' endpoint
+     * @return id of source endpoint
      */
-    ID getFrom();
+    ID getSource();
 
     /**
-     * Sets vertex id of 'from' endpoint. If vertex does not exist it is created.
+     * Sets vertex id of source endpoint. If vertex does not exist it is created.
      *
-     * @param from endpoint
-     * @throws NullPointerException if from is null
+     * @param source endpoint
+     * @throws NullPointerException if source is null
      */
-    void setFrom(ID from);
+    void setSource(ID source);
 
     /**
-     * Returns vertex id of 'from' endpoint.
+     * Returns vertex id of source endpoint.
      *
-     * @return id of 'from' endpoint
+     * @return id of source endpoint
      */
-    ID from();
+    ID source();
 
     /**
-     * Sets vertex id of 'from' endpoint. If vertex does not exist it is created.
+     * Sets vertex id of source endpoint. If vertex does not exist it is created.
      *
-     * @param from endpoint
+     * @param source endpoint
      * @return this edge
-     * @throws NullPointerException if from is null
+     * @throws NullPointerException if source is null
      */
-    Edge<ID> from(ID from);
+    Edge<ID> source(ID source);
 
     /**
-     * Returns vertex id of 'to' endpoint.
+     * Returns vertex id of target endpoint.
      *
-     * @return id of 'to' endpoint
+     * @return id of target endpoint
      */
-    ID getTo();
+    ID getTarget();
 
     /**
-     * Sets vertex id of 'to' endpoint. If vertex does not exist it is created.
+     * Sets vertex id of source endpoint. If vertex does not exist it is created.
      *
-     * @param to endpoint
-     * @throws NullPointerException if to is null
+     * @param target endpoint
+     * @throws NullPointerException if target is null
      */
-    void setTo(ID to);
+    void setTarget(ID target);
 
     /**
-     * Returns vertex id of 'to' endpoint.
+     * Returns vertex id of target endpoint.
      *
-     * @return id of 'to' endpoint
+     * @return id of target endpoint
      */
-    ID to();
+    ID target();
 
     /**
-     * Sets vertex id of 'to' endpoint. If vertex does not exist it is created.
+     * Sets vertex id of target endpoint. If vertex does not exist it is created.
      *
-     * @param to endpoint
+     * @param target endpoint
      * @return this edge
      */
-    Edge<ID> to(ID to);
+    Edge<ID> target(ID target);
 
     /**
-     * Returns ordered pair of endpoint ids. 'from' endpoint id is always first followed by 'to' endpoint id.
+     * Returns ordered pair of endpoint ids. source endpoint id is always first followed by target endpoint id.
      *
      * @return order pair of endpoints
      */
@@ -316,29 +316,29 @@ public interface PropertyGraph<ID> {
      * @throws IllegalArgumentException if id is not one of the endpoints of this edge
      */
     default ID getOppositeEndpoint(@NonNull ID id) {
-      ID from = getFrom();
-      ID to = getTo();
-      if(from.equals(id)) {
-        return to;
-      } else if(to.equals(id)) {
-        return from;
+      ID source = getSource();
+      ID target = getTarget();
+      if(source.equals(id)) {
+        return target;
+      } else if(target.equals(id)) {
+        return source;
       }
       throw new IllegalArgumentException("id \"" + id + "\" is not an endpoint of this edge.");
     }
 
     /**
-     * Returns 'from' vertex
+     * Returns source vertex
      *
-     * @return 'from' vertex
+     * @return source vertex
      */
-    Vertex<ID> fromVertex();
+    Vertex<ID> sourceVertex();
 
     /**
-     * Returns 'to' vertex
+     * Returns target vertex
      *
-     * @return 'to' vertex
+     * @return target vertex
      */
-    Vertex<ID> toVertex();
+    Vertex<ID> targetVertex();
 
     /**
      * Returns true if this edge is directed. This edge is always directed if the parent graph is directed.
@@ -546,16 +546,16 @@ public interface PropertyGraph<ID> {
   void removeVertex(ID id);
 
   /**
-   * Finds edge connecting 'from' and 'to' vertex. If edge is not in this graph the optional is empty. The order of
-   * 'from' and 'to' does not matter in undirected implementations. However, if the graph is directed 'from' and 'to'
-   * must match 'from' and 'to' of the edge exactly.
+   * Finds edge connecting source and target vertex. If edge is not in this graph the optional is empty. The order of
+   * source and target does not matter in undirected implementations. However, if the graph is directed source and
+   * target must match source and target of the edge exactly.
    *
-   * @param from of edge
-   * @param to   of edge
+   * @param source of edge
+   * @param target   of edge
    * @return optional of edge
-   * @throws NullPointerException if from or to is null
+   * @throws NullPointerException if source or target is null
    */
-  Optional<Edge<ID>> findEdge(ID from, ID to);
+  Optional<Edge<ID>> findEdge(ID source, ID target);
 
   /**
    * finds edge with given id. If edge is not in this graph the optional is empty.
@@ -567,17 +567,17 @@ public interface PropertyGraph<ID> {
   Optional<Edge<ID>> findEdge(ID id);
 
   /**
-   * Ensures an edge exists between 'from' and 'to' vertices. If an edge does not exist it is created. If any of the
+   * Ensures an edge exists between source and target vertices. If an edge does not exist it is created. If any of the
    * vertices do not exist they are created.
    *
-   * <p>If this graph is undirected and contains an edge connecting 'to' and 'from' the edge will not be
-   * created. Undirected graphs ignore 'from'/'to' order in edges.</p>
+   * <p>If this graph is undirected and contains an edge connecting source and target the edge will not be created.
+   * Undirected graphs ignore source/target order in edges.</p>
    *
-   * @param from of edge
-   * @param to   of edge
+   * @param source of edge
+   * @param target   of edge
    * @return created or existing edge
    */
-  PropertyGraph<ID> edge(ID from, ID to);
+  PropertyGraph<ID> edge(ID source, ID target);
 
   /*
   TODO future methods for setting id when it becomes treated as a property and events are easier to handle..
@@ -588,61 +588,61 @@ public interface PropertyGraph<ID> {
   Graph<ID> edge(ID from, ID to, ID id, Map<String, Object> properties);
   */
 
-  PropertyGraph<ID> edge(ID from, ID to, String name, Object value);
+  PropertyGraph<ID> edge(ID source, ID target, String name, Object value);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
 
-  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
+  PropertyGraph<ID> edge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
 
-  PropertyGraph<ID> edge(ID from, ID to, Map<String, Object> properties);
+  PropertyGraph<ID> edge(ID source, ID target, Map<String, Object> properties);
 
-  Edge<ID> getEdge(ID from, ID to);
+  Edge<ID> getEdge(ID source, ID target);
 
-  Edge<ID> getEdge(ID from, ID to, String name, Object value);
+  Edge<ID> getEdge(ID source, ID target, String name, Object value);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
 
-  Edge<ID> getEdge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
+  Edge<ID> getEdge(ID source, ID target, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
 
-  Edge<ID> getEdge(ID from, ID to, Map<String, Object> properties);
+  Edge<ID> getEdge(ID source, ID target, Map<String, Object> properties);
 
   /**
    * Removes edge with given from and to.
    *
-   * @param from of edge
-   * @param to   of edge
-   * @throws NullPointerException     if from or to is null
+   * @param source of edge
+   * @param target   of edge
+   * @throws NullPointerException     if source or target is null
    * @throws IllegalArgumentException if edge does not exist
    */
-  void removeEdge(ID from, ID to);
+  void removeEdge(ID source, ID target);
 
   /**
    * Removes edge with given id
@@ -854,21 +854,21 @@ public interface PropertyGraph<ID> {
   PropertyGraph<ID> removeVertexProperty(String name);
 
   /**
-   * Returns true if 'from' and 'to' vertices are connected.
-   * @param from id of vertex
-   * @param to id of vertex
+   * Returns true if source and target vertices are connected.
+   * @param source id of vertex
+   * @param target id of vertex
    * @return true if the two vertices are connected
    */
-  default boolean connected(@NonNull ID from, @NonNull ID to) {
-    if(findVertex(from).isEmpty() || findVertex(to).isEmpty()) {
+  default boolean connected(@NonNull ID source, @NonNull ID target) {
+    if(findVertex(source).isEmpty() || findVertex(target).isEmpty()) {
       return false;
     }
-    if(findEdge(from, to).isPresent()) {
+    if(findEdge(source, target).isPresent()) {
       return true;
     }
 
     Deque<ID> stack = new LinkedList<>();
-    stack.push(from);
+    stack.push(source);
     Set<ID> visited = new HashSet<>();
 
     while(!stack.isEmpty()) {
@@ -886,7 +886,7 @@ public interface PropertyGraph<ID> {
       }
       for(var edge : edges) {
         ID next = edge.getOppositeEndpoint(id);
-        if(to.equals(next)) {
+        if(target.equals(next)) {
           return true;
         }
         stack.push(next);

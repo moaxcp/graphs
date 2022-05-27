@@ -12,13 +12,13 @@ public class PropertyGraphConnected {
   @TestGraphs
   void connectedNullFrom(PropertyGraph<String> graph) {
     var exception = assertThrows(NullPointerException.class, () -> graph.connected(null, "B"));
-    assertThat(exception).hasMessageThat().isEqualTo("from is marked non-null but is null");
+    assertThat(exception).hasMessageThat().isEqualTo("source is marked non-null but is null");
   }
 
   @TestGraphs
   void connectedNullTo(PropertyGraph<String> graph) {
     var exception = assertThrows(NullPointerException.class, () -> graph.connected("A", null));
-    assertThat(exception).hasMessageThat().isEqualTo("to is marked non-null but is null");
+    assertThat(exception).hasMessageThat().isEqualTo("target is marked non-null but is null");
   }
 
   @TestGraphs

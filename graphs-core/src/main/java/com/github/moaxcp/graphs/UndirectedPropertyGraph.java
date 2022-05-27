@@ -11,8 +11,8 @@ public class UndirectedPropertyGraph<ID> extends AbstractPropertyGraph<ID> {
     }
 
     @Override
-    protected EdgeKey<ID> newEdgeKey(ID from, ID to) {
-        return new UndirectedEdgeKey<>(from, to);
+    protected EdgeKey<ID> newEdgeKey(ID source, ID target) {
+        return new UndirectedEdgeKey<>(source, target);
     }
 
     @Override

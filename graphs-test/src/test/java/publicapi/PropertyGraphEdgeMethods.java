@@ -86,7 +86,7 @@ public class PropertyGraphEdgeMethods {
   void getEdgeProperty1(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1");
   }
 
   @TestGraphs
@@ -94,14 +94,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1");
   }
 
   @TestGraphs
   void getEdgeProperty2(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2");
   }
 
   @TestGraphs
@@ -109,14 +109,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2");
   }
 
   @TestGraphs
   void getEdgeProperty3(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
   @TestGraphs
@@ -124,14 +124,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
   @TestGraphs
   void getEdgeProperty4(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
   @TestGraphs
@@ -139,14 +139,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
   @TestGraphs
   void getEdgeProperty5(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
   @TestGraphs
@@ -154,14 +154,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
   @TestGraphs
   void getEdgeProperty6(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
   @TestGraphs
@@ -169,14 +169,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
   @TestGraphs
   void getEdgeProperty7(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
   @TestGraphs
@@ -184,14 +184,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
   @TestGraphs
   void getEdgeProperty8(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
   @TestGraphs
@@ -199,14 +199,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
   @TestGraphs
   void getEdgeProperty9(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
   @TestGraphs
@@ -214,14 +214,14 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
   @TestGraphs
   void getEdgeProperty10(PropertyGraph<String> graph) {
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
   @TestGraphs
@@ -229,7 +229,7 @@ public class PropertyGraphEdgeMethods {
     graph.getEdge("A", "B");
     graph.getEdge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
   @TestGraphs
@@ -255,7 +255,7 @@ public class PropertyGraphEdgeMethods {
   void edgeProperty1(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1");
   }
 
   @TestGraphs
@@ -263,14 +263,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1");
   }
 
   @TestGraphs
   void edgeProperty2(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2");
   }
 
   @TestGraphs
@@ -278,14 +278,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2");
   }
 
   @TestGraphs
   void edgeProperty3(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
   @TestGraphs
@@ -293,14 +293,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
   @TestGraphs
   void edgeProperty4(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
   @TestGraphs
@@ -308,14 +308,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
   @TestGraphs
   void edgeProperty5(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
   @TestGraphs
@@ -323,14 +323,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
   @TestGraphs
   void edgeProperty6(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
   @TestGraphs
@@ -338,14 +338,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
   @TestGraphs
   void edgeProperty7(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
   @TestGraphs
@@ -353,14 +353,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
   @TestGraphs
   void edgeProperty8(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
   @TestGraphs
@@ -368,14 +368,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
   @TestGraphs
   void edgeProperty9(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
   @TestGraphs
@@ -383,14 +383,14 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
   @TestGraphs
   void edgeProperty10(PropertyGraph<String> graph) {
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
   @TestGraphs
@@ -398,7 +398,7 @@ public class PropertyGraphEdgeMethods {
     graph.edge("A", "B");
     graph.edge("A", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
 
-    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("from", "A", "to", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
+    assertThat(graph).hasEdge("A", "B").withLocal().containsExactly("source", "A", "target", "B", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
   @TestGraphs
@@ -467,25 +467,25 @@ public class PropertyGraphEdgeMethods {
   @TestGraphs
   void removeWithNullFrom(PropertyGraph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdge(null, "B"));
-    assertThat(thrown).hasMessageThat().isEqualTo("from is marked non-null but is null");
+    assertThat(thrown).hasMessageThat().isEqualTo("source is marked non-null but is null");
   }
 
   @TestGraphs
   void removeWithNullTo(PropertyGraph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeEdge("A", null));
-    assertThat(thrown).hasMessageThat().isEqualTo("to is marked non-null but is null");
+    assertThat(thrown).hasMessageThat().isEqualTo("target is marked non-null but is null");
   }
 
   @TestGraphs
   void findEdgeMissingFrom(PropertyGraph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.findEdge(null, null));
-    assertThat(thrown).hasMessageThat().isEqualTo("from is marked non-null but is null");
+    assertThat(thrown).hasMessageThat().isEqualTo("source is marked non-null but is null");
   }
 
   @TestGraphs
   void findEdgeMissingTo(PropertyGraph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.findEdge("A", null));
-    assertThat(thrown).hasMessageThat().isEqualTo("to is marked non-null but is null");
+    assertThat(thrown).hasMessageThat().isEqualTo("target is marked non-null but is null");
   }
 
   @TestGraphs

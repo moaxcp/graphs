@@ -11,32 +11,32 @@ import static java.util.Objects.*;
  * @param <ID> type of identifiers
  */
 public abstract class EdgeKey<ID> {
-    private final ID from;
-    private final ID to;
+    private final ID source;
+    private final ID target;
 
     /**
-     * Creates an EdgeKey with given from and to params.
-     * @param from vertex id
-     * @param to vertex id
+     * Creates an EdgeKey with given source and target params.
+     * @param source vertex id
+     * @param target vertex id
      */
-    public EdgeKey(ID from, ID to) {
-        this.from = requireNonNull(from);
-        this.to = requireNonNull(to);
+    public EdgeKey(ID source, ID target) {
+        this.source = requireNonNull(source);
+        this.target = requireNonNull(target);
     }
 
     /**
-     * Returns 'from' vertex id.
-     * @return from id of vertex
+     * Returns source vertex id.
+     * @return source id of vertex
      */
-    public final ID getFrom() {
-        return from;
+    public final ID getSource() {
+        return source;
     }
 
     /**
-     * Returns 'to' vertex id.
-     * @return to id of vertex
+     * Returns target vertex id.
+     * @return target id of vertex
      */
-    public final ID getTo() {
-        return to;
+    public final ID getTarget() {
+        return target;
     }
 }

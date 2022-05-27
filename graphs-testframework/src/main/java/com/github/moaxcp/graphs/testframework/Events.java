@@ -34,8 +34,8 @@ public class Events {
     var builder = EdgePropertyEvent.<String>builder()
       .graphId("graph")
       .edgeId("edge")
-      .fromId("A")
-      .toId("B");
+      .sourceId("A")
+      .targetId("B");
 
     for(int i = 0; i < count; i++) {
       builder.property("name" + (i + 1), "value" + (i + 1));
@@ -47,8 +47,8 @@ public class Events {
   public static EdgeCreatedEvent<String> edgeCreatedEvent(int count) {
     var builder = EdgeCreatedEvent.<String>builder()
       .graphId("graph")
-      .fromId("A")
-      .toId("B");
+      .sourceId("A")
+      .targetId("B");
 
     for(int i = 0; i < count; i++) {
       builder.property("name" + (i + 1), "value" + (i + 1));

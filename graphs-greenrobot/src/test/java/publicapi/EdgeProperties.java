@@ -454,8 +454,8 @@ public class EdgeProperties {
       .containsExactly(EdgePropertyEvent.<String>builder()
         .graphId("graph")
         .edgeId("edge")
-        .fromId("A")
-        .toId("B")
+        .sourceId("A")
+        .targetId("B")
         .property("name1", null)
         .build());
   }
@@ -465,7 +465,7 @@ public class EdgeProperties {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name", "value");
 
-    var expected = EdgePropertyEvent.<String>builder().graphId("graph").fromId("A").toId("B").edgeId("edge").property("name", null).build();
+    var expected = EdgePropertyEvent.<String>builder().graphId("graph").sourceId("A").targetId("B").edgeId("edge").property("name", null).build();
 
     assertThat(bus)
       .withAction(() -> graph.getEdge("A", "B").removeProperty("name"))

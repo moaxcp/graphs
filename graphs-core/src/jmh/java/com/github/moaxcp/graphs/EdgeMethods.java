@@ -27,7 +27,7 @@ public class EdgeMethods {
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
                     graph.edge(i, j);
-                    vertex = graph.getEdge(j, i).toVertex();
+                    vertex = graph.getEdge(j, i).targetVertex();
                     lastFrom = j;
                     lastTo = i;
                 }
@@ -36,7 +36,7 @@ public class EdgeMethods {
             graph = new UndirectedPropertyGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
-                    vertex = graph.getEdge(i, j).toVertex();
+                    vertex = graph.getEdge(i, j).targetVertex();
                     lastFrom = i;
                     lastTo = j;
                 }

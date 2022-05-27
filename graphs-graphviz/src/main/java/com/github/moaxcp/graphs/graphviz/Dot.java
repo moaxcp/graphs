@@ -103,12 +103,12 @@ public class Dot<ID> {
 
     private void writeEdge(PropertyGraph.Edge<ID> edge, PrintWriter writer) throws IOException {
         var connector = graph.isDirected() ? "->" : "--";
-        writer.printf("  %s %s %s", edge.getFrom(), connector, edge.getTo());
+        writer.printf("  %s %s %s", edge.getSource(), connector, edge.getTarget());
 
         var attributes = edge.local().entrySet().stream()
           .filter(e -> !e.getKey().equals("id"))
-          .filter(e -> !e.getKey().equals("to"))
-          .filter(e -> !e.getKey().equals("from"))
+          .filter(e -> !e.getKey().equals("source"))
+          .filter(e -> !e.getKey().equals("target"))
           .collect(toMap(Entry::getKey, Entry::getValue));
 
         if(!attributes.isEmpty()) {

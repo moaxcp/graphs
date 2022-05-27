@@ -27,7 +27,7 @@ public class RemovedEdge {
     void setFrom(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setFrom("C"));
+        Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setSource("C"));
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
@@ -35,7 +35,7 @@ public class RemovedEdge {
     void from(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.from("C"));
+        Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.source("C"));
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
@@ -43,7 +43,7 @@ public class RemovedEdge {
     void setTo(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setTo("C"));
+        Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setTarget("C"));
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
@@ -51,7 +51,7 @@ public class RemovedEdge {
     void to(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
-        Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.to("C"));
+        Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.target("C"));
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
