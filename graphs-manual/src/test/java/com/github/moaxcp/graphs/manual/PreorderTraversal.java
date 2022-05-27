@@ -1,9 +1,9 @@
 package com.github.moaxcp.graphs.manual;
 
-import com.github.moaxcp.graphs.DirectedGraph;
-import com.github.moaxcp.graphs.Graph.Vertex;
+import com.github.moaxcp.graphs.DirectedPropertyGraph;
+import com.github.moaxcp.graphs.PropertyGraph.Vertex;
 import com.github.moaxcp.graphs.graphviz.GreenrobotGifSubscriber;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
 import java.nio.file.Path;
 import java.util.Iterator;
 import org.greenrobot.eventbus.EventBus;
@@ -14,7 +14,7 @@ public class PreorderTraversal {
   @Test
   void preOrderTraversal() {
     var bus = new EventBus();
-    var graph = new DirectedEventGraph<String>(bus);
+    var graph = new DirectedEventPropertyGraph<String>(bus);
 
     graph.edge("A", "B")
       .edge("B", "C")
@@ -40,7 +40,7 @@ public class PreorderTraversal {
 
   @Test
   void preOrderStream() {
-    var graph = new DirectedGraph<String>();
+    var graph = new DirectedPropertyGraph<String>();
 
     graph.edge("A", "B")
         .edge("B", "C")

@@ -4,7 +4,7 @@ import java.util.*;
 
 class PreOrderDepthFirstIterator<ID> extends DepthFirstIterator<ID> {
 
-  PreOrderDepthFirstIterator(Graph<ID> graph, ID... start) {
+  PreOrderDepthFirstIterator(PropertyGraph<ID> graph, ID... start) {
     super(graph, start);
   }
 

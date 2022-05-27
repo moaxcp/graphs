@@ -6,7 +6,7 @@ class PostOrderDepthFirstIterator<ID> extends DepthFirstIterator<ID> {
 
   private final Set<ID> complete;
 
-  PostOrderDepthFirstIterator(Graph<ID> graph, ID... start) {
+  PostOrderDepthFirstIterator(PropertyGraph<ID> graph, ID... start) {
     super(graph, start);
     complete = new HashSet<>();
   }

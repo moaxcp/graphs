@@ -10,7 +10,7 @@ import static com.github.moaxcp.graphs.graphviz.Dot.*;
 public class VertexMethods {
   @Test
   void edge_graph() throws IOException {
-    var graph = new DirectedGraph<String>();
+    var graph = new DirectedPropertyGraph<String>();
 
     // tag::getVertex[]
     graph.getVertex("A")

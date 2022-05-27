@@ -7,7 +7,7 @@ import java.util.*;
 import static java.util.Collections.*;
 
 /**
- * Implements local properties which is used for a {@link Graph}, {@link Graph.Edge}, or {@link Graph.Vertex}. A
+ * Implements local properties which is used for a {@link PropertyGraph}, {@link PropertyGraph.Edge}, or {@link PropertyGraph.Vertex}. A
  * property is a name/value pair. The name and/or value cannot be null. Updating a value to null will remove it but it
  * can never be set as null.
  */

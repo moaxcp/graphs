@@ -10,9 +10,9 @@ import java.util.*;
 import static com.github.moaxcp.graphs.testframework.Events.*;
 import static com.github.moaxcp.graphs.truth.Truth.*;
 
-public class EventGraphVertexMethods {
+public class EventPropertyGraphVertexMethods {
   @TestEventGraphs
-  void createdWithVertex(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(0);
     assertThat(bus)
@@ -21,7 +21,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex1(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(1);
 
@@ -32,7 +32,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex2(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(2);
 
@@ -44,7 +44,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex3(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(3);
 
@@ -57,7 +57,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex4(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(4);
 
@@ -71,7 +71,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex5(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(5);
 
@@ -85,7 +85,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex6(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(6);
 
@@ -101,7 +101,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex7(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(7);
 
@@ -118,7 +118,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex8(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(8);
 
@@ -136,7 +136,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex9(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(9);
 
@@ -154,7 +154,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertex10(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertex10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(10);
 
@@ -174,7 +174,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithVertexMap(EventGraph<String> graph, EventBus bus) {
+  void createdWithVertexMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(1);
 
@@ -185,7 +185,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex1(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A");
     var expected = vertexPropertyEvent(1);
@@ -195,7 +195,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex1Remove(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex1Remove(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A", "name1", "value1");
 
@@ -209,7 +209,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex2(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
     var expected = vertexPropertyEvent(2);
@@ -219,7 +219,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex3(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
     var expected = vertexPropertyEvent(3);
@@ -233,7 +233,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex4(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
       .property("name1", "A",
@@ -251,7 +251,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex5(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
       .property("name1", "A",
@@ -272,7 +272,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex6(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
       .property("name1", "A",
@@ -295,7 +295,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex7(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
       .property("name1", "A",
@@ -320,7 +320,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex8(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
       .property("name1", "A",
@@ -347,7 +347,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex9(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
       .property("name1", "A",
@@ -376,7 +376,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertex10(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertex10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
       .property("name1", "A",
@@ -407,7 +407,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithVertexMap(EventGraph<String> graph, EventBus bus) {
+  void updatedWithVertexMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A")
       .property("name1", "A",
@@ -421,7 +421,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(0);
     assertThat(bus)
@@ -430,7 +430,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex1(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(1);
 
@@ -440,7 +440,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex2(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(2);
 
@@ -452,7 +452,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex3(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(3);
 
@@ -465,7 +465,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex4(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(4);
 
@@ -478,7 +478,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex5(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(5);
 
@@ -493,7 +493,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex6(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(6);
 
@@ -509,7 +509,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex7(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(7);
 
@@ -526,7 +526,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex8(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(8);
 
@@ -544,7 +544,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex9(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(9);
 
@@ -563,7 +563,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertex10(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertex10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(10);
 
@@ -583,7 +583,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetVertexMap(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetVertexMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     var expected = vertexCreatedEvent(1);
 
@@ -594,7 +594,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void updatedWithGetVertex1Remove(EventGraph<String> graph, EventBus bus) {
+  void updatedWithGetVertex1Remove(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A", "name1", "value1");
 
@@ -608,13 +608,13 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void notCreated(EventGraph<String> graph, EventBus bus) {
+  void notCreated(EventPropertyGraph<String> graph, EventBus bus) {
     graph.vertex("A");
     assertThat(bus).withAction(() -> graph.vertex("A")).isEmpty();
   }
 
   @TestEventGraphs
-  void remove(EventGraph<String> graph, EventBus bus) {
+  void remove(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -627,7 +627,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void removeWithProperties(EventGraph<String> graph, EventBus bus) {
+  void removeWithProperties(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A", "name1", "value1");
 
@@ -640,7 +640,7 @@ public class EventGraphVertexMethods {
   }
 
   @TestEventGraphs
-  void removeWithEdges(EventGraph<String> graph, EventBus bus) {
+  void removeWithEdges(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.edge("A", "B");
     graph.edge("A", "C");

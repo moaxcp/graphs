@@ -10,9 +10,9 @@ import java.util.*;
 import static com.github.moaxcp.graphs.testframework.Events.*;
 import static com.github.moaxcp.graphs.truth.Truth.*;
 
-public class EventGraphEdgeMethods {
+public class EventPropertyGraphEdgeMethods {
   @TestEventGraphs
-  void createdWithEdge(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -24,7 +24,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge1(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -39,7 +39,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge2(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -55,7 +55,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge3(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -72,7 +72,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge4(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -90,7 +90,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge5(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -109,7 +109,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge6(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -129,7 +129,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge7(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -150,7 +150,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge8(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -172,7 +172,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge9(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -195,7 +195,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdge10(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdge10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder()
@@ -225,7 +225,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithEdgeMap(EventGraph<String> graph, EventBus bus) {
+  void createdWithEdgeMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder()
@@ -250,7 +250,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -262,7 +262,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge1(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -278,7 +278,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge2(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -297,7 +297,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge3(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -318,7 +318,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge4(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -341,7 +341,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge5(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -366,7 +366,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge6(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -393,7 +393,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge7(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -422,7 +422,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge8(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -453,7 +453,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge9(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -486,7 +486,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdge10(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdge10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder()
@@ -529,7 +529,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void createdWithGetEdgeMap(EventGraph<String> graph, EventBus bus) {
+  void createdWithGetEdgeMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
     var expected1 = VertexCreatedEvent.<String>builder().graphId("graph").vertexId("A").build();
@@ -548,7 +548,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void updatedWithEdgeMap(EventGraph<String> graph, EventBus bus) {
+  void updatedWithEdgeMap(EventPropertyGraph<String> graph, EventBus bus) {
       graph.id("graph").getEdge("A", "B").id("edge");
       graph.getEdge("A", "B").property("name1", "A");
 
@@ -561,14 +561,14 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void notCreated(EventGraph<String> graph, EventBus bus) {
+  void notCreated(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
     assertThat(bus).withAction(() -> graph.edge("A", "B")).isEmpty();
   }
 
   @TestEventGraphs
-  void removed(EventGraph<String> graph, EventBus bus) {
+  void removed(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "value1", "name2", "value2");
 
@@ -578,7 +578,7 @@ public class EventGraphEdgeMethods {
   }
 
   @TestEventGraphs
-  void removeWithId(EventGraph<String> graph, EventBus bus) {
+  void removeWithId(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 

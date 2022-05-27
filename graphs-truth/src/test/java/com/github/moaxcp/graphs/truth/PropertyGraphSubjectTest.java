@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.truth;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.UndirectedGraph;
+import com.github.moaxcp.graphs.PropertyGraph;
+import com.github.moaxcp.graphs.UndirectedPropertyGraph;
 import com.google.common.truth.ExpectFailure;
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +12,10 @@ import static com.google.common.truth.ExpectFailure.assertThat;
 
 
 
-public class GraphSubjectTest {
+public class PropertyGraphSubjectTest {
     @Test
     public void doesNotHaveVertex() {
-        AssertionError expected = expectError(whenTesting -> whenTesting.that(new UndirectedGraph()).hasVertex("id"));
+        AssertionError expected = expectError(whenTesting -> whenTesting.that(new UndirectedPropertyGraph()).hasVertex("id"));
 
         assertThat(expected).factValue("value of").isEqualTo("graph.findVertex(id)");
         assertThat(expected).factKeys().contains("expected to be present");
@@ -23,14 +23,14 @@ public class GraphSubjectTest {
 
     @Test
     public void doesHaveVertex() {
-        Graph graph = new UndirectedGraph();
+        PropertyGraph graph = new UndirectedPropertyGraph();
         graph.vertex("id");
         assertThat(graph).hasVertex("id");
     }
 
     @Test
     public void doesNotHaveEdge() {
-        Graph graph = new UndirectedGraph();
+        PropertyGraph graph = new UndirectedPropertyGraph();
         graph.vertex("A");
         graph.vertex("B");
 
@@ -42,12 +42,12 @@ public class GraphSubjectTest {
 
     @Test
     public void doesHaveEdge() {
-        Graph graph = new UndirectedGraph();
+        PropertyGraph graph = new UndirectedPropertyGraph();
         graph.edge("A", "B");
         assertThat(graph).hasEdge("A", "B");
     }
 
-    private static AssertionError expectError(SimpleSubjectBuilderCallback<GraphSubject, Graph> assertionCallback) {
+    private static AssertionError expectError(SimpleSubjectBuilderCallback<GraphSubject, PropertyGraph> assertionCallback) {
         return ExpectFailure.expectFailureAbout(graphs(), assertionCallback);
     }
 }

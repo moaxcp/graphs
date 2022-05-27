@@ -1,14 +1,14 @@
 package com.github.moaxcp.graphs.truth;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.Graph.*;
+import com.github.moaxcp.graphs.PropertyGraph.*;
 import com.google.common.truth.*;
 import lombok.experimental.*;
 import org.greenrobot.eventbus.*;
 
 @UtilityClass
 public class Truth {
-    public static GraphSubject assertThat(Graph graph) {
+    public static GraphSubject assertThat(PropertyGraph graph) {
         return GraphSubject.assertThat(graph);
     }
 

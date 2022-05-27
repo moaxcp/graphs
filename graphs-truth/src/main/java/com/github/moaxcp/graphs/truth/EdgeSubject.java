@@ -3,7 +3,7 @@ package com.github.moaxcp.graphs.truth;
 import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.*;
 import static com.google.common.truth.Truth.*;
-import com.github.moaxcp.graphs.Graph.*;
+import com.github.moaxcp.graphs.PropertyGraph.*;
 import com.google.common.truth.*;
 import java.util.*;
 

@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs.manual;
 
-import com.github.moaxcp.graphs.DirectedGraph;
+import com.github.moaxcp.graphs.DirectedPropertyGraph;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import static com.github.moaxcp.graphs.graphviz.Dot.dot;
 class EdgeMethods {
   @Test
   void edge_graph() throws IOException {
-    var graph = new DirectedGraph<String>();
+    var graph = new DirectedPropertyGraph<String>();
 
     // tag::edge[]
     graph.edge("A", "B", "color", "black")
@@ -27,7 +27,7 @@ class EdgeMethods {
 
   @Test
   void getEdge_graph() throws IOException {
-    var graph = new DirectedGraph<String>();
+    var graph = new DirectedPropertyGraph<String>();
 
     // tag::getEdge[]
     graph.getEdge("A", "B", "color", "black");

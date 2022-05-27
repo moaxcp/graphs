@@ -10,7 +10,7 @@ abstract class DepthFirstIterator<ID> extends GraphIterator<ID> {
 
   private final Deque<ID> stack;
 
-  DepthFirstIterator(@NonNull Graph<ID> graph, @NonNull ID... start) {
+  DepthFirstIterator(@NonNull PropertyGraph<ID> graph, @NonNull ID... start) {
     super(graph);
     stack = new LinkedList<>();
     for(ID id : start) {

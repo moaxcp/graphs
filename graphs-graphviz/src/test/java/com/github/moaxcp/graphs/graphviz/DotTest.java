@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.graphviz;
 
-import com.github.moaxcp.graphs.DirectedGraph;
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.DirectedPropertyGraph;
+import com.github.moaxcp.graphs.PropertyGraph;
 import com.github.moaxcp.graphs.testframework.TestGraphs;
 import org.junit.jupiter.api.Test;
 
@@ -22,13 +22,13 @@ public class DotTest {
 
     @Test
     void writerIsNull() throws IOException {
-        var writer = dot(new DirectedGraph<String>());
+        var writer = dot(new DirectedPropertyGraph<String>());
         NullPointerException thrown = assertThrows(NullPointerException.class, () -> writer.write(null));
         assertThat(thrown).hasMessageThat().isEqualTo("writer must not be null.");
     }
 
     @TestGraphs
-    void endsWithBraceWriter(Graph<String> graph) throws IOException {
+    void endsWithBraceWriter(PropertyGraph<String> graph) throws IOException {
         var writer = dot(graph);
         StringWriter s = new StringWriter();
         writer.write(s);
@@ -36,13 +36,13 @@ public class DotTest {
     }
 
     @TestGraphs
-    void endsWithBrace(Graph<String> graph) {
+    void endsWithBrace(PropertyGraph<String> graph) {
         var s = dot(graph).toString();
         assertThat(s).endsWith("}\n");
     }
 
     @TestGraphs
-    void graphAttributes(Graph<String> graph) {
+    void graphAttributes(PropertyGraph<String> graph) {
         graph.property("color", "blue");
         graph.property("label", "graph");
         graph.edge("A", "B");
@@ -51,21 +51,21 @@ public class DotTest {
     }
 
     @TestGraphs
-    void edgeAttributes(Graph<String> graph) {
+    void edgeAttributes(PropertyGraph<String> graph) {
         graph.getEdge("A", "B").property("color", "blue").property("size", 10);
         var s = dot(graph).toString();
         assertThat(s).containsMatch("A -[->] B \\[color=blue, size=10\\]");
     }
 
     @TestGraphs
-    void vertexAttributes(Graph<String> graph) {
+    void vertexAttributes(PropertyGraph<String> graph) {
         graph.getVertex("A").property("color", "blue").property("size", 10);
         var s = dot(graph).toString();
         assertThat(s).contains("A [color=blue, size=10]");
     }
 
     @TestGraphs
-    void graphEdgeAttributes(Graph<String> graph) {
+    void graphEdgeAttributes(PropertyGraph<String> graph) {
         graph.edge("A", "B");
         graph.edgeProperty("color", "blue");
         var s = dot(graph).toString();
@@ -73,7 +73,7 @@ public class DotTest {
     }
 
     @TestGraphs
-    void graphVertexAttributes(Graph<String> graph) {
+    void graphVertexAttributes(PropertyGraph<String> graph) {
         graph.vertex("A");
         graph.vertexProperty("color", "blue");
         var s = dot(graph).toString();
@@ -81,7 +81,7 @@ public class DotTest {
     }
 
     @TestGraphs
-    void toImageDirected(Graph<String> graph) throws IOException {
+    void toImageDirected(PropertyGraph<String> graph) throws IOException {
         graph.property("rankdir", "LR");
         graph.edge("A", "B").property("color", "red");
         graph.vertex("A").property("color", "green");

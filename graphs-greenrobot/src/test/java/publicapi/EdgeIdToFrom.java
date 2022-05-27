@@ -10,7 +10,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 public class EdgeIdToFrom {
 
     @TestEventGraphs
-    void edgeIdAdded(EventGraph<String> graph, EventBus bus) {
+    void edgeIdAdded(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edge("A", "B");
 
@@ -20,13 +20,13 @@ public class EdgeIdToFrom {
     }
 
     @TestEventGraphs
-    void edgeIdRemovedNoId(EventGraph<String> graph, EventBus bus) {
+    void edgeIdRemovedNoId(EventPropertyGraph<String> graph, EventBus bus) {
         graph.edge("A", "B");
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id(null)).isEmpty();
     }
 
     @TestEventGraphs
-    void edgeIdRemoved(EventGraph<String> graph, EventBus bus) {
+    void edgeIdRemoved(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "B").id("edge");
 
@@ -36,7 +36,7 @@ public class EdgeIdToFrom {
     }
 
     @TestEventGraphs
-    void edgeIdUpdated(EventGraph<String> graph, EventBus bus) {
+    void edgeIdUpdated(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "B").id("oldEdge");
 
@@ -46,7 +46,7 @@ public class EdgeIdToFrom {
     }
 
     @TestEventGraphs
-    void edgeFromUpdatedCreatedVertex(EventGraph<String> graph, EventBus bus) {
+    void edgeFromUpdatedCreatedVertex(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("oldFrom", "B").id("edge");
 
@@ -69,7 +69,7 @@ public class EdgeIdToFrom {
     }
 
     @TestEventGraphs
-    void edgeToUpdatedCreatedVertex(EventGraph<String> graph, EventBus bus) {
+    void edgeToUpdatedCreatedVertex(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "oldTo").id("edge");
 
@@ -86,7 +86,7 @@ public class EdgeIdToFrom {
     }
 
     @TestEventGraphs
-    void edgeFromUpdated(EventGraph<String> graph, EventBus bus) {
+    void edgeFromUpdated(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
         graph.getEdge("oldFrom", "B").id("edge");
@@ -97,7 +97,7 @@ public class EdgeIdToFrom {
     }
 
     @TestEventGraphs
-    void edgeToUpdated(EventGraph<String> graph, EventBus bus) {
+    void edgeToUpdated(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("B");
         graph.getEdge("A", "oldTo").id("edge");

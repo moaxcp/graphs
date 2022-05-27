@@ -4,14 +4,14 @@ import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.events.*;
 import org.greenrobot.eventbus.*;
 
-public class DirectedEventGraph<ID> extends AbstractEventGraph<ID> {
+public class DirectedEventPropertyGraph<ID> extends AbstractEventPropertyGraph<ID> {
 
-    public DirectedEventGraph(EventBus bus) {
+    public DirectedEventPropertyGraph(EventBus bus) {
         super(bus);
         getBus().post(DirectedGraphCreatedEvent.<ID>builder().build());
     }
 
-    public DirectedEventGraph(ID id, EventBus bus) {
+    public DirectedEventPropertyGraph(ID id, EventBus bus) {
         super(id, bus);
         getBus().post(DirectedGraphCreatedEvent.<ID>builder().graphId(id).build());
     }

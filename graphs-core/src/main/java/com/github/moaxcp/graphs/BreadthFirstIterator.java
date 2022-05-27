@@ -11,7 +11,7 @@ class BreadthFirstIterator<ID> extends GraphIterator<ID> {
   private final Queue<ID> queue;
   private final List<ID> start;
 
-  BreadthFirstIterator(Graph<ID> graph, @NonNull ID... start) {
+  BreadthFirstIterator(PropertyGraph<ID> graph, @NonNull ID... start) {
     super(graph);
     queue = new LinkedList<>();
     this.start = new ArrayList<>();

@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.events.GraphEvent;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
 import java.io.IOException;
 import java.nio.file.Path;
 import org.greenrobot.eventbus.EventBus;
@@ -27,7 +27,7 @@ public class GifTest {
   @Test
   void create() throws IOException {
     var bus = new EventBus();
-    var graph = new DirectedEventGraph<String>(bus);
+    var graph = new DirectedEventPropertyGraph<String>(bus);
     var path = Path.of("build/tmp/testCreate.gif");
     var gif = new SimpleGraphGif<String>(graph, path);
     bus.register(new GraphSubscriber(gif));

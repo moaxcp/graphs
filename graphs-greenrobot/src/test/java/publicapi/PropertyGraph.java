@@ -12,33 +12,33 @@ import java.util.*;
 import static com.github.moaxcp.graphs.testframework.MethodSources.*;
 import static com.github.moaxcp.graphs.truth.GreenRobotEventBusSubject.*;
 
-public class Graph {
+public class PropertyGraph {
     @Test
     void undirectedEventGraphDefaultConstructor() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new UndirectedEventGraph(bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().build());
+        assertThat(bus).withAction(() -> new UndirectedEventPropertyGraph(bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().build());
     }
 
     @Test
     void undirectedEventGraphId() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new UndirectedEventGraph<>("id", bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().graphId("id").build());
+        assertThat(bus).withAction(() -> new UndirectedEventPropertyGraph<>("id", bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
     @Test
     void directedEventGraphDefaultConstructor() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new DirectedEventGraph(bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().build());
+        assertThat(bus).withAction(() -> new DirectedEventPropertyGraph(bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().build());
     }
 
     @Test
     void directedEventGraphId() {
         EventBus bus = testEventBus();
-        assertThat(bus).withAction(() -> new DirectedEventGraph<>("id", bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().graphId("id").build());
+        assertThat(bus).withAction(() -> new DirectedEventPropertyGraph<>("id", bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
     @TestEventGraphs
-    void addId(EventGraph<String> graph, EventBus bus) {
+    void addId(EventPropertyGraph<String> graph, EventBus bus) {
         var event = GraphPropertyEvent.<String>builder()
           .graphId(null)
           .newId("graph")
@@ -49,7 +49,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void removeId(EventGraph<String> graph, EventBus bus) {
+    void removeId(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
 
         var event = GraphPropertyEvent.<String>builder()
@@ -63,7 +63,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void updateId(EventGraph<String> graph, EventBus bus) {
+    void updateId(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("id1");
 
         var event = GraphPropertyEvent.<String>builder()
@@ -77,7 +77,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void addProperty(EventGraph<String> graph, EventBus bus) {
+    void addProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = GraphPropertyEvent.<String>builder()
           .graphId("graph")
@@ -87,7 +87,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void removeProperty(EventGraph<String> graph, EventBus bus) {
+    void removeProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
         var event = GraphPropertyEvent.<String>builder()
@@ -98,7 +98,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void updateProperty(EventGraph<String> graph, EventBus bus) {
+    void updateProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
         var event = GraphPropertyEvent.<String>builder()
@@ -109,7 +109,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void addAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
+    void addAllEdgesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = EdgeInheritedPropertyEvent.<String>builder()
           .graphId("graph")
@@ -119,7 +119,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void removeAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
+    void removeAllEdgesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edgeProperty("name", "value");
         var event = EdgeInheritedPropertyEvent.<String>builder()
@@ -130,7 +130,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void updateAllEdgesProperty(EventGraph<String> graph, EventBus bus) {
+    void updateAllEdgesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edgeProperty("name", "A");
         var event = EdgeInheritedPropertyEvent.<String>builder()
@@ -141,7 +141,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void addAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
+    void addAllVerticesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = VertexInheritedPropertyEvent.<String>builder()
           .graphId("graph")
@@ -151,7 +151,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void removeAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
+    void removeAllVerticesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertexProperty("name", "value");
         var event = VertexInheritedPropertyEvent.<String>builder()
@@ -162,7 +162,7 @@ public class Graph {
     }
 
     @TestEventGraphs
-    void updateAllVerticesProperty(EventGraph<String> graph, EventBus bus) {
+    void updateAllVerticesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertexProperty("name", "A");
         var event = VertexInheritedPropertyEvent.<String>builder()

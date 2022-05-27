@@ -13,7 +13,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 public class Vertex {
 
   @TestEventGraphs
-  void updateId(EventGraph<String> graph, EventBus bus) {
+  void updateId(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -28,7 +28,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty1(EventGraph<String> graph, EventBus bus) {
+  void addProperty1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -41,7 +41,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty2(EventGraph<String> graph, EventBus bus) {
+  void addProperty2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -55,7 +55,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty3(EventGraph<String> graph, EventBus bus) {
+  void addProperty3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -67,7 +67,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty4(EventGraph<String> graph, EventBus bus) {
+  void addProperty4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -83,7 +83,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty5(EventGraph<String> graph, EventBus bus) {
+  void addProperty5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -100,7 +100,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty6(EventGraph<String> graph, EventBus bus) {
+  void addProperty6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -117,7 +117,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty7(EventGraph<String> graph, EventBus bus) {
+  void addProperty7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -135,7 +135,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty8(EventGraph<String> graph, EventBus bus) {
+  void addProperty8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -154,7 +154,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty9(EventGraph<String> graph, EventBus bus) {
+  void addProperty9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -174,7 +174,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addProperty10(EventGraph<String> graph, EventBus bus) {
+  void addProperty10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -195,7 +195,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void addPropertyMap(EventGraph<String> graph, EventBus bus) {
+  void addPropertyMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.vertex("A");
 
@@ -211,7 +211,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty1(EventGraph<String> graph, EventBus bus) {
+  void updateProperty1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A");
 
@@ -223,7 +223,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty2(EventGraph<String> graph, EventBus bus) {
+  void updateProperty2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B");
 
@@ -236,7 +236,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty3(EventGraph<String> graph, EventBus bus) {
+  void updateProperty3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C");
 
@@ -250,7 +250,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty4(EventGraph<String> graph, EventBus bus) {
+  void updateProperty4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A",
       "name2", "B", "name3",
@@ -267,7 +267,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty5(EventGraph<String> graph, EventBus bus) {
+  void updateProperty5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E");
 
@@ -283,7 +283,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty6(EventGraph<String> graph, EventBus bus) {
+  void updateProperty6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F");
 
@@ -300,7 +300,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty7(EventGraph<String> graph, EventBus bus) {
+  void updateProperty7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G");
 
@@ -318,7 +318,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty8(EventGraph<String> graph, EventBus bus) {
+  void updateProperty8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H");
 
@@ -337,7 +337,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty9(EventGraph<String> graph, EventBus bus) {
+  void updateProperty9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I");
 
@@ -357,7 +357,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty10(EventGraph<String> graph, EventBus bus) {
+  void updateProperty10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "A", "name2", "B", "name3", "C", "name4", "D", "name5", "E", "name6", "F", "name7", "G", "name8", "H", "name9", "I", "name10", "J");
 
@@ -378,7 +378,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updatePropertyMap(EventGraph<String> graph, EventBus bus) {
+  void updatePropertyMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property(Map.of("name1", "A", "name2", "B"));
 
@@ -390,7 +390,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updateProperty1Remove(EventGraph<String> graph, EventBus bus) {
+  void updateProperty1Remove(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A", "name1", "value1");
 
@@ -405,7 +405,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void updatePropertyAlreadyExists(EventGraph<String> graph, EventBus bus) {
+  void updatePropertyAlreadyExists(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name1", "value1");
 
@@ -421,7 +421,7 @@ public class Vertex {
   }
 
   @TestEventGraphs
-  void removeProperty(EventGraph<String> graph, EventBus bus) {
+  void removeProperty(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getVertex("A").property("name", "value");
 

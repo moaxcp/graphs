@@ -1,8 +1,8 @@
 package com.github.moaxcp.graphs.truth;
 
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.Graph.Edge;
-import com.github.moaxcp.graphs.Graph.Vertex;
+import com.github.moaxcp.graphs.PropertyGraph;
+import com.github.moaxcp.graphs.PropertyGraph.Edge;
+import com.github.moaxcp.graphs.PropertyGraph.Vertex;
 import com.google.common.truth.FailureMetadata;
 import com.google.common.truth.OptionalSubject;
 import com.google.common.truth.Subject;
@@ -17,18 +17,18 @@ import static com.google.common.truth.Truth.assertAbout;
 
 public final class GraphSubject extends Subject {
 
-    private Graph actual;
+    private PropertyGraph actual;
 
-    private GraphSubject(FailureMetadata metadata, Graph actual) {
+    private GraphSubject(FailureMetadata metadata, PropertyGraph actual) {
         super(metadata, actual);
         this.actual = actual;
     }
 
-    public static Subject.Factory<GraphSubject, Graph> graphs() {
+    public static Subject.Factory<GraphSubject, PropertyGraph> graphs() {
         return GraphSubject::new;
     }
 
-    static GraphSubject assertThat(Graph actual) {
+    static GraphSubject assertThat(PropertyGraph actual) {
         return assertAbout(graphs()).that(actual);
     }
 

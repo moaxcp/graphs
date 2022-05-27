@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs.truth;
 
-import com.github.moaxcp.graphs.Graph.Vertex;
+import com.github.moaxcp.graphs.PropertyGraph.Vertex;
 import com.google.common.truth.FailureMetadata;
 import com.google.common.truth.MapSubject;
 import com.google.common.truth.OptionalSubject;

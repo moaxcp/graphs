@@ -5,40 +5,40 @@
 
 == Usage
 
-`Graphs` is written in java 11 and is made up of a few modules published to maven central.
+`Graphs` is written in java 17 and is made up of a few modules published to maven central.
 
 `graphs-core` contains the main interfaces, implementations, and events
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.11.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.12.0'
 ----
 
 `graphs-greenrobot` EventGraph implementation using greenrobot's EventBus
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.11.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.12.0'
 ----
 
 `graphs-graphviz` rendering of graph as png or animated gifs using graphviz
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.11.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.12.0'
 ----
 
 `graphs-truth` assertions using google-truth
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.11.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.12.0'
 ----
 
 
-== What is a graph
+== What is a property graph
 
 A graph is a data structure containing a set of vertices and a set of edges. A vertex is typically a value and an edge
-is a relationship between two vertices (or values). The graph may be directed or undirected. The `Graph`
+is a relationship between two vertices (or values). The graph may be directed or undirected. The `PropertyGraph`
 interface provides a dsl for declaring vertices, edges and properties. It is the main interface for representing a
-graph. Values are represented as properties of a `Graph`, `Vertex`, or `Edge`. Some properties are required some are
-optional. The rest of the guide will walk through some of the key concepts of the library.
+graph. Values are represented as properties of a `PropertyGraph`, `Vertex`, or `Edge`. Some properties are required some are
+optional. The rest of the guide will walk through the key concepts of the library.
 
 == Design
 
@@ -49,7 +49,7 @@ The API is designed with the following in mind:
 * for event graphs, creating and changing a graph, vertices, or edges will result in an event
 * never return null or accept null
 
-=== Graph
+=== PropertyGraph
 
 * consists of vertices and edges
 * May be directed or undirected
@@ -61,8 +61,8 @@ The API is designed with the following in mind:
 * has properties inherited by all vertices
 * has properties inherited by all edges
 
-=== EventGraph
-* Works exactly like a `Graph` and sends events to the EventBus when modified
+=== EventPropertyGraph
+* Works exactly like a `PropertyGraph` and sends events to the EventBus when modified
 
 === Elements
 * vertices and edges of parent graph
@@ -81,24 +81,24 @@ The API is designed with the following in mind:
 
 == Representing a graph as code
 
-The `Graph` interface defines methods for building a graph as well as inner classes `Vertex` and `Edge`. These Inner
+The `PropertyGraph` interface defines methods for building a graph as well as inner classes `Vertex` and `Edge`. These Inner
 classes provide a perspective of the graph from those elements. Edges can change their endpoints, navigate to an
 endpoint and modify properties. Vertices can add new edges, get in, out, and adjacent edges, and modify properties.
 
-There are two implementations of `Graph` in the `graphs-core` module.
+There are two implementations of `PropertyGraph` in the `graphs-core` module.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=graphsCore]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=graphsCore]
 ----
 
-There are two other implementations of `Graph` in the 'graphs-greenrobot` module. These implementations send events to the EventBus when the graph is created or modified.
+There are two other implementations of `PropertyGraph` in the 'graphs-greenrobot` module. These implementations send events to the EventBus when the graph is created or modified.
 
 Note: Only greenrobot is currently supported but adding support for Guava's EventBus should be possible.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=graphsGreenrobot]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=graphsGreenrobot]
 ----
 
 `graphs-test` provides a solutions for assertions on the `EventBus`. It shows that the two creation events were sent to the bus.
@@ -109,33 +109,33 @@ To create or modify a vertex use the `vertex` or `getVertex` methods.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=vertex]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=vertex]
 ----
 
 `vertex` methods will return the graph while `getVertex` methods will return the vertex. This allows for different
 forms of method chaining.
 
-An `EventGraph` will send `VertexCreated` events to subscribers.
+An `EventPropertyGraph` will send `VertexCreated` events to subscribers.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=vertexEvent]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=vertexEvent]
 ----
 
 If a vertex already exists in the graph it can be modified.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyVertex]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=modifyVertex]
 ----
 
 The first call to `vertex` creates vertex `A` with a property `color` set to `red`. The second call changes the property `color` to `blue`.
 
-If graph is an `EventGraph` first `VertexCreatedEvent`,then `VertexPropertyEvent` will be sent to the `EventBus`.
+If graph is an `EventPropertyGraph` first `VertexCreatedEvent`,then `VertexPropertyEvent` will be sent to the `EventBus`.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyVertexEvents]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=modifyVertexEvents]
 ----
 
 In this case a `VertexCreatedEvent` is sent to the `EventBus`.
@@ -146,33 +146,33 @@ To create or modify an edge use the `edge` or `getEdge` methods. If the vertices
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=edge]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=edge]
 ----
 
 Similar to `vertex` methods, `edge` methods will return the graph and `getEdge` will return the `Edge`.
 
-With an `EventGraph` the `EdgeCreatedEvent` will be sent to the bus. If any of the vertices need to be created `VertexCreatedEvent` will be sent to the bus.
+With an `EventPropertyGraph` the `EdgeCreatedEvent` will be sent to the bus. If any of the vertices need to be created `VertexCreatedEvent` will be sent to the bus.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=edgeEvent]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=edgeEvent]
 ----
 
 If an edge already exits in the graph it can be modified.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyEdge]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=modifyEdge]
 ----
 
 The first call to `edge` creates edge `A -> B` with property `color` set to `red`. The second call changes the property
 `color` to `green`.
 
-If the graph is an `EventGraph` events will be sent to the `EventBus`.
+If the graph is an `EventPropertyGraph` events will be sent to the `EventBus`.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=modifyEdgeEvents]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=modifyEdgeEvents]
 ----
 
 First a `VertexCreatedEvent` for vertex `A` is sent to the `EventBus`. Followed by a `VertexCreatedEvent` for vertex
@@ -180,16 +180,16 @@ First a `VertexCreatedEvent` for vertex `A` is sent to the `EventBus`. Followed 
 
 === properties
 
-The `Graph` interface is used to represent a property graph. This means graphs, vertices, and edges can have properties added to them. These properties can be used to represent
+The `PropertyGraph` interface is used to represent a property graph. This means graphs, vertices, and edges can have properties added to them. These properties can be used to represent
 anything. For instance, if the graph needs to be represented in graphviz there can be properties for color and style.
 
 Id properties are different. For graphs and edges the id property is optional.
 
 ==== id properties
 
-The generic parameter in `Graph<ID>` represents the type for all id properties.
+The generic parameter in `PropertyGraph<ID>` represents the type for all id properties.
 
-Vertices must have an `id` property which is unique to all vertices in the `Graph`.
+Vertices must have an `id` property which is unique to all vertices in the `PropertyGraph`.
 
 Edges must have a `from` property which represents the `Vertex` the `Edge` connects from (or source vertex) and a `to`
 property which represents the `Vertex` the `Edge` connects to (the target vertex). Edges may have an optional `id`
@@ -206,7 +206,7 @@ graph.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAGraphAsCode.java[tags=inheritedProperties]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=inheritedProperties]
 ----
 
 The default color for all vertices and edges is set to `"green"` and `"red"` respectively.
@@ -218,7 +218,7 @@ image. Example:
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAGraph.java[tags=dot]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAPropertyGraph.java[tags=dot]
 ----
 
 image::images/edgeMethods.png[edge methods]
@@ -227,7 +227,7 @@ EventGraphs can also be visualized as an animated gif. Each event creates a new 
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAGraph.java[tags=gif]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAPropertyGraph.java[tags=gif]
 ----
 
 image::images/gifExample.gif[gif]
@@ -249,7 +249,7 @@ The properties can be anything but here they are used for graphviz.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAGraph.java[tags=dot]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/VisualizeAPropertyGraph.java[tags=dot]
 ----
 
 image::images/edgeMethods.png[edge classification]
@@ -263,8 +263,8 @@ including the "to" and "from" vertices of the edge. `getEdge` can also be used t
 include::{sourcedir}/com/github/moaxcp/graphs/manual/EdgeMethods.java[tags=getEdge]
 ----
 
-The previous example used a `DirectedGraph`. In a directed graph two edges can be between two vertices as is shown
-between vertex `A` and `B`. The must go in opposite directions. If the graph were an instance of `UndirectedGraph`,
+The previous example used a `DirectedPropertyGraph`. In a directed graph two edges can be between two vertices as is shown
+between vertex `A` and `B`. The must go in opposite directions. If the graph were an instance of `UndirectedPropertyGraph`,
 there would only be one edge between vertex `A` and `B`.
 
 ----
@@ -272,7 +272,7 @@ graph.getEdge("A", "B");
 graph.getEdge("B", "A");
 ----
 
-In an `UndirectedGraph` both calls to `getEdge` returns the same edge instance. The first call creates the edge.
+In an `UndirectedPropertyGraph` both calls to `getEdge` returns the same edge instance. The first call creates the edge.
 
 == Create a graph using vertex methods
 
@@ -342,6 +342,10 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
+== 0.13.0-SNAPSHOT
+
+Renaming Graph to PropertyGraph.
+
 == 0.12.0
 
 Adding gif support to graphs-graphviz module. This allows gif animations to be built from an `EventGraph`. It is enabled with the greenrobotgif capability in gradle.
@@ -363,7 +367,7 @@ This all came down to how the `Objects.hash(...)` method is ordered but undirect
 solution is to simply add the hashcodes of the two ids together. This is similar to how HashSet calculates its
 `hashCode()`.
 
-Adding `boolean connected(ID from, ID to)` to `Graph` and `boolean connected(ID id) to `Vertex`. This can be used to check if two vertices are connected. It can
+Adding `boolean connected(ID from, ID to)` to `PropertyGraph` and `boolean connected(ID id) to `Vertex`. This can be used to check if two vertices are connected. It can
 be used to enforce that the graph is always a DAG when adding edges.
 
 === 0.10.0

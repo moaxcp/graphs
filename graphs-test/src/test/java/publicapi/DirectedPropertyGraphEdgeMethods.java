@@ -1,14 +1,14 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.PropertyGraph;
 import com.github.moaxcp.graphs.testframework.TestDirectedGraphs;
 
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 
-public class DirectedGraphEdgeMethods {
+public class DirectedPropertyGraphEdgeMethods {
 
     @TestDirectedGraphs
-    void twoEdgesConnectSameVertices(Graph<String> graph) {
+    void twoEdgesConnectSameVertices(PropertyGraph<String> graph) {
         var edge1 = graph.getEdge("A", "B");
         var edge2 = graph.getEdge("B", "A");
 
@@ -19,7 +19,7 @@ public class DirectedGraphEdgeMethods {
     }
 
     @TestDirectedGraphs
-    void otherEdgeIsNotRemoved(Graph<String> graph) {
+    void otherEdgeIsNotRemoved(PropertyGraph<String> graph) {
         graph.edge("A", "B").edge("B", "A");
         graph.removeEdge("A", "B");
 

@@ -1,24 +1,24 @@
 package com.github.moaxcp.graphs.manual;
 
-import com.github.moaxcp.graphs.DirectedGraph;
-import com.github.moaxcp.graphs.Graph;
-import com.github.moaxcp.graphs.Graph.Edge;
-import com.github.moaxcp.graphs.Graph.Vertex;
-import com.github.moaxcp.graphs.UndirectedGraph;
+import com.github.moaxcp.graphs.DirectedPropertyGraph;
+import com.github.moaxcp.graphs.PropertyGraph;
+import com.github.moaxcp.graphs.PropertyGraph.Edge;
+import com.github.moaxcp.graphs.PropertyGraph.Vertex;
+import com.github.moaxcp.graphs.UndirectedPropertyGraph;
 import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventGraph;
-import com.github.moaxcp.graphs.greenrobot.UndirectedEventGraph;
+import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
+import com.github.moaxcp.graphs.greenrobot.UndirectedEventPropertyGraph;
 import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
 
-public class RepresentingAGraphAsCode {
+public class RepresentingAPropertyGraphAsCode {
   @Test
   void graphsCore() {
     // tag::graphsCore[]
-    Graph<String> undirectedGraph = new UndirectedGraph<>();
-    Graph<String> directedGraph = new DirectedGraph<>();
+    PropertyGraph<String> undirectedGraph = new UndirectedPropertyGraph<>();
+    PropertyGraph<String> directedGraph = new DirectedPropertyGraph<>();
     // end::graphsCore[]
   }
 
@@ -29,15 +29,15 @@ public class RepresentingAGraphAsCode {
     var undirectedEvent = UndirectedGraphCreatedEvent.<String>builder().graphId("undirected").build();
     var directedEvent = DirectedGraphCreatedEvent.<String>builder().graphId("directed").build();
     assertThat(bus).withAction(() -> {
-      Graph<String> undirectedGraph = new UndirectedEventGraph<>("undirected", bus);
-      Graph<String> directedGraph = new DirectedEventGraph<>("directed", bus);
+      PropertyGraph<String> undirectedGraph = new UndirectedEventPropertyGraph<>("undirected", bus);
+      PropertyGraph<String> directedGraph = new DirectedEventPropertyGraph<>("directed", bus);
     }).containsExactly(undirectedEvent, directedEvent);
     // end::graphsGreenrobot[]
   }
 
   @Test
   void addAVertex() {
-    Graph<String> graph = new UndirectedGraph<>();
+    PropertyGraph<String> graph = new UndirectedPropertyGraph<>();
     // tag::vertex[]
     graph = graph.vertex("A");
     Vertex<String> vertex = graph.getVertex("B");
@@ -49,7 +49,7 @@ public class RepresentingAGraphAsCode {
   @Test
   void addAVertexGreenrobot() {
     EventBus bus = new EventBus();
-    Graph<String> graph = new UndirectedEventGraph<>(bus);
+    PropertyGraph<String> graph = new UndirectedEventPropertyGraph<>(bus);
     // tag::vertexEvent[]
     assertThat(bus).withAction(() -> {
       graph.vertex("A");
@@ -61,7 +61,7 @@ public class RepresentingAGraphAsCode {
 
   @Test
   void modifyVertex() {
-    var graph = new DirectedGraph<String>();
+    var graph = new DirectedPropertyGraph<String>();
     // tag::modifyVertex[]
     graph.vertex("A", "color", "red");
     graph.vertex("A", "color", "blue");
@@ -72,7 +72,7 @@ public class RepresentingAGraphAsCode {
   @Test
   void modifyVertexEvents() {
     EventBus bus = EventBus.builder().build();
-    var graph = new DirectedEventGraph<String>(bus);
+    var graph = new DirectedEventPropertyGraph<String>(bus);
     // tag::modifyVertexEvents[]
     assertThat(bus).withAction(() -> {
         graph.vertex("A", "color", "red");
@@ -85,7 +85,7 @@ public class RepresentingAGraphAsCode {
 
   @Test
   void addAnEdge() {
-    Graph<String> graph = new DirectedGraph<>();
+    PropertyGraph<String> graph = new DirectedPropertyGraph<>();
     // tag::edge[]
     graph = graph.edge("A", "B", "color", "red");
     Edge<String> edge = graph.getEdge("A", "C", "color", "green");
@@ -97,7 +97,7 @@ public class RepresentingAGraphAsCode {
   @Test
   void addAnEdgeGreenRobot() {
     EventBus bus = new EventBus();
-    Graph<String> graph = new DirectedEventGraph<>(bus);
+    PropertyGraph<String> graph = new DirectedEventPropertyGraph<>(bus);
     // tag::edgeEvent[]
     assertThat(bus).withAction(() -> {
       graph.edge("A", "B", "color", "red");
@@ -113,7 +113,7 @@ public class RepresentingAGraphAsCode {
 
   @Test
   void modifyEdge() {
-    var graph = new DirectedGraph<String>();
+    var graph = new DirectedPropertyGraph<String>();
     // tag::modifyEdge[]
     graph.edge("A", "B", "color", "red");
     graph.edge("A", "B", "color", "green");
@@ -125,7 +125,7 @@ public class RepresentingAGraphAsCode {
   void modifyEdgeEvents() {
     // tag::modifyEdgeEvents[]
     EventBus bus = EventBus.builder().build();
-    var graph = new DirectedEventGraph<String>(bus);
+    var graph = new DirectedEventPropertyGraph<String>(bus);
     assertThat(bus)
       .withAction(() -> {
         graph.edge("A", "B", "color", "red");
@@ -141,7 +141,7 @@ public class RepresentingAGraphAsCode {
 
   @Test
   void inheritedProperties() {
-    var graph = new DirectedGraph<String>();
+    var graph = new DirectedPropertyGraph<String>();
     // tag::inheritedProperties[]
     graph.vertexProperty("color", "green");
     graph.edgeProperty("color", "red");

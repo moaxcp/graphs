@@ -20,7 +20,7 @@ import java.util.stream.*;
  *
  * @param <ID> type of all identifiers in graph
  */
-public interface Graph<ID> {
+public interface PropertyGraph<ID> {
   /**
    * Vertex of graph. A vertex must have an identifier unique to all vertices in the graph.
    *
@@ -489,29 +489,29 @@ public interface Graph<ID> {
    * @return created or existing vertex
    * @throws NullPointerException if id is null
    */
-  Graph<ID> vertex(ID id);
+  PropertyGraph<ID> vertex(ID id);
 
-  Graph<ID> vertex(ID id, String name, Object value);
+  PropertyGraph<ID> vertex(ID id, String name, Object value);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
 
-  Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
+  PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
 
-  Graph<ID> vertex(ID id, Map<String, Object> properties);
+  PropertyGraph<ID> vertex(ID id, Map<String, Object> properties);
 
   Vertex<ID> getVertex(ID id);
 
@@ -577,7 +577,7 @@ public interface Graph<ID> {
    * @param to   of edge
    * @return created or existing edge
    */
-  Graph<ID> edge(ID from, ID to);
+  PropertyGraph<ID> edge(ID from, ID to);
 
   /*
   TODO future methods for setting id when it becomes treated as a property and events are easier to handle..
@@ -588,27 +588,27 @@ public interface Graph<ID> {
   Graph<ID> edge(ID from, ID to, ID id, Map<String, Object> properties);
   */
 
-  Graph<ID> edge(ID from, ID to, String name, Object value);
+  PropertyGraph<ID> edge(ID from, ID to, String name, Object value);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9);
 
-  Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
+  PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10);
 
-  Graph<ID> edge(ID from, ID to, Map<String, Object> properties);
+  PropertyGraph<ID> edge(ID from, ID to, Map<String, Object> properties);
 
   Edge<ID> getEdge(ID from, ID to);
 
@@ -675,7 +675,7 @@ public interface Graph<ID> {
    * @return this graph
    * @throws NullPointerException if id is null
    */
-  Graph<ID> id(ID id);
+  PropertyGraph<ID> id(ID id);
 
   /**
    * Returns true if this graph is directed.
@@ -728,9 +728,9 @@ public interface Graph<ID> {
    * @return this graph
    * @throws NullPointerException if name or value is null
    */
-  Graph<ID> property(String name, Object value);
+  PropertyGraph<ID> property(String name, Object value);
 
-  Graph<ID> property(Map<String, Object> properties);
+  PropertyGraph<ID> property(Map<String, Object> properties);
 
   /**
    * Removes property on this graph returning this graph
@@ -739,7 +739,7 @@ public interface Graph<ID> {
    * @return this graph
    * @throws NullPointerException if name is null
    */
-  Graph<ID> removeProperty(String name);
+  PropertyGraph<ID> removeProperty(String name);
 
   /**
    * Returns an unmodifiable map of edge properties.
@@ -784,9 +784,9 @@ public interface Graph<ID> {
    * @return this graph
    * @throws NullPointerException if name or value is null
    */
-  Graph<ID> edgeProperty(String name, Object value);
+  PropertyGraph<ID> edgeProperty(String name, Object value);
 
-  Graph<ID> edgeProperty(Map<String, Object> properties);
+  PropertyGraph<ID> edgeProperty(Map<String, Object> properties);
 
   /**
    * Removes edge property returning this graph
@@ -795,7 +795,7 @@ public interface Graph<ID> {
    * @return this graph
    * @throws NullPointerException if name is null
    */
-  Graph<ID> removeEdgeProperty(String name);
+  PropertyGraph<ID> removeEdgeProperty(String name);
 
   /**
    * Retruns an unmodifiable map of vertex properties.
@@ -840,9 +840,9 @@ public interface Graph<ID> {
    * @return created or existing edge
    * @throws NullPointerException if name or value is null
    */
-  Graph<ID> vertexProperty(String name, Object value);
+  PropertyGraph<ID> vertexProperty(String name, Object value);
 
-  Graph<ID> vertexProperty(Map<String, Object> properties);
+  PropertyGraph<ID> vertexProperty(Map<String, Object> properties);
 
   /**
    * Removes vertex property returning this graph
@@ -851,7 +851,7 @@ public interface Graph<ID> {
    * @return this graph
    * @throws NullPointerException if name is null
    */
-  Graph<ID> removeVertexProperty(String name);
+  PropertyGraph<ID> removeVertexProperty(String name);
 
   /**
    * Returns true if 'from' and 'to' vertices are connected.

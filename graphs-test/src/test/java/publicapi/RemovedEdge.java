@@ -1,6 +1,6 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.PropertyGraph;
 import com.github.moaxcp.graphs.testframework.TestGraphs;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemovedEdge {
     @TestGraphs
-    void setId(Graph<String> graph) {
+    void setId(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setId("id"));
@@ -16,7 +16,7 @@ public class RemovedEdge {
     }
 
     @TestGraphs
-    void id(Graph<String> graph) {
+    void id(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.id("id"));
@@ -24,7 +24,7 @@ public class RemovedEdge {
     }
 
     @TestGraphs
-    void setFrom(Graph<String> graph) {
+    void setFrom(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setFrom("C"));
@@ -32,7 +32,7 @@ public class RemovedEdge {
     }
 
     @TestGraphs
-    void from(Graph<String> graph) {
+    void from(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.from("C"));
@@ -40,7 +40,7 @@ public class RemovedEdge {
     }
 
     @TestGraphs
-    void setTo(Graph<String> graph) {
+    void setTo(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setTo("C"));
@@ -48,7 +48,7 @@ public class RemovedEdge {
     }
 
     @TestGraphs
-    void to(Graph<String> graph) {
+    void to(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.to("C"));
@@ -56,7 +56,7 @@ public class RemovedEdge {
     }
 
     @TestGraphs
-    void setProperty(Graph<String> graph) {
+    void setProperty(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.setProperty("name", "value"));
@@ -64,7 +64,7 @@ public class RemovedEdge {
     }
 
     @TestGraphs
-    void removeProperty(Graph<String> graph) {
+    void removeProperty(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> edge.removeProperty("name"));

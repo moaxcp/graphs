@@ -1,7 +1,7 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.Graph.*;
+import com.github.moaxcp.graphs.PropertyGraph.*;
 import com.github.moaxcp.graphs.testframework.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.*;
@@ -18,46 +18,46 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PostOrderDepthFirstIteratorTest {
 
   @TestGraphs
-  void nullStart(Graph<String> graph) {
+  void nullStart(PropertyGraph<String> graph) {
     var exception = assertThrows(NullPointerException.class, () -> graph.postOrderIterator((String[]) null));
     assertThat(exception).hasMessageThat().isEqualTo("start is marked non-null but is null");
   }
 
   @TestGraphs
-  void nullInOther(Graph<String> graph) {
+  void nullInOther(PropertyGraph<String> graph) {
     graph.vertex("A").vertex("B");
     var exception = assertThrows(NullPointerException.class, () -> graph.postOrderIterator("A", null, "B"));
     assertThat(exception).hasMessageThat().isEqualTo("\"id\" in \"start\" must not be null.");
   }
 
   @TestGraphs
-  void startNotInGraph(Graph<String> graph) {
+  void startNotInGraph(PropertyGraph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.postOrderIterator("A"));
     assertThat(exception).hasMessageThat().isEqualTo("vertex \"A\" not found in graph.");
   }
 
   @TestGraphs
-  void hasNext_EmptyGraph(Graph<String> graph) {
+  void hasNext_EmptyGraph(PropertyGraph<String> graph) {
     var iterator = graph.postOrderIterator();
     assertThat(iterator.hasNext()).isFalse();
   }
 
   @TestGraphs
-  void next_EmptyGraph(Graph<String> graph) {
+  void next_EmptyGraph(PropertyGraph<String> graph) {
     var iterator = graph.postOrderIterator();
     var exception = assertThrows(NoSuchElementException.class, () -> iterator.next());
     assertThat(exception).hasMessageThat().isEqualTo("Could not find next element.");
   }
 
   @TestGraphs
-  void hasNext_beforeIteration(Graph<String> graph) {
+  void hasNext_beforeIteration(PropertyGraph<String> graph) {
     graph.vertex("A");
     var iterator = graph.postOrderIterator();
     assertThat(iterator.hasNext()).isTrue();
   }
 
   @TestGraphs
-  void hasNext_MultipleBeforeIteration(Graph<String> graph) {
+  void hasNext_MultipleBeforeIteration(PropertyGraph<String> graph) {
     graph.vertex("A");
     var iterator = graph.postOrderIterator();
     assertThat(iterator.hasNext()).isTrue();
@@ -67,7 +67,7 @@ public class PostOrderDepthFirstIteratorTest {
   }
 
   @TestGraphs
-  void hasNext_MultipleBetweenComponents(Graph<String> graph) {
+  void hasNext_MultipleBetweenComponents(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("B");
     var iterator = graph.postOrderIterator();
@@ -80,7 +80,7 @@ public class PostOrderDepthFirstIteratorTest {
   }
 
   @TestGraphs
-  void next_withoutCallingHasNext(Graph<String> graph) {
+  void next_withoutCallingHasNext(PropertyGraph<String> graph) {
     graph.vertex("A");
     var iterator = graph.postOrderIterator();
     assertThat(iterator.next().getId()).isEqualTo("A");
@@ -90,7 +90,7 @@ public class PostOrderDepthFirstIteratorTest {
   @MethodSource("com.github.moaxcp.graphs.testframework.MethodSources#graphsPostOrder")
   @DisplayName("postOrderIterator matches expected order")
   @ParameterizedTest(name = "{index} - {0} {2}")
-  void postOrderIterator(String name, Graph<String> graph, String[] start, List<String> expectedOrder) {
+  void postOrderIterator(String name, PropertyGraph<String> graph, String[] start, List<String> expectedOrder) {
     var iterator = graph.postOrderIterator(start);
     for(String expected : expectedOrder) {
       String result = iterator.next().getId();
@@ -99,7 +99,7 @@ public class PostOrderDepthFirstIteratorTest {
   }
 
   @TestDirectedGraphs
-  void postOrderIteratorStart(Graph<String> graph) {
+  void postOrderIteratorStart(PropertyGraph<String> graph) {
     complexTwoComponents(graph, POST_ORDER);
     var result = new ArrayList<String>();
     var iterator = graph.postOrderIterator("D", "G", "W");
@@ -113,7 +113,7 @@ public class PostOrderDepthFirstIteratorTest {
   @MethodSource("com.github.moaxcp.graphs.testframework.MethodSources#graphsPostOrder")
   @DisplayName("postOrderStream matches expected order")
   @ParameterizedTest(name = "{index} - {0} {2}")
-  void postOrderStream(String name, Graph<String> graph, String[] start, List<String> expectedOrder) {
+  void postOrderStream(String name, PropertyGraph<String> graph, String[] start, List<String> expectedOrder) {
     var result = graph.postOrderStream(start)
     .map(Vertex::getId)
     .collect(toList());
@@ -122,7 +122,7 @@ public class PostOrderDepthFirstIteratorTest {
   }
 
   @TestDirectedGraphs
-  void postOrderStreamStart(Graph<String> graph) {
+  void postOrderStreamStart(PropertyGraph<String> graph) {
     complexTwoComponents(graph, POST_ORDER);
     var result = graph.postOrderStream("D", "G", "W")
       .map(Vertex::getId)

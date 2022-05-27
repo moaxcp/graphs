@@ -1,6 +1,6 @@
 package publicapi;
 
-import com.github.moaxcp.graphs.Graph;
+import com.github.moaxcp.graphs.PropertyGraph;
 import com.github.moaxcp.graphs.testframework.TestGraphs;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemovedVertex {
     @TestGraphs
-    void setId(Graph<String> graph) {
+    void setId(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.setId("B"));
@@ -16,7 +16,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void id(Graph<String> graph) {
+    void id(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.id("B"));
@@ -24,7 +24,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void setProperty(Graph<String> graph) {
+    void setProperty(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.setProperty("name", "value"));
@@ -32,7 +32,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void property(Graph<String> graph) {
+    void property(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.property("name", "value"));
@@ -40,7 +40,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void removeProperty(Graph<String> graph) {
+    void removeProperty(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A").property("name", "value");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.removeProperty("name"));
@@ -48,7 +48,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void connectsTo(Graph<String> graph) {
+    void connectsTo(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsTo("B"));
@@ -56,7 +56,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void connectsFrom(Graph<String> graph) {
+    void connectsFrom(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.connectsFrom("B"));
@@ -64,7 +64,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void adjacentEdges(Graph<String> graph) {
+    void adjacentEdges(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.adjacentEdges());
@@ -72,7 +72,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void inEdges(Graph<String> graph) {
+    void inEdges(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.inEdges());
@@ -80,7 +80,7 @@ public class RemovedVertex {
     }
 
     @TestGraphs
-    void outEdges(Graph<String> graph) {
+    void outEdges(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
         Throwable thrown = assertThrows(IllegalStateException.class, () -> vertex.outEdges());

@@ -22,38 +22,38 @@ public class MethodSources {
                 .build();
     }
 
-    public static Stream<Graph<String>> simpleGraphs() {
+    public static Stream<PropertyGraph<String>> simpleGraphs() {
         return Stream.of(
-                new UndirectedGraph<>(),
-                new DirectedGraph<>(),
-                new UndirectedEventGraph<>(testEventBus()),
-                new DirectedEventGraph<>(testEventBus()));
+                new UndirectedPropertyGraph<>(),
+                new DirectedPropertyGraph<>(),
+                new UndirectedEventPropertyGraph<>(testEventBus()),
+                new DirectedEventPropertyGraph<>(testEventBus()));
     }
 
-    public static Stream<Graph<String>> undirectedSimpleGraphs() {
+    public static Stream<PropertyGraph<String>> undirectedSimpleGraphs() {
         return Stream.of(
-                new UndirectedGraph<>(),
-                new UndirectedEventGraph<>(testEventBus()));
+                new UndirectedPropertyGraph<>(),
+                new UndirectedEventPropertyGraph<>(testEventBus()));
     }
 
-    public static Stream<Graph<String>> directedSimpleGraphs() {
+    public static Stream<PropertyGraph<String>> directedSimpleGraphs() {
         return Stream.of(
-                new DirectedGraph<>(),
-                new DirectedEventGraph<>(testEventBus()));
+                new DirectedPropertyGraph<>(),
+                new DirectedEventPropertyGraph<>(testEventBus()));
     }
 
-    public static Stream<Graph<String>> nonEventSimpleGraphs() {
+    public static Stream<PropertyGraph<String>> nonEventSimpleGraphs() {
         return Stream.of(
-            new UndirectedGraph<>(),
-            new DirectedGraph<>());
+            new UndirectedPropertyGraph<>(),
+            new DirectedPropertyGraph<>());
     }
 
     public static Stream<Arguments> eventSimpleGraphs() {
         EventBus undirected = testEventBus();
         EventBus directed = testEventBus();
         return Stream.of(
-                Arguments.arguments(new UndirectedEventGraph<>(undirected), undirected),
-                Arguments.arguments(new DirectedEventGraph<>(directed), directed));
+                Arguments.arguments(new UndirectedEventPropertyGraph<>(undirected), undirected),
+                Arguments.arguments(new DirectedEventPropertyGraph<>(directed), directed));
     }
 
     public static Stream<Arguments> graphsPostOrder() {
@@ -86,17 +86,17 @@ public class MethodSources {
         ).flatMap(identity());
     }
 
-    private static Stream<Arguments> simpleGraphArguments(Function<Graph<String>, Arguments> convert) {
+    private static Stream<Arguments> simpleGraphArguments(Function<PropertyGraph<String>, Arguments> convert) {
         return simpleGraphs()
           .map(convert);
     }
 
-    private static Stream<Arguments> directedGraphArguments(Function<Graph<String>, Arguments> convert) {
+    private static Stream<Arguments> directedGraphArguments(Function<PropertyGraph<String>, Arguments> convert) {
         return directedSimpleGraphs()
           .map(convert);
     }
 
-    private static Arguments startHasDuplicates(Graph<String> graph, PathOrder order) {
+    private static Arguments startHasDuplicates(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("A", "C")
           .edge("B", "D")
@@ -117,7 +117,7 @@ public class MethodSources {
         }
     }
 
-    private static Arguments startVertexIsBlack(Graph<String> graph, PathOrder order) {
+    private static Arguments startVertexIsBlack(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C")
           .edge("B", "D")
@@ -142,7 +142,7 @@ public class MethodSources {
         }
     }
 
-    public static Arguments complexTwoComponents(Graph<String> graph, PathOrder order) {
+    public static Arguments complexTwoComponents(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C")
           .edge("B", "D")
@@ -171,7 +171,7 @@ public class MethodSources {
         }
     }
 
-    private static Arguments complexTwoTraversal(Graph<String> graph, PathOrder order) {
+    private static Arguments complexTwoTraversal(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C")
           .edge("B", "D")
@@ -196,7 +196,7 @@ public class MethodSources {
         }
     }
 
-    private static Arguments complexOneTraversal(Graph<String> graph, PathOrder order) {
+    private static Arguments complexOneTraversal(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C")
           .edge("B", "D")
@@ -219,7 +219,7 @@ public class MethodSources {
         }
     }
 
-    private static Arguments splitJoin(Graph<String> graph, PathOrder order) {
+    private static Arguments splitJoin(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("A", "C")
           .edge("B", "D")
@@ -242,7 +242,7 @@ public class MethodSources {
         }
     }
 
-    private static Arguments threeSplit(Graph<String> graph, PathOrder order) {
+    private static Arguments threeSplit(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("A", "C");
         var name = createName("three split", graph, order);
@@ -258,7 +258,7 @@ public class MethodSources {
         }
     }
 
-    private static Arguments threeLinked(Graph<String> graph, PathOrder order) {
+    private static Arguments threeLinked(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B")
           .edge("B", "C");
         var name = createName("three linked", graph, order);
@@ -274,7 +274,7 @@ public class MethodSources {
         }
     }
 
-    private static Arguments three(Graph<String> graph, PathOrder order) {
+    private static Arguments three(PropertyGraph<String> graph, PathOrder order) {
         graph.vertex("A")
           .vertex("B")
           .vertex("C");
@@ -283,7 +283,7 @@ public class MethodSources {
         return arguments(name, graph, startOrder(), List.of("A", "B", "C"));
     }
 
-    private static Arguments twoLinked(Graph<String> graph, PathOrder order) {
+    private static Arguments twoLinked(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B");
         var name = createName("two linked", graph, order);
 
@@ -298,7 +298,7 @@ public class MethodSources {
         }
     }
 
-    private static Arguments two(Graph<String> graph, PathOrder order) {
+    private static Arguments two(PropertyGraph<String> graph, PathOrder order) {
         graph.vertex("A")
           .vertex("B");
         var name = createName("two", graph, order);
@@ -306,14 +306,14 @@ public class MethodSources {
         return arguments(name, graph, startOrder(), List.of("A", "B"));
     }
 
-    private static Arguments oneLinked(Graph<String> graph, PathOrder order) {
+    private static Arguments oneLinked(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "A");
         var name = createName("one linked", graph, order);
 
         return arguments(name, graph, startOrder(), List.of("A"));
     }
 
-    private static Arguments one(Graph<String> graph, PathOrder order) {
+    private static Arguments one(PropertyGraph<String> graph, PathOrder order) {
         graph.vertex("A");
         var name = createName("one vertex", graph, order);
 
@@ -324,11 +324,11 @@ public class MethodSources {
         return start;
     }
 
-    private static String createName(String prefix, Graph<String> graph, PathOrder order) {
+    private static String createName(String prefix, PropertyGraph<String> graph, PathOrder order) {
         return prefix + " " + getDirected(graph) + " " + order;
     }
 
-    private static String getDirected(Graph<String> graph) {
+    private static String getDirected(PropertyGraph<String> graph) {
         if(graph.isDirected()) {
             return "directed graph";
         }

@@ -8,7 +8,7 @@ import java.util.*;
 
 import static java.util.Objects.*;
 
-public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implements EventGraph<ID> {
+public abstract class AbstractEventPropertyGraph<ID> extends AbstractPropertyGraph<ID> implements EventPropertyGraph<ID> {
 
   public class EventEdge extends SimpleEdge {
     protected EventEdge(ID from, ID to, Map<String, Object> local, Map<String, Object> inherited) {
@@ -23,7 +23,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
       }
       super.setId(id);
       bus.post(EdgePropertyEvent.<ID>builder()
-        .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
         .fromId(getFrom())
         .toId(getTo())
         .edgeId(oldId)
@@ -36,7 +36,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
       var oldFrom = this.getFrom();
       super.setFrom(from);
       bus.post(EdgePropertyEvent.<ID>builder()
-        .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
         .fromId(oldFrom)
         .newFromId(from)
         .toId(getTo())
@@ -49,7 +49,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
       var oldTo = this.getTo();
       super.setTo(to);
       bus.post(EdgePropertyEvent.<ID>builder()
-        .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
         .fromId(getFrom())
         .toId(oldTo)
         .newToId(to)
@@ -61,7 +61,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     public Edge<ID> property(Map<String, Object> properties) {
       super.property(properties);
       bus.post(EdgePropertyEvent.<ID>builder()
-        .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
         .fromId(getFrom())
         .toId(getTo())
         .edgeId(getId().orElse(null))
@@ -81,7 +81,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
       ID oldId = getId();
       super.setId(id);
       bus.post(VertexPropertyEvent.<ID>builder()
-        .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
         .vertexId(oldId)
         .newId(id)
         .build());
@@ -91,7 +91,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
     public Vertex<ID> property(Map<String, Object> properties) {
       super.property(properties);
       bus.post(VertexPropertyEvent.<ID>builder()
-        .graphId(AbstractEventGraph.this.getId().orElse(null))
+        .graphId(AbstractEventPropertyGraph.this.getId().orElse(null))
         .vertexId(getId())
         .properties(properties)
         .build()
@@ -102,11 +102,11 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
 
   private EventBus bus;
 
-  public AbstractEventGraph(EventBus bus) {
+  public AbstractEventPropertyGraph(EventBus bus) {
     this.bus = requireNonNull(bus, "bus must not be null.");
   }
 
-  public AbstractEventGraph(ID id, EventBus bus) {
+  public AbstractEventPropertyGraph(ID id, EventBus bus) {
     super(id);
     this.bus = requireNonNull(bus, "bus must not be null.");
   }
@@ -126,7 +126,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
   }
 
   @Override
-  public Graph<ID> property(Map<String, Object> properties) {
+  public PropertyGraph<ID> property(Map<String, Object> properties) {
     var id = getId().orElse(null);
     super.property(properties);
     bus.post(GraphPropertyEvent.<ID>builder()
@@ -137,7 +137,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
   }
 
   @Override
-  public Graph<ID> edgeProperty(Map<String, Object> properties) {
+  public PropertyGraph<ID> edgeProperty(Map<String, Object> properties) {
     super.edgeProperty(properties);
     bus.post(EdgeInheritedPropertyEvent.<ID>builder()
       .graphId(getId().orElse(null))
@@ -147,7 +147,7 @@ public abstract class AbstractEventGraph<ID> extends AbstractGraph<ID> implement
   }
 
   @Override
-  public Graph<ID> vertexProperty(Map<String, Object> properties) {
+  public PropertyGraph<ID> vertexProperty(Map<String, Object> properties) {
     Map<String, Object> oldValues = new LinkedHashMap<>(getVertexProperties());
     super.vertexProperty(properties);
     bus.post(VertexInheritedPropertyEvent.<ID>builder()

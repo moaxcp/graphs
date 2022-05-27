@@ -14,14 +14,14 @@ import static java.util.stream.Collectors.*;
 
 public class Dot<ID> {
 
-    private Graph<ID> graph;
+    private PropertyGraph<ID> graph;
     private String type;
 
-    public static <ID> Dot<ID> dot(Graph<ID> graph) {
+    public static <ID> Dot<ID> dot(PropertyGraph<ID> graph) {
         return new Dot<>(graph);
     }
 
-    private Dot(Graph<ID> graph) {
+    private Dot(PropertyGraph<ID> graph) {
         this.graph = requireNonNull(graph, "graph must not be null.");
         type = "png";
     }
@@ -50,11 +50,11 @@ public class Dot<ID> {
         writeGraphAttributes(writer);
         writeVertexAttributes(writer);
         writeEdgeAttributes(writer);
-        for(Graph.Edge<ID> edge : graph.getEdges()) {
+        for(PropertyGraph.Edge<ID> edge : graph.getEdges()) {
             writeEdge(edge, printWriter);
         }
 
-        for(Graph.Vertex<ID> vertex : graph.getVertices().values()) {
+        for(PropertyGraph.Vertex<ID> vertex : graph.getVertices().values()) {
             writeVertex(vertex, printWriter);
         }
         printWriter.println("}");
@@ -101,7 +101,7 @@ public class Dot<ID> {
 
     }
 
-    private void writeEdge(Graph.Edge<ID> edge, PrintWriter writer) throws IOException {
+    private void writeEdge(PropertyGraph.Edge<ID> edge, PrintWriter writer) throws IOException {
         var connector = graph.isDirected() ? "->" : "--";
         writer.printf("  %s %s %s", edge.getFrom(), connector, edge.getTo());
 
@@ -118,7 +118,7 @@ public class Dot<ID> {
         writer.append("\n");
     }
 
-    private void writeVertex(Graph.Vertex<ID> vertex, PrintWriter writer) throws IOException {
+    private void writeVertex(PropertyGraph.Vertex<ID> vertex, PrintWriter writer) throws IOException {
 
         var attributes = vertex.local().entrySet().stream()
           .filter(e -> !e.getKey().equals("id"))

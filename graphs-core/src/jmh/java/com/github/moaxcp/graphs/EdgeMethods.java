@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.Graph.Edge;
-import com.github.moaxcp.graphs.Graph.Vertex;
+import com.github.moaxcp.graphs.PropertyGraph.Edge;
+import com.github.moaxcp.graphs.PropertyGraph.Vertex;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.Set;
@@ -15,7 +15,7 @@ public class EdgeMethods {
     @Param({"true", "false"})
     public boolean directed;
 
-    private Graph<Integer> graph;
+    private PropertyGraph<Integer> graph;
     private Vertex<Integer> vertex;
     private Integer lastFrom;
     private Integer lastTo;
@@ -23,7 +23,7 @@ public class EdgeMethods {
     @Setup(Level.Trial)
     public void setup() {
         if(directed) {
-            graph = new DirectedGraph<>();
+            graph = new DirectedPropertyGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
                     graph.edge(i, j);
@@ -33,7 +33,7 @@ public class EdgeMethods {
                 }
             }
         } else {
-            graph = new UndirectedGraph<>();
+            graph = new UndirectedPropertyGraph<>();
             for(int i = 0; i < vertices; i++) {
                 for(int j = 0; j < vertices; j++) {
                     vertex = graph.getEdge(i, j).toVertex();

@@ -1,14 +1,14 @@
 package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.events.GraphEvent;
-import com.github.moaxcp.graphs.greenrobot.AbstractEventGraph;
+import com.github.moaxcp.graphs.greenrobot.AbstractEventPropertyGraph;
 import java.nio.file.Path;
 import org.greenrobot.eventbus.Subscribe;
 
 public class GreenrobotGifSubscriber<ID> {
   private final SimpleGraphGif<ID> gif;
 
-  public GreenrobotGifSubscriber(AbstractEventGraph<ID> graph, Path file) {
+  public GreenrobotGifSubscriber(AbstractEventPropertyGraph<ID> graph, Path file) {
     gif = new SimpleGraphGif<>(graph, file);
     gif.addImage();
     graph.getBus().register(this);

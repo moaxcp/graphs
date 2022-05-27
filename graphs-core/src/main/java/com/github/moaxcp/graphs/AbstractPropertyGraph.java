@@ -8,13 +8,13 @@ import static java.util.Collections.*;
 import static java.util.stream.Collectors.*;
 
 /**
- * This class provides a partial implementation of the {@link Graph} interface.
+ * This class provides a partial implementation of the {@link PropertyGraph} interface.
  *
  * <p>Vertices and edges are stored in insertion order.</p>
  *
  * @param <ID> type of all identifiers in graph
  */
-public abstract class AbstractGraph<ID> implements Graph<ID> {
+public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
   private LocalProperties properties;
   private LocalProperties vertexProperties;
   private LocalProperties edgeProperties;
@@ -25,7 +25,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   private Map<ID, Set<Edge<ID>>> inEdges;
   private Map<ID, Set<Edge<ID>>> outEdges;
 
-  protected AbstractGraph() {
+  protected AbstractPropertyGraph() {
     vertices = new LinkedHashMap<>();
     edges = new LinkedHashMap<>();
     edgeIds = new LinkedHashMap<>();
@@ -37,7 +37,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     properties = new LocalProperties(new LinkedHashMap<>());
   }
 
-  protected AbstractGraph(ID id) {
+  protected AbstractPropertyGraph(ID id) {
     this();
     properties.putProperties(linkedHashMap("id", id));
   }
@@ -127,68 +127,68 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Graph<ID> vertex(ID id) {
+  public PropertyGraph<ID> vertex(ID id) {
     getVertex(id);
     return this;
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name, Object value) {
+  public PropertyGraph<ID> vertex(ID id, String name, Object value) {
     return vertex(id, linkedHashMap(name, value));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
   }
 
   @Override
-  public Graph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
+  public PropertyGraph<ID> vertex(ID id, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
     return vertex(id, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
   }
 
-  private Graph<ID> vertex(ID id, LinkedHashMap<String, Object> properties) {
+  private PropertyGraph<ID> vertex(ID id, LinkedHashMap<String, Object> properties) {
     getVertex(id, properties);
     return this;
   }
 
   @Override
-  public Graph<ID> vertex(ID id, Map<String, Object> properties) {
+  public PropertyGraph<ID> vertex(ID id, Map<String, Object> properties) {
     getVertex(id, properties);
     return this;
   }
@@ -290,68 +290,68 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to) {
+  public PropertyGraph<ID> edge(ID from, ID to) {
     getEdge(from, to);
     return this;
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name, Object value) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name, Object value) {
     return edge(from, to, linkedHashMap(name, value));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9));
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
+  public PropertyGraph<ID> edge(ID from, ID to, String name1, Object value1, String name2, Object value2, String name3, Object value3, String name4, Object value4, String name5, Object value5, String name6, Object value6, String name7, Object value7, String name8, Object value8, String name9, Object value9, String name10, Object value10) {
     return edge(from, to, linkedHashMap(name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6, name7, value7, name8, value8, name9, value9, name10, value10));
   }
 
-  private Graph<ID> edge(ID from, ID to, LinkedHashMap<String, Object> properties) {
+  private PropertyGraph<ID> edge(ID from, ID to, LinkedHashMap<String, Object> properties) {
     getEdge(from, to, properties);
     return this;
   }
 
   @Override
-  public Graph<ID> edge(ID from, ID to, Map<String, Object> properties) {
+  public PropertyGraph<ID> edge(ID from, ID to, Map<String, Object> properties) {
     getEdge(from, to, properties);
     return this;
   }
@@ -501,7 +501,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Graph<ID> id(ID id) {
+  public PropertyGraph<ID> id(ID id) {
     setId(id);
     return this;
   }
@@ -527,13 +527,13 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Graph<ID> property(String name, Object value) {
+  public PropertyGraph<ID> property(String name, Object value) {
     property(linkedHashMap(name, value));
     return this;
   }
 
   @Override
-  public Graph<ID> property(Map<String, Object> properties) {
+  public PropertyGraph<ID> property(Map<String, Object> properties) {
     if(properties.containsKey("id")) {
       throw new IllegalArgumentException("id cannot be set as a property.");
     }
@@ -542,7 +542,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Graph<ID> removeProperty(String name) {
+  public PropertyGraph<ID> removeProperty(String name) {
     property(name, null);
     return this;
   }
@@ -568,19 +568,19 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Graph<ID> edgeProperty(String name, Object value) {
+  public PropertyGraph<ID> edgeProperty(String name, Object value) {
     edgeProperty(linkedHashMap(name, value));
     return this;
   }
 
   @Override
-  public Graph<ID> edgeProperty(Map<String, Object> properties) {
+  public PropertyGraph<ID> edgeProperty(Map<String, Object> properties) {
     edgeProperties.putProperties(properties);
     return this;
   }
 
   @Override
-  public Graph<ID> removeEdgeProperty(String name) {
+  public PropertyGraph<ID> removeEdgeProperty(String name) {
     edgeProperty(linkedHashMap(name, null));
     return this;
   }
@@ -606,19 +606,19 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   }
 
   @Override
-  public Graph<ID> vertexProperty(String name, Object value) {
+  public PropertyGraph<ID> vertexProperty(String name, Object value) {
     vertexProperty(linkedHashMap(name, value));
     return this;
   }
 
   @Override
-  public Graph<ID> vertexProperty(Map<String, Object> properties) {
+  public PropertyGraph<ID> vertexProperty(Map<String, Object> properties) {
     vertexProperties.putProperties(properties);
     return this;
   }
 
   @Override
-  public Graph<ID> removeVertexProperty(String name) {
+  public PropertyGraph<ID> removeVertexProperty(String name) {
     vertexProperty(linkedHashMap(name, null));
     return this;
   }
@@ -626,8 +626,8 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
   @Override
   public final boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof AbstractGraph)) return false;
-    AbstractGraph<?> that = (AbstractGraph<?>) o;
+    if (!(o instanceof AbstractPropertyGraph)) return false;
+    AbstractPropertyGraph<?> that = (AbstractPropertyGraph<?>) o;
     return Objects.equals(properties, that.properties) && Objects.equals(vertexProperties, that.vertexProperties) && Objects.equals(edgeProperties, that.edgeProperties) && Objects.equals(vertices, that.vertices) && Objects.equals(edges, that.edges);
   }
 
@@ -756,7 +756,7 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public final boolean isDirected() {
-      return AbstractGraph.this.isDirected();
+      return AbstractPropertyGraph.this.isDirected();
     }
 
     @Override
@@ -864,14 +864,14 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
 
     @Override
     public Edge<ID> remove() {
-      AbstractGraph.this.removeEdge(getFrom(), getTo());
+      AbstractPropertyGraph.this.removeEdge(getFrom(), getTo());
       return this;
     }
 
     @Override
     public final boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof AbstractGraph<?>.SimpleEdge)) return false;
+      if (!(o instanceof AbstractPropertyGraph<?>.SimpleEdge)) return false;
       SimpleEdge that = (SimpleEdge) o;
       return Objects.equals(local(), that.local()) &&
         Objects.equals(inherited(), that.inherited());
@@ -1068,19 +1068,19 @@ public abstract class AbstractGraph<ID> implements Graph<ID> {
     }
 
     public Vertex<ID> remove() {
-      AbstractGraph.this.removeVertex(getId());
+      AbstractPropertyGraph.this.removeVertex(getId());
       return this;
     }
 
     @Override
     public boolean connected(@NonNull ID id) {
-      return AbstractGraph.this.connected(getId(), id);
+      return AbstractPropertyGraph.this.connected(getId(), id);
     }
 
     @Override
     public final boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof AbstractGraph<?>.SimpleVertex)) return false;
+      if (!(o instanceof AbstractPropertyGraph<?>.SimpleVertex)) return false;
       SimpleVertex that = (SimpleVertex) o;
       return Objects.equals(local(), that.local()) &&
         Objects.equals(inherited(), that.inherited());

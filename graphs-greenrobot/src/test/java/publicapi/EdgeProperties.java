@@ -13,7 +13,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 public class EdgeProperties {
 
   @TestEventGraphs
-  void addProperty1(EventGraph<String> graph, EventBus bus) {
+  void addProperty1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -25,7 +25,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty2(EventGraph<String> graph, EventBus bus) {
+  void addProperty2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -39,7 +39,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty3(EventGraph<String> graph, EventBus bus) {
+  void addProperty3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -54,7 +54,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty4(EventGraph<String> graph, EventBus bus) {
+  void addProperty4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -70,7 +70,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty5(EventGraph<String> graph, EventBus bus) {
+  void addProperty5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -87,7 +87,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty6(EventGraph<String> graph, EventBus bus) {
+  void addProperty6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -105,7 +105,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty7(EventGraph<String> graph, EventBus bus) {
+  void addProperty7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -124,7 +124,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty8(EventGraph<String> graph, EventBus bus) {
+  void addProperty8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -144,7 +144,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty9(EventGraph<String> graph, EventBus bus) {
+  void addProperty9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -165,7 +165,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addProperty10(EventGraph<String> graph, EventBus bus) {
+  void addProperty10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -187,7 +187,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void addPropertyMap(EventGraph<String> graph, EventBus bus) {
+  void addPropertyMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
 
@@ -201,7 +201,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty1(EventGraph<String> graph, EventBus bus) {
+  void updateProperty1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "A");
 
@@ -213,7 +213,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty2(EventGraph<String> graph, EventBus bus) {
+  void updateProperty2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -229,7 +229,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty3(EventGraph<String> graph, EventBus bus) {
+  void updateProperty3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -247,7 +247,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty4(EventGraph<String> graph, EventBus bus) {
+  void updateProperty4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -267,7 +267,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty5(EventGraph<String> graph, EventBus bus) {
+  void updateProperty5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -289,7 +289,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty6(EventGraph<String> graph, EventBus bus) {
+  void updateProperty6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -313,7 +313,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty7(EventGraph<String> graph, EventBus bus) {
+  void updateProperty7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -339,7 +339,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty8(EventGraph<String> graph, EventBus bus) {
+  void updateProperty8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -367,7 +367,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty9(EventGraph<String> graph, EventBus bus) {
+  void updateProperty9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -397,7 +397,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty10(EventGraph<String> graph, EventBus bus) {
+  void updateProperty10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -429,7 +429,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updatePropertyMap(EventGraph<String> graph, EventBus bus) {
+  void updatePropertyMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge")
       .property("name1", "A",
@@ -445,7 +445,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void updateProperty1Remove(EventGraph<String> graph, EventBus bus) {
+  void updateProperty1Remove(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "value1");
 
@@ -461,7 +461,7 @@ public class EdgeProperties {
   }
 
   @TestEventGraphs
-  void removeProperty(EventGraph<String> graph, EventBus bus) {
+  void removeProperty(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name", "value");
 

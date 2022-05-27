@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import com.github.moaxcp.graphs.Graph.*;
+import com.github.moaxcp.graphs.PropertyGraph.*;
 import lombok.*;
 
 import java.util.*;
@@ -9,11 +9,11 @@ import static java.util.stream.Collectors.*;
 
 abstract class GraphIterator<ID> implements Iterator<Vertex<ID>> {
 
-  private final Graph<ID> graph;
+  private final PropertyGraph<ID> graph;
   private final Set<ID> visited;
   private ID currentId;
 
-  GraphIterator(@NonNull Graph<ID> graph) {
+  GraphIterator(@NonNull PropertyGraph<ID> graph) {
     this.graph = graph;
     visited = new HashSet<>();
   }

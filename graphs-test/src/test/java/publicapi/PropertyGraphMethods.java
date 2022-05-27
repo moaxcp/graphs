@@ -5,10 +5,10 @@ import com.github.moaxcp.graphs.testframework.*;
 
 import static com.github.moaxcp.graphs.truth.Truth.*;
 
-public class GraphMethods {
+public class PropertyGraphMethods {
 
   @TestGraphs
-  void isEmpty(Graph<String> graph) {
+  void isEmpty(PropertyGraph<String> graph) {
     assertThat(graph).isEmpty();
   }
 }
