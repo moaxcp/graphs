@@ -1,10 +1,9 @@
-package com.github.moaxcp.graphs.graphviz.gif;
+package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.gifbuilder.GifMethods;
 import com.github.moaxcp.gifbuilder.GifSpec;
 import com.github.moaxcp.graphs.PropertyGraph;
 import com.github.moaxcp.graphs.events.GraphEvent;
-import com.github.moaxcp.graphs.graphviz.Dot;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;

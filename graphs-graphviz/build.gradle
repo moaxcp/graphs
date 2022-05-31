@@ -6,11 +6,6 @@ plugins {
 description = 'supports converting graphs to dot format and images'
 
 sourceSets {
-    gif {
-        java {
-            srcDir 'src/gif/java'
-        }
-    }
     greenrobotGif {
         java {
             srcDir 'src/greenrobot-gif/java'
@@ -22,21 +17,15 @@ java {
     registerFeature('greenrobotGif') {
         usingSourceSet(sourceSets.greenrobotGif)
     }
-    registerFeature('gif') {
-        usingSourceSet(sourceSets.gif)
-    }
 }
 
 dependencies {
     api project(':graphs-core')
-    gifApi project(':graphs-graphviz')
-    gifImplementation 'com.github.moaxcp:gif-builder:0.2.0'
+    implementation 'com.github.moaxcp:gif-builder:0.2.0'
     greenrobotGifApi project(':graphs-greenrobot')
-    greenrobotGifImplementation(project(':graphs-graphviz')) {
-        capabilities {
-            requireCapability 'graphs:graphs-graphviz-gif'
-        }
-    }
+    greenrobotGifImplementation 'org.greenrobot:eventbus-java:3.3.1' //why doesn't this work?
+    greenrobotGifImplementation project(':graphs-graphviz')
+    greenrobotGifImplementation 'com.github.moaxcp:gif-builder:0.2.0' //why is this needed?
     testImplementation project(':graphs-testframework')
     testImplementation(project(':graphs-graphviz')) {
         capabilities {

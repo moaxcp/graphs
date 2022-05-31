@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.graphviz.greenrobotgif;
 
 import com.github.moaxcp.graphs.events.GraphEvent;
-import com.github.moaxcp.graphs.graphviz.gif.SimpleGraphGif;
+import com.github.moaxcp.graphs.graphviz.SimpleGraphGif;
 import com.github.moaxcp.graphs.greenrobot.AbstractEventPropertyGraph;
 import java.nio.file.Path;
 import org.greenrobot.eventbus.Subscribe;

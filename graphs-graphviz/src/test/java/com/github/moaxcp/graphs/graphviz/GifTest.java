@@ -1,7 +1,6 @@
 package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.events.GraphEvent;
-import com.github.moaxcp.graphs.graphviz.gif.SimpleGraphGif;
 import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
 import java.io.IOException;
 import java.nio.file.Path;
