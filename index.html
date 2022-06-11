@@ -440,17 +440,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Graphs</h1>
 <div class="details">
-<span id="revnumber">version 0.11.0-SNAPSHOT</span>
+<span id="revnumber">version 0.15.0-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_usage">Usage</a></li>
-<li><a href="#_what_is_a_graph">What is a graph</a></li>
+<li><a href="#_what_is_a_property_graph">What is a property graph</a></li>
 <li><a href="#_design">Design</a>
 <ul class="sectlevel2">
-<li><a href="#_graph">Graph</a></li>
-<li><a href="#_eventgraph">EventGraph</a></li>
+<li><a href="#_propertygraph">PropertyGraph</a></li>
+<li><a href="#_eventpropertygraph">EventPropertyGraph</a></li>
 <li><a href="#_elements">Elements</a></li>
 <li><a href="#_vertex">Vertex</a></li>
 <li><a href="#_edge">Edge</a></li>
@@ -461,16 +461,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_create_or_modify_a_vertex">Create or modify a vertex</a></li>
 <li><a href="#_create_or_modify_an_edge">Create or modify an edge</a></li>
 <li><a href="#_properties">properties</a></li>
-<li><a href="#_inherited_properties">inherited properties</a></li>
 </ul>
 </li>
+<li><a href="#_visualize_a_graph_with_graphviz">Visualize a graph with graphviz</a></li>
 <li><a href="#_create_a_graph_using_edge_methods">Create a graph using edge methods</a></li>
 <li><a href="#_create_a_graph_using_vertex_methods">Create a graph using vertex methods</a></li>
-<li><a href="#_visualize_a_graph_with_graphviz">Visualize a graph with graphviz</a></li>
 <li><a href="#_pre_order_iterator_and_pre_order_stream">pre-order iterator and pre-order stream</a></li>
-<li><a href="#_releases">Releases</a>
+<li><a href="#_post_order_iterator_and_post_order_stream">post-order iterator and post-order stream</a></li>
+<li><a href="#_breadth_first_iterator_and_breadth_first_stream">breadth first iterator and breadth first stream</a></li>
+<li><a href="#_releases">Releases</a></li>
+<li><a href="#_0_15_0">0.15.0</a></li>
+<li><a href="#_0_14_0">0.14.0</a></li>
+<li><a href="#_0_13_0">0.13.0</a></li>
+<li><a href="#_0_12_0">0.12.0</a>
 <ul class="sectlevel2">
-<li><a href="#_0_11_0_snapshot">0.11.0-SNAPSHOT</a></li>
+<li><a href="#_0_11_0">0.11.0</a></li>
 <li><a href="#_0_10_0">0.10.0</a></li>
 <li><a href="#_0_9_0">0.9.0</a></li>
 <li><a href="#_0_8_0">0.8.0</a></li>
@@ -493,14 +498,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_usage">Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Graphs</code> is written in java 11 and is made up of a few modules published to maven central.</p>
+<p><code>Graphs</code> is written in java 17 and is made up of a few modules published to maven central.</p>
 </div>
 <div class="paragraph">
 <p><code>graphs-core</code> contains the main interfaces, implementations, and events</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.11.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.14.0'</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -508,15 +513,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.11.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.14.0'</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>graphs-graphviz</code> rendering for graphviz</p>
+<p><code>graphs-graphviz</code> rendering of graph as png or animated gifs using graphviz</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.11.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.14.0'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>graphs-graphviz-greenrobot-gif</code> rendering of graph as gif using graphviz and greenrobot</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-greenrobot-gif', version: '0.14.0'</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -524,20 +537,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.11.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.14.0'</pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_what_is_a_graph">What is a graph</h2>
+<h2 id="_what_is_a_property_graph">What is a property graph</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A graph is a data structure containing a set of vertices and a set of edges. A vertex is typically a value and an edge
-is a relationship between two vertices (or values). The graph may be directed or undirected. The <code>Graph</code>
+is a relationship between two vertices (or values). The graph may be directed or undirected. The <code>PropertyGraph</code>
 interface provides a dsl for declaring vertices, edges and properties. It is the main interface for representing a
-graph. Values are represented as properties of a <code>Graph</code>, <code>Vertex</code>, or <code>Edge</code>. Some properties are required some are
-optional. The rest of the guide will walk through some of the key concepts of the library.</p>
+graph. Values are represented as properties of a <code>PropertyGraph</code>, <code>Vertex</code>, or <code>Edge</code>. Some properties are required some are
+optional. The rest of the guide will walk through the key concepts of the library.</p>
 </div>
 </div>
 </div>
@@ -550,21 +563,24 @@ optional. The rest of the guide will walk through some of the key concepts of th
 <div class="ulist">
 <ul>
 <li>
-<p>a graph is always valid</p>
+<p>a graph is always valid.</p>
 </li>
 <li>
 <p>referencing missing elements will create them</p>
 </li>
 <li>
-<p>for event graphs, creating and changing a graph, vertices, or edges will result in an event</p>
+<p>for event graphs, each action (creating and modifying a graph, vertices, or edges), will result in a single event</p>
 </li>
 <li>
-<p>never return null</p>
+<p>never return null or accept null (use optionals and overload methods)</p>
+</li>
+<li>
+<p>interfaces allow for immutable implementations</p>
 </li>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_graph">Graph</h3>
+<h3 id="_propertygraph">PropertyGraph</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -598,11 +614,11 @@ optional. The rest of the guide will walk through some of the key concepts of th
 </div>
 </div>
 <div class="sect2">
-<h3 id="_eventgraph">EventGraph</h3>
+<h3 id="_eventpropertygraph">EventPropertyGraph</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>sends events to the EventBus when modified</p>
+<p>Works exactly like a <code>PropertyGraph</code> and sends events to the EventBus when modified</p>
 </li>
 </ul>
 </div>
@@ -644,13 +660,13 @@ optional. The rest of the guide will walk through some of the key concepts of th
 <div class="ulist">
 <ul>
 <li>
-<p>must have 'from' and 'to' properties</p>
+<p>must have source and target properties</p>
 </li>
 <li>
-<p>'from' and 'to' connect two vertices by id</p>
+<p>source and target connect two vertices by id</p>
 </li>
 <li>
-<p>may have an 'id'</p>
+<p>may have an id</p>
 </li>
 </ul>
 </div>
@@ -661,31 +677,38 @@ optional. The rest of the guide will walk through some of the key concepts of th
 <h2 id="_representing_a_graph_as_code">Representing a graph as code</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>Graph</code> interface defines methods for building a graph as well as inner classes <code>Vertex</code> and <code>Edge</code>. These Inner
+<p>The <code>PropertyGraph</code> interface defines methods for building a graph as well as inner classes <code>Vertex</code> and <code>Edge</code>. These Inner
 classes provide a perspective of the graph from those elements. Edges can change their endpoints, navigate to an
 endpoint and modify properties. Vertices can add new edges, get in, out, and adjacent edges, and modify properties.</p>
 </div>
 <div class="paragraph">
-<p>There are two implementations of <code>Graph</code> in the <code>graphs-core</code> module.</p>
+<p>There are two implementations of <code>PropertyGraph</code> in the <code>graphs-core</code> module.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Graph&lt;String&gt; undirectedGraph = new UndirectedGraph&lt;&gt;();
-Graph&lt;String&gt; directedGraph = new DirectedGraph&lt;&gt;();</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">PropertyGraph&lt;String&gt; undirectedGraph = new UndirectedPropertyGraph&lt;&gt;();
+PropertyGraph&lt;String&gt; directedGraph = new DirectedPropertyGraph&lt;&gt;();</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>There are two other implementations of <code>Graph</code> in the 'graphs-greenrobot` module.</p>
+<p>There are two other implementations of <code>PropertyGraph</code> in the 'graphs-greenrobot` module. These implementations send events to the EventBus when the graph is created or modified.</p>
+</div>
+<div class="paragraph">
+<p>Note: Only greenrobot is currently supported but adding support for Guava&#8217;s EventBus should be possible.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">EventBus bus = EventBus.builder().build();
-Graph&lt;String&gt; undirectedGraph = new UndirectedEventGraph&lt;&gt;(bus);
-Graph&lt;String&gt; directedGraph = new DirectedEventGraph&lt;&gt;(bus);</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">var bus = EventBus.builder().build();
+var undirectedEvent = UndirectedGraphCreatedEvent.&lt;String&gt;builder().graphId("undirected").build();
+var directedEvent = DirectedGraphCreatedEvent.&lt;String&gt;builder().graphId("directed").build();
+assertThat(bus).withAction(() -&gt; {
+  PropertyGraph&lt;String&gt; undirectedGraph = new UndirectedEventPropertyGraph&lt;&gt;("undirected", bus);
+  PropertyGraph&lt;String&gt; directedGraph = new DirectedEventPropertyGraph&lt;&gt;("directed", bus);
+}).containsExactly(undirectedEvent, directedEvent);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>These implementations send events to subscribers to the EventBus when the graph changes.</p>
+<p><code>graphs-test</code> provides a solutions for assertions on the <code>EventBus</code>. It shows that the two creation events were sent to the bus.</p>
 </div>
 <div class="sect2">
 <h3 id="_create_or_modify_a_vertex">Create or modify a vertex</h3>
@@ -694,8 +717,8 @@ Graph&lt;String&gt; directedGraph = new DirectedEventGraph&lt;&gt;(bus);</code><
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">graph.vertex("A");
-graph.getVertex("B");
+<pre class="highlight"><code class="language-java" data-lang="java">graph = graph.vertex("A");
+Vertex&lt;String&gt; vertex = graph.getVertex("B");
 assertThat(graph).hasVertex("A");
 assertThat(graph).hasVertex("B");</code></pre>
 </div>
@@ -703,6 +726,18 @@ assertThat(graph).hasVertex("B");</code></pre>
 <div class="paragraph">
 <p><code>vertex</code> methods will return the graph while <code>getVertex</code> methods will return the vertex. This allows for different
 forms of method chaining.</p>
+</div>
+<div class="paragraph">
+<p>An <code>EventPropertyGraph</code> will send <code>VertexCreated</code> events to subscribers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">assertThat(bus).withAction(() -&gt; {
+  graph.vertex("A");
+  graph.getVertex("B");
+}).containsExactly(VertexCreatedEvent.&lt;String&gt;builder().vertexId("A").build(), VertexCreatedEvent.&lt;String&gt;builder().vertexId("B").build())
+    .inOrder();</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>If a vertex already exists in the graph it can be modified.</p>
@@ -718,17 +753,16 @@ assertThat(graph).hasVertex("A").withProperty("color").hasValue("blue");</code><
 <p>The first call to <code>vertex</code> creates vertex <code>A</code> with a property <code>color</code> set to <code>red</code>. The second call changes the property <code>color</code> to <code>blue</code>.</p>
 </div>
 <div class="paragraph">
-<p>If graph is an <code>EventGraph</code> events will be sent to the <code>EventBus</code>. Every modification of a graph is represented by an
-event.</p>
+<p>If graph is an <code>EventPropertyGraph</code> first <code>VertexCreatedEvent</code>,then <code>VertexPropertyEvent</code> will be sent to the <code>EventBus</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">EventBus bus = EventBus.builder().build();
-var graph = new DirectedEventGraph&lt;String&gt;(bus);
-assertThat(bus)
-  .withAction(() -&gt; graph.vertex("A", "color", "red"))
-  .containsExactly(VertexCreatedEvent
-    .&lt;String&gt;builder().vertexId("A").property("color", "red").build());</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">assertThat(bus).withAction(() -&gt; {
+    graph.vertex("A", "color", "red");
+    graph.vertex("A", "color", "blue");
+  }).containsExactly(VertexCreatedEvent.&lt;String&gt;builder().vertexId("A").property("color", "red").build(),
+      VertexPropertyEvent.&lt;String&gt;builder().vertexId("A").property("color", "blue").build())
+    .inOrder();</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -738,14 +772,33 @@ assertThat(bus)
 <div class="sect2">
 <h3 id="_create_or_modify_an_edge">Create or modify an edge</h3>
 <div class="paragraph">
-<p>To create or modify an edge use the <code>edge</code> or <code>getEdge</code> methods.</p>
+<p>To create or modify an edge use the <code>edge</code> or <code>getEdge</code> methods. If the vertices do not already exist they will be created.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">graph.edge("A", "B", "color", "red");
-graph.getEdge("A", "C", "color", "green");
+<pre class="highlight"><code class="language-java" data-lang="java">graph = graph.edge("A", "B", "color", "red");
+Edge&lt;String&gt; edge = graph.getEdge("A", "C", "color", "green");
 assertThat(graph).hasEdge("A", "B").withProperty("color").hasValue("red");
 assertThat(graph).hasEdge("A", "C").withProperty("color").hasValue("green");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Similar to <code>vertex</code> methods, <code>edge</code> methods will return the graph and <code>getEdge</code> will return the <code>Edge</code>.</p>
+</div>
+<div class="paragraph">
+<p>With an <code>EventPropertyGraph</code> the <code>EdgeCreatedEvent</code> will be sent to the bus. If any of the vertices need to be created <code>VertexCreatedEvent</code> will be sent to the bus.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">assertThat(bus).withAction(() -&gt; {
+  graph.edge("A", "B", "color", "red");
+  graph.getEdge("A", "C", "color", "green");
+}).containsExactly(VertexCreatedEvent.&lt;String&gt;builder().vertexId("A").build(),
+    VertexCreatedEvent.&lt;String&gt;builder().vertexId("B").build(),
+    EdgeCreatedEvent.&lt;String&gt;builder().sourceId("A").targetId("B").property("color", "red").build(),
+    VertexCreatedEvent.&lt;String&gt;builder().vertexId("C").build(),
+    EdgeCreatedEvent.&lt;String&gt;builder().sourceId("A").targetId("C").property("color", "green").build())
+    .inOrder();</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -763,34 +816,48 @@ assertThat(graph).hasEdge("A", "B").withProperty("color").hasValue("green");</co
 <code>color</code> to <code>green</code>.</p>
 </div>
 <div class="paragraph">
-<p>If the graph is an <code>EventGraph</code> events will be sent to the <code>EventBus</code>.</p>
+<p>If the graph is an <code>EventPropertyGraph</code> events will be sent to the <code>EventBus</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">EventBus bus = EventBus.builder().build();
-var graph = new DirectedEventGraph&lt;String&gt;(bus);
+var graph = new DirectedEventPropertyGraph&lt;String&gt;(bus);
 assertThat(bus)
-  .withAction(() -&gt; graph.edge("A", "B", "color", "green"))
-  .containsExactly(
-    VertexCreatedEvent.&lt;String&gt;builder().vertexId("A").build(),
-    VertexCreatedEvent.&lt;String&gt;builder().vertexId("B").build(),
-    EdgeCreatedEvent.&lt;String&gt;builder().fromId("A").toId("B")
-      .property("color", "green").build())
+  .withAction(() -&gt; {
+    graph.edge("A", "B", "color", "red");
+    graph.edge("A", "B", "color", "green");
+  }).containsExactly(
+      VertexCreatedEvent.&lt;String&gt;builder().vertexId("A").build(),
+      VertexCreatedEvent.&lt;String&gt;builder().vertexId("B").build(),
+      EdgeCreatedEvent.&lt;String&gt;builder().sourceId("A").targetId("B").property("color", "red").build(),
+      EdgePropertyEvent.&lt;String&gt;builder().sourceId("A").targetId("B").property("color", "green").build())
 .inOrder();</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>First a <code>VertexCreatedEvent</code> for vertex <code>A</code> is sent to the <code>EventBus</code>. Followed by a <code>VertexCreatedEvent</code> for vertex
-<code>B</code> and an <code>EdgeCreatedEvent</code> for the edge between them.</p>
+<code>B</code>. Then an <code>EdgeCreatedEvent</code> for the edge between them. Finally, an <code>EdgePropertyEvent</code> for the change in color from red to green.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_properties">properties</h3>
 <div class="paragraph">
-<p>Vertices must have an <code>id</code> property which is unique to all vertices in the <code>Graph</code>.</p>
+<p>The <code>PropertyGraph</code> interface is used to represent a property graph. This means graphs, vertices, and edges can have properties added to them. These properties can be used to represent
+anything. For instance, if the graph needs to be represented in graphviz there can be properties for color and style.</p>
 </div>
 <div class="paragraph">
-<p>Edges must have a <code>from</code> property which represents the <code>Vertex</code> the <code>Edge</code> connects from (or source vertex) and a <code>to</code>
+<p>Id properties are different. For graphs and edges the id property is optional.</p>
+</div>
+<div class="sect3">
+<h4 id="_id_properties">id properties</h4>
+<div class="paragraph">
+<p>The generic parameter in <code>PropertyGraph&lt;ID&gt;</code> represents the type for all id properties.</p>
+</div>
+<div class="paragraph">
+<p>Vertices must have an <code>id</code> property which is unique to all vertices in the <code>PropertyGraph</code>.</p>
+</div>
+<div class="paragraph">
+<p>Edges must have a <code>source</code> property which represents the <code>Vertex</code> the <code>Edge</code> connects from (or source vertex) and a <code>target</code>
 property which represents the <code>Vertex</code> the <code>Edge</code> connects to (the target vertex). Edges may have an optional <code>id</code>
 property.</p>
 </div>
@@ -798,15 +865,11 @@ property.</p>
 <p>Graphs may have an optional <code>id</code>.</p>
 </div>
 <div class="paragraph">
-<p>Graphs, vertices, and edges can have other properties added to them. These properties can be used to represent
-anything. For instance, if the graph needs to be represented in graphviz there can be properties for color and style.</p>
-</div>
-<div class="paragraph">
-<p>The <code>Graph</code> interface is used to represent a property graph.</p>
+<p><code>id</code> properties are not final. They can be changed like normal properties.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_inherited_properties">inherited properties</h3>
+<div class="sect3">
+<h4 id="_inherited_properties">inherited properties</h4>
 <div class="paragraph">
 <p>Vertices and edges in a graph can inherit properties from common vertex properties and edge properties setup in the
 graph.</p>
@@ -823,6 +886,50 @@ assertThat(graph).hasEdge("A", "B").withProperty("color").hasValue("red");</code
 </div>
 <div class="paragraph">
 <p>The default color for all vertices and edges is set to <code>"green"</code> and <code>"red"</code> respectively.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_visualize_a_graph_with_graphviz">Visualize a graph with graphviz</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Graphs can be visualized using the <code>graphs-graphviz</code> module. The module converts a graph to the <code>dot</code> language or an
+image. Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">dot(graph).writeImage("src/docs/asciidoc/images/edgeMethods.png", "png");</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/edgeMethods.png" alt="edge methods">
+</div>
+</div>
+<div class="paragraph">
+<p>EventGraphs can also be visualized as an animated gif. Each event creates a new frame in the gif.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">var graph = new DirectedEventPropertyGraph&lt;String&gt;(new EventBus());
+var gif = new GreenrobotGifSubscriber&lt;&gt;(graph, Path.of("src/docs/asciidoc/images/gifExample.gif"));
+
+graph.vertex("A");
+graph.vertex("B");
+graph.edge("D", "C");
+graph.removeVertex("C");
+graph.removeVertex("D");
+graph.removeVertex("B");
+graph.removeVertex("A");
+
+gif.writeFile();</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/gifExample.gif" alt="gif">
 </div>
 </div>
 </div>
@@ -866,7 +973,7 @@ assertThat(graph).hasEdge("A", "B").withProperty("color").hasValue("red");</code
 <div class="paragraph">
 <p><code>edge</code> methods return the graph and can be chained to add multiple edges. If an <code>Edge</code> instance is needed use <code>getEdge</code>
 instead. <code>getEdge</code> return the Edge so it can modified. This allows properties to be added, removed, or updated
-including the "to" and "from" vertices of the edge. <code>getEdge</code> can also be used to declare properties on the edge.</p>
+including the "source" and "target" vertices of the edge. <code>getEdge</code> can also be used to declare properties on the edge.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -883,8 +990,8 @@ graph.getEdge("G", "D").property("color", "blue");</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The previous example used a <code>DirectedGraph</code>. In a directed graph two edges can be between two vertices as is shown
-between vertex <code>A</code> and <code>B</code>. The must go in opposite directions. If the graph were an instance of <code>UndirectedGraph</code>,
+<p>The previous example used a <code>DirectedPropertyGraph</code>. In a directed graph two edges can be between two vertices as is shown
+between vertex <code>A</code> and <code>B</code>. The must go in opposite directions. If the graph were an instance of <code>UndirectedPropertyGraph</code>,
 there would only be one edge between vertex <code>A</code> and <code>B</code>.</p>
 </div>
 <div class="listingblock">
@@ -894,7 +1001,7 @@ graph.getEdge("B", "A");</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In an <code>UndirectedGraph</code> both calls to <code>getEdge</code> returns the same edge instance. The first call creates the edge.</p>
+<p>In an <code>UndirectedPropertyGraph</code> both calls to <code>getEdge</code> returns the same edge instance. The first call creates the edge.</p>
 </div>
 </div>
 </div>
@@ -931,43 +1038,88 @@ graph.getVertex("F")
 </div>
 </div>
 <div class="sect1">
-<h2 id="_visualize_a_graph_with_graphviz">Visualize a graph with graphviz</h2>
+<h2 id="_pre_order_iterator_and_pre_order_stream">pre-order iterator and pre-order stream</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Graphs can be visualized using the <code>graphs-graphviz</code> module. The module converts a graph to the <code>dot</code> language or an
-image. Example:</p>
+<p>An iterator and stream are provided to perform pre-order depth first traversals.</p>
 </div>
 <div class="listingblock">
+<div class="title">preOrderIterator()</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">dot(graph).writeImage("src/docs/asciidoc/images/edgeMethods.png", "png");</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">Iterator&lt;Vertex&lt;String&gt;&gt; iterator = graph.preOrderIterator();
+while(iterator.hasNext()) {
+  Vertex&lt;String&gt; vertex = iterator.next();
+  vertex.property("color", "green");
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">preOrderStream()</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">graph.preOrderStream().forEach(v -&gt; v.property("color", "green"));</code></pre>
 </div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/edgeMethods.png" alt="edge classification">
+<img src="images/preOrderTraversal.gif" alt="pre order">
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_pre_order_iterator_and_pre_order_stream">pre-order iterator and pre-order stream</h2>
+<h2 id="_post_order_iterator_and_post_order_stream">post-order iterator and post-order stream</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>And iterator and stream are provided to perform pre-order depth first traversals.</p>
+<p>An iterator and stream are provided to perform post-order depth first traversals.</p>
 </div>
 <div class="listingblock">
+<div class="title">postOrderIterator()</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">int visit = 1;
-Iterator&lt;Vertex&lt;String&gt;&gt; iterator = graph.preOrderIterator();
+<pre class="highlight"><code class="language-java" data-lang="java">Iterator&lt;Vertex&lt;String&gt;&gt; iterator = graph.postOrderIterator("A");
 while(iterator.hasNext()) {
   Vertex&lt;String&gt; vertex = iterator.next();
-  vertex.property("label", vertex.findProperty("id").get().toString() + visit++);
+  vertex.property("color", "green");
 }</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">postOrderStream()</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">graph.postOrderStream("A").forEach(v -&gt; v.property("color", "green"));</code></pre>
 </div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/preOrderTraversal.png" alt="pre order">
+<img src="images/postOrderTraversal.gif" alt="post order">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_breadth_first_iterator_and_breadth_first_stream">breadth first iterator and breadth first stream</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An iterator and stream are provided to perform breadth first traversals.</p>
+</div>
+<div class="listingblock">
+<div class="title">breadthFirstIterator()</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Iterator&lt;Vertex&lt;String&gt;&gt; iterator = graph.breadthFirstIterator("A");
+while(iterator.hasNext()) {
+  Vertex&lt;String&gt; vertex = iterator.next();
+  vertex.property("color", "green");
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">breadthFirstStream()</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">graph.breadthFirstStream("A").forEach(v -&gt; v.property("color", "green"));</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/breadthFirstTraversal.gif" alt="post order">
 </div>
 </div>
 </div>
@@ -975,8 +1127,41 @@ while(iterator.hasNext()) {
 <div class="sect1">
 <h2 id="_releases">Releases</h2>
 <div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_0_15_0">0.15.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Adding new project <code>graphs-guava</code> and <code>graphs-graphviz-guava-gif</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_0_14_0">0.14.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Adding graphs-graphviz-greenrobot-gif subproject which contains a greenrobot subscriber that can automatically create gifs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_0_13_0">0.13.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Renaming Graph to PropertyGraph. Renaming "from" to source and "to" to target.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_0_12_0">0.12.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Adding gif support to graphs-graphviz module. This allows gif animations to be built from an <code>EventGraph</code>. It is enabled with the greenrobotgif capability in gradle.</p>
+</div>
 <div class="sect2">
-<h3 id="_0_11_0_snapshot">0.11.0-SNAPSHOT</h3>
+<h3 id="_0_11_0">0.11.0</h3>
 <div class="paragraph">
 <p>Updating to jdk 17. Updating gradle and all dependencies.</p>
 </div>
@@ -996,7 +1181,7 @@ solution is to simply add the hashcodes of the two ids together. This is similar
 <code>hashCode()</code>.</p>
 </div>
 <div class="paragraph">
-<p>Adding <code>boolean connected(ID from, ID to)</code> to <code>Graph</code> and <code>boolean connected(ID id) to `Vertex</code>. This can be used to check if two vertices are connected. It can
+<p>Adding <code>boolean connected(ID from, ID to)</code> to <code>PropertyGraph</code> and <code>boolean connected(ID id) to `Vertex</code>. This can be used to check if two vertices are connected. It can
 be used to enforce that the graph is always a DAG when adding edges.</p>
 </div>
 </div>
@@ -1137,8 +1322,8 @@ for performance.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.11.0-SNAPSHOT<br>
-Last updated 2022-02-23 21:52:59 -0500
+Version 0.15.0-SNAPSHOT<br>
+Last updated 2022-06-11 12:09:07 -0400
 </div>
 </div>
 </body>
