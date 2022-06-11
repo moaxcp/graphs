@@ -10,25 +10,31 @@
 `graphs-core` contains the main interfaces, implementations, and events
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.13.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.14.0'
 ----
 
 `graphs-greenrobot` EventGraph implementation using greenrobot's EventBus
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.13.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.14.0'
 ----
 
 `graphs-graphviz` rendering of graph as png or animated gifs using graphviz
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.13.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.14.0'
+----
+
+`graphs-graphviz-greenrobot-gif` rendering of graph as gif using graphviz and greenrobot
+
+----
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-greenrobot-gif', version: '0.14.0'
 ----
 
 `graphs-truth` assertions using google-truth
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.13.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.14.0'
 ----
 
 
@@ -311,15 +317,15 @@ An iterator and stream are provided to perform post-order depth first traversals
 
 .postOrderIterator()
 [source,java,indent=0]
----
+----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/PostorderTraversal.java[tags=postOrderIterator]
----
+----
 
 .postOrderStream()
 [source,java,indent=0]
----
+----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/PostorderTraversal.java[tags=postOrderStream]
----
+----
 
 image::images/postOrderTraversal.gif[post order]
 
@@ -329,23 +335,23 @@ An iterator and stream are provided to perform breadth first traversals.
 
 .breadthFirstIterator()
 [source,java,indent=0]
----
+----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/BreadthFirstTraversal.java[tags=breadthFirstIterator]
----
+----
 
 .breadthFirstStream()
 [source,java,indent=0]
----
+----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/BreadthFirstTraversal.java[tags=breadthFirstStream]
----
+----
 
 image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
-== 0.14.0-SNAPSHOT
+== 0.14.0
 
-* Expanding on graphviz capabilities. Now there is `gif` and `greenrobot-gif`.
+* Adding graphs-graphviz-greenrobot-gif subproject which contains a greenrobot subscriber that can automatically create gifs.
 
 == 0.13.0
 

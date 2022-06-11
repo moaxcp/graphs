@@ -5,12 +5,8 @@ description = 'manual for all graphs projects.'
 dependencies {
     api project(':graphs-core')
     api project(':graphs-greenrobot')
-    api(project(':graphs-graphviz')) {
-        capabilities {
-            requireCapability('graphs:graphs-graphviz-greenrobot-gif')
-        }
-    }
-    //api 'com.github.moaxcp:gif-builder:0.1.0'
+    api project(':graphs-graphviz')
+    api project(':graphs-graphviz-greenrobot-gif')
     api project(':graphs-truth')
 }
 
