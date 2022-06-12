@@ -10,31 +10,43 @@
 `graphs-core` contains the main interfaces, implementations, and events
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.14.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.15.0'
 ----
 
-`graphs-greenrobot` EventGraph implementation using greenrobot's EventBus
+`graphs-greenrobot` EventPropertyGraph implementation using greenrobot's EventBus
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.14.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.15.0'
+----
+
+`graphs-guava` EventPropertyGraph implementation using guava's EventBus
+
+----
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-guava', version: '0.15.0'
 ----
 
 `graphs-graphviz` rendering of graph as png or animated gifs using graphviz
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.14.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.15.0'
 ----
 
 `graphs-graphviz-greenrobot-gif` rendering of graph as gif using graphviz and greenrobot
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-greenrobot-gif', version: '0.14.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-greenrobot-gif', version: '0.15.0'
+----
+
+`graphs-graphviz-guava-gif` rendering of graph as gif using graphviz and guava's EventBus
+
+----
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-guava-gif', version: '0.15.0'
 ----
 
 `graphs-truth` assertions using google-truth
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.14.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.15.0'
 ----
 
 
@@ -293,6 +305,10 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/VertexMethods.java[tag=getV
 
 image::images/getVertexMethods.png[]
 
+== EventPropertyGraphs
+
+EventPropertyGraphs are designed to send events to an eventbus when they are created or modified. The interface `EventPropertyGraph` and event classes are defined in `graphs-core`. There are two implementations supporting different eventbus' `graphs-greenrobot` and `graphs-guava`.
+
 == pre-order iterator and pre-order stream
 
 An iterator and stream are provided to perform pre-order depth first traversals.
@@ -349,7 +365,7 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
-== 0.15.0-SNAPSHOT
+== 0.15.0
 
 Adding new project `graphs-guava` and `graphs-graphviz-guava-gif`.
 

@@ -1,12 +1,12 @@
-package com.github.moaxcp.graphs.graphviz.greenrobotgif;
+package com.github.moaxcp.graphs.graphviz.guavagif;
 
 import com.github.moaxcp.graphs.events.GraphEvent;
 import com.github.moaxcp.graphs.graphviz.SimpleGraphGif;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
+import com.github.moaxcp.graphs.guava.DirectedEventPropertyGraph;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
 import java.nio.file.Path;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
