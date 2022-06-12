@@ -8,6 +8,7 @@ description = 'Truth extensions for test assertions.'
 dependencies {
     api project(':graphs-core')
     api project(':graphs-greenrobot')
+    api project(':graphs-guava')
     api 'com.google.truth:truth:1.1.3'
     api 'com.google.truth.extensions:truth-java8-extension:1.1.3'
 }

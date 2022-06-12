@@ -11,7 +11,7 @@ import static com.github.moaxcp.graphs.testframework.Events.*;
 import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EventPropertyGraphEdgeMethods {
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -23,7 +23,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -38,7 +38,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -54,7 +54,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -71,7 +71,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -89,7 +89,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -108,7 +108,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -128,7 +128,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -149,7 +149,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -171,7 +171,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -194,7 +194,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdge10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -224,7 +224,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithEdgeMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -249,7 +249,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -261,7 +261,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge1(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -277,7 +277,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge2(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -296,7 +296,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge3(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -317,7 +317,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge4(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -340,7 +340,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge5(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -365,7 +365,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge6(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -392,7 +392,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge7(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -421,7 +421,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge8(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -452,7 +452,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge9(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -485,7 +485,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdge10(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -528,7 +528,7 @@ public class EventPropertyGraphEdgeMethods {
       . containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void createdWithGetEdgeMap(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
 
@@ -547,7 +547,7 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected1, expected2, expected3).inOrder();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void updatedWithEdgeMap(EventPropertyGraph<String> graph, EventBus bus) {
       graph.id("graph").getEdge("A", "B").id("edge");
       graph.getEdge("A", "B").property("name1", "A");
@@ -560,14 +560,14 @@ public class EventPropertyGraphEdgeMethods {
       .containsExactly(expected);
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void notCreated(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");
     assertThat(bus).withAction(() -> graph.edge("A", "B")).isEmpty();
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void removed(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge").property("name1", "value1", "name2", "value2");
@@ -577,7 +577,7 @@ public class EventPropertyGraphEdgeMethods {
     assertThat(bus).withAction(() -> graph.removeEdge("A", "B")).containsExactly(expected);
   }
 
-  @TestEventGraphs
+  @TestGreenrobotEventGraphs
   void removeWithId(EventPropertyGraph<String> graph, EventBus bus) {
     graph.id("graph");
     graph.getEdge("A", "B").id("edge");

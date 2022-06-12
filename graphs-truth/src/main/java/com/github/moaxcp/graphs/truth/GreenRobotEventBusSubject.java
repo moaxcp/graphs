@@ -34,10 +34,6 @@ public class GreenRobotEventBusSubject extends Subject {
         this.actual = actual;
     }
 
-    static IterableSubject assertEvents(Runnable action) {
-        return assertAbout(busses()).that(EventBus.getDefault()).withAction(action);
-    }
-
     public static GreenRobotEventBusSubject assertThat(EventBus actual) {
         return assertAbout(busses()).that(actual);
     }

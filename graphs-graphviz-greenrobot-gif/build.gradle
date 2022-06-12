@@ -3,7 +3,7 @@ plugins {
   id 'signing'
 }
 
-description = 'supports converting graphs to gifs'
+description = 'supports converting graphs to gifs using greenrobot'
 
 dependencies {
   api project(':graphs-greenrobot')

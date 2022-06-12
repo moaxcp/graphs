@@ -15,29 +15,29 @@ import static com.github.moaxcp.graphs.truth.GreenRobotEventBusSubject.*;
 public class PropertyGraph {
     @Test
     void undirectedEventGraphDefaultConstructor() {
-        EventBus bus = testEventBus();
+        EventBus bus = testGreenrobotEventBus();
         assertThat(bus).withAction(() -> new UndirectedEventPropertyGraph(bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().build());
     }
 
     @Test
     void undirectedEventGraphId() {
-        EventBus bus = testEventBus();
+        EventBus bus = testGreenrobotEventBus();
         assertThat(bus).withAction(() -> new UndirectedEventPropertyGraph<>("id", bus)).containsExactly(UndirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
     @Test
     void directedEventGraphDefaultConstructor() {
-        EventBus bus = testEventBus();
+        EventBus bus = testGreenrobotEventBus();
         assertThat(bus).withAction(() -> new DirectedEventPropertyGraph(bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().build());
     }
 
     @Test
     void directedEventGraphId() {
-        EventBus bus = testEventBus();
+        EventBus bus = testGreenrobotEventBus();
         assertThat(bus).withAction(() -> new DirectedEventPropertyGraph<>("id", bus)).containsExactly(DirectedGraphCreatedEvent.<String>builder().graphId("id").build());
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void addId(EventPropertyGraph<String> graph, EventBus bus) {
         var event = GraphPropertyEvent.<String>builder()
           .graphId(null)
@@ -48,7 +48,7 @@ public class PropertyGraph {
           .containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void removeId(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
 
@@ -62,7 +62,7 @@ public class PropertyGraph {
           .containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void updateId(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("id1");
 
@@ -76,7 +76,7 @@ public class PropertyGraph {
           .containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void addProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = GraphPropertyEvent.<String>builder()
@@ -86,7 +86,7 @@ public class PropertyGraph {
         assertThat(bus).withAction(() -> graph.property("name", "value")).containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void removeProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
@@ -97,7 +97,7 @@ public class PropertyGraph {
         assertThat(bus).withAction(() -> graph.removeProperty("name")).containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void updateProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.property("name", "value");
@@ -108,7 +108,7 @@ public class PropertyGraph {
         assertThat(bus).withAction(() -> graph.property("name", "value2")).containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void addAllEdgesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = EdgeInheritedPropertyEvent.<String>builder()
@@ -118,7 +118,7 @@ public class PropertyGraph {
         assertThat(bus).withAction(() -> graph.edgeProperty("name", "value")).containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void removeAllEdgesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edgeProperty("name", "value");
@@ -129,7 +129,7 @@ public class PropertyGraph {
         assertThat(bus).withAction(() -> graph.removeEdgeProperty("name")).containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void updateAllEdgesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edgeProperty("name", "A");
@@ -140,7 +140,7 @@ public class PropertyGraph {
         assertThat(bus).withAction(() -> graph.edgeProperty("name", "value")).containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void addAllVerticesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         var event = VertexInheritedPropertyEvent.<String>builder()
@@ -150,7 +150,7 @@ public class PropertyGraph {
         assertThat(bus).withAction(() -> graph.vertexProperty("name", "value")).containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void removeAllVerticesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertexProperty("name", "value");
@@ -161,7 +161,7 @@ public class PropertyGraph {
         assertThat(bus).withAction(() -> graph.removeVertexProperty("name")).containsExactly(event);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void updateAllVerticesProperty(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertexProperty("name", "A");

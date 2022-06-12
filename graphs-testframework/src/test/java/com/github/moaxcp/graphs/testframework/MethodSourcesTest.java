@@ -11,6 +11,6 @@ import static java.util.stream.Collectors.*;
 public class MethodSourcesTest {
   @Test
   void testSimpleGraphs() {
-    List<PropertyGraph<String>> result = simpleGraphs().collect(toList());
+    List<PropertyGraph<String>> result = propertyGraphs().collect(toList());
   }
 }

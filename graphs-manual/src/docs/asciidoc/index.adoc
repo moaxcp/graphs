@@ -349,9 +349,13 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
+== 0.15.0-SNAPSHOT
+
+Adding new project `graphs-guava` and `graphs-graphviz-guava-gif`.
+
 == 0.14.0
 
-* Adding graphs-graphviz-greenrobot-gif subproject which contains a greenrobot subscriber that can automatically create gifs.
+Adding graphs-graphviz-greenrobot-gif subproject which contains a greenrobot subscriber that can automatically create gifs.
 
 == 0.13.0
 

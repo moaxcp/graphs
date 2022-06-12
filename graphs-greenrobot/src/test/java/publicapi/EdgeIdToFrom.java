@@ -9,7 +9,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class EdgeIdToFrom {
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void edgeIdAdded(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.edge("A", "B");
@@ -19,13 +19,13 @@ public class EdgeIdToFrom {
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id("edge")).containsExactly(expected);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void edgeIdRemovedNoId(EventPropertyGraph<String> graph, EventBus bus) {
         graph.edge("A", "B");
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id(null)).isEmpty();
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void edgeIdRemoved(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "B").id("edge");
@@ -35,7 +35,7 @@ public class EdgeIdToFrom {
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id(null)).containsExactly(expected);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void edgeIdUpdated(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "B").id("oldEdge");
@@ -45,7 +45,7 @@ public class EdgeIdToFrom {
         assertThat(bus).withAction(() -> graph.getEdge("A", "B").id("edge")).containsExactly(expected);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void edgeFromUpdatedCreatedVertex(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("oldFrom", "B").id("edge");
@@ -68,7 +68,7 @@ public class EdgeIdToFrom {
           .containsExactly(expected1, expected2).inOrder();
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void edgeToUpdatedCreatedVertex(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.getEdge("A", "oldTo").id("edge");
@@ -85,7 +85,7 @@ public class EdgeIdToFrom {
           .containsExactly(expected1, expected2);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void edgeFromUpdated(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("A");
@@ -96,7 +96,7 @@ public class EdgeIdToFrom {
         assertThat(bus).withAction(() -> graph.getEdge("oldFrom", "B").setSource("A")).containsExactly(expected);
     }
 
-    @TestEventGraphs
+    @TestGreenrobotEventGraphs
     void edgeToUpdated(EventPropertyGraph<String> graph, EventBus bus) {
         graph.id("graph");
         graph.vertex("B");

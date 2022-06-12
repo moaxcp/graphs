@@ -15,45 +15,61 @@ import static org.junit.jupiter.params.provider.Arguments.*;
 
 public class MethodSources {
 
-    public static EventBus testEventBus() {
+    public static EventBus testGreenrobotEventBus() {
         return EventBus.builder()
                 .throwSubscriberException(true)
                 .logNoSubscriberMessages(false)
                 .build();
     }
 
-    public static Stream<PropertyGraph<String>> simpleGraphs() {
+    public static com.google.common.eventbus.EventBus testGuavaEventBus() {
+        return new com.google.common.eventbus.EventBus();
+    }
+
+    public static Stream<PropertyGraph<String>> propertyGraphs() {
         return Stream.of(
                 new UndirectedPropertyGraph<>(),
                 new DirectedPropertyGraph<>(),
-                new UndirectedEventPropertyGraph<>(testEventBus()),
-                new DirectedEventPropertyGraph<>(testEventBus()));
+                new UndirectedEventPropertyGraph<>(testGreenrobotEventBus()),
+                new DirectedEventPropertyGraph<>(testGreenrobotEventBus()),
+                new com.github.moaxcp.graphs.guava.UndirectedEventPropertyGraph<>(testGuavaEventBus()),
+                new com.github.moaxcp.graphs.guava.DirectedEventPropertyGraph<>(testGuavaEventBus()));
     }
 
-    public static Stream<PropertyGraph<String>> undirectedSimpleGraphs() {
+    public static Stream<PropertyGraph<String>> undirectedPropertyGraphs() {
         return Stream.of(
                 new UndirectedPropertyGraph<>(),
-                new UndirectedEventPropertyGraph<>(testEventBus()));
+                new UndirectedEventPropertyGraph<>(testGreenrobotEventBus()),
+                new com.github.moaxcp.graphs.guava.UndirectedEventPropertyGraph<>(testGuavaEventBus()));
     }
 
-    public static Stream<PropertyGraph<String>> directedSimpleGraphs() {
+    public static Stream<PropertyGraph<String>> directedPropertyGraphs() {
         return Stream.of(
                 new DirectedPropertyGraph<>(),
-                new DirectedEventPropertyGraph<>(testEventBus()));
+                new DirectedEventPropertyGraph<>(testGreenrobotEventBus()),
+                new com.github.moaxcp.graphs.guava.DirectedEventPropertyGraph<>(testGuavaEventBus()));
     }
 
-    public static Stream<PropertyGraph<String>> nonEventSimpleGraphs() {
+    public static Stream<PropertyGraph<String>> nonEventPropertyGraphs() {
         return Stream.of(
             new UndirectedPropertyGraph<>(),
             new DirectedPropertyGraph<>());
     }
 
-    public static Stream<Arguments> eventSimpleGraphs() {
-        EventBus undirected = testEventBus();
-        EventBus directed = testEventBus();
+    public static Stream<Arguments> greenrobotEventPropertyGraphs() {
+        EventBus undirected = testGreenrobotEventBus();
+        EventBus directed = testGreenrobotEventBus();
         return Stream.of(
                 Arguments.arguments(new UndirectedEventPropertyGraph<>(undirected), undirected),
                 Arguments.arguments(new DirectedEventPropertyGraph<>(directed), directed));
+    }
+
+    public static Stream<Arguments> guavaEventPropertyGraphs() {
+        com.google.common.eventbus.EventBus undirected = testGuavaEventBus();
+        com.google.common.eventbus.EventBus directed = testGuavaEventBus();
+        return Stream.of(
+            Arguments.arguments(new com.github.moaxcp.graphs.guava.UndirectedEventPropertyGraph<>(undirected), undirected),
+            Arguments.arguments(new com.github.moaxcp.graphs.guava.DirectedEventPropertyGraph<>(directed), directed));
     }
 
     public static Stream<Arguments> graphsPostOrder() {
@@ -87,12 +103,12 @@ public class MethodSources {
     }
 
     private static Stream<Arguments> simpleGraphArguments(Function<PropertyGraph<String>, Arguments> convert) {
-        return simpleGraphs()
+        return propertyGraphs()
           .map(convert);
     }
 
     private static Stream<Arguments> directedGraphArguments(Function<PropertyGraph<String>, Arguments> convert) {
-        return directedSimpleGraphs()
+        return directedPropertyGraphs()
           .map(convert);
     }
 

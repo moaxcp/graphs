@@ -16,8 +16,8 @@ public class PropertyGraphConstructor {
         return Stream.of(
                 new UndirectedPropertyGraph("id"),
                 new DirectedPropertyGraph("id"),
-                new UndirectedEventPropertyGraph("id", testEventBus()),
-                new DirectedEventPropertyGraph("id", testEventBus())
+                new UndirectedEventPropertyGraph("id", testGreenrobotEventBus()),
+                new DirectedEventPropertyGraph("id", testGreenrobotEventBus())
         );
     }
 

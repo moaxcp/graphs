@@ -37,7 +37,8 @@ test {
         ]
         addOpens = [
             'com.github.moaxcp.graphs.core/com.github.moaxcp.graphs' : 'nl.jqno.equalsverifier',
-            'com.github.moaxcp.graphs.greenrobot/com.github.moaxcp.graphs.greenrobot' : 'nl.jqno.equalsverifier'
+            'com.github.moaxcp.graphs.greenrobot/com.github.moaxcp.graphs.greenrobot' : 'nl.jqno.equalsverifier',
+            'com.github.moaxcp.graphs.guava/com.github.moaxcp.graphs.guava' : 'nl.jqno.equalsverifier'
         ]
     }
 }

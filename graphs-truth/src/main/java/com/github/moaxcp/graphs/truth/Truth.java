@@ -1,10 +1,10 @@
 package com.github.moaxcp.graphs.truth;
 
-import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.PropertyGraph.*;
-import com.google.common.truth.*;
-import lombok.experimental.*;
-import org.greenrobot.eventbus.*;
+import com.github.moaxcp.graphs.PropertyGraph;
+import com.github.moaxcp.graphs.PropertyGraph.Edge;
+import com.github.moaxcp.graphs.PropertyGraph.Vertex;
+import lombok.experimental.UtilityClass;
+import org.greenrobot.eventbus.EventBus;
 
 @UtilityClass
 public class Truth {
@@ -20,11 +20,11 @@ public class Truth {
         return VertexSubject.assertThat(vertex);
     }
 
-    public static IterableSubject assertEvents(Runnable action) {
-        return GreenRobotEventBusSubject.assertEvents(action);
-    }
-
     public static GreenRobotEventBusSubject assertThat(EventBus actual) {
         return GreenRobotEventBusSubject.assertThat(actual);
+    }
+
+    public static GuavaEventBusSubject assertThat(com.google.common.eventbus.EventBus actual) {
+        return GuavaEventBusSubject.assertThat(actual);
     }
 }
