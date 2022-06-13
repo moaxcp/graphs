@@ -5,7 +5,7 @@ import lombok.*;
 @Value
 @Builder
 public class VertexRemovedEvent<ID> implements GraphEvent<ID> {
-  private final ID graphId;
+  ID graphId;
   @NonNull
-  private final ID vertexId;
+  ID vertexId;
 }

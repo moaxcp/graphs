@@ -5,5 +5,5 @@ import lombok.*;
 @Value
 @Builder
 public class DirectedGraphCreatedEvent<ID> implements GraphEvent<ID> {
-  private final ID graphId;
+  ID graphId;
 }

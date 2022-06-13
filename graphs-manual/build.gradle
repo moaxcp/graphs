@@ -17,7 +17,7 @@ patchModules.config = [
 compileTestJava {
     moduleOptions {
         addReads = [
-            'com.github.moaxcp.graphs.test' : 'truth,org.junit.jupiter.params'
+            'com.github.moaxcp.graphs.manual' : 'truth,org.junit.jupiter.params'
         ]
     }
 }

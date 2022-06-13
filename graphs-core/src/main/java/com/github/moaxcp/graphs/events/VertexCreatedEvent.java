@@ -7,10 +7,10 @@ import java.util.*;
 @Value
 @Builder
 public class VertexCreatedEvent<ID> implements GraphEvent<ID> {
-  private final ID graphId;
+  ID graphId;
   @NonNull
-  private final ID vertexId;
+  ID vertexId;
   @Singular
   @NonNull
-  private final Map<String, Object> properties;
+  Map<String, Object> properties;
 }

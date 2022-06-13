@@ -7,9 +7,9 @@ import java.util.*;
 @Value
 @Builder
 public class GraphPropertyEvent<ID> implements GraphEvent<ID> {
-  private final ID graphId;
-  private final ID newId;
+  ID graphId;
+  ID newId;
   @Singular
   @NonNull
-  private final Map<String, Object> properties;
+  Map<String, Object> properties;
 }

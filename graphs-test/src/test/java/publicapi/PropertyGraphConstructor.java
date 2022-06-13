@@ -12,12 +12,12 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class PropertyGraphConstructor {
 
-    static Stream<PropertyGraph> id() {
+    static Stream<PropertyGraph<String>> id() {
         return Stream.of(
-                new UndirectedPropertyGraph("id"),
-                new DirectedPropertyGraph("id"),
-                new UndirectedEventPropertyGraph("id", testGreenrobotEventBus()),
-                new DirectedEventPropertyGraph("id", testGreenrobotEventBus())
+                new UndirectedPropertyGraph<String>("id"),
+                new DirectedPropertyGraph<String>("id"),
+                new UndirectedEventPropertyGraph<String>("id", testGreenrobotEventBus()),
+                new DirectedEventPropertyGraph<String>("id", testGreenrobotEventBus())
         );
     }
 

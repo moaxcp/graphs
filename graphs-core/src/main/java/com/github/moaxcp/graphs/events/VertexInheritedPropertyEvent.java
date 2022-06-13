@@ -7,8 +7,8 @@ import java.util.*;
 @Value
 @Builder
 public class VertexInheritedPropertyEvent<ID> implements GraphEvent<ID> {
-  private final ID graphId;
+  ID graphId;
   @Singular
   @NonNull
-  private final Map<String, Object> properties;
+  Map<String, Object> properties;
 }

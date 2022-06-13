@@ -15,7 +15,7 @@ import static com.google.common.truth.ExpectFailure.assertThat;
 public class PropertyGraphSubjectTest {
     @Test
     public void doesNotHaveVertex() {
-        AssertionError expected = expectError(whenTesting -> whenTesting.that(new UndirectedPropertyGraph()).hasVertex("id"));
+        AssertionError expected = expectError(whenTesting -> whenTesting.that(new UndirectedPropertyGraph<String>()).hasVertex("id"));
 
         assertThat(expected).factValue("value of").isEqualTo("graph.findVertex(id)");
         assertThat(expected).factKeys().contains("expected to be present");
@@ -23,14 +23,14 @@ public class PropertyGraphSubjectTest {
 
     @Test
     public void doesHaveVertex() {
-        PropertyGraph graph = new UndirectedPropertyGraph();
+        var graph = new UndirectedPropertyGraph<String>();
         graph.vertex("id");
         assertThat(graph).hasVertex("id");
     }
 
     @Test
     public void doesNotHaveEdge() {
-        PropertyGraph graph = new UndirectedPropertyGraph();
+        var graph = new UndirectedPropertyGraph<String>();
         graph.vertex("A");
         graph.vertex("B");
 
@@ -42,7 +42,7 @@ public class PropertyGraphSubjectTest {
 
     @Test
     public void doesHaveEdge() {
-        PropertyGraph graph = new UndirectedPropertyGraph();
+        var graph = new UndirectedPropertyGraph<String>();
         graph.edge("A", "B");
         assertThat(graph).hasEdge("A", "B");
     }
