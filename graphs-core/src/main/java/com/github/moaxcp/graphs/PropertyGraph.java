@@ -972,6 +972,49 @@ public interface PropertyGraph<ID> {
   }
 
   /**
+   * Returns a reverse-post-order {@link Iterator} of every {@link Vertex} in this graph. This is a reverse of a
+   * postOrderIterator starting at the provided vertices.
+   * @throws NullPointerException if start is null or any id in start
+   * @throws IllegalArgumentException if start contains ids that are not in the graph
+   * @param start ids of traversal
+   * @return
+   */
+  default Iterator<Vertex<ID>> reversePostOrderIterator(ID... start) {
+    var iterator = postOrderIterator(start);
+    var list = new LinkedList<Vertex<ID>>();
+    while(iterator.hasNext()) {
+      list.addFirst(iterator.next());
+    }
+    return new Iterator<Vertex<ID>>() {
+      @Override
+      public boolean hasNext() {
+        return list.size() != 0;
+      }
+
+      @Override
+      public Vertex<ID> next() {
+        if(list.size() == 0) {
+          throw new NoSuchElementException("Could not find next element.");
+        }
+        return list.removeFirst();
+      }
+    };
+  }
+
+  /**
+   * Returns a reverse-post-order {@link Stream} of every {@link Vertex} in this graph. This is a reverse of a
+   * postOrderIterator starting at the provided vertices.
+   * @throws NullPointerException if start is null or any id in start
+   * @throws IllegalArgumentException if start contains ids that are not in the graph
+   * @param start ids of traversal
+   * @return
+   */
+  default Stream<Vertex<ID>> reversePostOrderStream(ID... start) {
+    var iterator = reversePostOrderIterator(start);
+    return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
+  }
+
+  /**
    * Returns true if this graph is empty.
    * @return
    */

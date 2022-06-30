@@ -345,6 +345,24 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/PostorderTraversal.java[tag
 
 image::images/postOrderTraversal.gif[post order]
 
+== reverse-post-order iterator and post-order stream
+
+An iterator and stream are provided to perform reverse-post-order depth first traversal.
+
+.reversePostOrderIterator()
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/ReversePostorderTraversal.java[tags=reversePostOrderIterator]
+----
+
+.reversePostOrderStream()
+[source,java,indent=0]
+----
+include::{sourcedir}/com/github/moaxcp/graphs/manual/ReversePostorderTraversal.java[tags=reversePostOrderStream]
+----
+
+image::images/reversePostOrderTraversal.gif[reverse post order]
+
 == breadth first iterator and breadth first stream
 
 An iterator and stream are provided to perform breadth first traversals.
@@ -364,6 +382,10 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/BreadthFirstTraversal.java[
 image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
+
+== 0.16.0-SNAPSHOT
+
+Adding reversePostOrder iterator and stream.
 
 == 0.15.0
 

@@ -76,6 +76,10 @@ public class MethodSources {
         return graphsOrdered(POST_ORDER);
     }
 
+    public static Stream<Arguments> graphsReversePostOrder() {
+        return graphsOrdered(REVERSE_POST_ORDER);
+    }
+
     public static Stream<Arguments> graphsPreOrder() {
         return graphsOrdered(PRE_ORDER);
     }
@@ -97,6 +101,7 @@ public class MethodSources {
           directedGraphArguments(g -> complexOneTraversal(g, order)),
           directedGraphArguments(g -> complexTwoTraversal(g, order)),
           directedGraphArguments(g -> complexTwoComponents(g, order)),
+          directedGraphArguments(g -> complexTwoComponentsThreeStart(g, order)),
           directedGraphArguments(g -> startVertexIsBlack(g, order)),
           directedGraphArguments(g -> startHasDuplicates(g, order))
         ).flatMap(identity());
@@ -120,17 +125,11 @@ public class MethodSources {
 
         var name = createName("start has duplicates", graph, order);
 
-        switch(order) {
-            case POST_ORDER:
-                return arguments(name, graph, startOrder("B", "B"), List.of("D", "B", "C", "A", "Z", "X"));
-            case PRE_ORDER:
-                return arguments(name, graph, startOrder("B", "B"), List.of("B", "D", "A", "C", "X", "Z"));
-            case BREADTH_FIRST:
-                return arguments(name, graph, startOrder("B", "B"), List.of("B", "D", "A", "C", "X", "Z"));
-            default:
-                throw new IllegalArgumentException("not supported: " + order);
-
-        }
+        return switch (order) {
+            case POST_ORDER -> arguments(name, graph, startOrder("B", "B"), List.of("D", "B", "C", "A", "Z", "X"));
+            case REVERSE_POST_ORDER -> arguments(name, graph, startOrder("B", "B"), List.of("X", "Z", "A", "C", "B", "D"));
+            case PRE_ORDER, BREADTH_FIRST -> arguments(name, graph, startOrder("B", "B"), List.of("B", "D", "A", "C", "X", "Z"));
+        };
     }
 
     private static Arguments startVertexIsBlack(PropertyGraph<String> graph, PathOrder order) {
@@ -146,45 +145,61 @@ public class MethodSources {
           .edge("G", "D");
         var name = createName("start vertex is black", graph, order);
 
-        switch (order) {
-            case POST_ORDER:
-                return arguments(name, graph, startOrder("A", "D"), List.of("C", "E", "D", "B", "A", "G", "F"));
-            case PRE_ORDER:
-                return arguments(name, graph, startOrder("A", "D"), List.of("A", "B", "C", "D", "E", "F", "G"));
-            case BREADTH_FIRST:
-                return arguments(name, graph, startOrder("A", "D"), List.of("A", "B", "D", "E", "C", "F", "G"));
-            default:
-                throw new IllegalArgumentException("not supported: " + order);
-        }
+        return switch (order) {
+            case POST_ORDER -> arguments(name, graph, startOrder("A", "D"), List.of("C", "E", "D", "B", "A", "G", "F"));
+            case REVERSE_POST_ORDER ->
+                arguments(name, graph, startOrder("A", "D"), List.of("F", "G", "A", "B", "D", "E", "C"));
+            case PRE_ORDER -> arguments(name, graph, startOrder("A", "D"), List.of("A", "B", "C", "D", "E", "F", "G"));
+            case BREADTH_FIRST ->
+                arguments(name, graph, startOrder("A", "D"), List.of("A", "B", "D", "E", "C", "F", "G"));
+        };
     }
 
     public static Arguments complexTwoComponents(PropertyGraph<String> graph, PathOrder order) {
+        complexTwoComponentsGraph(graph);
+        String name = createName("complex two components", graph, order);
+
+        return switch (order) {
+            case POST_ORDER ->
+                arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A", "G", "F", "Y", "Z", "W", "X"));
+            case REVERSE_POST_ORDER ->
+                arguments(name, graph, startOrder(), List.of("X", "W", "Z", "Y", "F", "G", "A", "B", "D", "E", "C"));
+            case PRE_ORDER ->
+                arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E", "F", "G", "X", "Y", "Z", "W"));
+            case BREADTH_FIRST ->
+                arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C", "F", "G", "X", "Y", "Z", "W"));
+        };
+    }
+
+    public static Arguments complexTwoComponentsThreeStart(PropertyGraph<String> graph, PathOrder order) {
+        complexTwoComponentsGraph(graph);
+        String name = createName("complex two components", graph, order);
+
+        return switch (order) {
+            case POST_ORDER ->
+                arguments(name, graph, startOrder("D", "G", "W"), List.of("E", "C", "B", "A", "D", "G", "W", "F", "Y", "Z", "X"));
+            case REVERSE_POST_ORDER ->
+                arguments(name, graph, startOrder("D", "G", "W"), List.of("X", "Z", "Y", "F", "W", "G", "D", "A", "B", "C", "E"));
+            case PRE_ORDER, BREADTH_FIRST ->
+                arguments(name, graph, startOrder("D", "G", "W"), List.of("D", "E", "C", "A", "B", "G", "W", "F", "X", "Y", "Z"));
+        };
+    }
+
+    private static void complexTwoComponentsGraph(PropertyGraph<String> graph) {
         graph.edge("A", "B")
-          .edge("B", "C")
-          .edge("B", "D")
-          .edge("D", "E")
-          .edge("D", "C")
-          .edge("A", "D")
-          .edge("D", "A")
-          .edge("A", "E")
-          .edge("F", "G")
-          .edge("G", "D");
+            .edge("B", "C")
+            .edge("B", "D")
+            .edge("D", "E")
+            .edge("D", "C")
+            .edge("A", "D")
+            .edge("D", "A")
+            .edge("A", "E")
+            .edge("F", "G")
+            .edge("G", "D");
 
         graph.edge("X", "Y")
-          .edge("X", "Z")
-          .edge("X", "W");
-        var name = createName("complex two components", graph, order);
-
-        switch(order) {
-            case POST_ORDER:
-                return arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A", "G", "F", "Y", "Z","W", "X"));
-            case PRE_ORDER:
-                return arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E", "F", "G", "X", "Y", "Z", "W"));
-            case BREADTH_FIRST:
-                return arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C", "F", "G", "X", "Y", "Z", "W"));
-            default:
-                throw new IllegalArgumentException("not supported: " + order);
-        }
+            .edge("X", "Z")
+            .edge("X", "W");
     }
 
     private static Arguments complexTwoTraversal(PropertyGraph<String> graph, PathOrder order) {
@@ -200,16 +215,12 @@ public class MethodSources {
           .edge("G", "D");
         var name = createName("complex two traversal", graph, order);
 
-        switch(order) {
-            case POST_ORDER:
-                return arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A", "G", "F"));
-            case PRE_ORDER:
-                return arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E", "F", "G"));
-            case BREADTH_FIRST:
-                return arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C", "F", "G"));
-            default:
-                throw new IllegalArgumentException("not supported: " + order);
-        }
+        return switch (order) {
+            case POST_ORDER -> arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A", "G", "F"));
+            case REVERSE_POST_ORDER -> arguments(name, graph, startOrder(), List.of("F", "G", "A", "B", "D", "E", "C"));
+            case PRE_ORDER -> arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E", "F", "G"));
+            case BREADTH_FIRST -> arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C", "F", "G"));
+        };
     }
 
     private static Arguments complexOneTraversal(PropertyGraph<String> graph, PathOrder order) {
@@ -223,16 +234,11 @@ public class MethodSources {
           .edge("A", "E");
         var name = createName("complex one traversal", graph, order);
 
-        switch(order) {
-            case POST_ORDER:
-                return arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A"));
-            case PRE_ORDER:
-                return arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E"));
-            case BREADTH_FIRST:
-                return arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C"));
-            default:
-                throw new IllegalArgumentException("not supported: " + order);
-        }
+        return switch (order) {
+            case POST_ORDER -> arguments(name, graph, startOrder(), List.of("C", "E", "D", "B", "A"));
+            case REVERSE_POST_ORDER, BREADTH_FIRST -> arguments(name, graph, startOrder(), List.of("A", "B", "D", "E", "C"));
+            case PRE_ORDER -> arguments(name, graph, startOrder(), List.of("A", "B", "C", "D", "E"));
+        };
     }
 
     private static Arguments splitJoin(PropertyGraph<String> graph, PathOrder order) {
@@ -249,6 +255,12 @@ public class MethodSources {
                 } else {
                     return arguments(name, graph, startOrder(), List.of("C", "D", "B", "A"));
                 }
+            case REVERSE_POST_ORDER:
+                if (graph.isDirected()) {
+                    return arguments(name, graph, startOrder(), List.of("A", "C", "B", "D"));
+                } else {
+                    return arguments(name, graph, startOrder(), List.of("A", "B", "D", "C"));
+                }
             case PRE_ORDER:
                 return arguments(name, graph, startOrder(), List.of("A", "B", "D", "C"));
             case BREADTH_FIRST:
@@ -263,15 +275,11 @@ public class MethodSources {
           .edge("A", "C");
         var name = createName("three split", graph, order);
 
-        switch(order) {
-            case POST_ORDER:
-                return arguments(name, graph, startOrder(), List.of("B", "C", "A"));
-            case PRE_ORDER:
-            case BREADTH_FIRST:
-                return arguments(name, graph, startOrder(), List.of("A", "B", "C"));
-            default:
-                throw new IllegalArgumentException("not supported: " + order);
-        }
+        return switch (order) {
+            case POST_ORDER -> arguments(name, graph, startOrder(), List.of("B", "C", "A"));
+            case REVERSE_POST_ORDER -> arguments(name, graph, startOrder(), List.of("A", "C", "B"));
+            case PRE_ORDER, BREADTH_FIRST -> arguments(name, graph, startOrder(), List.of("A", "B", "C"));
+        };
     }
 
     private static Arguments threeLinked(PropertyGraph<String> graph, PathOrder order) {
@@ -279,39 +287,32 @@ public class MethodSources {
           .edge("B", "C");
         var name = createName("three linked", graph, order);
 
-        switch(order) {
-            case POST_ORDER:
-                return arguments(name, graph, startOrder(), List.of("C", "B", "A"));
-            case PRE_ORDER:
-            case BREADTH_FIRST:
-                return arguments(name, graph, startOrder(), List.of("A", "B", "C"));
-            default:
-                throw new IllegalArgumentException("not supported: " + order);
-        }
+        return switch(order) {
+            case POST_ORDER -> arguments(name, graph, startOrder(), List.of("C", "B", "A"));
+            case REVERSE_POST_ORDER, PRE_ORDER, BREADTH_FIRST -> arguments(name, graph, startOrder(), List.of("A", "B", "C"));
+        };
     }
 
     private static Arguments three(PropertyGraph<String> graph, PathOrder order) {
         graph.vertex("A")
           .vertex("B")
           .vertex("C");
-        var name = createName("two", graph, order);
+        var name = createName("three", graph, order);
 
-        return arguments(name, graph, startOrder(), List.of("A", "B", "C"));
+        return switch(order) {
+            case REVERSE_POST_ORDER -> arguments(name, graph, startOrder(), List.of("C", "B", "A"));
+            case POST_ORDER, PRE_ORDER, BREADTH_FIRST -> arguments(name, graph, startOrder(), List.of("A", "B", "C"));
+        };
     }
 
     private static Arguments twoLinked(PropertyGraph<String> graph, PathOrder order) {
         graph.edge("A", "B");
         var name = createName("two linked", graph, order);
 
-        switch(order) {
-            case POST_ORDER:
-                return arguments(name, graph, startOrder(), List.of("B", "A"));
-            case PRE_ORDER:
-            case BREADTH_FIRST:
-                return arguments(name, graph, startOrder(), List.of("A", "B"));
-            default:
-                throw new IllegalArgumentException("not supported: " + order);
-        }
+        return switch(order) {
+            case POST_ORDER -> arguments(name, graph, startOrder(), List.of("B", "A"));
+            case REVERSE_POST_ORDER, PRE_ORDER, BREADTH_FIRST -> arguments(name, graph, startOrder(), List.of("A", "B"));
+        };
     }
 
     private static Arguments two(PropertyGraph<String> graph, PathOrder order) {
@@ -319,7 +320,10 @@ public class MethodSources {
           .vertex("B");
         var name = createName("two", graph, order);
 
-        return arguments(name, graph, startOrder(), List.of("A", "B"));
+        return switch(order) {
+            case REVERSE_POST_ORDER -> arguments(name, graph, startOrder(), List.of("B", "A"));
+            case POST_ORDER, PRE_ORDER, BREADTH_FIRST -> arguments(name, graph, startOrder(), List.of("A", "B"));
+        };
     }
 
     private static Arguments oneLinked(PropertyGraph<String> graph, PathOrder order) {
