@@ -440,7 +440,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Graphs</h1>
 <div class="details">
-<span id="revnumber">version 0.15.0-SNAPSHOT</span>
+<span id="revnumber">version 0.16.0</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -466,10 +466,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_visualize_a_graph_with_graphviz">Visualize a graph with graphviz</a></li>
 <li><a href="#_create_a_graph_using_edge_methods">Create a graph using edge methods</a></li>
 <li><a href="#_create_a_graph_using_vertex_methods">Create a graph using vertex methods</a></li>
+<li><a href="#_eventpropertygraphs">EventPropertyGraphs</a></li>
 <li><a href="#_pre_order_iterator_and_pre_order_stream">pre-order iterator and pre-order stream</a></li>
 <li><a href="#_post_order_iterator_and_post_order_stream">post-order iterator and post-order stream</a></li>
+<li><a href="#_reverse_post_order_iterator_and_post_order_stream">reverse-post-order iterator and post-order stream</a></li>
 <li><a href="#_breadth_first_iterator_and_breadth_first_stream">breadth first iterator and breadth first stream</a></li>
 <li><a href="#_releases">Releases</a></li>
+<li><a href="#_0_16_0_snapshot">0.16.0-SNAPSHOT</a></li>
 <li><a href="#_0_15_0">0.15.0</a></li>
 <li><a href="#_0_14_0">0.14.0</a></li>
 <li><a href="#_0_13_0">0.13.0</a></li>
@@ -505,15 +508,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.14.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.15.0'</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>graphs-greenrobot</code> EventGraph implementation using greenrobot&#8217;s EventBus</p>
+<p><code>graphs-greenrobot</code> EventPropertyGraph implementation using greenrobot&#8217;s EventBus</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.14.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.15.0'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>graphs-guava</code> EventPropertyGraph implementation using guava&#8217;s EventBus</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-guava', version: '0.15.0'</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -521,7 +532,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.14.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.15.0'</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -529,7 +540,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-greenrobot-gif', version: '0.14.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-greenrobot-gif', version: '0.15.0'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>graphs-graphviz-guava-gif</code> rendering of graph as gif using graphviz and guava&#8217;s EventBus</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-guava-gif', version: '0.15.0'</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -537,7 +556,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.14.0'</pre>
+<pre>compile group: 'com.github.moaxcp.graphs', name: 'graphs-truth', version: '0.15.0'</pre>
 </div>
 </div>
 </div>
@@ -1038,6 +1057,14 @@ graph.getVertex("F")
 </div>
 </div>
 <div class="sect1">
+<h2 id="_eventpropertygraphs">EventPropertyGraphs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>EventPropertyGraphs are designed to send events to an eventbus when they are created or modified. The interface <code>EventPropertyGraph</code> and event classes are defined in <code>graphs-core</code>. There are two implementations supporting different eventbus' <code>graphs-greenrobot</code> and <code>graphs-guava</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_pre_order_iterator_and_pre_order_stream">pre-order iterator and pre-order stream</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1096,6 +1123,35 @@ while(iterator.hasNext()) {
 </div>
 </div>
 <div class="sect1">
+<h2 id="_reverse_post_order_iterator_and_post_order_stream">reverse-post-order iterator and post-order stream</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An iterator and stream are provided to perform reverse-post-order depth first traversal.</p>
+</div>
+<div class="listingblock">
+<div class="title">reversePostOrderIterator()</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Iterator&lt;Vertex&lt;String&gt;&gt; iterator = graph.reversePostOrderIterator("A");
+while(iterator.hasNext()) {
+  Vertex&lt;String&gt; vertex = iterator.next();
+  vertex.property("color", "green");
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">reversePostOrderStream()</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">graph.reversePostOrderStream("A").forEach(v -&gt; v.property("color", "green"));</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/reversePostOrderTraversal.gif" alt="reverse post order">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_breadth_first_iterator_and_breadth_first_stream">breadth first iterator and breadth first stream</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1128,6 +1184,14 @@ while(iterator.hasNext()) {
 <h2 id="_releases">Releases</h2>
 <div class="sectionbody">
 
+</div>
+</div>
+<div class="sect1">
+<h2 id="_0_16_0_snapshot">0.16.0-SNAPSHOT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Adding reversePostOrder iterator and stream.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1322,8 +1386,8 @@ for performance.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.15.0-SNAPSHOT<br>
-Last updated 2022-06-11 12:09:07 -0400
+Version 0.16.0<br>
+Last updated 2022-07-04 21:45:42 -0400
 </div>
 </div>
 </body>
