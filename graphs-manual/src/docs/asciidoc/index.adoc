@@ -383,7 +383,11 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
-== 0.16.0-SNAPSHOT
+== 0.17.0-SNAPSHOT
+
+Adding classifyEdges
+
+== 0.16.0
 
 Adding reversePostOrder iterator and stream.
 

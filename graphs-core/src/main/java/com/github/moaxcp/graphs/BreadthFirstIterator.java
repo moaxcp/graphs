@@ -14,7 +14,7 @@ class BreadthFirstIterator<ID> extends GraphIterator<ID> {
   BreadthFirstIterator(PropertyGraph<ID> graph, @NonNull ID... start) {
     super(graph);
     queue = new LinkedList<>();
-    this.start = new ArrayList<>();
+    this.start = new ArrayList<>(start.length);
     for(ID id : start) {
       requireNonNull(id, "\"id\" in \"start\" must not be null.");
       if(graph.findVertex(id).isEmpty()) {

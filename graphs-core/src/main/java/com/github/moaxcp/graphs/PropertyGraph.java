@@ -897,6 +897,14 @@ public interface PropertyGraph<ID> {
   }
 
   /**
+   * Returns true if this graph is empty.
+   * @return
+   */
+  default boolean isEmpty() {
+    return getVertices().isEmpty();
+  }
+
+  /**
    * Returns a post-order depth-first {@link Iterator} which returns every {@link Vertex} in this graph starting at
    * the provided vertices.
    * @throws NullPointerException if start is null or any id in start
@@ -1014,11 +1022,8 @@ public interface PropertyGraph<ID> {
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
   }
 
-  /**
-   * Returns true if this graph is empty.
-   * @return
-   */
-  default boolean isEmpty() {
-    return getVertices().isEmpty();
+
+  default EdgeTypeIterator<ID> edgeTypeIterator(ID... start) {
+    return new EdgeTypeIterator<>(this, start);
   }
 }
