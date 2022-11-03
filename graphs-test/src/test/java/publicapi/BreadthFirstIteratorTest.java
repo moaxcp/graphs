@@ -17,46 +17,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BreadthFirstIteratorTest {
 
-  @TestGraphs
+  @TestPropertyGraphs
   void nullStart(PropertyGraph<String> graph) {
     var exception = assertThrows(NullPointerException.class, () -> graph.breadthFirstIterator((String[]) null));
     assertThat(exception).hasMessageThat().isEqualTo("start is marked non-null but is null");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void nullInOther(PropertyGraph<String> graph) {
     graph.vertex("A").vertex("B");
     var exception = assertThrows(NullPointerException.class, () -> graph.breadthFirstIterator("A", null, "B"));
     assertThat(exception).hasMessageThat().isEqualTo("\"id\" in \"start\" must not be null.");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void startNotInGraph(PropertyGraph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.breadthFirstIterator("A"));
     assertThat(exception).hasMessageThat().isEqualTo("vertex \"A\" not found in graph.");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void hasNext_EmptyGraph(PropertyGraph<String> graph) {
     var iterator = graph.breadthFirstIterator();
     assertThat(iterator.hasNext()).isFalse();
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void next_EmptyGraph(PropertyGraph<String> graph) {
     var iterator = graph.breadthFirstIterator();
     var exception = assertThrows(NoSuchElementException.class, () -> iterator.next());
     assertThat(exception).hasMessageThat().isEqualTo("Could not find next element.");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void hasNext_beforeIteration(PropertyGraph<String> graph) {
     graph.vertex("A");
     var iterator = graph.breadthFirstIterator();
     assertThat(iterator.hasNext()).isTrue();
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void hasNext_MultipleBeforeIteration(PropertyGraph<String> graph) {
     graph.vertex("A");
     var iterator = graph.breadthFirstIterator();
@@ -66,7 +66,7 @@ class BreadthFirstIteratorTest {
     assertThat(iterator.next().getId()).isEqualTo("A");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void hasNext_MultipleBetweenComponents(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("B");
@@ -79,7 +79,7 @@ class BreadthFirstIteratorTest {
     assertThat(iterator.next().getId()).isEqualTo("B");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void next_withoutCallingHasNext(PropertyGraph<String> graph) {
     graph.vertex("A");
     var iterator = graph.breadthFirstIterator();
@@ -99,7 +99,7 @@ class BreadthFirstIteratorTest {
     assertThat(result).containsExactlyElementsIn(expectedOrder);
   }
 
-  @TestDirectedGraphs
+  @TestDirectedPropertyGraphs
   void breadthFirstIteratorStart(PropertyGraph<String> graph) {
     complexTwoComponents(graph, POST_ORDER);
     var result = new ArrayList<String>();
@@ -122,7 +122,7 @@ class BreadthFirstIteratorTest {
     assertThat(result).isEqualTo(expectedOrder);
   }
 
-  @TestDirectedGraphs
+  @TestDirectedPropertyGraphs
   void breadthFirstStreamStart(PropertyGraph<String> graph) {
     complexTwoComponents(graph, POST_ORDER);
     var result = graph.breadthFirstStream("D", "G", "W")

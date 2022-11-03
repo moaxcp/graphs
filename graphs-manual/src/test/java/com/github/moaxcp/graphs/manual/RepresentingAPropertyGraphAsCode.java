@@ -1,14 +1,12 @@
 package com.github.moaxcp.graphs.manual;
 
-import com.github.moaxcp.graphs.DirectedPropertyGraph;
-import com.github.moaxcp.graphs.PropertyGraph;
+import com.github.moaxcp.graphs.*;
 import com.github.moaxcp.graphs.PropertyGraph.Edge;
 import com.github.moaxcp.graphs.PropertyGraph.Vertex;
-import com.github.moaxcp.graphs.UndirectedPropertyGraph;
-import com.github.moaxcp.graphs.events.*;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
-import com.github.moaxcp.graphs.greenrobot.UndirectedEventPropertyGraph;
-import org.greenrobot.eventbus.EventBus;
+import com.github.moaxcp.graphs.events.EdgeCreatedEvent;
+import com.github.moaxcp.graphs.events.EdgePropertyEvent;
+import com.github.moaxcp.graphs.events.VertexCreatedEvent;
+import com.github.moaxcp.graphs.events.VertexPropertyEvent;
 import org.junit.jupiter.api.Test;
 
 import static com.github.moaxcp.graphs.truth.Truth.assertThat;
@@ -19,20 +17,9 @@ public class RepresentingAPropertyGraphAsCode {
     // tag::graphsCore[]
     PropertyGraph<String> undirectedGraph = new UndirectedPropertyGraph<>();
     PropertyGraph<String> directedGraph = new DirectedPropertyGraph<>();
+    ObservablePropertyGraph<String> undirectedObservableGraph = new ObservableUndirectedPropertyGraph<>();
+    ObservablePropertyGraph<String> directedObservableGraph = new ObservableDirectedPropertyGraph<>();
     // end::graphsCore[]
-  }
-
-  @Test
-  void graphsGreenrobot() {
-    // tag::graphsGreenrobot[]
-    var bus = EventBus.builder().build();
-    var undirectedEvent = UndirectedGraphCreatedEvent.<String>builder().graphId("undirected").build();
-    var directedEvent = DirectedGraphCreatedEvent.<String>builder().graphId("directed").build();
-    assertThat(bus).withAction(() -> {
-      PropertyGraph<String> undirectedGraph = new UndirectedEventPropertyGraph<>("undirected", bus);
-      PropertyGraph<String> directedGraph = new DirectedEventPropertyGraph<>("directed", bus);
-    }).containsExactly(undirectedEvent, directedEvent);
-    // end::graphsGreenrobot[]
   }
 
   @Test
@@ -47,15 +34,12 @@ public class RepresentingAPropertyGraphAsCode {
   }
 
   @Test
-  void addAVertexGreenrobot() {
-    EventBus bus = new EventBus();
-    PropertyGraph<String> graph = new UndirectedEventPropertyGraph<>(bus);
+  void vertexEvent() {
     // tag::vertexEvent[]
-    assertThat(bus).withAction(() -> {
-      graph.vertex("A");
-      graph.getVertex("B");
-    }).containsExactly(VertexCreatedEvent.<String>builder().vertexId("A").build(), VertexCreatedEvent.<String>builder().vertexId("B").build())
-        .inOrder();
+    ObservablePropertyGraph<String> graph = new ObservableUndirectedPropertyGraph<>();
+    graph = graph.vertex("A");
+    assertThat(graph).withAction(g -> g.vertex("B"))
+        .containsExactly(VertexCreatedEvent.<String>builder().vertexId("B").build());
     // end::vertexEvent[]
   }
 
@@ -71,15 +55,16 @@ public class RepresentingAPropertyGraphAsCode {
 
   @Test
   void modifyVertexEvents() {
-    EventBus bus = EventBus.builder().build();
-    var graph = new DirectedEventPropertyGraph<String>(bus);
+    var graph = new ObservableDirectedPropertyGraph<String>();
     // tag::modifyVertexEvents[]
-    assertThat(bus).withAction(() -> {
-        graph.vertex("A", "color", "red");
-        graph.vertex("A", "color", "blue");
-      }).containsExactly(VertexCreatedEvent.<String>builder().vertexId("A").property("color", "red").build(),
-          VertexPropertyEvent.<String>builder().vertexId("A").property("color", "blue").build())
-        .inOrder();
+    assertThat(graph).withAction(g -> {
+      g.vertex("A", "color", "red");
+      g.vertex("A", "color", "blue");
+    }).containsExactly(
+        VertexCreatedEvent.<String>builder()
+            .vertexId("A").property("color", "red").build(),
+        VertexPropertyEvent.<String>builder()
+            .vertexId("A").property("color", "blue").build());
     // end::modifyVertexEvents[]
   }
 
@@ -95,20 +80,20 @@ public class RepresentingAPropertyGraphAsCode {
   }
 
   @Test
-  void addAnEdgeGreenRobot() {
-    EventBus bus = new EventBus();
-    PropertyGraph<String> graph = new DirectedEventPropertyGraph<>(bus);
-    // tag::edgeEvent[]
-    assertThat(bus).withAction(() -> {
-      graph.edge("A", "B", "color", "red");
-      graph.getEdge("A", "C", "color", "green");
-    }).containsExactly(VertexCreatedEvent.<String>builder().vertexId("A").build(),
+  void addAnEdgeEvent() {
+    ObservablePropertyGraph<String> graph = new ObservableDirectedPropertyGraph<>();
+    // tag::edgeEvents[]
+    assertThat(graph).withAction(g -> {
+      g = g.edge("A", "B", "color", "red");
+      Edge<String> edge = g.getEdge("A", "C", "color", "green");
+    }).containsExactly(
+        VertexCreatedEvent.<String>builder().vertexId("A").build(),
         VertexCreatedEvent.<String>builder().vertexId("B").build(),
         EdgeCreatedEvent.<String>builder().sourceId("A").targetId("B").property("color", "red").build(),
         VertexCreatedEvent.<String>builder().vertexId("C").build(),
-        EdgeCreatedEvent.<String>builder().sourceId("A").targetId("C").property("color", "green").build())
-        .inOrder();
-    // end::edgeEvent[]
+        EdgeCreatedEvent.<String>builder().sourceId("A").targetId("C").property("color", "green").build()
+    );
+    // end::edgeEvents[]
   }
 
   @Test
@@ -123,19 +108,17 @@ public class RepresentingAPropertyGraphAsCode {
 
   @Test
   void modifyEdgeEvents() {
+    var graph = new ObservableDirectedPropertyGraph<String>();
     // tag::modifyEdgeEvents[]
-    EventBus bus = EventBus.builder().build();
-    var graph = new DirectedEventPropertyGraph<String>(bus);
-    assertThat(bus)
-      .withAction(() -> {
-        graph.edge("A", "B", "color", "red");
-        graph.edge("A", "B", "color", "green");
-      }).containsExactly(
-          VertexCreatedEvent.<String>builder().vertexId("A").build(),
-          VertexCreatedEvent.<String>builder().vertexId("B").build(),
-          EdgeCreatedEvent.<String>builder().sourceId("A").targetId("B").property("color", "red").build(),
-          EdgePropertyEvent.<String>builder().sourceId("A").targetId("B").property("color", "green").build())
-    .inOrder();
+    assertThat(graph).withAction(g -> {
+      g.edge("A", "B", "color", "red");
+      g.edge("A", "B", "color", "green");
+    }).containsExactly(
+        VertexCreatedEvent.<String>builder().vertexId("A").build(),
+        VertexCreatedEvent.<String>builder().vertexId("B").build(),
+        EdgeCreatedEvent.<String>builder().sourceId("A").targetId("B").property("color", "red").build(),
+        EdgePropertyEvent.<String>builder().sourceId("A").targetId("B").property("color", "green").build()
+    );
     // end::modifyEdgeEvents[]
   }
 

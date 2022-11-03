@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.PropertyGraph;
-import com.github.moaxcp.graphs.testframework.TestDirectedGraphs;
+import com.github.moaxcp.graphs.testframework.TestDirectedPropertyGraphs;
 
 import java.io.IOException;
 
@@ -10,13 +10,13 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class DirectedDotStringTest {
 
-    @TestDirectedGraphs
+    @TestDirectedPropertyGraphs
     void strictDirected(PropertyGraph<String> graph) throws IOException {
         var s = dot(graph).toString();
         assertThat(s).startsWith("strict digraph {");
     }
 
-    @TestDirectedGraphs
+    @TestDirectedPropertyGraphs
     void containsDirectedEdge(PropertyGraph<String> graph) throws IOException {
         graph.edge("A", "B");
         var s = dot(graph).toString();
@@ -25,7 +25,7 @@ public class DirectedDotStringTest {
                 "}\n");
     }
 
-    @TestDirectedGraphs
+    @TestDirectedPropertyGraphs
     void containsVertices(PropertyGraph<String> graph) throws IOException {
         graph.vertex("A");
         graph.vertex("B");

@@ -7,7 +7,7 @@ import static com.github.moaxcp.graphs.truth.Truth.*;
 
 public class PropertyGraphMethods {
 
-  @TestGraphs
+  @TestPropertyGraphs
   void isEmpty(PropertyGraph<String> graph) {
     assertThat(graph).isEmpty();
   }
