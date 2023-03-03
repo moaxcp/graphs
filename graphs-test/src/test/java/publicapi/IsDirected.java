@@ -20,7 +20,7 @@ public class IsDirected {
 
     @TestUndirectedPropertyGraphs
     void isUndirected(PropertyGraph<String> graph) {
-        assertThat(graph).isNotDirected();
+        assertThat(graph).isUndirected();
     }
 
     @TestUndirectedPropertyGraphs
