@@ -1,20 +1,18 @@
 package com.github.moaxcp.graphs.manual;
 
 import com.github.moaxcp.graphs.DirectedPropertyGraph;
+import com.github.moaxcp.graphs.ObservableDirectedPropertyGraph;
 import com.github.moaxcp.graphs.PropertyGraph.Vertex;
-import com.github.moaxcp.graphs.graphviz.greenrobotgif.GreenrobotGifSubscriber;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
+import com.github.moaxcp.graphs.graphviz.ObservableGraphGif;
 import java.nio.file.Path;
 import java.util.Iterator;
-import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
 public class PreorderTraversal {
 
   @Test
   void preOrderTraversal() {
-    var bus = new EventBus();
-    var graph = new DirectedEventPropertyGraph<String>(bus);
+    var graph = new ObservableDirectedPropertyGraph<String>();
 
     graph.edge("A", "B")
       .edge("B", "C")
@@ -26,7 +24,7 @@ public class PreorderTraversal {
       .edge("A", "E")
       .edge("F", "G")
       .edge("G", "D");
-    var gif = new GreenrobotGifSubscriber<>(graph, Path.of("src/docs/asciidoc/images/preOrderTraversal.gif"));
+    var gif = new ObservableGraphGif<>(graph, Path.of("src/docs/asciidoc/images/preOrderTraversal.gif"));
 
     // tag::preOrderIterator[]
     Iterator<Vertex<String>> iterator = graph.preOrderIterator();

@@ -1,13 +1,13 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.PropertyGraph;
-import com.github.moaxcp.graphs.testframework.TestGraphs;
+import com.github.moaxcp.graphs.testframework.TestPropertyGraphs;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemovedEdge {
-    @TestGraphs
+    @TestPropertyGraphs
     void setId(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -15,7 +15,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void id(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -23,7 +23,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void setFrom(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -31,7 +31,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void from(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -39,7 +39,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void setTo(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -47,7 +47,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void to(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -55,7 +55,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void setProperty(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");
@@ -63,7 +63,7 @@ public class RemovedEdge {
         assertThat(thrown).hasMessageThat().isEqualTo("Edge is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void removeProperty(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
         graph.removeEdge("A", "B");

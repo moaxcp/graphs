@@ -2,8 +2,6 @@ description = 'Test framework for junit5 tests.'
 
 dependencies {
     api project(':graphs-core')
-    api project(':graphs-greenrobot')
-    api project(':graphs-guava')
     api 'org.junit.jupiter:junit-jupiter-params:5.8.2'
 }
 
@@ -23,5 +21,4 @@ javadoc.enabled = false;
 jacocoTestReport {
     dependsOn ':graphs-test:test'
     executionData("${project(':graphs-test').buildDir}/jacoco/test.exec")
-    executionData("${project(':graphs-greenrobot').buildDir}/jacoco/test.exec")
 }

@@ -1,11 +1,10 @@
 package com.github.moaxcp.graphs.manual;
 
 import com.github.moaxcp.graphs.DirectedPropertyGraph;
-import com.github.moaxcp.graphs.graphviz.greenrobotgif.GreenrobotGifSubscriber;
-import com.github.moaxcp.graphs.greenrobot.DirectedEventPropertyGraph;
+import com.github.moaxcp.graphs.ObservableDirectedPropertyGraph;
+import com.github.moaxcp.graphs.graphviz.ObservableGraphGif;
 import java.io.IOException;
 import java.nio.file.Path;
-import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.Test;
 
 import static com.github.moaxcp.graphs.graphviz.Dot.dot;
@@ -37,8 +36,8 @@ public class VisualizeAPropertyGraph {
    void gif() throws IOException {
 
     // tag::gif[]
-    var graph = new DirectedEventPropertyGraph<String>(new EventBus());
-    var gif = new GreenrobotGifSubscriber<>(graph, Path.of("src/docs/asciidoc/images/gifExample.gif"));
+    var graph = new ObservableDirectedPropertyGraph<String>();
+    var gif = new ObservableGraphGif<>(graph, Path.of("src/docs/asciidoc/images/gifExample.gif"));
 
     graph.vertex("A");
     graph.vertex("B");

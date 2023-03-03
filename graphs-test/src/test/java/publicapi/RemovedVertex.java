@@ -1,13 +1,13 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.PropertyGraph;
-import com.github.moaxcp.graphs.testframework.TestGraphs;
+import com.github.moaxcp.graphs.testframework.TestPropertyGraphs;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemovedVertex {
-    @TestGraphs
+    @TestPropertyGraphs
     void setId(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
@@ -15,7 +15,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void id(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
@@ -23,7 +23,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void setProperty(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
@@ -31,7 +31,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void property(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
@@ -39,7 +39,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void removeProperty(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A").property("name", "value");
         graph.removeVertex("A");
@@ -47,7 +47,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void connectsTo(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
@@ -55,7 +55,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void connectsFrom(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
@@ -63,7 +63,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void adjacentEdges(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
@@ -71,7 +71,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void inEdges(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");
@@ -79,7 +79,7 @@ public class RemovedVertex {
         assertThat(thrown).hasMessageThat().isEqualTo("Vertex is not in graph.");
     }
 
-    @TestGraphs
+    @TestPropertyGraphs
     void outEdges(PropertyGraph<String> graph) {
         var vertex = graph.getVertex("A");
         graph.removeVertex("A");

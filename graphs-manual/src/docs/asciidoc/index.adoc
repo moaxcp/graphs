@@ -10,37 +10,13 @@
 `graphs-core` contains the main interfaces, implementations, and events
 
 ----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.15.0'
-----
-
-`graphs-greenrobot` EventPropertyGraph implementation using greenrobot's EventBus
-
-----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-greenrobot', version: '0.15.0'
-----
-
-`graphs-guava` EventPropertyGraph implementation using guava's EventBus
-
-----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-guava', version: '0.15.0'
+compile group: 'com.github.moaxcp.graphs', name: 'graphs-core', version: '0.17.0'
 ----
 
 `graphs-graphviz` rendering of graph as png or animated gifs using graphviz
 
 ----
 compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz', version: '0.15.0'
-----
-
-`graphs-graphviz-greenrobot-gif` rendering of graph as gif using graphviz and greenrobot
-
-----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-greenrobot-gif', version: '0.15.0'
-----
-
-`graphs-graphviz-guava-gif` rendering of graph as gif using graphviz and guava's EventBus
-
-----
-compile group: 'com.github.moaxcp.graphs', name: 'graphs-graphviz-guava-gif', version: '0.15.0'
 ----
 
 `graphs-truth` assertions using google-truth
@@ -80,8 +56,8 @@ The API is designed with the following in mind:
 * has properties inherited by all vertices
 * has properties inherited by all edges
 
-=== EventPropertyGraph
-* Works exactly like a `PropertyGraph` and sends events to the EventBus when modified
+=== ObservablePropertyGraph
+* Works exactly like a `PropertyGraph` and sends events to added `PropertyGraphObserver`s.
 
 === Elements
 * vertices and edges of parent graph
@@ -104,23 +80,12 @@ The `PropertyGraph` interface defines methods for building a graph as well as in
 classes provide a perspective of the graph from those elements. Edges can change their endpoints, navigate to an
 endpoint and modify properties. Vertices can add new edges, get in, out, and adjacent edges, and modify properties.
 
-There are two implementations of `PropertyGraph` in the `graphs-core` module.
+There are four implementations of `PropertyGraph` in the `graphs-core` module.
 
 [source,java,indent=0]
 ----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=graphsCore]
 ----
-
-There are two other implementations of `PropertyGraph` in the 'graphs-greenrobot` module. These implementations send events to the EventBus when the graph is created or modified.
-
-Note: Only greenrobot is currently supported but adding support for Guava's EventBus should be possible.
-
-[source,java,indent=0]
-----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=graphsGreenrobot]
-----
-
-`graphs-test` provides a solutions for assertions on the `EventBus`. It shows that the two creation events were sent to the bus.
 
 === Create or modify a vertex
 
@@ -134,7 +99,7 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphA
 `vertex` methods will return the graph while `getVertex` methods will return the vertex. This allows for different
 forms of method chaining.
 
-An `EventPropertyGraph` will send `VertexCreated` events to subscribers.
+An `ObservablePropertyGraph` will send `VertexCreated` events to observers.
 
 [source,java,indent=0]
 ----
@@ -150,14 +115,12 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphA
 
 The first call to `vertex` creates vertex `A` with a property `color` set to `red`. The second call changes the property `color` to `blue`.
 
-If graph is an `EventPropertyGraph` first `VertexCreatedEvent`,then `VertexPropertyEvent` will be sent to the `EventBus`.
+If graph is an `ObservablePropertyGraph` first `VertexCreatedEvent`,then `VertexPropertyEvent` will be sent to the subscribers.
 
 [source,java,indent=0]
 ----
 include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=modifyVertexEvents]
 ----
-
-In this case a `VertexCreatedEvent` is sent to the `EventBus`.
 
 === Create or modify an edge
 
@@ -170,11 +133,11 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphA
 
 Similar to `vertex` methods, `edge` methods will return the graph and `getEdge` will return the `Edge`.
 
-With an `EventPropertyGraph` the `EdgeCreatedEvent` will be sent to the bus. If any of the vertices need to be created `VertexCreatedEvent` will be sent to the bus.
+With an `ObservablePropertyGraph` the `EdgeCreatedEvent` will be sent to subscribers. If any of the vertices need to be created `VertexCreatedEvent` will be sent.
 
 [source,java,indent=0]
 ----
-include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=edgeEvent]
+include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphAsCode.java[tags=edgeEvents]
 ----
 
 If an edge already exits in the graph it can be modified.
@@ -187,7 +150,7 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/RepresentingAPropertyGraphA
 The first call to `edge` creates edge `A -> B` with property `color` set to `red`. The second call changes the property
 `color` to `green`.
 
-If the graph is an `EventPropertyGraph` events will be sent to the `EventBus`.
+If the graph is an `ObservablePropertyGraph` events will be sent to subscribers.
 
 [source,java,indent=0]
 ----
@@ -305,9 +268,9 @@ include::{sourcedir}/com/github/moaxcp/graphs/manual/VertexMethods.java[tag=getV
 
 image::images/getVertexMethods.png[]
 
-== EventPropertyGraphs
+== ObservablePropertyGraphs
 
-EventPropertyGraphs are designed to send events to an eventbus when they are created or modified. The interface `EventPropertyGraph` and event classes are defined in `graphs-core`. There are two implementations supporting different eventbus' `graphs-greenrobot` and `graphs-guava`.
+ObservablePropertyGraphs are designed to send events to a list of subscribers when they are created or modified. `PropertyGraphObserver` is used to observe the events. Observers can be added by calling the `addObserver` method and removed by calling the `removeObserver` method.
 
 == pre-order iterator and pre-order stream
 
@@ -383,7 +346,11 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
-== 0.16.0-SNAPSHOT
+==  0.17.0
+
+Removing EventGraphs and replacing with Observer pattern.
+
+== 0.16.0
 
 Adding reversePostOrder iterator and stream.
 

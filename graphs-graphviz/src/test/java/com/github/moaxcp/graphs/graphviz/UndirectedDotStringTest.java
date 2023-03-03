@@ -1,7 +1,7 @@
 package com.github.moaxcp.graphs.graphviz;
 
 import com.github.moaxcp.graphs.PropertyGraph;
-import com.github.moaxcp.graphs.testframework.TestUndirectedGraphs;
+import com.github.moaxcp.graphs.testframework.TestUndirectedPropertyGraphs;
 
 import java.io.IOException;
 
@@ -10,13 +10,13 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class UndirectedDotStringTest {
 
-    @TestUndirectedGraphs
+    @TestUndirectedPropertyGraphs
     void strictUndirected(PropertyGraph<String> graph) throws IOException {
         var s = dot(graph).toString();
         assertThat(s).startsWith("strict graph {");
     }
 
-    @TestUndirectedGraphs
+    @TestUndirectedPropertyGraphs
     void containsUndirectedEdge(PropertyGraph<String> graph) throws IOException {
         graph.edge("A", "B");
         var s = dot(graph).toString();
@@ -25,7 +25,7 @@ public class UndirectedDotStringTest {
                 "}\n");
     }
 
-    @TestUndirectedGraphs
+    @TestUndirectedPropertyGraphs
     void containsVertices(PropertyGraph<String> graph) throws IOException {
         graph.vertex("A");
         graph.vertex("B");

@@ -1,7 +1,7 @@
 package publicapi;
 
 import com.github.moaxcp.graphs.PropertyGraph;
-import com.github.moaxcp.graphs.testframework.TestGraphs;
+import com.github.moaxcp.graphs.testframework.TestPropertyGraphs;
 
 import java.util.Map;
 
@@ -11,41 +11,41 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PropertyGraphVertexMethods {
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertex(PropertyGraph<String> graph) {
     PropertyGraph<String> r = graph.vertex("A");
     assertThat(r).isSameInstanceAs(graph);
     assertThat(graph).hasVertex("A");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertex(PropertyGraph<String> graph) {
     var vertex = graph.getVertex("id");
     assertThat(graph).hasVertex("id").isSameInstanceAs(vertex);
     assertThat(vertex).hasId("id");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexExisting(PropertyGraph<String> graph) {
     var vertexA = graph.getVertex("A");
     var vertexB = graph.getVertex("A");
     assertThat(vertexA).isSameInstanceAs(vertexB);
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexIdIsSet(PropertyGraph<String> graph) {
     var vertex = graph.getVertex("A");
     assertThat(vertex).hasId("A");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexSetIdAsPropertyFails(PropertyGraph<String> graph) {
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getVertex("A", "id", "B"));
 
     assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexExistsSetId(PropertyGraph<String> graph) {
     graph.getVertex("A");
     var exception = assertThrows(IllegalArgumentException.class, () -> graph.getVertex("A", "id", "B"));
@@ -53,14 +53,14 @@ public class PropertyGraphVertexMethods {
     assertThat(exception).hasMessageThat().isEqualTo("id cannot be set as a property.");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty1(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty1Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1");
@@ -68,14 +68,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty2(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty2Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2");
@@ -83,14 +83,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty3(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty3Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3");
@@ -98,14 +98,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty4(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty4Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
@@ -113,14 +113,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty5(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty5Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
@@ -128,14 +128,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty6(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty6Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
@@ -143,14 +143,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty7(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty7Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
@@ -158,14 +158,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty8(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty8Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
@@ -173,14 +173,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty9(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty9Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
@@ -188,14 +188,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty10(PropertyGraph<String> graph) {
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexProperty10Exists(PropertyGraph<String> graph) {
     graph.getVertex("A");
     graph.getVertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
@@ -203,14 +203,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty1(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty1Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1");
@@ -218,14 +218,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty2(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty2Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2");
@@ -233,14 +233,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty3(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty3Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3");
@@ -248,14 +248,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty4(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty4Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
@@ -263,14 +263,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty5(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty5Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
@@ -278,14 +278,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty6(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty6Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
@@ -293,14 +293,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty7(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty7Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
@@ -308,14 +308,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty8(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty8Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
@@ -323,14 +323,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty9(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty9Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
@@ -338,14 +338,14 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty10(PropertyGraph<String> graph) {
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
 
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithProperty10Exists(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
@@ -353,7 +353,7 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withLocal().containsExactly("id", "A", "name1", "value1", "name2", "value2", "name3", "value3", "name4", "value4", "name5", "value5", "name6", "value6", "name7", "value7", "name8", "value8", "name9", "value9", "name10", "value10");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithMapProperties(PropertyGraph<String> graph) {
     graph.vertex("A", Map.of("name1", "value1", "name2", "value2"));
 
@@ -361,7 +361,7 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withProperty("name2").hasValue("value2");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexWithMapProperties(PropertyGraph<String> graph) {
     var vertex = graph.getVertex("A", Map.of("name1", "value1", "name2", "value2"));
 
@@ -371,7 +371,7 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withProperty("name2").hasValue("value2");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void vertexWithMapPropertiesExisting(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("A", Map.of("name1", "value1", "name2", "value2"));
@@ -380,7 +380,7 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withProperty("name2").hasValue("value2");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void getVertexWithMapPropertiesExisting(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.getVertex("A", Map.of("name1", "value1", "name2", "value2"));
@@ -389,7 +389,7 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasVertex("A").withProperty("name2").hasValue("value2");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void removeVertex(PropertyGraph<String> graph) {
     graph.edge("A", "B");
     graph.edge("A", "C");
@@ -403,13 +403,13 @@ public class PropertyGraphVertexMethods {
     assertThat(graph).hasEdge("Z", "Y");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void removeVertexThatDoesNotExist(PropertyGraph<String> graph) {
     Throwable thrown = assertThrows(IllegalArgumentException.class, () -> graph.removeVertex("A"));
     assertThat(thrown).hasMessageThat().isEqualTo("vertex 'A' not found.");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void removeVertexWithNullId(PropertyGraph<String> graph) {
     Throwable thrown = assertThrows(NullPointerException.class, () -> graph.removeVertex(null));
     assertThat(thrown).hasMessageThat().isEqualTo("id is marked non-null but is null");

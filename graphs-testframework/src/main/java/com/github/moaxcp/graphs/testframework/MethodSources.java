@@ -1,53 +1,34 @@
 package com.github.moaxcp.graphs.testframework;
 
 import com.github.moaxcp.graphs.*;
-import com.github.moaxcp.graphs.greenrobot.*;
-import org.greenrobot.eventbus.*;
-import org.junit.jupiter.params.provider.*;
-
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.provider.Arguments;
 
 import static com.github.moaxcp.graphs.testframework.PathOrder.*;
-import static java.util.function.Function.*;
-import static org.junit.jupiter.params.provider.Arguments.*;
+import static java.util.function.Function.identity;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class MethodSources {
-
-    public static EventBus testGreenrobotEventBus() {
-        return EventBus.builder()
-                .throwSubscriberException(true)
-                .logNoSubscriberMessages(false)
-                .build();
-    }
-
-    public static com.google.common.eventbus.EventBus testGuavaEventBus() {
-        return new com.google.common.eventbus.EventBus();
-    }
 
     public static Stream<PropertyGraph<String>> propertyGraphs() {
         return Stream.of(
                 new UndirectedPropertyGraph<>(),
-                new DirectedPropertyGraph<>(),
-                new UndirectedEventPropertyGraph<>(testGreenrobotEventBus()),
-                new DirectedEventPropertyGraph<>(testGreenrobotEventBus()),
-                new com.github.moaxcp.graphs.guava.UndirectedEventPropertyGraph<>(testGuavaEventBus()),
-                new com.github.moaxcp.graphs.guava.DirectedEventPropertyGraph<>(testGuavaEventBus()));
+                new ObservableUndirectedPropertyGraph<>(),
+                new DirectedPropertyGraph<>());
     }
 
     public static Stream<PropertyGraph<String>> undirectedPropertyGraphs() {
         return Stream.of(
                 new UndirectedPropertyGraph<>(),
-                new UndirectedEventPropertyGraph<>(testGreenrobotEventBus()),
-                new com.github.moaxcp.graphs.guava.UndirectedEventPropertyGraph<>(testGuavaEventBus()));
+                new ObservableUndirectedPropertyGraph<>());
     }
 
     public static Stream<PropertyGraph<String>> directedPropertyGraphs() {
         return Stream.of(
                 new DirectedPropertyGraph<>(),
-                new DirectedEventPropertyGraph<>(testGreenrobotEventBus()),
-                new com.github.moaxcp.graphs.guava.DirectedEventPropertyGraph<>(testGuavaEventBus()));
+                new ObservableDirectedPropertyGraph<>());
     }
 
     public static Stream<PropertyGraph<String>> nonEventPropertyGraphs() {
@@ -56,20 +37,10 @@ public class MethodSources {
             new DirectedPropertyGraph<>());
     }
 
-    public static Stream<Arguments> greenrobotEventPropertyGraphs() {
-        EventBus undirected = testGreenrobotEventBus();
-        EventBus directed = testGreenrobotEventBus();
+    public static Stream<ObservablePropertyGraph<String>> observablePropertyGraphs() {
         return Stream.of(
-                Arguments.arguments(new UndirectedEventPropertyGraph<>(undirected), undirected),
-                Arguments.arguments(new DirectedEventPropertyGraph<>(directed), directed));
-    }
-
-    public static Stream<Arguments> guavaEventPropertyGraphs() {
-        com.google.common.eventbus.EventBus undirected = testGuavaEventBus();
-        com.google.common.eventbus.EventBus directed = testGuavaEventBus();
-        return Stream.of(
-            Arguments.arguments(new com.github.moaxcp.graphs.guava.UndirectedEventPropertyGraph<>(undirected), undirected),
-            Arguments.arguments(new com.github.moaxcp.graphs.guava.DirectedEventPropertyGraph<>(directed), directed));
+            new ObservableUndirectedPropertyGraph<>(),
+            new ObservableDirectedPropertyGraph<>());
     }
 
     public static Stream<Arguments> graphsPostOrder() {

@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'com.github.moaxcp.graphs'
-description = 'dynamic graphs supporting streams and an EventBus'
+description = 'dynamic graphs supporting streams and observability'
 
 reckon {
     snapshots()
@@ -46,6 +46,7 @@ sonarqube {
         property 'sonar.host.url', 'https://sonarcloud.io'
         property 'sonar.organization', 'moaxcp'
         property 'sonar.scm.exclusions.disabled', 'true'
+        //property 'sonar.qualitygate.wait', true
     }
 }
 
@@ -77,7 +78,7 @@ subprojects {
 
     javadoc {
         options.addBooleanOption('html5', true)
-        options.links 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+        options.links 'https://docs.oracle.com/en/java/javase/17/docs/api/'
         options.links 'http://greenrobot.org/files/eventbus/javadoc/3.0/'
     }
 

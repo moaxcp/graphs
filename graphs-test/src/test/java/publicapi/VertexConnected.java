@@ -9,63 +9,63 @@ import static com.google.common.truth.Truth.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class VertexConnected {
-  @TestGraphs
+  @TestPropertyGraphs
   void connectedNullId(PropertyGraph<String> graph) {
     var vertex = graph.getVertex("A");
     var exception = assertThrows(NullPointerException.class, () -> vertex.connected(null));
     assertThat(exception).hasMessageThat().isEqualTo("id is marked non-null but is null");
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void connectedTwoVerticesFalse(PropertyGraph<String> graph) {
     graph.vertex("A");
     graph.vertex("B");
     assertThat(graph.connected("A", "B")).isFalse();
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void connectedOneEdgeSameDirection(PropertyGraph<String> graph) {
     graph.edge("A", "B");
     var vertex = graph.getVertex("A");
     assertThat(vertex.connected("B")).isTrue();
   }
 
-  @TestUndirectedGraphs
+  @TestUndirectedPropertyGraphs
   void connectedOneEdgeOppositeDirectionUndirected(PropertyGraph<String> graph) {
     graph.edge("A", "B");
     var vertex = graph.getVertex("B");
     assertThat(vertex.connected("A")).isTrue();
   }
 
-  @TestDirectedGraphs
+  @TestDirectedPropertyGraphs
   void connectedOneEdgeOppositeDirectionDirected(PropertyGraph<String> graph) {
     graph.edge("A", "B");
     var vertex = graph.getVertex("B");
     assertThat(vertex.connected("A")).isFalse();
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void connectedSameVertex(PropertyGraph<String> graph) {
     graph.vertex("A");
     var vertex = graph.getVertex("A");
     assertThat(vertex.connected("A")).isFalse();
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void connectedTwoEdges(PropertyGraph<String> graph) {
     graph.edge("A", "B").edge("B", "C");
     var vertex = graph.getVertex("A");
     assertThat(vertex.connected("C")).isTrue();
   }
 
-  @TestUndirectedGraphs
+  @TestUndirectedPropertyGraphs
   void connectedTwoEdgesUndirected(PropertyGraph<String> graph) {
     graph.edge("A", "B").edge("B", "C");
     var vertex = graph.getVertex("C");
     assertThat(vertex.connected("C")).isTrue();
   }
 
-  @TestGraphs
+  @TestPropertyGraphs
   void connectedTwoComponents(PropertyGraph<String> graph) {
     graph.edge("A", "B");
     graph.edge("C", "D");
@@ -73,14 +73,14 @@ public class VertexConnected {
     assertThat(vertex.connected("D")).isFalse();
   }
 
-  @TestDirectedGraphs
+  @TestDirectedPropertyGraphs
   void connectedComplex(PropertyGraph<String> graph) {
     complexTwoComponents(graph, PRE_ORDER);
     var vertex = graph.getVertex("A");
     assertThat(vertex.connected("C")).isTrue();
   }
 
-  @TestDirectedGraphs
+  @TestDirectedPropertyGraphs
   void connectedComplexFalse(PropertyGraph<String> graph) {
     complexTwoComponents(graph, PRE_ORDER);
     var vertex = graph.getVertex("A");
