@@ -346,27 +346,32 @@ image::images/breadthFirstTraversal.gif[post order]
 
 == Releases
 
-==  0.17.0
+=== 0.17.1
+
+* Adding tests
+* fixing formatting in manual
+
+===  0.17.0
 
 Removing EventGraphs and replacing with Observer pattern.
 
-== 0.16.0
+=== 0.16.0
 
 Adding reversePostOrder iterator and stream.
 
-== 0.15.0
+=== 0.15.0
 
 Adding new project `graphs-guava` and `graphs-graphviz-guava-gif`.
 
-== 0.14.0
+=== 0.14.0
 
 Adding graphs-graphviz-greenrobot-gif subproject which contains a greenrobot subscriber that can automatically create gifs.
 
-== 0.13.0
+=== 0.13.0
 
 Renaming Graph to PropertyGraph. Renaming "from" to source and "to" to target.
 
-== 0.12.0
+=== 0.12.0
 
 Adding gif support to graphs-graphviz module. This allows gif animations to be built from an `EventGraph`. It is enabled with the greenrobotgif capability in gradle.
 

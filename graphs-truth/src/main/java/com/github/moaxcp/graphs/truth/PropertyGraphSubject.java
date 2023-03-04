@@ -11,6 +11,7 @@ import java.util.*;
 
 import static com.github.moaxcp.graphs.truth.EdgeSubject.edges;
 import static com.github.moaxcp.graphs.truth.VertexSubject.vertices;
+import static com.google.common.truth.Fact.fact;
 import static com.google.common.truth.Fact.simpleFact;
 import static com.google.common.truth.OptionalSubject.optionals;
 import static com.google.common.truth.Truth.assertAbout;
@@ -71,55 +72,21 @@ public class PropertyGraphSubject extends Subject {
         check("findVertex(%s)", id).about(optionals()).that(find).isEmpty();
     }
 
-    public void hasVertices(String id, String... ids) {
-        hasVertex(id);
-        for(String i : ids) {
-            hasVertex(i);
-        }
-    }
-
-    public void hasExactVertices(String id, String... ids) {
-        var set = new HashSet<String>();
-        set.add(id);
-        for(String i : ids) {
-            if(!set.add(id)) {
-                failWithActual(simpleFact("duplicate hasIdThat in arguments."));
-            }
-        }
-        var keys = actual.getVertices().keySet();
-        if(set.size() != keys.size()) {
-            failWithActual(simpleFact("Expected graph with size " + set.size() + " but found was size " + keys.size() ));
-        }
-        var removed = new HashSet<String>();
-        for(String s : set) {
-            if(keys.remove(s)) {
-                removed.add(s);
-            }
-        }
-        set.removeAll(removed);
-        if(set.size() != 0) {
-            //missing vertices
-        }
-        if(keys.size() != 0) {
-            //graph has other vertices
-        }
-    }
-
     public void isDirected() {
         if(!actual.isDirected()) {
-            failWithActual(simpleFact("Expected directed graph."));
+            failWithActual(simpleFact("Expected directed graph"));
         }
     }
 
     public void isEmpty() {
         if(!actual.isEmpty()) {
-            failWithActual(simpleFact("Expected empty graph."));
+            failWithActual(simpleFact("Expected empty graph"));
         }
     }
 
-    public void isNotDirected() {
+    public void isUndirected() {
         if(actual.isDirected()) {
-            failWithActual(simpleFact("Expected undirected graph."));
+            failWithActual(simpleFact("Expected undirected graph"));
         }
     }
 
