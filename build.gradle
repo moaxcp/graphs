@@ -35,18 +35,18 @@ nexusPublishing {
 gitPublish {
     branch = 'gh-pages'
     contents {
-        from "graphs-manual/build/docs/asciidoc"
+        from 'graphs-manual/build/docs/asciidoc'
     }
     commitMessage = 'Publishing from gradle.'
 }
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "com.github.moaxcp.graphs:graphs"
+        property 'sonar.projectKey', 'com.github.moaxcp.graphs:graphs'
         property 'sonar.host.url', 'https://sonarcloud.io'
         property 'sonar.organization', 'moaxcp'
         property 'sonar.scm.exclusions.disabled', 'true'
-        //property 'sonar.qualitygate.wait', true
+        property 'sonar.qualitygate.wait', true
     }
 }
 
@@ -79,7 +79,6 @@ subprojects {
     javadoc {
         options.addBooleanOption('html5', true)
         options.links 'https://docs.oracle.com/en/java/javase/17/docs/api/'
-        options.links 'http://greenrobot.org/files/eventbus/javadoc/3.0/'
     }
 
     task sourcesJar(type: Jar) {
