@@ -135,7 +135,6 @@ public class PropertyGraphSubjectTest {
     var expected = expectError(whenTesting -> whenTesting.that(graph).isDirected());
 
     assertThat(expected).factKeys().contains("Expected directed graph");
-
   }
 
   @Test
@@ -150,7 +149,6 @@ public class PropertyGraphSubjectTest {
     var expected = expectError(whenTesting -> whenTesting.that(graph).isUndirected());
 
     assertThat(expected).factKeys().contains("Expected undirected graph");
-
   }
 
   @Test
@@ -165,7 +163,6 @@ public class PropertyGraphSubjectTest {
     var expected = expectError(whenTesting -> whenTesting.that(graph).isEmpty());
 
     assertThat(expected).factKeys().contains("Expected empty graph");
-
   }
 
   @Test

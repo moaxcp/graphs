@@ -44,4 +44,34 @@ public class VertexSubjectTest {
     var vertex = new UndirectedPropertyGraph<String>().getVertex("A").property("name", "value");
     assertThat(vertex).withProperty("name").hasValue("value");
   }
+
+  @Test
+  void withLocalFail() {
+    var vertex = new UndirectedPropertyGraph<String>().getVertex("A");
+    var expected = expectError(whenTesting -> whenTesting.that(vertex).withLocal().containsEntry("name", "value"));
+
+    assertThat(expected).factValue("value of").isEqualTo("vertex.local()");
+    assertThat(expected).factKeys().contains("vertex was");
+  }
+
+  @Test
+  void withLocal() {
+    var vertex = new UndirectedPropertyGraph<String>().getVertex("A").property("name", "value");
+    assertThat(vertex).withLocal().containsEntry("name", "value");
+  }
+
+  @Test
+  void withInheritedFail() {
+    var vertex = new UndirectedPropertyGraph<String>().getVertex("A");
+    var expected = expectError(whenTesting -> whenTesting.that(vertex).withInherited().containsEntry("name", "value"));
+
+    assertThat(expected).factValue("value of").isEqualTo("vertex.inherited()");
+    assertThat(expected).factKeys().contains("vertex was");
+  }
+
+  @Test
+  void withInherited() {
+    var vertex = new UndirectedPropertyGraph<String>().vertexProperty("name", "value").getVertex("A");
+    assertThat(vertex).withInherited().containsEntry("name", "value");
+  }
 }

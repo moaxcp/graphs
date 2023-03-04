@@ -26,6 +26,6 @@ public class IsDirected {
     @TestUndirectedPropertyGraphs
     void isEdgeUndirected(PropertyGraph<String> graph) {
         var edge = graph.getEdge("A", "B");
-        assertThat(edge).isNotDirected();
+        assertThat(edge).isUndirected();
     }
 }
