@@ -9,6 +9,7 @@
 
 rootProject.name = 'graphs'
 include 'graphs-core'
+include 'graphs-jackson-modules'
 include 'graphs-test'
 include 'graphs-truth'
 include 'graphs-graphviz'
