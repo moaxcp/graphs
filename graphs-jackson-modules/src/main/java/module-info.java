@@ -1,4 +1,4 @@
 module com.github.moaxcp.graphs.jackson {
-  requires com.github.moaxcp.graphs.core;
-  requires com.fasterxml.jackson.databind;
+  requires transitive com.github.moaxcp.graphs.core;
+  requires transitive com.fasterxml.jackson.databind;
 }
