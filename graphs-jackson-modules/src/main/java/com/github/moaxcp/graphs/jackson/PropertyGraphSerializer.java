@@ -8,11 +8,9 @@ import com.github.moaxcp.graphs.PropertyGraph;
 import com.github.moaxcp.graphs.PropertyGraph.Edge;
 import com.github.moaxcp.graphs.PropertyGraph.Vertex;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
-
-import static java.util.stream.Collectors.toCollection;
 
 public class PropertyGraphSerializer extends StdSerializer<PropertyGraph> {
 
@@ -33,36 +31,31 @@ public class PropertyGraphSerializer extends StdSerializer<PropertyGraph> {
   }
 
   private void serializeEdges(Collection<Edge> edges, JsonGenerator gen, SerializerProvider provider) throws IOException {
-    if(!shouldSerializeList(edges, provider)) {
-      return;
-    }
-    gen.writeArrayFieldStart("edges");
-    for(Edge edge : edges) {
-      gen.writeObject(edge.local());
-    }
-    gen.writeEndArray();
+    serializeCheckEmptyList("edges", edges.stream().map(e -> (Map<String, Object>) e.local()).toList(), gen, provider);
   }
 
   private void serializeVertices(Map<Object, Vertex> vertices, JsonGenerator gen, SerializerProvider provider) throws IOException {
-    Collection<Vertex> collect = vertices.values().stream()
+    List<Map<String, Object>> collect = vertices.values().stream()
         .filter(v -> !(v.adjacentEdges().size() > 0 && v.local().size() == 1))
-        .collect(toCollection(ArrayList::new));
-    if (!shouldSerializeList(collect, provider)) {
-      return;
-    }
-    gen.writeArrayFieldStart("vertices");
-    for(Vertex vertex : collect) {
-      gen.writeObject(vertex.local());
-    }
-    gen.writeEndArray();
+        .map(v -> (Map<String, Object>) v.local())
+        .toList();
+    serializeCheckEmptyList("vertices", collect, gen, provider);
   }
 
-  private boolean shouldSerializeList(Collection list, SerializerProvider provider) {
-    return !(list.isEmpty() && provider.getConfig().getDefaultPropertyInclusion().getContentInclusion().equals(Include.NON_EMPTY));
+  private void serializeCheckEmptyList(String name, List<Map<String, Object>> value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    if (value.isEmpty() && !(provider.getConfig().getDefaultPropertyInclusion().getContentInclusion().equals(Include.NON_EMPTY)
+        || provider.getConfig().getDefaultPropertyInclusion().getContentInclusion().equals(Include.NON_NULL))) {
+      provider.defaultSerializeField(name, null, gen);
+    } else if (!value.isEmpty()) {
+      provider.defaultSerializeField(name, value, gen);
+    }
   }
 
   private void serializeCheckEmptyMap(String name, Map<String, Object> value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-    if(!(value.isEmpty() && provider.getConfig().getDefaultPropertyInclusion().getContentInclusion().equals(Include.NON_EMPTY))) {
+    if (value.isEmpty() && !(provider.getConfig().getDefaultPropertyInclusion().getContentInclusion().equals(Include.NON_EMPTY)
+          || provider.getConfig().getDefaultPropertyInclusion().getContentInclusion().equals(Include.NON_NULL))) {
+        provider.defaultSerializeField(name, null, gen);
+    } else if (!value.isEmpty()) {
       provider.defaultSerializeField(name, value, gen);
     }
   }
