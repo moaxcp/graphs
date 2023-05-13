@@ -12,6 +12,7 @@ import static java.util.Collections.*;
  * can never be set as null.
  */
 @ToString
+@EqualsAndHashCode
 class LocalProperties {
   private final Map<String, Object> local = new LinkedHashMap<>();
 

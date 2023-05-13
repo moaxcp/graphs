@@ -7,13 +7,13 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.github.moaxcp.graphs.DirectedPropertyGraph;
 import java.io.IOException;
 
-public class DirectedPropertyGraphDeserializer extends StdDeserializer<DirectedPropertyGraph<Object>> {
-  protected DirectedPropertyGraphDeserializer(Class<?> vc) {
-    super(vc);
+public class DirectedPropertyGraphDeserializer extends StdDeserializer<DirectedPropertyGraph<?>> {
+  protected DirectedPropertyGraphDeserializer() {
+    super(DirectedPropertyGraph.class);
   }
 
   @Override
-  public DirectedPropertyGraph<Object> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-    return null;
+  public DirectedPropertyGraph<?> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+    return new DirectedPropertyGraph<>();
   }
 }

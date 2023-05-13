@@ -1,30 +1,20 @@
 package com.github.moaxcp.graphs.jackson;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.moaxcp.graphs.DirectedPropertyGraph;
-import java.util.List;
-import java.util.stream.Stream;
+import com.github.moaxcp.graphs.PropertyGraph;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-public class GraphsModuleTest {
-  private static Stream<ObjectMapper> inclusionMappers() {
-    return List.of(new ObjectMapper().registerModule(new GraphsModule()).setDefaultPropertyInclusion(Include.NON_EMPTY),
-        new ObjectMapper().registerModule(new GraphsModule()).setDefaultPropertyInclusion(Include.NON_NULL)).stream();
-  }
+import static com.github.moaxcp.graphs.jackson.MethodSources.mapper;
 
-  private static ObjectMapper mapper = new ObjectMapper().registerModule(new GraphsModule());
+public class GraphSerializeTest {
 
-  @ParameterizedTest
-  @MethodSource("inclusionMappers")
-  void emptyGraph(ObjectMapper mapper) throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>();
+  @InclusionMapperWithGraphTest
+  void emptyGraphSerialize(ObjectMapper mapper, PropertyGraph<String> graph) throws JsonProcessingException, JSONException {
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("{}", result, JSONCompareMode.STRICT);
   }
@@ -44,10 +34,9 @@ public class GraphsModuleTest {
         """, result, JSONCompareMode.STRICT);
   }
 
-  @ParameterizedTest
-  @MethodSource("inclusionMappers")
-  void graphWithId(ObjectMapper mapper) throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>("graph");
+  @InclusionMapperWithGraphTest
+  void graphWithId(ObjectMapper mapper, PropertyGraph<String> graph) throws JsonProcessingException, JSONException {
+    graph.id("graph");
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("""
             {
@@ -61,7 +50,7 @@ public class GraphsModuleTest {
 
   @Test
   void graphWithId() throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>("graph");
+    var graph = new DirectedPropertyGraph<>().id("graph");
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("""
             {
@@ -77,10 +66,9 @@ public class GraphsModuleTest {
         result, JSONCompareMode.STRICT);
   }
 
-  @ParameterizedTest
-  @MethodSource("inclusionMappers")
-  void graphWithIdAndProperties(ObjectMapper mapper) throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>("graph").property("k1", "v1").property("k2", "v2");
+  @InclusionMapperWithGraphTest
+  void graphWithIdAndProperties(ObjectMapper mapper, PropertyGraph<String> graph) throws JsonProcessingException, JSONException {
+    graph.id("graph").property("k1", "v1").property("k2", "v2");
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("""
             {
@@ -96,7 +84,7 @@ public class GraphsModuleTest {
 
   @Test
   void graphWithIdAndProperties() throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>("graph").property("k1", "v1").property("k2", "v2");
+    var graph = new DirectedPropertyGraph<>().id("graph").property("k1", "v1").property("k2", "v2");
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("""
             {
@@ -114,10 +102,9 @@ public class GraphsModuleTest {
         result, JSONCompareMode.STRICT);
   }
 
-  @ParameterizedTest
-  @MethodSource("inclusionMappers")
-  void graphWithVertexProperties(ObjectMapper mapper) throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>().vertexProperty("k1", "v1").vertexProperty("k2", "v2");
+  @InclusionMapperWithGraphTest
+  void graphWithVertexProperties(ObjectMapper mapper, PropertyGraph<String> graph) throws JsonProcessingException, JSONException {
+    graph.vertexProperty("k1", "v1").vertexProperty("k2", "v2");
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("""
             {
@@ -149,10 +136,9 @@ public class GraphsModuleTest {
         result, JSONCompareMode.STRICT);
   }
 
-  @ParameterizedTest
-  @MethodSource("inclusionMappers")
-  void graphWithEdgeProperties(ObjectMapper mapper) throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>().edgeProperty("k1", "v1").edgeProperty("k2", "v2");
+  @InclusionMapperWithGraphTest
+  void graphWithEdgeProperties(ObjectMapper mapper, PropertyGraph<String> graph) throws JsonProcessingException, JSONException {
+    graph.edgeProperty("k1", "v1").edgeProperty("k2", "v2");
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("""
             {
@@ -184,10 +170,9 @@ public class GraphsModuleTest {
         result, JSONCompareMode.STRICT);
   }
 
-  @ParameterizedTest
-  @MethodSource("inclusionMappers")
-  void graphWithVertex(ObjectMapper mapper) throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>().vertex("A");
+  @InclusionMapperWithGraphTest
+  void graphWithVertex(ObjectMapper mapper, PropertyGraph<String> graph) throws JsonProcessingException, JSONException {
+    graph.vertex("A");
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("""
             {
@@ -221,10 +206,9 @@ public class GraphsModuleTest {
         result, JSONCompareMode.STRICT);
   }
 
-  @ParameterizedTest
-  @MethodSource("inclusionMappers")
-  void graphWithEdge(ObjectMapper mapper) throws JSONException, JsonProcessingException {
-    var graph = new DirectedPropertyGraph<>().edge("A", "B");
+  @InclusionMapperWithGraphTest
+  void graphWithEdge(ObjectMapper mapper, PropertyGraph<String> graph) throws JSONException, JsonProcessingException {
+    graph.edge("A", "B");
     var result = mapper.writeValueAsString(graph);
     JSONAssert.assertEquals("""
         {
@@ -258,10 +242,9 @@ public class GraphsModuleTest {
         """, result, JSONCompareMode.STRICT);
   }
 
-  @ParameterizedTest
-  @MethodSource("inclusionMappers")
-  void graphWithEverything(ObjectMapper mapper) throws JsonProcessingException, JSONException {
-    var graph = new DirectedPropertyGraph<>()
+  @InclusionMapperWithGraphTest
+  void graphWithEverything(ObjectMapper mapper, PropertyGraph<String> graph) throws JsonProcessingException, JSONException {
+    graph
         .edge("A", "B", "prop1", "value1", "prop2", "value2")
         .vertex("C")
         .vertex("A", "k1", "v1")
