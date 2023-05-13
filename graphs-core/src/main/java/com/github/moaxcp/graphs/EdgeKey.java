@@ -1,6 +1,6 @@
 package com.github.moaxcp.graphs;
 
-import static java.util.Objects.*;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Key for identifying edges within a collection such as Map. Extensions of this class define how two edges are equal

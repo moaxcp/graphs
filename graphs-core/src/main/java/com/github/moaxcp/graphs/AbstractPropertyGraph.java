@@ -14,6 +14,7 @@ import static java.util.stream.Collectors.*;
  *
  * @param <ID> type of all identifiers in graph
  */
+@ToString(exclude = {"edgeIds", "adjacentEdges", "inEdges", "outEdges"})
 public abstract class AbstractPropertyGraph<ID> implements PropertyGraph<ID> {
   private LocalProperties properties;
   private LocalProperties vertexProperties;
